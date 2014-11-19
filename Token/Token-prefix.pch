@@ -1,0 +1,21 @@
+//
+//  Token-prefix.pch
+//  Token
+//
+//  Created by Dave on 10/23/14.
+//  Copyright (c) 2014 Black Box Creative. All rights reserved.
+//
+
+#import <Availability.h>
+
+#define IS_IPHONE_4S_DEVICE ([UIScreen mainScreen].bounds.size.height==480)
+#define IS_IPHONE_5_DEVICE ([UIScreen mainScreen].bounds.size.height==568)
+#define IS_IPHONE_6_DEVICE ([UIScreen mainScreen].bounds.size.height==667)
+
+#ifndef Token_Token_prefix_pch
+#define Token_Token_prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif

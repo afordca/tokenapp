@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "LoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    // Calling function that will be responsible for setting up start up screen
+    [self startupScreen];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     return YES;
 }
 
@@ -40,6 +51,17 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)startupScreen
+{
+    // Creating login/signup view controller to be presented if user isn't logged in
+    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    
+    // Setting loginVC to rootviewcontroller
+    // Of course, once login is enabled, there will exist a check for a current user session
+    [self.window setRootViewController:loginVC];
+    
 }
 
 @end
