@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12C3ECEC58F2EFB60B8FCB19 /* libPods-TokenApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AC5C335474F0AB015BEB33A /* libPods-TokenApp.a */; };
 		2580EB8D1A3207410005DA2B /* Splash-iphone6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2580EB8C1A3207410005DA2B /* Splash-iphone6@2x.png */; };
 		25A72F2E1A319CF20076AE07 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A72F2D1A319CF20076AE07 /* main.m */; };
 		25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A72F301A319CF20076AE07 /* AppDelegate.m */; };
@@ -15,11 +16,7 @@
 		25A72F391A319CF30076AE07 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A72F381A319CF30076AE07 /* Images.xcassets */; };
 		25A72F3C1A319CF30076AE07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25A72F3A1A319CF30076AE07 /* LaunchScreen.xib */; };
 		25A72F481A319CF30076AE07 /* TokenAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A72F471A319CF30076AE07 /* TokenAppTests.m */; };
-		25ED67471A320DDF004CD269 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25ED67461A320DDF004CD269 /* SignUpViewController.m */; };
-		25ED674C1A3212AB004CD269 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67481A3212AB004CD269 /* Bolts.framework */; };
-		25ED674D1A3212AC004CD269 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67491A3212AB004CD269 /* Parse.framework */; };
-		25ED674E1A3212AC004CD269 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED674A1A3212AB004CD269 /* ParseFacebookUtils.framework */; };
-		25ED674F1A3212AC004CD269 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED674B1A3212AB004CD269 /* ParseUI.framework */; };
+		25ED67471A320DDF004CD269 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25ED67461A320DDF004CD269 /* SignupViewController.m */; };
 		25ED67511A3212CE004CD269 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67501A3212CE004CD269 /* Accounts.framework */; };
 		25ED67531A3212DD004CD269 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67521A3212DD004CD269 /* AudioToolbox.framework */; };
 		25ED67551A3212E8004CD269 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67541A3212E8004CD269 /* CFNetwork.framework */; };
@@ -34,6 +31,8 @@
 		25ED67671A321345004CD269 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67661A321345004CD269 /* SystemConfiguration.framework */; };
 		25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F621421A3219100069A742 /* ResetPasswordViewController.m */; };
 		25F621461A3219800069A742 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F621451A3219800069A742 /* ProfileViewController.m */; };
+		B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366C1A3A468B00E485CE /* Login.xcassets */; };
+		B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366E1A3A46D300E485CE /* Profile.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +61,7 @@
 		25A72F461A319CF30076AE07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25A72F471A319CF30076AE07 /* TokenAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TokenAppTests.m; sourceTree = "<group>"; };
 		25ED67451A320DDF004CD269 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
-		25ED67461A320DDF004CD269 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		25ED67461A320DDF004CD269 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		25ED67481A3212AB004CD269 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		25ED67491A3212AB004CD269 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		25ED674A1A3212AB004CD269 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -83,6 +82,11 @@
 		25F621421A3219100069A742 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		25F621441A3219800069A742 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		25F621451A3219800069A742 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		3AC5C335474F0AB015BEB33A /* libPods-TokenApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TokenApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.release.xcconfig"; sourceTree = "<group>"; };
+		B9F2366C1A3A468B00E485CE /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
+		B9F2366E1A3A46D300E485CE /* Profile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Profile.xcassets; sourceTree = "<group>"; };
+		C2B542139EC1BE1E94B41BEC /* Pods-TokenApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,10 +106,7 @@
 				25ED67551A3212E8004CD269 /* CFNetwork.framework in Frameworks */,
 				25ED67531A3212DD004CD269 /* AudioToolbox.framework in Frameworks */,
 				25ED67511A3212CE004CD269 /* Accounts.framework in Frameworks */,
-				25ED674D1A3212AC004CD269 /* Parse.framework in Frameworks */,
-				25ED674C1A3212AB004CD269 /* Bolts.framework in Frameworks */,
-				25ED674F1A3212AC004CD269 /* ParseUI.framework in Frameworks */,
-				25ED674E1A3212AC004CD269 /* ParseFacebookUtils.framework in Frameworks */,
+				12C3ECEC58F2EFB60B8FCB19 /* libPods-TokenApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +128,7 @@
 				25A72F291A319CF20076AE07 /* Products */,
 				2580EB8C1A3207410005DA2B /* Splash-iphone6@2x.png */,
 				25ED67681A321374004CD269 /* Frameworks */,
+				616C1AF23192634B1AEFCA89 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,16 +146,18 @@
 			children = (
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
+				25A72F321A319CF20076AE07 /* ViewController.h */,
 				25A72F331A319CF20076AE07 /* ViewController.m */,
 				25F621411A3219100069A742 /* ResetPasswordViewController.h */,
 				25F621421A3219100069A742 /* ResetPasswordViewController.m */,
 				25F621441A3219800069A742 /* ProfileViewController.h */,
 				25F621451A3219800069A742 /* ProfileViewController.m */,
-				25A72F321A319CF20076AE07 /* ViewController.h */,
 				25ED67451A320DDF004CD269 /* SignUpViewController.h */,
-				25ED67461A320DDF004CD269 /* SignUpViewController.m */,
+				25ED67461A320DDF004CD269 /* SignupViewController.m */,
 				25A72F511A31A3DE0076AE07 /* New Group */,
 				25A72F351A319CF20076AE07 /* Main.storyboard */,
+				B9F2366C1A3A468B00E485CE /* Login.xcassets */,
+				B9F2366E1A3A46D300E485CE /* Profile.xcassets */,
 				25A72F381A319CF30076AE07 /* Images.xcassets */,
 				25A72F3A1A319CF30076AE07 /* LaunchScreen.xib */,
 				25A72F2B1A319CF20076AE07 /* Supporting Files */,
@@ -213,8 +217,18 @@
 				25ED67491A3212AB004CD269 /* Parse.framework */,
 				25ED674A1A3212AB004CD269 /* ParseFacebookUtils.framework */,
 				25ED674B1A3212AB004CD269 /* ParseUI.framework */,
+				3AC5C335474F0AB015BEB33A /* libPods-TokenApp.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		616C1AF23192634B1AEFCA89 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C2B542139EC1BE1E94B41BEC /* Pods-TokenApp.debug.xcconfig */,
+				63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,9 +238,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25A72F4B1A319CF30076AE07 /* Build configuration list for PBXNativeTarget "TokenApp" */;
 			buildPhases = (
+				29413F6686C7D0E5BB8B0C31 /* Check Pods Manifest.lock */,
 				25A72F241A319CF20076AE07 /* Sources */,
 				25A72F251A319CF20076AE07 /* Frameworks */,
 				25A72F261A319CF20076AE07 /* Resources */,
+				4918ADB6E8CC7EB538B92960 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -298,9 +314,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A72F371A319CF20076AE07 /* Main.storyboard in Resources */,
+				B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */,
 				25A72F3C1A319CF30076AE07 /* LaunchScreen.xib in Resources */,
 				25A72F391A319CF30076AE07 /* Images.xcassets in Resources */,
 				2580EB8D1A3207410005DA2B /* Splash-iphone6@2x.png in Resources */,
+				B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +331,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		29413F6686C7D0E5BB8B0C31 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4918ADB6E8CC7EB538B92960 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		25A72F241A319CF20076AE07 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -321,7 +372,7 @@
 				25A72F341A319CF20076AE07 /* ViewController.m in Sources */,
 				25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
-				25ED67471A320DDF004CD269 /* SignUpViewController.m in Sources */,
+				25ED67471A320DDF004CD269 /* SignupViewController.m in Sources */,
 				25F621461A3219800069A742 /* ProfileViewController.m in Sources */,
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
 			);
@@ -443,6 +494,7 @@
 		};
 		25A72F4C1A319CF30076AE07 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2B542139EC1BE1E94B41BEC /* Pods-TokenApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -457,6 +509,7 @@
 		};
 		25A72F4D1A319CF30076AE07 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (

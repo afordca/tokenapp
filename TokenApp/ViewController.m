@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-#import <Parse/Parse.h>
+#import <Parse/Parse.h> 
+#import "SignUpViewController.h"
 
 #define VALIDURL (@"http://www.google.com")
 
@@ -116,32 +117,35 @@
 
 - (IBAction)onLoginButtonPressed:(id)sender
 {
-    [self.loadingIndicator setHidden:NO];
-    NSString *username = [self.textFieldUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *password = [self.textFieldPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-    if ([username length] == 0 || [password length] == 0) {
-        [self performAnimation];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid username, and password!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
-        [self.loadingIndicator setHidden:YES];
-    } else {
-        [PFUser logInWithUsernameInBackground:username password:password
-                                        block:^(PFUser *user, NSError *error) {
-                                            if (user)
-                                            {
-                                                [self.navigationController popToRootViewControllerAnimated:YES];
-                                                [self.loadingIndicator setHidden:YES];
-                                            }
-                                            else
-                                            {
-                                                [self performAnimation];
-                                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:[[error.userInfo objectForKey:@"error"] capitalizedString] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                                [alertView show];
-                                                [self.loadingIndicator setHidden:YES];
-                                            }
-                                        }];
-    }
+    SignUpViewController *signUpVc = [SignUpViewController new];
+    [self.navigationController pushViewController:signUpVc animated:YES];
+    
+//    [self.loadingIndicator setHidden:NO];
+//    NSString *username = [self.textFieldUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//    NSString *password = [self.textFieldPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//
+//    if ([username length] == 0 || [password length] == 0) {
+//        [self performAnimation];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid username, and password!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        [alertView show];
+//        [self.loadingIndicator setHidden:YES];
+//    } else {
+//        [PFUser logInWithUsernameInBackground:username password:password
+//                                        block:^(PFUser *user, NSError *error) {
+//                                            if (user)
+//                                            {
+//                                                [self.navigationController popToRootViewControllerAnimated:YES];
+//                                                [self.loadingIndicator setHidden:YES];
+//                                            }
+//                                            else
+//                                            {
+//                                                [self performAnimation];
+//                                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:[[error.userInfo objectForKey:@"error"] capitalizedString] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//                                                [alertView show];
+//                                                [self.loadingIndicator setHidden:YES];
+//                                            }
+//                                        }];
+//    }
 }
 
 #pragma mark - Helper methods

@@ -7,7 +7,7 @@
 //
 
 #import "ResetPasswordViewController.h"
-#import <Parse/Parse.h>
+#import <Parse/Parse.h> 
 
 @interface ResetPasswordViewController () <UIAlertViewDelegate>
 

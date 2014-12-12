@@ -9,6 +9,7 @@
 #import "SignupViewController.h"
 #import <Parse/Parse.h>
 
+
 @interface SignUpViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *textFieldUsername;
