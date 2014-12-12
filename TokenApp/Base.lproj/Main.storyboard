@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Home Feed View Controller-->
         <scene sceneID="I0E-0q-zqW">
             <objects>
-                <viewController id="ne4-Zm-4sG" sceneMemberID="viewController">
+                <viewController id="ne4-Zm-4sG" customClass="HomeFeedViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="73z-wj-zHw"/>
                         <viewControllerLayoutGuide type="bottom" id="Amx-hf-zjt"/>
@@ -218,10 +218,10 @@
             </objects>
             <point key="canvasLocation" x="1240" y="143"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation View Controller-->
         <scene sceneID="4iQ-1o-ves">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eyl-Us-XR3" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eyl-Us-XR3" customClass="NavigationViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="I8k-Df-IqI">

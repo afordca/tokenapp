@@ -7,6 +7,7 @@
 //
 
 #import "SignupViewController.h"
+#import "HomeFeedViewController.h"
 #import <Parse/Parse.h>
 
 
@@ -29,6 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.textFieldPassword.delegate = self;
 }
 
 #pragma mark - Text field methods
@@ -88,6 +90,38 @@
     } else {
         [self.imageViewRepeatPassword setHidden:NO];
     }
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    //Go to the next screen
+    //Check if password is correct
+    NSString *username = [self.textFieldUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *password = [self.textFieldPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([username length] == 0 || [password length] == 0){
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Oops!" message:@"Please enter a valid username and password." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        //Set loading indicator here.
+    }
+    else {
+        [PFUser logInWithUsernameInBackground:username password:password
+                                        block:^(PFUser *user, NSError *error) {
+                                            if (user)
+                                            {
+                                                HomeFeedViewController *homeVC = [HomeFeedViewController new];
+                                                [self.navigationController pushViewController:homeVC animated:YES];
+                                                
+                                            }
+                                            else
+                                            {
+                                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:[[error.userInfo objectForKey:@"error"] capitalizedString] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                                [alertView show];
+                                            }
+                                        }];
+    }
+
+
+    return YES;
 }
 
 #pragma mark - IBActions

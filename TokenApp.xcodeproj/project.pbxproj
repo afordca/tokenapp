@@ -33,6 +33,8 @@
 		25F621461A3219800069A742 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F621451A3219800069A742 /* ProfileViewController.m */; };
 		B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366C1A3A468B00E485CE /* Login.xcassets */; };
 		B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366E1A3A46D300E485CE /* Profile.xcassets */; };
+		B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */; };
+		B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236741A3A7CF700E485CE /* NavigationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,10 @@
 		63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.release.xcconfig"; sourceTree = "<group>"; };
 		B9F2366C1A3A468B00E485CE /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
 		B9F2366E1A3A46D300E485CE /* Profile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Profile.xcassets; sourceTree = "<group>"; };
+		B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedViewController.h; sourceTree = "<group>"; };
+		B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedViewController.m; sourceTree = "<group>"; };
+		B9F236731A3A7CF600E485CE /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
+		B9F236741A3A7CF700E485CE /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		C2B542139EC1BE1E94B41BEC /* Pods-TokenApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +162,10 @@
 				25ED67461A320DDF004CD269 /* SignupViewController.m */,
 				25A72F511A31A3DE0076AE07 /* New Group */,
 				25A72F351A319CF20076AE07 /* Main.storyboard */,
+				B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */,
+				B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */,
+				B9F236731A3A7CF600E485CE /* NavigationViewController.h */,
+				B9F236741A3A7CF700E485CE /* NavigationViewController.m */,
 				B9F2366C1A3A468B00E485CE /* Login.xcassets */,
 				B9F2366E1A3A46D300E485CE /* Profile.xcassets */,
 				25A72F381A319CF30076AE07 /* Images.xcassets */,
@@ -371,7 +381,9 @@
 			files = (
 				25A72F341A319CF20076AE07 /* ViewController.m in Sources */,
 				25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */,
+				B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
+				B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */,
 				25ED67471A320DDF004CD269 /* SignupViewController.m in Sources */,
 				25F621461A3219800069A742 /* ProfileViewController.m in Sources */,
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,

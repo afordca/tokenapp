@@ -33,7 +33,6 @@
 {
     [super viewDidLoad];
     self.doSegueToLocked = NO;
-    [self.navigationController.navigationBar setHidden:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated

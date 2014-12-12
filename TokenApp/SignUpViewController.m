@@ -1,23 +1,22 @@
 //
-//  NavigationViewController.m
+//  SignUpViewController.m
 //  TokenApp
 //
-//  Created by BASEL FARAG on 12/11/14.
+//  Created by BASEL FARAG on 12/12/14.
 //  Copyright (c) 2014 ABaselNotBasilProduction. All rights reserved.
 //
 
-#import "NavigationViewController.h"
+#import "SignUpViewController.h"
 
-@interface NavigationViewController ()
+@interface SignUpViewController ()
 
 @end
 
-@implementation NavigationViewController
+@implementation SignUpViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //self.navigationItem.titleView = [[UIImageView alloc]initWithImage:@""];
 }
 
 - (void)didReceiveMemoryWarning {
