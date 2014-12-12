@@ -4,24 +4,82 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
     </dependencies>
     <scenes>
-        <!--Home Feed View Controller-->
-        <scene sceneID="I0E-0q-zqW">
+        <!--Item 2-->
+        <scene sceneID="EpH-yy-5Pp">
             <objects>
-                <viewController id="ne4-Zm-4sG" customClass="HomeFeedViewController" sceneMemberID="viewController">
+                <viewController id="sAi-eH-zlm" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="73z-wj-zHw"/>
-                        <viewControllerLayoutGuide type="bottom" id="Amx-hf-zjt"/>
+                        <viewControllerLayoutGuide type="top" id="i5O-8t-Ja7"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Ke-zx-tvX"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="IUf-f3-hYV">
+                    <view key="view" contentMode="scaleToFill" id="9lE-rZ-yk3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zhw-yv-bI6">
+                                <rect key="frame" x="0.0" y="638" width="414" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem systemItem="favorites" id="HCA-Pf-oTq"/>
+                                </items>
+                            </tabBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="CM2-eb-f1r"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YMi-uC-xFT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="quR-dG-yFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-708" y="-827"/>
+            <point key="canvasLocation" x="-75" y="-586"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="cA8-Ia-c3T">
+            <objects>
+                <viewController id="vpS-0V-pvg" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8Wa-be-e4e"/>
+                        <viewControllerLayoutGuide type="bottom" id="xdj-QO-By3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Jgq-ta-lpR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sum-2L-AY2">
+                                <rect key="frame" x="0.0" y="638" width="414" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem systemItem="favorites" id="fuy-5f-sXL"/>
+                                    <tabBarItem systemItem="more" id="V89-IK-4T1"/>
+                                </items>
+                            </tabBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="iRe-CR-3la"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bO2-0g-pik" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-53" y="-1375"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Kfp-8A-aqV">
+            <objects>
+                <tabBarController id="HXh-1D-n4V" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="HQb-x3-QjF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="vpS-0V-pvg" kind="relationship" relationship="viewControllers" id="ALP-hd-thu"/>
+                        <segue destination="sAi-eH-zlm" kind="relationship" relationship="viewControllers" id="maU-pa-eV1"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X0j-0A-v1T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-669" y="-967"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="0qD-wB-9TB">
@@ -57,7 +115,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="pGQ-hs-wTm" kind="show" id="por-cO-9KN"/>
+                                    <segue destination="pGQ-hs-wTm" kind="show" id="sBp-dF-dUb"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -71,12 +129,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o5J-V6-OKQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="164" y="143"/>
+            <point key="canvasLocation" x="156" y="233"/>
         </scene>
-        <!--Sign Up View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="SignUpViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -118,10 +176,10 @@
             </objects>
             <point key="canvasLocation" x="701" y="143"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign Up View Controller-->
         <scene sceneID="Fvm-QP-thm">
             <objects>
-                <viewController id="pGQ-hs-wTm" sceneMemberID="viewController">
+                <viewController id="pGQ-hs-wTm" customClass="SignUpViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HSA-ub-8qJ"/>
                         <viewControllerLayoutGuide type="bottom" id="vrn-OJ-8fS"/>
@@ -141,7 +199,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Username" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R6K-Mk-88C">
-                                <rect key="frame" x="95" y="265" width="97" height="30"/>
+                                <rect key="frame" x="95" y="280" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -151,25 +209,49 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Gender" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Edz-XA-IvY">
-                                <rect key="frame" x="95" y="405" width="97" height="30"/>
+                                <rect key="frame" x="95" y="434" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Other" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CyJ-mL-KOc">
-                                <rect key="frame" x="95" y="483" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BirthDay" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CyJ-mL-KOc">
+                                <rect key="frame" x="95" y="491" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tIp-Hh-Cnh">
-                                <rect key="frame" x="154" y="570" width="107" height="30"/>
+                                <rect key="frame" x="154" y="602" width="107" height="30"/>
                                 <state key="normal" title="Create Account">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="uponCreateAccountButtonPressed:" destination="pGQ-hs-wTm" eventType="touchUpInside" id="BoM-vM-QBb"/>
+                                </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Repeat Password" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3HN-pY-skB">
+                                <rect key="frame" x="95" y="382" width="135" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2cr-4U-GpC">
+                                <rect key="frame" x="95" y="551" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="createAccountButton" destination="tIp-Hh-Cnh" id="R7B-fO-jqp"/>
+                        <outlet property="textFieldBirthday" destination="CyJ-mL-KOc" id="iNa-hu-Ewk"/>
+                        <outlet property="textFieldEmail" destination="2cr-4U-GpC" id="uGR-8k-K7O"/>
+                        <outlet property="textFieldFirstName" destination="DQ8-3v-k55" id="heb-rQ-CpW"/>
+                        <outlet property="textFieldGender" destination="Edz-XA-IvY" id="CKd-cf-3uz"/>
+                        <outlet property="textFieldLastName" destination="ckX-3W-PZH" id="eMy-mw-fal"/>
+                        <outlet property="textFieldPassword" destination="5i5-Jk-euz" id="LQ0-Jc-kwD"/>
+                        <outlet property="textFieldRepeatPassword" destination="3HN-pY-skB" id="ecR-3j-WES"/>
+                        <outlet property="textFieldUsername" destination="R6K-Mk-88C" id="AFR-WS-4K2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agT-pL-vQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

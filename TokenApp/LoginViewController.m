@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 ABaselNotBasilProduction. All rights reserved.
 //
 
-#import "SignupViewController.h"
+#import "LoginViewController.h"
 #import "HomeFeedViewController.h"
 #import <Parse/Parse.h>
 
 
-@interface SignUpViewController () <UITextFieldDelegate>
+@interface LoginViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *textFieldUsername;
 @property (strong, nonatomic) IBOutlet UITextField *textFieldEmail;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation SignUpViewController
+@implementation LoginViewController
 
 - (void)viewDidLoad
 {

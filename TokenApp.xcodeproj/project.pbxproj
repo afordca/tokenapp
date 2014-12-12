@@ -16,7 +16,7 @@
 		25A72F391A319CF30076AE07 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A72F381A319CF30076AE07 /* Images.xcassets */; };
 		25A72F3C1A319CF30076AE07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25A72F3A1A319CF30076AE07 /* LaunchScreen.xib */; };
 		25A72F481A319CF30076AE07 /* TokenAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A72F471A319CF30076AE07 /* TokenAppTests.m */; };
-		25ED67471A320DDF004CD269 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25ED67461A320DDF004CD269 /* SignupViewController.m */; };
+		25ED67471A320DDF004CD269 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25ED67461A320DDF004CD269 /* LoginViewController.m */; };
 		25ED67511A3212CE004CD269 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67501A3212CE004CD269 /* Accounts.framework */; };
 		25ED67531A3212DD004CD269 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67521A3212DD004CD269 /* AudioToolbox.framework */; };
 		25ED67551A3212E8004CD269 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67541A3212E8004CD269 /* CFNetwork.framework */; };
@@ -31,6 +31,7 @@
 		25ED67671A321345004CD269 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67661A321345004CD269 /* SystemConfiguration.framework */; };
 		25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F621421A3219100069A742 /* ResetPasswordViewController.m */; };
 		25F621461A3219800069A742 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F621451A3219800069A742 /* ProfileViewController.m */; };
+		B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */; };
 		B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366C1A3A468B00E485CE /* Login.xcassets */; };
 		B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366E1A3A46D300E485CE /* Profile.xcassets */; };
 		B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */; };
@@ -62,8 +63,8 @@
 		25A72F411A319CF30076AE07 /* TokenAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TokenAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A72F461A319CF30076AE07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25A72F471A319CF30076AE07 /* TokenAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TokenAppTests.m; sourceTree = "<group>"; };
-		25ED67451A320DDF004CD269 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
-		25ED67461A320DDF004CD269 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
+		25ED67451A320DDF004CD269 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		25ED67461A320DDF004CD269 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		25ED67481A3212AB004CD269 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		25ED67491A3212AB004CD269 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		25ED674A1A3212AB004CD269 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -86,6 +87,8 @@
 		25F621451A3219800069A742 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		3AC5C335474F0AB015BEB33A /* libPods-TokenApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TokenApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.release.xcconfig"; sourceTree = "<group>"; };
+		B948FBA41A3ABFF5000B6C7E /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		B9F2366C1A3A468B00E485CE /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
 		B9F2366E1A3A46D300E485CE /* Profile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Profile.xcassets; sourceTree = "<group>"; };
 		B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedViewController.h; sourceTree = "<group>"; };
@@ -150,18 +153,20 @@
 		25A72F2A1A319CF20076AE07 /* TokenApp */ = {
 			isa = PBXGroup;
 			children = (
+				25A72F351A319CF20076AE07 /* Main.storyboard */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
 				25A72F321A319CF20076AE07 /* ViewController.h */,
 				25A72F331A319CF20076AE07 /* ViewController.m */,
+				B948FBA41A3ABFF5000B6C7E /* SignUpViewController.h */,
+				B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */,
 				25F621411A3219100069A742 /* ResetPasswordViewController.h */,
 				25F621421A3219100069A742 /* ResetPasswordViewController.m */,
 				25F621441A3219800069A742 /* ProfileViewController.h */,
 				25F621451A3219800069A742 /* ProfileViewController.m */,
-				25ED67451A320DDF004CD269 /* SignUpViewController.h */,
-				25ED67461A320DDF004CD269 /* SignupViewController.m */,
+				25ED67451A320DDF004CD269 /* LoginViewController.h */,
+				25ED67461A320DDF004CD269 /* LoginViewController.m */,
 				25A72F511A31A3DE0076AE07 /* New Group */,
-				25A72F351A319CF20076AE07 /* Main.storyboard */,
 				B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */,
 				B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */,
 				B9F236731A3A7CF600E485CE /* NavigationViewController.h */,
@@ -384,9 +389,10 @@
 				B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
 				B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */,
-				25ED67471A320DDF004CD269 /* SignupViewController.m in Sources */,
+				25ED67471A320DDF004CD269 /* LoginViewController.m in Sources */,
 				25F621461A3219800069A742 /* ProfileViewController.m in Sources */,
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
+				B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

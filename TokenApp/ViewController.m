@@ -1,14 +1,6 @@
-//
-//  LoginViewController.m
-//  LinxApp
-//
-//  Created by Ramon Gilabert Llop on 8/23/14.
-//  Copyright (c) 2014 The Black Box Labs. All rights reserved.
-//
-
 #import "ViewController.h"
 #import <Parse/Parse.h> 
-#import "SignUpViewController.h"
+#import "LoginViewController.h"
 
 #define VALIDURL (@"http://www.google.com")
 
@@ -116,7 +108,7 @@
 
 - (IBAction)onLoginButtonPressed:(id)sender
 {
-    SignUpViewController *signUpVc = [SignUpViewController new];
+    LoginViewController *signUpVc = [LoginViewController new];
     [self.navigationController pushViewController:signUpVc animated:YES];
     
 //    [self.loadingIndicator setHidden:NO];
