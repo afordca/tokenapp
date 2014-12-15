@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Macros.h"
 
 @interface ProfilePersonalViewController : UIViewController
-
+@property PFObject *user;
 
 @end

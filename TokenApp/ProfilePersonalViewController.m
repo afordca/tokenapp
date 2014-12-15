@@ -13,6 +13,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UIButton *addFollowerButton;
 @property (weak, nonatomic) IBOutlet UIButton *Tokens;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+
+@property NSMutableArray* arrayOfImages;
 
 @end
 
@@ -32,13 +37,13 @@
 {
     //Remember to define '6' as numofphotoallowed at top
     for (int i = 0; i< kNoOfPhotoAllow; i++) {
-        PFFile *file = [self.shoe objectForKey:[NSString stringWithFormat:@"Photo%d",i]];
+        PFFile *file = [self.user objectForKey:[NSString stringWithFormat:@"Photo%d",i]];
         if (file) {
             [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 if (!error) {
                     UIImage *image = [UIImage imageWithData:data];
-                    [self.shoePhotos addObject:image];
-                    self.pageControl.numberOfPages =  self.shoePhotos.count;
+                    [self.arrayOfImages addObject:image];
+                    self.pageControl.numberOfPages =  self.arrayOfImages.count;
 
                     [self.collectionView reloadData];
                 }

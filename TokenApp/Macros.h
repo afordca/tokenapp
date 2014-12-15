@@ -24,5 +24,7 @@
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 
 #import <Parse/Parse.h>
+#define kNoOfPhotoAllow 6
+
 
 #endif
