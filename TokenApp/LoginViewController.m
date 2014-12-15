@@ -9,8 +9,10 @@
 #import "LoginViewController.h"
 #import "HomeFeedViewController.h"
 #import <Parse/Parse.h>
-
-
+#import "Macros.h"
+#import "ProfilePersonalViewController.h"
+#import "NavTabBarController.h"
+#import "ProfilePersonalViewController.h"
 @interface LoginViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *textFieldUsername;
@@ -31,6 +33,8 @@
 {
     [super viewDidLoad];
     self.textFieldPassword.delegate = self;
+
+
 }
 
 #pragma mark - Text field methods
@@ -108,9 +112,9 @@
                                         block:^(PFUser *user, NSError *error) {
                                             if (user)
                                             {
-                                                HomeFeedViewController *homeVC = [HomeFeedViewController new];
-                                                [self.navigationController pushViewController:homeVC animated:YES];
-                                                
+
+                                                ProfilePersonalViewController *pVC = [ProfilePersonalViewController new];
+                                                [self.navigationController pushViewController:pVC animated:YES];
                                             }
                                             else
                                             {
@@ -123,6 +127,37 @@
 
     return YES;
 }
+
+
+- (IBAction)uponLoginButtonPressed:(id)sender {
+    //Go to the next screen
+    //Check if password is correct
+    NSString *username = [self.textFieldUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *password = [self.textFieldPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([username length] == 0 || [password length] == 0){
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Oops!" message:@"Please enter a valid username and password." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        //Set loading indicator here.
+    }
+    else {
+        [PFUser logInWithUsernameInBackground:username password:password
+                                        block:^(PFUser *user, NSError *error) {
+                                            if (user)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:[[error.userInfo objectForKey:@"error"] capitalizedString] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                                [alertView show];
+                                            }
+                                        }];
+    }
+    
+    
+}
+
+
 
 #pragma mark - IBActions
 

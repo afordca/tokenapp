@@ -8,6 +8,7 @@
 
 #import "SignUpViewController.h"
 #import <Parse/Parse.h>
+#import "Macros.h"
 
 @interface SignUpViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *textFieldFirstName;

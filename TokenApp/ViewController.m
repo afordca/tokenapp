@@ -1,6 +1,8 @@
 #import "ViewController.h"
 #import <Parse/Parse.h> 
 #import "LoginViewController.h"
+#import "Macros.h"
+#import "AppDelegate.h"
 
 #define VALIDURL (@"http://www.google.com")
 
@@ -35,6 +37,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RevealInstantiation" object:nil];
 
     [self.navigationController.navigationBar setHidden:YES];
+
+    if (IS_IPHONE_6) {
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Splash-iphone6"]];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -219,5 +225,7 @@
         return true;
     }
 }
+
+
 
 @end
