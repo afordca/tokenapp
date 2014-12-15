@@ -7,6 +7,7 @@
 //
 
 #import "ProfilePersonalViewController.h"
+#import "Macros.h"
 
 @interface ProfilePersonalViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
@@ -25,6 +26,28 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)getPhotoFromParse
+{
+    //Remember to define '6' as numofphotoallowed at top
+    for (int i = 0; i< kNoOfPhotoAllow; i++) {
+        PFFile *file = [self.shoe objectForKey:[NSString stringWithFormat:@"Photo%d",i]];
+        if (file) {
+            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (!error) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    [self.shoePhotos addObject:image];
+                    self.pageControl.numberOfPages =  self.shoePhotos.count;
+
+                    [self.collectionView reloadData];
+                }
+            }];
+        } else {
+            break;
+        }
+    }
+
 }
 
 

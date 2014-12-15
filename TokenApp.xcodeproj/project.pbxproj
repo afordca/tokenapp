@@ -33,6 +33,7 @@
 		25F621461A3219800069A742 /* ProfilePersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F621451A3219800069A742 /* ProfilePersonalViewController.m */; };
 		B9145C931A3D042200A88B94 /* NavTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9145C921A3D042200A88B94 /* NavTabBarController.m */; };
 		B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */; };
+		B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */; };
 		B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366C1A3A468B00E485CE /* Login.xcassets */; };
 		B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366E1A3A46D300E485CE /* Profile.xcassets */; };
 		B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */; };
@@ -93,6 +94,8 @@
 		B9145C921A3D042200A88B94 /* NavTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTabBarController.m; sourceTree = "<group>"; };
 		B948FBA41A3ABFF5000B6C7E /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomActivityTableViewCell.h; sourceTree = "<group>"; };
+		B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomActivityTableViewCell.m; sourceTree = "<group>"; };
 		B9F2366C1A3A468B00E485CE /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
 		B9F2366E1A3A46D300E485CE /* Profile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Profile.xcassets; sourceTree = "<group>"; };
 		B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedViewController.h; sourceTree = "<group>"; };
@@ -162,6 +165,8 @@
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
 				25A72F321A319CF20076AE07 /* ViewController.h */,
 				25A72F331A319CF20076AE07 /* ViewController.m */,
+				B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */,
+				B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */,
 				B948FBA41A3ABFF5000B6C7E /* SignUpViewController.h */,
 				B9145C901A3CFA4C00A88B94 /* Macros.h */,
 				B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */,
@@ -395,6 +400,7 @@
 				25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */,
 				B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */,
 				B9145C931A3D042200A88B94 /* NavTabBarController.m in Sources */,
+				B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
 				B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */,
 				25ED67471A320DDF004CD269 /* LoginViewController.m in Sources */,
