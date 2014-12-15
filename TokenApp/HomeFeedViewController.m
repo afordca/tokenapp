@@ -31,7 +31,7 @@
     if (!user) {
         [self performSegueWithIdentifier:@"showLogin" sender:self];
     }
-\}
+}
 
 
 - (void)viewWillAppear:(BOOL)animated {
