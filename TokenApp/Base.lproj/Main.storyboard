@@ -279,6 +279,15 @@
                                     <segue destination="jcN-Xv-qPJ" kind="show" id="qdS-qd-wAw"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PcN-SS-yTN">
+                                <rect key="frame" x="16" y="292" width="50" height="30"/>
+                                <state key="normal" title="Upload">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cameraButtonTapped:" destination="mte-QW-Ju2" eventType="touchUpInside" id="abA-0g-2f7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -291,7 +300,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iLf-wh-BHC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="227" y="1421"/>
+            <point key="canvasLocation" x="227" y="1425"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="mU7-xv-XAm">

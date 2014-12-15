@@ -11,5 +11,6 @@
 
 @interface ProfilePersonalViewController : UIViewController
 @property PFObject *user;
+-(void)uploadImage:(NSData*)imageData; 
 
 @end

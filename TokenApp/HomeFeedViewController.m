@@ -96,7 +96,7 @@
     }];
 
     PFQuery *queryOfComments = [PFQuery queryWithClassName:@"Comments"];
-    [queryOfComments whereKey:@"objectIdImatge" equalTo:image.objectId];
+    [queryOfComments whereKey:@"objectIdImage" equalTo:image.objectId];
     [queryOfComments findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         cell.labelComments.text = [NSString stringWithFormat:@"%d comments", objects.count];
     }];
