@@ -42,7 +42,7 @@
     PFQuery *query = [[[PFUser currentUser] relationForKey:@"followingRelation"] query];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.arrayOfFollowing = objects;
-        PFQuery *queryOfImages = [PFQuery queryWithClassName:@"Images"];
+        PFQuery *queryOfImages = [PFQuery queryWithClassName:@"UserPhoto"];
         [queryOfImages orderByDescending:@"createdAt"];
         [queryOfImages findObjectsInBackgroundWithBlock:^(NSArray *objectsTwo, NSError *error) {
             for (PFObject *images in objectsTwo) {

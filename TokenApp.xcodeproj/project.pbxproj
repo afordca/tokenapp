@@ -160,24 +160,12 @@
 			isa = PBXGroup;
 			children = (
 				25A72F351A319CF20076AE07 /* Main.storyboard */,
+				B9145C901A3CFA4C00A88B94 /* Macros.h */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
-				25A72F321A319CF20076AE07 /* ViewController.h */,
-				25A72F331A319CF20076AE07 /* ViewController.m */,
-				B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */,
-				B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */,
-				B948FBA41A3ABFF5000B6C7E /* SignUpViewController.h */,
-				B9145C901A3CFA4C00A88B94 /* Macros.h */,
-				B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */,
-				25F621411A3219100069A742 /* ResetPasswordViewController.h */,
-				25F621421A3219100069A742 /* ResetPasswordViewController.m */,
-				25F621441A3219800069A742 /* ProfilePersonalViewController.h */,
-				25F621451A3219800069A742 /* ProfilePersonalViewController.m */,
-				25ED67461A320DDF004CD269 /* LoginViewController.m */,
-				25ED67451A320DDF004CD269 /* LoginViewController.h */,
-				25A72F511A31A3DE0076AE07 /* New Group */,
-				B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */,
-				B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */,
+				B9452B9C1A40F2DD007FE801 /* Helper Classes */,
+				B9452B981A40EFC1007FE801 /* Login */,
+				B9452B9B1A40F2B9007FE801 /* Home */,
 				B9F236731A3A7CF600E485CE /* NavigationViewController.h */,
 				B9F236741A3A7CF700E485CE /* NavigationViewController.m */,
 				B9145C911A3D042200A88B94 /* NavTabBarController.h */,
@@ -218,13 +206,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		25A72F511A31A3DE0076AE07 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
-			sourceTree = "<group>";
-		};
 		25ED67681A321374004CD269 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +237,41 @@
 				63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B9452B981A40EFC1007FE801 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				25ED67461A320DDF004CD269 /* LoginViewController.m */,
+				25ED67451A320DDF004CD269 /* LoginViewController.h */,
+				25A72F321A319CF20076AE07 /* ViewController.h */,
+				25A72F331A319CF20076AE07 /* ViewController.m */,
+				B948FBA41A3ABFF5000B6C7E /* SignUpViewController.h */,
+				B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */,
+				25F621411A3219100069A742 /* ResetPasswordViewController.h */,
+				25F621421A3219100069A742 /* ResetPasswordViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		B9452B9B1A40F2B9007FE801 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				25F621441A3219800069A742 /* ProfilePersonalViewController.h */,
+				25F621451A3219800069A742 /* ProfilePersonalViewController.m */,
+				B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */,
+				B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		B9452B9C1A40F2DD007FE801 /* Helper Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */,
+				B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */,
+			);
+			name = "Helper Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

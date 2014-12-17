@@ -144,14 +144,14 @@
                                         block:^(PFUser *user, NSError *error) {
                                             if (user)
                                             {
-                                                if (![[user objectForKey:@"emailVerified"] boolValue]){
-                                                    //Refresh to make sure the user did not recently verify
-                                                    [user refresh];
-                                                    if (![[user objectForKey:@"emailVerified"]boolValue]){
-                                                        UIAlertView *redirectAlertView = [[UIAlertView alloc]initWithTitle:@"Uh oh" message:@"You must verify your email to proceed."  delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                                        [redirectAlertView show];
-                                                    }
-                                                }
+//                                                if (![[user objectForKey:@"emailVerified"] boolValue]){
+//                                                    //Refresh to make sure the user did not recently verify
+//                                                    [user fetch];
+//                                                    if (![[user objectForKey:@"emailVerified"]boolValue]){
+//                                                        UIAlertView *redirectAlertView = [[UIAlertView alloc]initWithTitle:@"Uh oh" message:@"You must verify your email to proceed."  delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//                                                        [redirectAlertView show];
+//                                                    }
+                                            //}
 
                                             }
                                             else

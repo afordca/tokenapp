@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 
+
 @property NSMutableArray* arrayOfImages;
 
 @end
@@ -25,7 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self getUserProfilePictureFromParse];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,7 +35,7 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)getPhotoFromParse
+-(void)getPhotosFromParse
 {
     //Remember to define '6' as numofphotoallowed at top
     for (int i = 0; i< kNoOfPhotoAllow; i++) {
@@ -127,8 +129,35 @@
 
 -(void)getUserProfilePictureFromParse
 {
+    PFQuery *query = [PFQuery queryWithClassName:@"UserPhoto"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error)
+        {
+            for (PFObject *object in objects){
+                PFFile *userImageFile = object[@"imageFile"];
+                [userImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+                if (!error){
+                                UIImage *image = [UIImage imageWithData:imageData];
+                                self.userImage.image = image;
+                }
 
-
+            }];
+            }
+        }
+        else{
+            NSLog(@"Error");
+        }
+//        PFObject *anotherPhoto = [PFObject objectWithClassName:@"UserPhoto"];
+//        PFFile *userImageFile = [anotherPhoto objectForKey:@"imageFile"];
+//        [userImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+//            if (!error){
+//                UIImage *image = [UIImage imageWithData:imageData];
+//                self.userImage.image = image;
+//            }
+//            else if (error){
+//                NSLog(@"Error retreiving photo");
+//            }
+        }];
 
 }
 
