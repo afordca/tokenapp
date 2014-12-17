@@ -38,6 +38,9 @@
 		B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366E1A3A46D300E485CE /* Profile.xcassets */; };
 		B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */; };
 		B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236741A3A7CF700E485CE /* NavigationViewController.m */; };
+		B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */; };
+		B9FD557F1A414FAB006AE066 /* PhotoDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FD557E1A414FAB006AE066 /* PhotoDetailsTableViewController.m */; };
+		B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FD55811A415443006AE066 /* CreateContentViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +105,12 @@
 		B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedViewController.m; sourceTree = "<group>"; };
 		B9F236731A3A7CF600E485CE /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		B9F236741A3A7CF700E485CE /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
+		B9FD55791A414B10006AE066 /* EditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPhotoViewController.h; sourceTree = "<group>"; };
+		B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
+		B9FD557D1A414FAB006AE066 /* PhotoDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDetailsTableViewController.h; sourceTree = "<group>"; };
+		B9FD557E1A414FAB006AE066 /* PhotoDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailsTableViewController.m; sourceTree = "<group>"; };
+		B9FD55801A415443006AE066 /* CreateContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateContentViewController.h; sourceTree = "<group>"; };
+		B9FD55811A415443006AE066 /* CreateContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateContentViewController.m; sourceTree = "<group>"; };
 		C2B542139EC1BE1E94B41BEC /* Pods-TokenApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +172,7 @@
 				B9145C901A3CFA4C00A88B94 /* Macros.h */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
+				B9452BA01A4149CB007FE801 /* Take Media */,
 				B9452B9C1A40F2DD007FE801 /* Helper Classes */,
 				B9452B981A40EFC1007FE801 /* Login */,
 				B9452B9B1A40F2B9007FE801 /* Home */,
@@ -170,6 +180,7 @@
 				B9F236741A3A7CF700E485CE /* NavigationViewController.m */,
 				B9145C911A3D042200A88B94 /* NavTabBarController.h */,
 				B9145C921A3D042200A88B94 /* NavTabBarController.m */,
+				B9FD557C1A414DC4006AE066 /* Content */,
 				B9F2366C1A3A468B00E485CE /* Login.xcassets */,
 				B9F2366E1A3A46D300E485CE /* Profile.xcassets */,
 				25A72F381A319CF30076AE07 /* Images.xcassets */,
@@ -272,6 +283,26 @@
 				B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */,
 			);
 			name = "Helper Classes";
+			sourceTree = "<group>";
+		};
+		B9452BA01A4149CB007FE801 /* Take Media */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Take Media";
+			sourceTree = "<group>";
+		};
+		B9FD557C1A414DC4006AE066 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				B9FD55801A415443006AE066 /* CreateContentViewController.h */,
+				B9FD55811A415443006AE066 /* CreateContentViewController.m */,
+				B9FD557D1A414FAB006AE066 /* PhotoDetailsTableViewController.h */,
+				B9FD557E1A414FAB006AE066 /* PhotoDetailsTableViewController.m */,
+				B9FD55791A414B10006AE066 /* EditPhotoViewController.h */,
+				B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */,
+			);
+			name = Content;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,14 +445,17 @@
 			files = (
 				25A72F341A319CF20076AE07 /* ViewController.m in Sources */,
 				25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */,
+				B9FD557F1A414FAB006AE066 /* PhotoDetailsTableViewController.m in Sources */,
 				B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */,
 				B9145C931A3D042200A88B94 /* NavTabBarController.m in Sources */,
 				B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
 				B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */,
+				B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */,
 				25ED67471A320DDF004CD269 /* LoginViewController.m in Sources */,
 				25F621461A3219800069A742 /* ProfilePersonalViewController.m in Sources */,
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
+				B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */,
 				B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,5 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface CreateContentViewController : UIViewController
+{
+    UIButton *photoButton;
+    UIButton *videoButton;
+    UIButton *composeButton;
+    UIButton *linkButton;
+}
+
+@property (nonatomic, strong) UIButton *photoButton;
 
 @end
