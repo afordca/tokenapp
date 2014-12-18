@@ -10,4 +10,6 @@
 
 @interface EditPhotoViewController : UIViewController
 
+- (id)initWithImage:(UIImage *)aImage;
+
 @end

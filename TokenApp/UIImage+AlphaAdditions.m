@@ -7,6 +7,8 @@
 
 #import "UIImage+AlphaAdditions.h"
 
+
+
 @implementation UIImage (Alpha)
 
 // Returns true if the image has an alpha layer

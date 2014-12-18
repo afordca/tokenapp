@@ -7,6 +7,8 @@
 
 #import "UIImage+RoundedCornerAdditions.h"
 #import "UIImage+AlphaAdditions.h"
+#import "UIImage+RoundedCornerAdditions.h"
+
 
 @implementation UIImage (RoundedCorner)
 

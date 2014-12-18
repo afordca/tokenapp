@@ -6,8 +6,8 @@
 // http://vocaro.com/trevor/blog/2009/10/12/resize-a-uiimage-the-right-way/
 
 #import "UIImage+ResizeAdditions.h"
-#import "UIImage+RoundedCornerAdditions.h"
 #import "UIImage+AlphaAdditions.h"
+
 
 @implementation UIImage (Resize)
 

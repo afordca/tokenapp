@@ -30,6 +30,9 @@
 		25ED67671A321345004CD269 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67661A321345004CD269 /* SystemConfiguration.framework */; };
 		25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F621421A3219100069A742 /* ResetPasswordViewController.m */; };
 		25F621461A3219800069A742 /* ProfilePersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F621451A3219800069A742 /* ProfilePersonalViewController.m */; };
+		B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B01A42C0410012CBF2 /* UIImage+AlphaAdditions.m */; };
+		B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B21A42C0410012CBF2 /* UIImage+ResizeAdditions.m */; };
+		B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B91278C31A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m */; };
 		B9145C931A3D042200A88B94 /* NavTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9145C921A3D042200A88B94 /* NavTabBarController.m */; };
 		B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */; };
 		B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */; };
@@ -94,6 +97,12 @@
 		25F621451A3219800069A742 /* ProfilePersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilePersonalViewController.m; sourceTree = "<group>"; };
 		3AC5C335474F0AB015BEB33A /* libPods-TokenApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TokenApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.release.xcconfig"; sourceTree = "<group>"; };
+		B90CB7AF1A42C0410012CBF2 /* UIImage+AlphaAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AlphaAdditions.h"; sourceTree = "<group>"; };
+		B90CB7B01A42C0410012CBF2 /* UIImage+AlphaAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AlphaAdditions.m"; sourceTree = "<group>"; };
+		B90CB7B11A42C0410012CBF2 /* UIImage+ResizeAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResizeAdditions.h"; sourceTree = "<group>"; };
+		B90CB7B21A42C0410012CBF2 /* UIImage+ResizeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResizeAdditions.m"; sourceTree = "<group>"; };
+		B91278C21A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCornerAdditions.h"; sourceTree = "<group>"; };
+		B91278C31A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCornerAdditions.m"; sourceTree = "<group>"; };
 		B9145C901A3CFA4C00A88B94 /* Macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		B9145C911A3D042200A88B94 /* NavTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTabBarController.h; sourceTree = "<group>"; };
 		B9145C921A3D042200A88B94 /* NavTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTabBarController.m; sourceTree = "<group>"; };
@@ -178,6 +187,7 @@
 				B9145C901A3CFA4C00A88B94 /* Macros.h */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
+				B90CB7B61A42C05F0012CBF2 /* UIImage Categories */,
 				B9452BA01A4149CB007FE801 /* Take Media */,
 				B9452B9C1A40F2DD007FE801 /* Helper Classes */,
 				B9452B981A40EFC1007FE801 /* Login */,
@@ -257,6 +267,19 @@
 				63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B90CB7B61A42C05F0012CBF2 /* UIImage Categories */ = {
+			isa = PBXGroup;
+			children = (
+				B91278C21A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.h */,
+				B91278C31A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m */,
+				B90CB7AF1A42C0410012CBF2 /* UIImage+AlphaAdditions.h */,
+				B90CB7B01A42C0410012CBF2 /* UIImage+AlphaAdditions.m */,
+				B90CB7B11A42C0410012CBF2 /* UIImage+ResizeAdditions.h */,
+				B90CB7B21A42C0410012CBF2 /* UIImage+ResizeAdditions.m */,
+			);
+			name = "UIImage Categories";
 			sourceTree = "<group>";
 		};
 		B9452B981A40EFC1007FE801 /* Login */ = {
@@ -456,14 +479,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A72F341A319CF20076AE07 /* ViewController.m in Sources */,
+				B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */,
 				25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */,
 				B9FD557F1A414FAB006AE066 /* PhotoDetailsTableViewController.m in Sources */,
 				B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */,
+				B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */,
 				B9145C931A3D042200A88B94 /* NavTabBarController.m in Sources */,
 				B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
 				B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */,
 				B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */,
+				B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */,
 				25ED67471A320DDF004CD269 /* LoginViewController.m in Sources */,
 				25F621461A3219800069A742 /* ProfilePersonalViewController.m in Sources */,
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,

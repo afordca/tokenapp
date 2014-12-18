@@ -7,16 +7,17 @@
 //
 
 #import "CreateContentViewController.h"
+#import <MobileCoreServices/UTCoreTypes.h>
 
 @interface CreateContentViewController ()
 
 @end
 
 @implementation CreateContentViewController
+@synthesize photoButton;
 
 - (void)viewDidLoad {
-    
-    [super viewDidLoad];
+
     // Do any additional setup after loading the view.
     [super viewDidLoad];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
@@ -32,6 +33,26 @@
     [photoButton setTitle:@"" forState:UIControlStateNormal];
     [photoButton setBackgroundImage:[UIImage imageNamed:@"Photo"] forState:UIControlStateNormal];
 
+    videoButton = [[UIButton alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width/2 + 20, [UIScreen mainScreen].bounds.size.height/2 - 100, 80, 80)];
+    [videoButton setTitle:@"" forState:UIControlStateNormal];
+    [videoButton setBackgroundImage:[UIImage imageNamed:@"Video"] forState:UIControlStateNormal];
+
+    linkButton = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width/2 + 20, [UIScreen mainScreen].bounds.size.height/2, 80, 80)];
+    [linkButton setTitle:@"" forState:UIControlStateNormal];
+    [linkButton setBackgroundImage:[UIImage imageNamed:@"Link"] forState:UIControlStateNormal];
+
+    composeButton = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width/2 - 100, [UIScreen mainScreen].bounds.size.height/2, 80, 80)];
+    [composeButton setTitle:@"" forState:UIControlStateNormal];
+    [composeButton setBackgroundImage:[UIImage imageNamed:@"Write"] forState:UIControlStateNormal];
+
+    [photoButton addTarget:self action:@selector(selectPhotoFromLibrary) forControlEvents:UIControlEventTouchDown];
+    [self.view setBackgroundColor:[UIColor blackColor]];
+
+    [self.view addSubview:photoButton];
+    [self.view addSubview:linkButton];
+    [self.view addSubview:composeButton];
+    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,16 +60,99 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)selectPhotoFromLibrary
+{
 
+        NSLog(@"This is your library being brought up.");
+        UIImagePickerController *imagePicker;
+        imagePicker = [[UIImagePickerController alloc] init];
+        [[imagePicker navigationBar] setBarTintColor:[UIColor whiteColor]];
+        [[imagePicker navigationBar] setTintColor:[UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0]];
+        [[imagePicker navigationBar] setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor blackColor] forKey:NSForegroundColorAttributeName]];
 
-/*
-#pragma mark - Navigation
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+        {
+            [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        }
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+        [self presentViewController:imagePicker animated:YES completion:nil];
+
 }
-*/
+
+#pragma mark - NavBarController Stuff
+
+//-(BOOL)shouldPresentPhotoCaptureController
+//{
+//
+//    BOOL presentedPhotoCaptureController = [self shouldStartCameraController];
+//
+//    if (!presentedPhotoCaptureController) {
+//        presentedPhotoCaptureController = [self shouldPresentPhotoLibraryPickerController];
+//    }
+//
+//    return presentedPhotoCaptureController;
+//}
+
+
+
+#pragma mark 
+
+//We want a new view controller to come up and we want that viewcontroller to have access to the library in a button to the bottom right
+
+-(void)photoCaptureButtonAction:(id)sender {
+    BOOL cameraDeviceAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    BOOL photoLibraryAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+
+    if (cameraDeviceAvailable && photoLibraryAvailable){
+        [self shouldPresentPhotoCaptureController];
+    }
+}
+
+-(BOOL)shouldStartCameraController
+{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO){
+        return NO;
+    }
+
+    UIImagePickerController *cameraUI = [[UIImagePickerController alloc]init];
+
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera] containsObject:(NSString *)kUTTypeImage]){
+
+        cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+        cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
+
+        if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]){
+            cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+        } else if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront])
+        {
+            cameraUI.sourceType = UIImagePickerControllerCameraDeviceFront;
+        }
+
+    } else {
+        return NO;
+    }
+
+    cameraUI.allowsEditing = YES;
+    cameraUI.showsCameraControls = YES;
+    cameraUI.delegate = self;
+
+    [self presentViewController:cameraUI animated:YES completion:nil];
+
+    return YES;
+
+}
+
+-(BOOL)shouldStartPhotoLibraryPickerController {
+    //No phto library and no albums? You have no business here bud.
+    if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO && [UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeSavedPhotosAlbum == NO])){
+        return NO;
+    }
+
+    //TBC
+    return YES;
+
+}
+
+
 
 @end

@@ -10,12 +10,14 @@
 
 @interface CreateContentViewController : UIViewController
 {
-    UIButton *photoButton;
     UIButton *videoButton;
     UIButton *composeButton;
     UIButton *linkButton;
 }
 
 @property (nonatomic, strong) UIButton *photoButton;
+
+-(void)selectPhotoFromLibrary;
+-(BOOL)shouldPresentPhotoCaptureController;
 
 @end

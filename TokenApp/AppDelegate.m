@@ -20,6 +20,9 @@
     [Parse setApplicationId:@"dNPSXSwJgJXVxTxkbta8EmoFFouOI4TIXlO1kTiz"
                   clientKey:@"Dbxo2R7VxPwOv6ub5tQ9qK3sWwinkBCUQSqyUld3"];
 
+    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+
+
     return YES;
 }
 
