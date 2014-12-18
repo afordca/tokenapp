@@ -99,6 +99,8 @@
 
 //We want a new view controller to come up and we want that viewcontroller to have access to the library in a button to the bottom right
 
+
+
 -(void)photoCaptureButtonAction:(id)sender {
     BOOL cameraDeviceAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     BOOL photoLibraryAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
@@ -148,9 +150,32 @@
         return NO;
     }
 
-    //TBC
+    UIImagePickerController *cameraUI = [[UIImagePickerController alloc]init];
+
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary]containsObject:(NSString*)kUTTypeImage]){
+
+        cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+        cameraUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    } else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
+
+        cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+        cameraUI.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    } else {
+        return NO;
+    }
+
+    cameraUI.allowsEditing;
+    cameraUI.delegate = self;
+
+    [self presentViewController:cameraUI animated:YES completion:nil];
+
     return YES;
 
+}
+
+
+-(void)handleGesture:(UIGestureRecognizer *)gestureRecognizer {
+    [self shouldPresentPhotoCaptureController];
 }
 
 

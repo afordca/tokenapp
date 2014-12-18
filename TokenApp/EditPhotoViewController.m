@@ -28,6 +28,20 @@
     // Do any additional setup after loading the view.
 }
 
+- (id)initWithImage:(UIImage *)aImage {
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        if (!aImage) {
+            return nil;
+        }
+
+        self.image = aImage;
+        self.fileUploadBackgroundTaskId = UIBackgroundTaskInvalid;
+        self.photoPostBackgroundTaskId = UIBackgroundTaskInvalid;
+    }
+    return self;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -51,7 +65,7 @@
     if (!imageData || !thumbnailImageData){
         return NO;
     }
-
+    //Create the PFFiles and store them in propertues since we'll use them later
     self.photoFile = [PFFile fileWithData:imageData];
     self.thumbnailFile = [PFFile fileWithData:thumbnailImageData];
 
@@ -60,10 +74,23 @@
         [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
     }];
 
+    [self.photoFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded){
+            [self.thumbnailFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    NSLog(@"Thumbnail uploaded successfully");
+                }
+                [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
+            }];
+
+        }
+    }];
 
     return YES;
-
 }
+
+
+
 
 
 
