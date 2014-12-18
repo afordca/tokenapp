@@ -41,6 +41,9 @@
 		B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */; };
 		B9FD557F1A414FAB006AE066 /* PhotoDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FD557E1A414FAB006AE066 /* PhotoDetailsTableViewController.m */; };
 		B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FD55811A415443006AE066 /* CreateContentViewController.m */; };
+		B9FD55861A415665006AE066 /* Content.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9FD55851A415665006AE066 /* Content.xcassets */; };
+		B9FD55881A4157C4006AE066 /* NavBar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9FD55871A4157C4006AE066 /* NavBar.xcassets */; };
+		B9FD558A1A4157EF006AE066 /* Create.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9FD55891A4157EF006AE066 /* Create.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +114,9 @@
 		B9FD557E1A414FAB006AE066 /* PhotoDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailsTableViewController.m; sourceTree = "<group>"; };
 		B9FD55801A415443006AE066 /* CreateContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateContentViewController.h; sourceTree = "<group>"; };
 		B9FD55811A415443006AE066 /* CreateContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateContentViewController.m; sourceTree = "<group>"; };
+		B9FD55851A415665006AE066 /* Content.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Content.xcassets; sourceTree = "<group>"; };
+		B9FD55871A4157C4006AE066 /* NavBar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = NavBar.xcassets; sourceTree = "<group>"; };
+		B9FD55891A4157EF006AE066 /* Create.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Create.xcassets; sourceTree = "<group>"; };
 		C2B542139EC1BE1E94B41BEC /* Pods-TokenApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,8 +188,11 @@
 				B9145C921A3D042200A88B94 /* NavTabBarController.m */,
 				B9FD557C1A414DC4006AE066 /* Content */,
 				B9F2366C1A3A468B00E485CE /* Login.xcassets */,
+				B9FD55851A415665006AE066 /* Content.xcassets */,
+				B9FD55891A4157EF006AE066 /* Create.xcassets */,
 				B9F2366E1A3A46D300E485CE /* Profile.xcassets */,
 				25A72F381A319CF30076AE07 /* Images.xcassets */,
+				B9FD55871A4157C4006AE066 /* NavBar.xcassets */,
 				B991FD8E1A3E6C8B00BB902F /* Default@3x.png */,
 				25A72F3A1A319CF30076AE07 /* LaunchScreen.xib */,
 				25A72F2B1A319CF20076AE07 /* Supporting Files */,
@@ -389,10 +398,13 @@
 			files = (
 				25A72F371A319CF20076AE07 /* Main.storyboard in Resources */,
 				B991FD8F1A3E6C8B00BB902F /* Default@3x.png in Resources */,
+				B9FD558A1A4157EF006AE066 /* Create.xcassets in Resources */,
 				B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */,
 				25A72F3C1A319CF30076AE07 /* LaunchScreen.xib in Resources */,
 				25A72F391A319CF30076AE07 /* Images.xcassets in Resources */,
+				B9FD55881A4157C4006AE066 /* NavBar.xcassets in Resources */,
 				B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */,
+				B9FD55861A415665006AE066 /* Content.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
