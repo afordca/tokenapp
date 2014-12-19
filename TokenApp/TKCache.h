@@ -27,6 +27,9 @@
 - (void)incrementCommentCountForPhoto:(PFObject *)photo;
 - (void)decrementCommentCountForPhoto:(PFObject *)photo;
 
+-(void)setAttributesForVideo:(PFObject *)video;
+
+
 - (NSDictionary *)attributesForUser:(PFUser *)user;
 - (NSNumber *)photoCountForUser:(PFUser *)user;
 - (BOOL)followStatusForUser:(PFUser *)user;

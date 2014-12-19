@@ -21,9 +21,15 @@
 @property UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
 @property UIBackgroundTaskIdentifier photoPostBackgroundTaskId;
 
+
 @end
 
+
+
 @implementation EditPhotoViewController
+
+@synthesize photo;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -148,7 +154,7 @@
         if (succeeded) {
             NSLog(@"Photo uploaded");
 
-            [[PAPCache sharedCache] setAttributesForPhoto:photo likers:[NSArray array] commenters:[NSArray array] likedByCurrentUser:NO];
+            [[TKCache sharedCache] setAttributesForPhoto:photo likers:[NSArray array] commenters:[NSArray array] likedByCurrentUser:NO];
 
             // userInfo might contain any caption which might have been posted by the uploader
             if (userInfo) {
@@ -168,11 +174,11 @@
                     comment.ACL = ACL;
 
                     [comment saveEventually];
-                    [[PAPCache sharedCache] incrementCommentCountForPhoto:photo];
+                    [[TKCache sharedCache] incrementCommentCountForPhoto:photo];
                 }
             }
 
-            [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PTKTabBarControllerDidFinishEditingPhotoNotification object:photo];
         } else {
             NSLog(@"Photo failed to save: %@", error);
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];

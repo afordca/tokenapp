@@ -59,4 +59,8 @@ extern NSString *const kPTKPhotoAttributesCommentersKey;
 extern NSString *const kPTKUserAttributesPhotoCountKey;
 extern NSString *const kPTKUserAttributesIsFollowedByCurrentUserKey;
 
+#pragma mark - User Info Keys
+NSString *const PTKPhotoDetailsViewControllerUserLikedUnlikedPhotoNotificationUserInfoLikedKey = @"liked";
+NSString *const kPTKEditPhotoViewControllerUserInfoCommentKey = @"comment";
+
 

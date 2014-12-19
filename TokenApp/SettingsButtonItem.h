@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingsButtonItem : UIBarButtonItem
+- (id)initWithTarget:(id)target action:(SEL)action;
+
 
 @end
