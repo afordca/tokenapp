@@ -173,6 +173,16 @@
 
 }
 
+-(void)cameraButtonAction
+
+-(BOOL)shouldStartVideoController
+
+-(BOOL)shouldStartVideoLibraryController
+
+
+
+
+
 
 -(void)handleGesture:(UIGestureRecognizer *)gestureRecognizer {
     [self shouldPresentPhotoCaptureController];

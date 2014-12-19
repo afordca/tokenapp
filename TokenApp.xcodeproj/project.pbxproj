@@ -41,8 +41,9 @@
 		B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366E1A3A46D300E485CE /* Profile.xcassets */; };
 		B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */; };
 		B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236741A3A7CF700E485CE /* NavigationViewController.m */; };
+		B9F359D31A43AEBF00476FF7 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F359D21A43AEBF00476FF7 /* Constants.m */; };
+		B9F359D61A43B22A00476FF7 /* TKCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F359D51A43B22A00476FF7 /* TKCache.m */; };
 		B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */; };
-		B9FD557F1A414FAB006AE066 /* PhotoDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FD557E1A414FAB006AE066 /* PhotoDetailsTableViewController.m */; };
 		B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FD55811A415443006AE066 /* CreateContentViewController.m */; };
 		B9FD55861A415665006AE066 /* Content.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9FD55851A415665006AE066 /* Content.xcassets */; };
 		B9FD55881A4157C4006AE066 /* NavBar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9FD55871A4157C4006AE066 /* NavBar.xcassets */; };
@@ -117,10 +118,12 @@
 		B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedViewController.m; sourceTree = "<group>"; };
 		B9F236731A3A7CF600E485CE /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		B9F236741A3A7CF700E485CE /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
+		B9F359D11A43AE7600476FF7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		B9F359D21A43AEBF00476FF7 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		B9F359D41A43B22A00476FF7 /* TKCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKCache.h; sourceTree = "<group>"; };
+		B9F359D51A43B22A00476FF7 /* TKCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKCache.m; sourceTree = "<group>"; };
 		B9FD55791A414B10006AE066 /* EditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPhotoViewController.h; sourceTree = "<group>"; };
 		B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
-		B9FD557D1A414FAB006AE066 /* PhotoDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDetailsTableViewController.h; sourceTree = "<group>"; };
-		B9FD557E1A414FAB006AE066 /* PhotoDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailsTableViewController.m; sourceTree = "<group>"; };
 		B9FD55801A415443006AE066 /* CreateContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateContentViewController.h; sourceTree = "<group>"; };
 		B9FD55811A415443006AE066 /* CreateContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateContentViewController.m; sourceTree = "<group>"; };
 		B9FD55851A415665006AE066 /* Content.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Content.xcassets; sourceTree = "<group>"; };
@@ -185,6 +188,10 @@
 			children = (
 				25A72F351A319CF20076AE07 /* Main.storyboard */,
 				B9145C901A3CFA4C00A88B94 /* Macros.h */,
+				B9F359D11A43AE7600476FF7 /* Constants.h */,
+				B9F359D21A43AEBF00476FF7 /* Constants.m */,
+				B9F359D41A43B22A00476FF7 /* TKCache.h */,
+				B9F359D51A43B22A00476FF7 /* TKCache.m */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
 				B90CB7B61A42C05F0012CBF2 /* UIImage Categories */,
@@ -329,8 +336,6 @@
 			children = (
 				B9FD55801A415443006AE066 /* CreateContentViewController.h */,
 				B9FD55811A415443006AE066 /* CreateContentViewController.m */,
-				B9FD557D1A414FAB006AE066 /* PhotoDetailsTableViewController.h */,
-				B9FD557E1A414FAB006AE066 /* PhotoDetailsTableViewController.m */,
 				B9FD55791A414B10006AE066 /* EditPhotoViewController.h */,
 				B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */,
 			);
@@ -481,12 +486,12 @@
 				25A72F341A319CF20076AE07 /* ViewController.m in Sources */,
 				B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */,
 				25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */,
-				B9FD557F1A414FAB006AE066 /* PhotoDetailsTableViewController.m in Sources */,
 				B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */,
 				B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */,
 				B9145C931A3D042200A88B94 /* NavTabBarController.m in Sources */,
 				B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
+				B9F359D61A43B22A00476FF7 /* TKCache.m in Sources */,
 				B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */,
 				B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */,
 				B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */,
@@ -495,6 +500,7 @@
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
 				B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */,
 				B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */,
+				B9F359D31A43AEBF00476FF7 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
