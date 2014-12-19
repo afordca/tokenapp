@@ -39,7 +39,7 @@
     return self;
 }
 
-#pragma mark - PAPCache
+#pragma mark - PTKCache
 
 - (void)clear {
     [self.cache removeAllObjects];

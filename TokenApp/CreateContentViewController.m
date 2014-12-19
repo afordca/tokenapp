@@ -14,6 +14,7 @@
 @end
 
 @implementation CreateContentViewController
+
 @synthesize photoButton;
 
 - (void)viewDidLoad {
@@ -178,9 +179,6 @@
 -(BOOL)shouldStartVideoController
 
 -(BOOL)shouldStartVideoLibraryController
-
-
-
 
 
 

@@ -39,6 +39,7 @@
 		B991FD8F1A3E6C8B00BB902F /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B991FD8E1A3E6C8B00BB902F /* Default@3x.png */; };
 		B9D1A6AD1A44A23000BA2874 /* PTKContentDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D1A6AC1A44A23000BA2874 /* PTKContentDetailTableViewController.m */; };
 		B9D1A6B01A44A27700BA2874 /* SettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */; };
+		B9D1A6B31A44A89B00BA2874 /* TKUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D1A6B21A44A89B00BA2874 /* TKUtility.m */; };
 		B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366C1A3A468B00E485CE /* Login.xcassets */; };
 		B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366E1A3A46D300E485CE /* Profile.xcassets */; };
 		B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */; };
@@ -118,6 +119,8 @@
 		B9D1A6AC1A44A23000BA2874 /* PTKContentDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PTKContentDetailTableViewController.m; path = ../PTKContentDetailTableViewController.m; sourceTree = "<group>"; };
 		B9D1A6AE1A44A27700BA2874 /* SettingsButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsButtonItem.h; sourceTree = "<group>"; };
 		B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsButtonItem.m; sourceTree = "<group>"; };
+		B9D1A6B11A44A89B00BA2874 /* TKUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKUtility.h; sourceTree = "<group>"; };
+		B9D1A6B21A44A89B00BA2874 /* TKUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKUtility.m; sourceTree = "<group>"; };
 		B9F2366C1A3A468B00E485CE /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
 		B9F2366E1A3A46D300E485CE /* Profile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Profile.xcassets; sourceTree = "<group>"; };
 		B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedViewController.h; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				B9F236741A3A7CF700E485CE /* NavigationViewController.m */,
 				B9145C911A3D042200A88B94 /* NavTabBarController.h */,
 				B9145C921A3D042200A88B94 /* NavTabBarController.m */,
+				B9D1A6B11A44A89B00BA2874 /* TKUtility.h */,
+				B9D1A6B21A44A89B00BA2874 /* TKUtility.m */,
 				B9FD557C1A414DC4006AE066 /* Content */,
 				B9F2366C1A3A468B00E485CE /* Login.xcassets */,
 				B9FD55851A415665006AE066 /* Content.xcassets */,
@@ -512,6 +517,7 @@
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
 				B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */,
 				B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */,
+				B9D1A6B31A44A89B00BA2874 /* TKUtility.m in Sources */,
 				B9F359D31A43AEBF00476FF7 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,7 +10,7 @@
 
 #pragma mark - Activity Class
 // Class key
-NSString *const kPAPActivityClassKey = @"Activity";
+NSString *const kPTKActivityClassKey = @"Activity";
 
 // Field keys
 NSString *const kPTKActivityTypeKey        = @"type";
@@ -61,4 +61,8 @@ NSString *const kPTKPhotoAttributesCommentersKey           = @"commenters";
 // keys
 NSString *const kPTKUserAttributesPhotoCountKey                 = @"photoCount";
 NSString *const kPTKUserAttributesIsFollowedByCurrentUserKey    = @"isFollowedByCurrentUser";
+
+#pragma mark - User Info Keys
+NSString *const PTKPhotoDetailsViewControllerUserLikedUnlikedPhotoNotificationUserInfoLikedKey = @"liked";
+NSString *const kPTKEditPhotoViewControllerUserInfoCommentKey = @"comment";
 
