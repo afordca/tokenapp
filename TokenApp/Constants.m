@@ -56,6 +56,14 @@ NSString *const kPTKPhotoAttributesLikersKey               = @"likers";
 NSString *const kPTKPhotoAttributesCommentCountKey         = @"commentCount";
 NSString *const kPTKPhotoAttributesCommentersKey           = @"commenters";
 
+#pragma mark - Cached Video Attributes 
+//keys
+NSString *const kPTKVideoAttributesIsLikedByCurrentUserKey = @"isLikedByCurrentUser";
+NSString *const kPTKVideoAttributesLikeCountKey            = @"likeCount";
+NSString *const kPTKVideoAttibutesLikersKey                = @"likers";
+NSString *const kPTKVideoAttributesCommentCountKey         = @"commentCount";
+NSString *const kPTKVideoAttributesCommentersKey           = @"commenters";
+
 
 #pragma mark - Cached User Attributes
 // keys

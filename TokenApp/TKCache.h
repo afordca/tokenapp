@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 ABaselNotBasilProduction. All rights reserved.
 //
 
+//The purpose of this Support file is to provide custom caching behavior that can be used to quickly display up to date information about media. When the current user likes or comment on a given media we manually update the local cache as soon as the request is sent. This allows us to propogate the model change throughout the app without need to wait for the initial save request to finish and then refreshing the content.
+//So for example we can manually manage the like and comment information of images so that the UI stays responsive and accurate when the user likes and comments on photos. 
+
 #import <Foundation/Foundation.h>
 #import "Macros.h"
 

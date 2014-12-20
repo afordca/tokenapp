@@ -8,6 +8,10 @@
 
 #import "PFQueryTableViewController.h"
 
-@interface PTKContentDetailTableViewController : PFQueryTableViewController
+@interface PTKContentDetailTableViewController : PFQueryTableViewController <UITextFieldDelegate, UIActionSheetDelegate, PTKPhotoDetailsHeaderViewDelegate,PTKBaseTextCellDelegate>
+
+@property (nonatomic, strong) PFObject *photo;
+
+-(id)initWithPhoto: (PFObject*)aPhoto;
 
 @end

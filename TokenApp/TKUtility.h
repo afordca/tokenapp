@@ -32,6 +32,6 @@
 + (void)drawSideAndBottomDropShadowForRect:(CGRect)rect inContext:(CGContextRef)context;
 + (void)drawSideAndTopDropShadowForRect:(CGRect)rect inContext:(CGContextRef)context;
 
-+ (PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy
++ (PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy;
 
 @end

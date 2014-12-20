@@ -117,6 +117,7 @@
 }
 
 - (void)doneButtonAction:(id)sender {
+    //Trim the comment and save it in a dictionary for use later in a callback block.
     NSDictionary *userInfo = [NSDictionary dictionary];
     NSString *trimmedComment = [self.commentTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (trimmedComment.length != 0) {
@@ -125,6 +126,7 @@
                     nil];
     }
 
+    //Make sure there were no errors creating the image files
     if (!self.photoFile || !self.thumbnailFile) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
         [alert show];
@@ -149,7 +151,7 @@
         [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
     }];
 
-    // save
+    // save the Photo PFObject
     [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"Photo uploaded");
@@ -177,13 +179,16 @@
                     [[TKCache sharedCache] incrementCommentCountForPhoto:photo];
                 }
             }
-
+            //We cal NSNotification so that the timeline viewcontroller can refresh itself when the user
+            //visits the Timeline.
             [[NSNotificationCenter defaultCenter] postNotificationName:PTKTabBarControllerDidFinishEditingPhotoNotification object:photo];
         } else {
             NSLog(@"Photo failed to save: %@", error);
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
             [alert show];
         }
+        //Lastly we call the endBackgroundTask: method. This will suspend the application if it was
+        //currently in the background or cancel the request for background processing since everything was completeted while the app was in the foreground.
         [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
     }];
 

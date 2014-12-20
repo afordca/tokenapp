@@ -198,11 +198,7 @@
 				25A72F351A319CF20076AE07 /* Main.storyboard */,
 				B9D1A6AE1A44A27700BA2874 /* SettingsButtonItem.h */,
 				B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */,
-				B9145C901A3CFA4C00A88B94 /* Macros.h */,
-				B9F359D11A43AE7600476FF7 /* Constants.h */,
-				B9F359D21A43AEBF00476FF7 /* Constants.m */,
-				B9F359D41A43B22A00476FF7 /* TKCache.h */,
-				B9F359D51A43B22A00476FF7 /* TKCache.m */,
+				B9B61BC61A462E0F00A83987 /* Support */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
 				B90CB7B61A42C05F0012CBF2 /* UIImage Categories */,
@@ -210,13 +206,11 @@
 				B9452B9C1A40F2DD007FE801 /* Helper Classes */,
 				B9452B981A40EFC1007FE801 /* Login */,
 				B9452B9B1A40F2B9007FE801 /* Home */,
-				B9F236731A3A7CF600E485CE /* NavigationViewController.h */,
+				B9FD557C1A414DC4006AE066 /* Content */,
 				B9F236741A3A7CF700E485CE /* NavigationViewController.m */,
+				B9F236731A3A7CF600E485CE /* NavigationViewController.h */,
 				B9145C911A3D042200A88B94 /* NavTabBarController.h */,
 				B9145C921A3D042200A88B94 /* NavTabBarController.m */,
-				B9D1A6B11A44A89B00BA2874 /* TKUtility.h */,
-				B9D1A6B21A44A89B00BA2874 /* TKUtility.m */,
-				B9FD557C1A414DC4006AE066 /* Content */,
 				B9F2366C1A3A468B00E485CE /* Login.xcassets */,
 				B9FD55851A415665006AE066 /* Content.xcassets */,
 				B9FD55891A4157EF006AE066 /* Create.xcassets */,
@@ -342,6 +336,20 @@
 			children = (
 			);
 			name = "Take Media";
+			sourceTree = "<group>";
+		};
+		B9B61BC61A462E0F00A83987 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				B9D1A6B11A44A89B00BA2874 /* TKUtility.h */,
+				B9D1A6B21A44A89B00BA2874 /* TKUtility.m */,
+				B9F359D41A43B22A00476FF7 /* TKCache.h */,
+				B9F359D51A43B22A00476FF7 /* TKCache.m */,
+				B9145C901A3CFA4C00A88B94 /* Macros.h */,
+				B9F359D11A43AE7600476FF7 /* Constants.h */,
+				B9F359D21A43AEBF00476FF7 /* Constants.m */,
+			);
+			name = Support;
 			sourceTree = "<group>";
 		};
 		B9FD557C1A414DC4006AE066 /* Content */ = {
