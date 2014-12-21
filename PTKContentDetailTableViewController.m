@@ -11,7 +11,13 @@
 #import "Macros.h"
 #import "TKUtility.h"
 #import "TKCache.h"
+#import "ProfilePersonalViewController.h"
 //#import "MBProgressHUD.h"
+
+enum ActionSheetTags {
+    MainActionSheetTag = 0,
+    ConfirmDeleteActionSheetTag = 1
+};
 
 @interface PTKContentDetailTableViewController ()
 @property (nonatomic, strong) UITextField *commentTextField;
@@ -142,8 +148,65 @@
 
 }
 
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet.tag == MainActionSheetTag) {
+        if ([actionSheet destructiveButtonIndex] == buttonIndex) {
+            // prompt to delete
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Are you sure you want to delete this photo?", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Yes, delete photo", nil) otherButtonTitles:nil];
+            actionSheet.tag = ConfirmDeleteActionSheetTag;
+            [actionSheet showFromTabBar:self.tabBarController.tabBar];
+        } else {
+            [self activityButtonAction:actionSheet];
+        }
+    } else if (actionSheet.tag == ConfirmDeleteActionSheetTag) {
+        if ([actionSheet destructiveButtonIndex] == buttonIndex) {
+
+            [self shouldDeletePhoto];
+        }
+    }
+}
+
+
+
 #pragma mark ()
 
+- (void)showShareSheet {
+    [[self.photo objectForKey:kPTKPhotoPictureKey] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (!error) {
+            NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:3];
+
+            // Prefill caption if this is the original poster of the photo, and then only if they added a caption initially.
+            if ([[[PFUser currentUser] objectId] isEqualToString:[[self.photo objectForKey:kPTKPhotoUserKey] objectId]] && [self.objects count] > 0) {
+                PFObject *firstActivity = self.objects[0];
+                if ([[[firstActivity objectForKey:kPTKActivityFromUserKey] objectId] isEqualToString:[[self.photo objectForKey:kPTKPhotoUserKey] objectId]]) {
+                    NSString *commentString = [firstActivity objectForKey:kPTKActivityContentKey];
+                    [activityItems addObject:commentString];
+                }
+            }
+
+            [activityItems addObject:[UIImage imageWithData:data]];
+            [activityItems addObject:[NSURL URLWithString:[NSString stringWithFormat:@"https://anypic.org/#pic/%@", self.photo.objectId]]];
+
+            UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+            [self.navigationController presentViewController:activityViewController animated:YES completion:nil];
+        }
+    }];
+}
+
+- (void)handleCommentTimeout:(NSTimer *)aTimer {
+    [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"New Comment", nil) message:NSLocalizedString(@"Your comment will be posted next time there is an Internet connection.", nil)  delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Dismiss", nil), nil];
+    [alert show];
+}
+
+- (void)shouldPresentAccountViewForUser:(PFUser *)user {
+    ProfilePersonalViewController *accountViewController = [[ProfilePersonalViewController alloc] initWithStyle:UITableViewStylePlain];
+    NSLog(@"Presenting account view controller with user: %@", user);
+    [accountViewController setUser:user];
+    [self.navigationController pushViewController:accountViewController animated:YES];
+}
 - (BOOL)currentUserOwnsPhoto {
     return [[[self.photo objectForKey:kPTKPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]];
 }
