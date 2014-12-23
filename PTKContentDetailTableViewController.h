@@ -11,7 +11,12 @@
 @interface PTKContentDetailTableViewController : PFQueryTableViewController <UITextFieldDelegate, UIActionSheetDelegate, PTKPhotoDetailsHeaderViewDelegate,PTKBaseTextCellDelegate>
 
 @property (nonatomic, strong) PFObject *photo;
+//Array of the users that liked the photo 
+@property (nonatomic, strong) NSArray *likeUsers;
+//Like Button
+@property (nonatomic, strong) UIButton *likeButton;
 
 -(id)initWithPhoto: (PFObject*)aPhoto;
+
 
 @end

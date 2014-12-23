@@ -30,6 +30,7 @@ enum ActionSheetTags {
 
 @synthesize commentTextField;
 @synthesize photo;
+@synthesize likeUsers;
 
 #pragma mark - Initialization
 
@@ -278,7 +279,33 @@ enum ActionSheetTags {
     [[NSNotificationCenter defaultCenter] postNotificationName:photo object:[self.photo objectId]];
     [self.navigationController popViewControllerAnimated:YES];
 
+
+
 }
+
+-(void)setLikeButtonState:(BOOL)selected {
+    if (selected) {
+        [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake( -1.0f, 0.0f, 0.0f, 0.0f)];
+    } else {
+        [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake( 0.0f, 0.0f, 0.0f, 0.0f)];
+    }
+    [self.likeButton setSelected:selected];
+}
+
+
+
+-(void)reloadLikeBar {
+    self.likeUsers = [[TKCache sharedCache] likersForPhoto:self.photo];
+    [self setLikeButtonState:[[TKCache sharedCache] isPhotoLikedByCurrentUser:self.photo]];
+    [self.likeButton addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)didTapLikePhotoButtonAction:(UIButton *)button {
+    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapLikePhotoButton:photo:)]) {
+        [delegate photoHeaderView:self didTapLikePhotoButton:button photo:self.photo];
+    }
+}
+
 
 
 @end

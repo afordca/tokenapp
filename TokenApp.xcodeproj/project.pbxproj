@@ -37,6 +37,10 @@
 		B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */; };
 		B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */; };
 		B991FD8F1A3E6C8B00BB902F /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B991FD8E1A3E6C8B00BB902F /* Default@3x.png */; };
+		B9A4D3931A49161F00EDD2C9 /* PopularResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3921A49161F00EDD2C9 /* PopularResultsViewController.m */; };
+		B9A4D3961A49163F00EDD2C9 /* ExploreResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3951A49163F00EDD2C9 /* ExploreResultsViewController.m */; };
+		B9A4D39A1A4920BB00EDD2C9 /* CategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3991A4920BB00EDD2C9 /* CategoriesViewController.m */; };
+		B9A4D39D1A49253400EDD2C9 /* CreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D39C1A49253400EDD2C9 /* CreatePostViewController.m */; };
 		B9D1A6AD1A44A23000BA2874 /* PTKContentDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D1A6AC1A44A23000BA2874 /* PTKContentDetailTableViewController.m */; };
 		B9D1A6B01A44A27700BA2874 /* SettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */; };
 		B9D1A6B31A44A89B00BA2874 /* TKUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D1A6B21A44A89B00BA2874 /* TKUtility.m */; };
@@ -115,6 +119,14 @@
 		B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomActivityTableViewCell.h; sourceTree = "<group>"; };
 		B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomActivityTableViewCell.m; sourceTree = "<group>"; };
 		B991FD8E1A3E6C8B00BB902F /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@3x.png"; sourceTree = "<group>"; };
+		B9A4D3911A49161F00EDD2C9 /* PopularResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopularResultsViewController.h; path = ../PopularResultsViewController.h; sourceTree = "<group>"; };
+		B9A4D3921A49161F00EDD2C9 /* PopularResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PopularResultsViewController.m; path = ../PopularResultsViewController.m; sourceTree = "<group>"; };
+		B9A4D3941A49163F00EDD2C9 /* ExploreResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExploreResultsViewController.h; sourceTree = "<group>"; };
+		B9A4D3951A49163F00EDD2C9 /* ExploreResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExploreResultsViewController.m; sourceTree = "<group>"; };
+		B9A4D3981A4920BB00EDD2C9 /* CategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesViewController.h; sourceTree = "<group>"; };
+		B9A4D3991A4920BB00EDD2C9 /* CategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesViewController.m; sourceTree = "<group>"; };
+		B9A4D39B1A49253400EDD2C9 /* CreatePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePostViewController.h; sourceTree = "<group>"; };
+		B9A4D39C1A49253400EDD2C9 /* CreatePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePostViewController.m; sourceTree = "<group>"; };
 		B9D1A6AB1A44A23000BA2874 /* PTKContentDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PTKContentDetailTableViewController.h; path = ../PTKContentDetailTableViewController.h; sourceTree = "<group>"; };
 		B9D1A6AC1A44A23000BA2874 /* PTKContentDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PTKContentDetailTableViewController.m; path = ../PTKContentDetailTableViewController.m; sourceTree = "<group>"; };
 		B9D1A6AE1A44A27700BA2874 /* SettingsButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsButtonItem.h; sourceTree = "<group>"; };
@@ -196,8 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				25A72F351A319CF20076AE07 /* Main.storyboard */,
-				B9D1A6AE1A44A27700BA2874 /* SettingsButtonItem.h */,
-				B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */,
+				B9A4D3971A491BEA00EDD2C9 /* Discover */,
 				B9B61BC61A462E0F00A83987 /* Support */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
@@ -207,6 +218,12 @@
 				B9452B981A40EFC1007FE801 /* Login */,
 				B9452B9B1A40F2B9007FE801 /* Home */,
 				B9FD557C1A414DC4006AE066 /* Content */,
+				25F621451A3219800069A742 /* ProfilePersonalViewController.m */,
+				25F621441A3219800069A742 /* ProfilePersonalViewController.h */,
+				B9D1A6AE1A44A27700BA2874 /* SettingsButtonItem.h */,
+				B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */,
+				B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */,
+				B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */,
 				B9F236741A3A7CF700E485CE /* NavigationViewController.m */,
 				B9F236731A3A7CF600E485CE /* NavigationViewController.h */,
 				B9145C911A3D042200A88B94 /* NavTabBarController.h */,
@@ -314,10 +331,6 @@
 		B9452B9B1A40F2B9007FE801 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				25F621441A3219800069A742 /* ProfilePersonalViewController.h */,
-				25F621451A3219800069A742 /* ProfilePersonalViewController.m */,
-				B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */,
-				B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -336,6 +349,19 @@
 			children = (
 			);
 			name = "Take Media";
+			sourceTree = "<group>";
+		};
+		B9A4D3971A491BEA00EDD2C9 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				B9A4D3981A4920BB00EDD2C9 /* CategoriesViewController.h */,
+				B9A4D3991A4920BB00EDD2C9 /* CategoriesViewController.m */,
+				B9A4D3911A49161F00EDD2C9 /* PopularResultsViewController.h */,
+				B9A4D3921A49161F00EDD2C9 /* PopularResultsViewController.m */,
+				B9A4D3941A49163F00EDD2C9 /* ExploreResultsViewController.h */,
+				B9A4D3951A49163F00EDD2C9 /* ExploreResultsViewController.m */,
+			);
+			name = Discover;
 			sourceTree = "<group>";
 		};
 		B9B61BC61A462E0F00A83987 /* Support */ = {
@@ -359,6 +385,8 @@
 				B9D1A6AC1A44A23000BA2874 /* PTKContentDetailTableViewController.m */,
 				B9FD55801A415443006AE066 /* CreateContentViewController.h */,
 				B9FD55811A415443006AE066 /* CreateContentViewController.m */,
+				B9A4D39B1A49253400EDD2C9 /* CreatePostViewController.h */,
+				B9A4D39C1A49253400EDD2C9 /* CreatePostViewController.m */,
 				B9FD55791A414B10006AE066 /* EditPhotoViewController.h */,
 				B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */,
 			);
@@ -515,12 +543,16 @@
 				B9145C931A3D042200A88B94 /* NavTabBarController.m in Sources */,
 				B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */,
 				B9D1A6AD1A44A23000BA2874 /* PTKContentDetailTableViewController.m in Sources */,
+				B9A4D3961A49163F00EDD2C9 /* ExploreResultsViewController.m in Sources */,
+				B9A4D39A1A4920BB00EDD2C9 /* CategoriesViewController.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
 				B9F359D61A43B22A00476FF7 /* TKCache.m in Sources */,
 				B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */,
 				B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */,
 				B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */,
+				B9A4D39D1A49253400EDD2C9 /* CreatePostViewController.m in Sources */,
 				25ED67471A320DDF004CD269 /* LoginViewController.m in Sources */,
+				B9A4D3931A49161F00EDD2C9 /* PopularResultsViewController.m in Sources */,
 				25F621461A3219800069A742 /* ProfilePersonalViewController.m in Sources */,
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
 				B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */,
