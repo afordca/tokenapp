@@ -7,11 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavTabBarController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic, strong) NavTabBarController *tabBarController;
+@property (nonatomic, strong) UINavigationController *navController;
+
+@property (nonatomic, readonly) int networkStatus;
+
+-(BOOL)isParseReachable;
+
+-(void)presentLoginViewController;
+-(void)presentLoginViewController:(BOOL)animated;
+-(void)presentTabBarController;
+
+-(void)logOut;
+
+-(void)autoFollowUsers;
 
 @end
 

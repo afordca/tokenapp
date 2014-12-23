@@ -7,6 +7,8 @@
 //
 #import <Foundation/Foundation.h>
 
+//Reserve space for TabBarEnum
+
 #pragma mark - PFObject Activity Class
 // Class key
 extern NSString *const kPTKActivityClassKey;

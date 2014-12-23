@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CategoriesViewController : UIViewController
+@interface CategoriesViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+{
+    UICollectionView *_collectionView;
+}
 
 @end

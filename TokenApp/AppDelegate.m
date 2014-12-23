@@ -7,9 +7,21 @@
 //
 
 #import "AppDelegate.h"
+#import "MBProgressHUD.h"
 #import <Parse/Parse.h>
 
-@interface AppDelegate ()
+@interface AppDelegate (){
+    BOOL firstLaunch;
+}
+
+@property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) NSTimer *autoFollowTimer;
+
+
+-(void)setupAppearance;
+-(BOOL)shouldProceedToMainInterface:(PFUser*)user;
+-(BOOL)handleActionURL:(NSURL *)url;
+
 
 @end
 
@@ -46,6 +58,12 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - UITabBarControllerDelegate 
+
+-(BOOL)tabBarController:(UITabBarController*)aTabBarController shouldSelectViewController:(UIViewController *)viewController{
+    //
 }
 
 @end
