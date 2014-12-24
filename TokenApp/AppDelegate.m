@@ -66,4 +66,10 @@
     //
 }
 
+#pragma mark - AppDelegate
+
+-(BOOL)isParseReachable {
+    return self.networkStatus != NotReachable;
+}
+
 @end

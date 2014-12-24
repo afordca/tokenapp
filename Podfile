@@ -9,7 +9,7 @@ pod 'Facebook-iOS-SDK', '~> 3.21'
 pod 'SendGrid', '~> 0.3'
 pod 'ParseUI'
 pod 'MBProgressHUD', '~> 0.8'
-
+pod 'Reachability', '~> 3.2'
 end
 
 target 'TokenAppTests' do

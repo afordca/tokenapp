@@ -32,6 +32,7 @@ PODS:
   - ParseUI (1.0.2):
     - Parse (~> 1.5)
     - ParseFacebookUtils (~> 1.5)
+  - Reachability (3.2)
   - SendGrid (0.3.0):
     - AFNetworking (~> 2.0)
     - SMTPAPI
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.8)
   - Parse (~> 1.6)
   - ParseUI
+  - Reachability (~> 3.2)
   - SendGrid (~> 0.3)
 
 SPEC CHECKSUMS:
@@ -53,6 +55,7 @@ SPEC CHECKSUMS:
   Parse: f15dfacd941ee8084a5decbef486da8b223c2810
   ParseFacebookUtils: 8d33da72678c4c03a3b94332179dc04548bbd268
   ParseUI: 0eed358b238dcd66949ebc22513eba603e110087
+  Reachability: 1ef8adf5c4e3d362f96515d4278f68dad3c26930
   SendGrid: cc1980dee8b2fba2a82ad0ff41e02f92bc213e70
   SMTPAPI: 6dd830b6fb939e2cd288e68c455a44613ddbbbb5
 
