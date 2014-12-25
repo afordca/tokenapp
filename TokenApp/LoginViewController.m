@@ -13,9 +13,15 @@
 #import "ProfilePersonalViewController.h"
 #import "NavTabBarController.h"
 #import "ProfilePersonalViewController.h"
-#import <
+#import <MBProgressHUD.h>
+#import "AppDelegate.h"
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 
-@interface LoginViewController () <UITextFieldDelegate>
+@interface LoginViewController () {
+    FBLoginView *_facebookLoginView;
+}
+
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @property (strong, nonatomic) IBOutlet UITextField *textFieldUsername;
 @property (strong, nonatomic) IBOutlet UITextField *textFieldEmail;
@@ -34,7 +40,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.textFieldPassword.delegate = self;
+    if ([UIScreen mainScreen].bounds.size.height > 480.0f) {
+        // for the iPhone 5
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLogin-568h.png"]];
+    } else {
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLogin.png"]];
+    }
 
     CGFloat yPosition = 360.0f;
     if ([UIScreen mainScreen].bounds.size.height > 480.0f) {
@@ -64,6 +75,71 @@
         self.imageViewRepeatPassword.image = [UIImage imageNamed:@"highlight-password-field"];
     }
 }
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return toInterfaceOrientation == UIInterfaceOrientationPortrait;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+
+#pragma mark - FBLoginViewDelegate
+
+- (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
+    [self handleFacebookSession];
+}
+
+- (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
+    [self handleLogInError:error];
+}
+
+- (void)handleFacebookSession {
+    if ([PFUser currentUser]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(logInViewControllerDidLogUserIn)]) {
+            [self.delegate performSelector:@selector(logInViewController:DidLogUserIn:) withObject:[PFUser currentUser]];
+        }
+        return;
+    }
+
+    NSString *accessToken = [[[FBSession activeSession] accessTokenData] accessToken];
+    NSDate *expirationDate = [[[FBSession activeSession] accessTokenData] expirationDate];
+    NSString *facebookUserId = [[[FBSession activeSession] accessTokenData] userID];
+
+    if (!accessToken || !facebookUserId) {
+        NSLog(@"Login failure. FB Access Token or user ID does not exist");
+        return;
+    }
+
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+    // Unfortunately there are some issues with accessing the session provided from FBLoginView with the Parse SDK's (thread affinity)
+    // Just work around this by setting the session to nil, since the relevant values will be discarded anyway when linking with Parse (permissions flag on FBAccessTokenData)
+    // that we need to get back again with a refresh of the session
+    if ([[FBSession activeSession] respondsToSelector:@selector(clearAffinitizedThread)]) {
+        [[FBSession activeSession] performSelector:@selector(clearAffinitizedThread)];
+    }
+
+    [PFFacebookUtils logInWithFacebookId:facebookUserId
+                             accessToken:accessToken
+                          expirationDate:expirationDate
+                                   block:^(PFUser *user, NSError *error) {
+
+                                       if (!error) {
+                                           [self.hud removeFromSuperview];
+                                           if (self.delegate) {
+                                               if ([self.delegate respondsToSelector:@selector(logInViewControllerDidLogUserIn:)]) {
+                                                   [self.delegate performSelector:@selector(logInViewControllerDidLogUserIn:) withObject:user];
+                                               }
+                                           }
+                                       } else {
+                                           [self cancelLogIn:error];
+                                       }
+                                   }];
+}
+
+
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -178,74 +254,60 @@
     
 }
 
+#pragma mark - ()
 
+- (void)cancelLogIn:(NSError *)error {
 
-#pragma mark - IBActions
-
-- (IBAction)onSignUpButtonPressed:(id)sender
-{
-    [self.loadingIndicator setHidden:NO];
-    PFUser *user = [PFUser user];
-
-    NSString *username = [self.textFieldUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *email = [self.textFieldEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *password = [self.textFieldPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-    if (self.textFieldUsername.text.length == 0 || self.textFieldEmail.text.length == 0 || self.textFieldPassword.text.length == 0 || self.textFieldRepeatPassword.text.length == 0)
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Something is missing" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alertView show];
-        [self.loadingIndicator setHidden:YES];
+    if (error) {
+        [self handleLogInError:error];
     }
 
-    else if ([self.textFieldPassword.text length] < 6)
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Your password should be at least 6 characters long" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [self.hud removeFromSuperview];
+    [[FBSession activeSession] closeAndClearTokenInformation];
+    [PFUser logOut];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] presentLoginViewController:NO];
+}
+
+- (void)handleLogInError:(NSError *)error {
+    if (error) {
+        NSLog(@"Error: %@", [[error userInfo] objectForKey:@"com.facebook.sdk:ErrorLoginFailedReason"]);
+        NSString *title = NSLocalizedString(@"Login Error", @"Login error title in PAPLogInViewController");
+        NSString *message = NSLocalizedString(@"Something went wrong. Please try again.", @"Login error message in PAPLogInViewController");
+
+        if ([[[error userInfo] objectForKey:@"com.facebook.sdk:ErrorLoginFailedReason"] isEqualToString:@"com.facebook.sdk:UserLoginCancelled"]) {
+            return;
+        }
+
+        if (error.code == kPFErrorFacebookInvalidSession) {
+            NSLog(@"Invalid session, logging out.");
+            [[FBSession activeSession] closeAndClearTokenInformation];
+            return;
+        }
+
+        if (error.code == kPFErrorConnectionFailed) {
+            NSString *ok = NSLocalizedString(@"OK", @"OK");
+            NSString *title = NSLocalizedString(@"Offline Error", @"Offline Error");
+            NSString *message = NSLocalizedString(@"Something went wrong. Please try again.", @"Offline message");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                            message:message
+                                                           delegate:nil
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:ok, nil];
+            [alert show];
+
+            return;
+        }
+
+        NSString *ok = NSLocalizedString(@"OK", @"OK");
+
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:message
+                                                           delegate:self
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:ok, nil];
         [alertView show];
-        [self.loadingIndicator setHidden:YES];
-        self.textFieldPassword.text = @"";
-        self.textFieldRepeatPassword.text= @"";
-    }
-
-    else if (![self.textFieldPassword.text isEqualToString:self.textFieldRepeatPassword.text])
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Your passwords have to be the same" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alertView show];
-        [self.loadingIndicator setHidden:YES];
-    }
-
-    else
-    {
-        user.username = username;
-        user.email = email;
-        user.password = password;
-        [user setObject:@"Change your name" forKey:@"realName"];
-        [user setObject:@"Change your city" forKey:@"city"];
-        [user setObject:@"First of all, swipe up and you'll find an edit your profile page, there you'll be able to edit your city, name and the description about yourself." forKey:@"description"];
-        [user setObject:@"Interests" forKey:@"interests"];
-
-        NSData *dataFromImage = UIImagePNGRepresentation([UIImage imageNamed:@"placeholder2"]);
-        PFFile *imageFile = [PFFile fileWithName:@"image.png" data:dataFromImage];
-        [user setObject:imageFile forKey:@"profileImage"];
-
-        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (error) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:[NSString stringWithFormat: @"%@", [[error.userInfo objectForKey:@"error"] capitalizedString]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [alertView show];
-                [self.loadingIndicator setHidden:YES];
-            } else {
-                PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-                [currentInstallation setObject:[PFUser currentUser] forKey: @"userPointer"];
-                [currentInstallation saveEventually:^(BOOL succeeded, NSError *error) {
-                    if (error) { }
-                }];
-                [self.loadingIndicator setHidden:YES];
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
-        }];
     }
 }
 
-#pragma mark - Segue methods
 
 @end

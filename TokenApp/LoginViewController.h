@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Macros.h";
+#import "Macros.h"
 #import "Constants.h"
-#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <FacebookSDK.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+
+
 
 
 @protocol LoginViewControllerDelegate;

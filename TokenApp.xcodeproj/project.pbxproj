@@ -321,8 +321,8 @@
 		B9452B981A40EFC1007FE801 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				25ED67461A320DDF004CD269 /* LoginViewController.m */,
 				25ED67451A320DDF004CD269 /* LoginViewController.h */,
+				25ED67461A320DDF004CD269 /* LoginViewController.m */,
 				25A72F321A319CF20076AE07 /* ViewController.h */,
 				25A72F331A319CF20076AE07 /* ViewController.m */,
 				B948FBA41A3ABFF5000B6C7E /* SignUpViewController.h */,

@@ -128,14 +128,14 @@
         return;
     }
 
-    NSString *facebookId = [currentParseUser objectForKey:kPAPUserFacebookIDKey];
+    NSString *facebookId = [currentParseUser objectForKey:kPTKUserFacebookIDKey];
     if (!facebookId || ![facebookId length]) {
         // set the parse user's FBID
-        [currentParseUser setObject:session.accessTokenData.userID forKey:kPAPUserFacebookIDKey];
+        [currentParseUser setObject:session.accessTokenData.userID forKey:kPTKUserFacebookIDKey];
     }
 
-    if (![PAPUtility userHasValidFacebookData:currentParseUser]) {
-        NSLog(@"User does not have valid facebook ID. PFUser's FBID: %@, FBSessions FBID: %@. logout", [currentParseUser objectForKey:kPAPUserFacebookIDKey], session.accessTokenData.userID);
+    if (![TKUtility userHasValidFacebookData:currentParseUser]) {
+        NSLog(@"User does not have valid facebook ID. PFUser's FBID: %@, FBSessions FBID: %@. logout", [currentParseUser objectForKey:kPTKUserFacebookIDKey], session.accessTokenData.userID);
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
         return;
     }
@@ -202,7 +202,7 @@
                     NSLog(@"processing Facebook friends");
                     if (error) {
                         // just clear the FB friend cache
-                        [[TKUtility sharedCache] clear];
+                        [[TKCache sharedCache] clear];
                     } else {
                         NSArray *data = [result objectForKey:@"data"];
                         NSMutableArray *facebookIds = [[NSMutableArray alloc] initWithCapacity:[data count]];
@@ -212,12 +212,12 @@
                             }
                         }
                         // cache friend data
-                        [[PAPCache sharedCache] setFacebookFriends:facebookIds];
+                        [[TKCache sharedCache] setFacebookFriends:facebookIds];
 
                         if ([currentParseUser objectForKey:kPTKUserFacebookFriendsKey]) {
                             [currentParseUser removeObjectForKey:kPTKUserFacebookFriendsKey];
                         }
-                        if ([currentParseUser objectForKey:kPAPUserAlreadyAutoFollowedFacebookFriendsKey]) {
+                        if ([currentParseUser objectForKey:kPTKUserAlreadyAutoFollowedFacebookFriendsKey]) {
                             [(AppDelegate *)[[UIApplication sharedApplication] delegate] autoFollowUsers];
                         }
                     }
@@ -247,6 +247,25 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - NSURLConnectionDataDelegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    _profilePicData = [[NSMutableData alloc] init];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [_profilePicData appendData:data];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    [PAPUtility processFacebookProfilePictureData:_profilePicData];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    NSLog(@"Connection error downloading profile pic data: %@", error);
+}
+
 
 
 

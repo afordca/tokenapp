@@ -9,6 +9,11 @@
 
 //Reserve space for TabBarEnum
 
+
+#pragma mark - NSUserDefaults
+extern NSString *const kPAPUserDefaultsActivityFeedViewControllerLastRefreshKey;
+extern NSString *const kPAPUserDefaultsCacheFacebookFriendsKey;
+
 #pragma mark - PFObject Activity Class
 // Class key
 extern NSString *const kPTKActivityClassKey;

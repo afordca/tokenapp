@@ -15,6 +15,9 @@ NSString *const PTKTabBarControllerDidFinishImageFileUploadNotification         
 NSString *const PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification     = @"com.parse.Anypic.utility.userLikedUnlikedPhotoCallbackFinished";
 NSString *const PTKTabBarControllerDidFinishEditingPhotoNotification            = @"com.parse.Anypic.tabBarController.didFinishEditingPhoto";
 
+#pragma mark - NSUserDefaults
+NSString *const kTKUserDefaultsActivityFeedViewControllerLastRefreshKey    = @"com.parse.Anypic.userDefaults.activityFeedViewController.lastRefresh";
+NSString *const kTKUserDefaultsCacheFacebookFriendsKey                     = @"com.parse.Anypic.userDefaults.cache.facebookFriends";
 
 #pragma mark - Activity Class
 // Class key
