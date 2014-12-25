@@ -13,6 +13,8 @@
 #import "ProfilePersonalViewController.h"
 #import "NavTabBarController.h"
 #import "ProfilePersonalViewController.h"
+#import <
+
 @interface LoginViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *textFieldUsername;
@@ -33,6 +35,17 @@
 {
     [super viewDidLoad];
     self.textFieldPassword.delegate = self;
+
+    CGFloat yPosition = 360.0f;
+    if ([UIScreen mainScreen].bounds.size.height > 480.0f) {
+        yPosition = 450.0f;
+    }
+
+    _facebookLoginView = [[FBLoginView alloc] initWithReadPermissions:@[@"public_profile", @"user_friends", @"email", @"user_photos"]];
+    _facebookLoginView.frame = CGRectMake(36.0f, yPosition, 244.0f, 44.0f);
+    _facebookLoginView.delegate = self;
+    _facebookLoginView.tooltipBehavior = FBLoginViewTooltipBehaviorDisable;
+    [self.view addSubview:_facebookLoginView];
 
 
 }

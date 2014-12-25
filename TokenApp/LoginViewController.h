@@ -7,7 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Macros.h";
+#import "Constants.h"
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <FacebookSDK.h>
 
-@interface LoginViewController : UIViewController
+
+@protocol LoginViewControllerDelegate;
+
+@interface LoginViewController : UIViewController <FBLoginViewDelegate>
+
+@property (nonatomic, assign) id<LoginViewControllerDelegate> delegate;
 
 @end
+
+@protocol LoginViewControllerDelegate <NSObject>
+
+- (void)logInViewControllerDidLogUserIn:(LoginViewController *)logInViewController;
+
+
+@end
+

@@ -76,8 +76,14 @@
     return self.networkStatus != NotReachable;
 }
 
--(void)presentLoginViewController {
+-(void)presentTabBarViewController {
+    self.tabBarController = [[UINavigationController alloc]init];
     [self presentLoginViewController:YES];
+
+    HomeFeedViewController *homeFeedVC = [[HomeFeedViewController alloc]init];
+      UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[[UIImage imageNamed:@"Profile.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconHomeSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [homeFeedVC setTabBarItem:homeTabBarItem];
+
 }
 
 //-(void)presenTabBarController {
@@ -87,7 +93,7 @@
 //
 //    UINavigationController *activityFeedNavigationController = [[UINavigationController alloc]init];
 //
-// image:<#(UIImage *)#> selectedImage:<#(UIImage *)#>]
+// image:selectedImage:
 //
 //
 //}
