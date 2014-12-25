@@ -48,6 +48,11 @@
 		B9D393331A4BCC5D00C7733A /* TKHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D393321A4BCC5D00C7733A /* TKHomeViewController.m */; };
 		B9D393391A4BD5A100C7733A /* TKContentTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D393381A4BD5A100C7733A /* TKContentTimelineViewController.m */; };
 		B9D3933D1A4BD6D000C7733A /* TKAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D3933C1A4BD6D000C7733A /* TKAccountViewController.m */; };
+		B9D393401A4BDD0D00C7733A /* CreateVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D3933F1A4BDD0D00C7733A /* CreateVideoViewController.m */; };
+		B9D393431A4BDD6100C7733A /* EditVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D393421A4BDD6100C7733A /* EditVideoViewController.m */; };
+		B9D393461A4BE0B800C7733A /* EditPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D393451A4BE0B800C7733A /* EditPostViewController.m */; };
+		B9D393491A4BE1D000C7733A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D393481A4BE1D000C7733A /* SearchViewController.m */; };
+		B9D3934C1A4BE20E00C7733A /* TrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D3934B1A4BE20E00C7733A /* TrendingViewController.m */; };
 		B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366C1A3A468B00E485CE /* Login.xcassets */; };
 		B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366E1A3A46D300E485CE /* Profile.xcassets */; };
 		B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */; };
@@ -145,6 +150,16 @@
 		B9D393381A4BD5A100C7733A /* TKContentTimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKContentTimelineViewController.m; path = ../TKContentTimelineViewController.m; sourceTree = "<group>"; };
 		B9D3933B1A4BD6D000C7733A /* TKAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKAccountViewController.h; sourceTree = "<group>"; };
 		B9D3933C1A4BD6D000C7733A /* TKAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKAccountViewController.m; sourceTree = "<group>"; };
+		B9D3933E1A4BDD0D00C7733A /* CreateVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateVideoViewController.h; sourceTree = "<group>"; };
+		B9D3933F1A4BDD0D00C7733A /* CreateVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateVideoViewController.m; sourceTree = "<group>"; };
+		B9D393411A4BDD6100C7733A /* EditVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditVideoViewController.h; sourceTree = "<group>"; };
+		B9D393421A4BDD6100C7733A /* EditVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditVideoViewController.m; sourceTree = "<group>"; };
+		B9D393441A4BE0B800C7733A /* EditPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPostViewController.h; sourceTree = "<group>"; };
+		B9D393451A4BE0B800C7733A /* EditPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPostViewController.m; sourceTree = "<group>"; };
+		B9D393471A4BE1D000C7733A /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		B9D393481A4BE1D000C7733A /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		B9D3934A1A4BE20E00C7733A /* TrendingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendingViewController.h; sourceTree = "<group>"; };
+		B9D3934B1A4BE20E00C7733A /* TrendingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendingViewController.m; sourceTree = "<group>"; };
 		B9F2366C1A3A468B00E485CE /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
 		B9F2366E1A3A46D300E485CE /* Profile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Profile.xcassets; sourceTree = "<group>"; };
 		B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedViewController.h; sourceTree = "<group>"; };
@@ -361,6 +376,10 @@
 		B9A4D3971A491BEA00EDD2C9 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				B9D393471A4BE1D000C7733A /* SearchViewController.h */,
+				B9D393481A4BE1D000C7733A /* SearchViewController.m */,
+				B9D3934A1A4BE20E00C7733A /* TrendingViewController.h */,
+				B9D3934B1A4BE20E00C7733A /* TrendingViewController.m */,
 				B9A4D3981A4920BB00EDD2C9 /* CategoriesViewController.h */,
 				B9A4D3991A4920BB00EDD2C9 /* CategoriesViewController.m */,
 				B9A4D3911A49161F00EDD2C9 /* PopularResultsViewController.h */,
@@ -405,10 +424,16 @@
 				B9D1A6AC1A44A23000BA2874 /* PTKContentDetailTableViewController.m */,
 				B9FD55801A415443006AE066 /* CreateContentViewController.h */,
 				B9FD55811A415443006AE066 /* CreateContentViewController.m */,
-				B9A4D39B1A49253400EDD2C9 /* CreatePostViewController.h */,
-				B9A4D39C1A49253400EDD2C9 /* CreatePostViewController.m */,
 				B9FD55791A414B10006AE066 /* EditPhotoViewController.h */,
 				B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */,
+				B9D3933E1A4BDD0D00C7733A /* CreateVideoViewController.h */,
+				B9D3933F1A4BDD0D00C7733A /* CreateVideoViewController.m */,
+				B9D393411A4BDD6100C7733A /* EditVideoViewController.h */,
+				B9D393421A4BDD6100C7733A /* EditVideoViewController.m */,
+				B9A4D39B1A49253400EDD2C9 /* CreatePostViewController.h */,
+				B9A4D39C1A49253400EDD2C9 /* CreatePostViewController.m */,
+				B9D393441A4BE0B800C7733A /* EditPostViewController.h */,
+				B9D393451A4BE0B800C7733A /* EditPostViewController.m */,
 			);
 			name = Content;
 			sourceTree = "<group>";
@@ -555,14 +580,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A72F341A319CF20076AE07 /* ViewController.m in Sources */,
+				B9D393431A4BDD6100C7733A /* EditVideoViewController.m in Sources */,
 				B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */,
 				B90C76401A4B9A860025BA6E /* TKWelcomeViewController.m in Sources */,
 				25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */,
+				B9D393401A4BDD0D00C7733A /* CreateVideoViewController.m in Sources */,
 				B9D1A6B01A44A27700BA2874 /* SettingsButtonItem.m in Sources */,
 				B9D393331A4BCC5D00C7733A /* TKHomeViewController.m in Sources */,
 				B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */,
 				B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */,
 				B9145C931A3D042200A88B94 /* NavTabBarController.m in Sources */,
+				B9D3934C1A4BE20E00C7733A /* TrendingViewController.m in Sources */,
 				B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */,
 				B9D393391A4BD5A100C7733A /* TKContentTimelineViewController.m in Sources */,
 				B9D1A6AD1A44A23000BA2874 /* PTKContentDetailTableViewController.m in Sources */,
@@ -571,6 +599,7 @@
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
 				B9F359D61A43B22A00476FF7 /* TKCache.m in Sources */,
 				B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */,
+				B9D393491A4BE1D000C7733A /* SearchViewController.m in Sources */,
 				B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */,
 				B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */,
 				B9A4D39D1A49253400EDD2C9 /* CreatePostViewController.m in Sources */,
@@ -582,6 +611,7 @@
 				B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */,
 				B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */,
 				B9D1A6B31A44A89B00BA2874 /* TKUtility.m in Sources */,
+				B9D393461A4BE0B800C7733A /* EditPostViewController.m in Sources */,
 				B9F359D31A43AEBF00476FF7 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
