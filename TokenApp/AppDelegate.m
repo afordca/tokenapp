@@ -10,9 +10,11 @@
 #import "MBProgressHUD.h"
 #import <Parse/Parse.h>
 #import "Reachability.h"
-#import "HomeFeedViewController.h"
+#import "TKHomeViewController.h"
 #import "TKWelcomeViewController.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "TKCache.h"
+#import "Constants.h"
 
 @interface AppDelegate (){
     BOOL firstLaunch;
@@ -20,7 +22,8 @@
 
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSTimer *autoFollowTimer;
-@property TKWelcomeViewController *welcomeViewController;
+@property (nonatomic, strong) TKWelcomeViewController *welcomeViewController;
+@property (nonatomic, strong) TKHomeViewController *homeViewController;
 //@property (nonatomic, strong) HomeFeedViewController **activityViewController;
 
 
@@ -47,7 +50,7 @@
     //Set up global UI Appearance
 
     //Use Reachability to monitor connectivity
-    [self monitorReachibility];
+    [self monitorReachability];
 
     self.welcomeViewController = [[TKWelcomeViewController alloc]init];
 
@@ -137,24 +140,20 @@
     self.tabBarController = [[NavTabBarController alloc]init];
     [self presentLoginViewController:YES];
 
-    HomeFeedViewController *homeFeedVC = [[HomeFeedViewController alloc]init];
+    TKHomeViewController *tkhomeFeedVC = [[TKHomeViewController alloc]init];
       UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[[UIImage imageNamed:@"Profile.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconHomeSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [homeFeedVC setTabBarItem:homeTabBarItem];
+    [tkhomeFeedVC setTabBarItem:homeTabBarItem];
 
 }
 
 - (void)logOut {
     // clear cache
-    [[PAPCache sharedCache] clear];
+    [[TKCache sharedCache] clear];
 
     // clear NSUserDefaults
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPAPUserDefaultsCacheFacebookFriendsKey];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPAPUserDefaultsActivityFeedViewControllerLastRefreshKey];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTKUserDefaultsCacheFacebookFriendsKey];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTKUserDefaultsCacheFacebookFriendsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
-
-    // Unsubscribe from push notifications by removing the user association from the current installation.
-    [[PFInstallation currentInstallation] removeObjectForKey:kPAPInstallationUserKey];
-    [[PFInstallation currentInstallation] saveInBackground];
 
     // Clear all caches
     [PFQuery clearAllCachedResults];
@@ -169,7 +168,7 @@
     [self presentLoginViewController];
 
     self.homeViewController = nil;
-    self.activityViewController = nil;
+    //self.activityViewController = nil;
 }
 
 //-(void)presenTabBarController {
@@ -196,10 +195,10 @@
     hostReach.reachableBlock = ^(Reachability*reach) {
         _networkStatus = [reach currentReachabilityStatus];
 
-        if ([self isParseReachable] && [PFUser currentUser] && self.welcomeViewController.objects.count == 0) {
+        if ([self isParseReachable] && [PFUser currentUser] && self.homeViewController.objects.count == 0) {
             // Refresh home timeline on network restoration. Takes care of a freshly installed app that failed to load the main timeline under bad network conditions.
             // In this case, they'd see the empty timeline placeholder and have no way of refreshing the timeline unless they followed someone.
-            [self.welcomeViewController loadObjects];
+            [self.homeViewController loadObjects];
         }
     };
 

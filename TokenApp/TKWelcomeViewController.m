@@ -26,6 +26,7 @@
 
 @implementation TKWelcomeViewController
 
+
 #pragma mark - UIViewController 
 -(void)loadView {
     UIImageView *backgroundImageView = [[UIImageView alloc]initWithFrame:[[UIScreen mainScreen]applicationFrame]];
@@ -259,7 +260,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [PAPUtility processFacebookProfilePictureData:_profilePicData];
+    [TKUtility processFacebookProfilePictureData:_profilePicData];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {

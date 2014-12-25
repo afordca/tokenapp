@@ -11,8 +11,8 @@
 
 
 #pragma mark - NSUserDefaults
-extern NSString *const kPAPUserDefaultsActivityFeedViewControllerLastRefreshKey;
-extern NSString *const kPAPUserDefaultsCacheFacebookFriendsKey;
+extern NSString *const kTKUserDefaultsActivityFeedViewControllerLastRefreshKey;
+extern NSString *const kTKUserDefaultsCacheFacebookFriendsKey;
 
 #pragma mark - PFObject Activity Class
 // Class key

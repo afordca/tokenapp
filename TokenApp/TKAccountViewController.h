@@ -6,8 +6,13 @@
 //
 //
 
-#import "PFQueryTableViewController.h"
+#import "TKContentTimelineViewController.h"
 
-@interface TKAccountViewController : PFQueryTableViewController
+
+@interface TKAccountViewController : TKContentTimelineViewController
+
+@property (nonatomic, strong) PFUser *user;
+
+-(id)initWithUser:(PFUser *)aUser;
 
 @end

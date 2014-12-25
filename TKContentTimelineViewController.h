@@ -7,6 +7,7 @@
 //
 
 #import "PFQueryTableViewController.h"
+#import <Parse/Parse.h> 
 
 @interface TKContentTimelineViewController : PFQueryTableViewController
 

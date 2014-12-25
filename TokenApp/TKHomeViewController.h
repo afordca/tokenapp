@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TKContentTimelineViewController.h"
 
-@interface TKHomeViewController : UIViewController
+
+@interface TKHomeViewController : TKContentTimelineViewController
+
+@property (nonatomic, assign, getter= isFirstLaunch) BOOL isFirstLaunch;
 
 @end

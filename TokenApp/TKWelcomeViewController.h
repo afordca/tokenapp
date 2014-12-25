@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-//include loginViewcontroller here
+#include "LoginViewController.h"
 
 
-
-@interface TKWelcomeViewController : UIViewController
+@interface TKWelcomeViewController : UIViewController <LoginViewControllerDelegate>
 
 -(void)presentLoginViewController:(BOOL)animated;
 
