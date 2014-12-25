@@ -13,6 +13,8 @@
 #import "TKCache.h"
 #import "ProfilePersonalViewController.h"
 #import "MBProgressHUD.h"
+#import "ParseUI.h"
+//#import "PTKAcivityCell"
 
 enum ActionSheetTags {
     MainActionSheetTag = 0,
@@ -103,7 +105,9 @@ enum ActionSheetTags {
                 nameString = [commentAuthor objectForKey:kTKUserDisplayNameKey];
             }
 
-            return [PTKActivityCell heightForCellWithName:nameString contentString:commentString cellInsertWidth:kPTKCellInsertWidth];
+//            return [PTKActivityCell heightForCellWithName:nameString contentString:commentString cellInsertWidth:kPTKCellInsertWidth];
+
+            return 0;
 
         }
     }
@@ -143,11 +147,11 @@ enum ActionSheetTags {
     [self loadLikers];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
-    static NSString *cellID = @"CommentCell";
-
-
-}
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
+//    static NSString *cellID = @"CommentCell";
+//
+//
+//}
 
 #pragma mark - UIActionSheetDelegate
 
@@ -159,7 +163,7 @@ enum ActionSheetTags {
             actionSheet.tag = ConfirmDeleteActionSheetTag;
             [actionSheet showFromTabBar:self.tabBarController.tabBar];
         } else {
-            [self activityButtonAction:actionSheet];
+//            [self activityButtonAction:actionSheet];
         }
     } else if (actionSheet.tag == ConfirmDeleteActionSheetTag) {
         if ([actionSheet destructiveButtonIndex] == buttonIndex) {
@@ -202,12 +206,12 @@ enum ActionSheetTags {
     [alert show];
 }
 
-- (void)shouldPresentAccountViewForUser:(PFUser *)user {
-    ProfilePersonalViewController *accountViewController = [[ProfilePersonalViewController alloc] initWithStyle:UITableViewStylePlain];
-    NSLog(@"Presenting account view controller with user: %@", user);
-    [accountViewController setUser:user];
-    [self.navigationController pushViewController:accountViewController animated:YES];
-}
+//- (void)shouldPresentAccountViewForUser:(PFUser *)user {
+//    ProfilePersonalViewController *accountViewController = [[ProfilePersonalViewController alloc] initWithStyle:UITableViewStylePlain];
+//    NSLog(@"Presenting account view controller with user: %@", user);
+//    [accountViewController setUser:user];
+//    [self.navigationController pushViewController:accountViewController animated:YES];
+//}
 - (BOOL)currentUserOwnsPhoto {
     return [[[self.photo objectForKey:kPTKPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]];
 }
@@ -216,9 +220,9 @@ enum ActionSheetTags {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)userLikedOrUnlikedPhoto:(NSNotification *)note {
-    [self.headerView reloadLikeBar];
-}
+//- (void)userLikedOrUnlikedPhoto:(NSNotification *)note {
+//    [self.headerView reloadLikeBar];
+//}
 
 - (void)keyboardWillShow:(NSNotification*)note {
     // Scroll the view to the comment text box
@@ -299,12 +303,12 @@ enum ActionSheetTags {
     [self setLikeButtonState:[[TKCache sharedCache] isPhotoLikedByCurrentUser:self.photo]];
     [self.likeButton addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
 }
-
-- (void)didTapLikePhotoButtonAction:(UIButton *)button {
-    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapLikePhotoButton:photo:)]) {
-        [delegate photoHeaderView:self didTapLikePhotoButton:button photo:self.photo];
-    }
-}
+//
+//- (void)didTapLikePhotoButtonAction:(UIButton *)button {
+//    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapLikePhotoButton:photo:)]) {
+//        [delegate photoHeaderView:self didTapLikePhotoButton:button photo:self.photo];
+//    }
+//}
 
 
 

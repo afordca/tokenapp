@@ -8,6 +8,14 @@
 
 #import "Constants.h"
 
+#pragma mark - NSNotification 
+
+NSString *const PTKPhotoDetailsViewControllerUserDeletedPhotoNotification       = @"com.parse.Anypic.photoDetailsViewController.userDeletedPhoto";
+NSString *const PTKTabBarControllerDidFinishImageFileUploadNotification         = @"com.parse.Anypic.tabBarController.didFinishImageFileUploadNotification";
+NSString *const PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification     = @"com.parse.Anypic.utility.userLikedUnlikedPhotoCallbackFinished";
+NSString *const PTKTabBarControllerDidFinishEditingPhotoNotification            = @"com.parse.Anypic.tabBarController.didFinishEditingPhoto";
+
+
 #pragma mark - Activity Class
 // Class key
 NSString *const kPTKActivityClassKey = @"Activity";
@@ -22,12 +30,12 @@ NSString *const kPTKActivityPhotoKey       = @"photo";
 // Type values
 NSString *const kPAPActivityTypeLike       = @"like";
 NSString *const kPAPActivityTypeFollow     = @"follow";
-NSString *const kPAPActivityTypeComment    = @"comment";
+NSString *const kPTKActivityTypeComment    = @"comment";
 NSString *const kPAPActivityTypeJoined     = @"joined";
 
 #pragma mark - User Class
 // Field keys
-NSString *const kPTKUserDisplayNameKey                          = @"displayName";
+NSString *const kTKUserDisplayNameKey                          = @"displayName";
 NSString *const kPTKUserFacebookIDKey                           = @"facebookId";
 NSString *const kPTKUserPhotoIDKey                              = @"photoId";
 NSString *const kPTKUserProfilePicSmallKey                      = @"profilePictureSmall";

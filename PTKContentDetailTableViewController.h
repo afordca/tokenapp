@@ -8,7 +8,7 @@
 
 #import "PFQueryTableViewController.h"
 
-@interface PTKContentDetailTableViewController : PFQueryTableViewController <UITextFieldDelegate, UIActionSheetDelegate, PTKPhotoDetailsHeaderViewDelegate,PTKBaseTextCellDelegate>
+@interface PTKContentDetailTableViewController : PFQueryTableViewController <UITextFieldDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) PFObject *photo;
 //Array of the users that liked the photo 

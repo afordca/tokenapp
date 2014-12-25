@@ -11,6 +11,7 @@
 #import "Macros.h"
 #import "Constants.h"
 #import "TKCache.h"
+#import "PTKContentDetailTableViewController.h"
 
 
 @interface EditPhotoViewController ()
@@ -20,6 +21,7 @@
 @property PFFile *thumbnailFile;
 @property UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
 @property UIBackgroundTaskIdentifier photoPostBackgroundTaskId;
+@property (nonatomic, strong) UITextField *commentTextField;
 
 
 @end
@@ -112,7 +114,7 @@
         // Delete photo
         [self.photo deleteEventually];
     }];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserDeletedPhotoNotification object:[self.photo objectId]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PTKPhotoDetailsViewControllerUserDeletedPhotoNotification object:[self.photo objectId]];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -174,11 +174,11 @@
 
 }
 
--(void)cameraButtonAction
-
--(BOOL)shouldStartVideoController
-
--(BOOL)shouldStartVideoLibraryController
+//-(void)cameraButtonAction
+//
+//-(BOOL)shouldStartVideoController
+//
+//-(BOOL)shouldStartVideoLibraryController
 
 
 

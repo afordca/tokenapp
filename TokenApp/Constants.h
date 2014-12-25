@@ -66,4 +66,12 @@ extern NSString *const kPTKUserAttributesIsFollowedByCurrentUserKey;
 extern NSString *const PTKPhotoDetailsViewControllerUserLikedUnlikedPhotoNotificationUserInfoLikedKey;
 extern NSString *const kPTKEditPhotoViewControllerUserInfoCommentKey;
 
+#pragma mark - NSNotificaton 
+extern NSString *const PTKPhotoDetailsViewControllerUserDeletedPhotoNotification;
+extern NSString *const PTKTabBarControllerDidFinishEditingPhotoNotification;
+extern NSString *const PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification;
+
+
+
+
 

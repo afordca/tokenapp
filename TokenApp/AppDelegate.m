@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "MBProgressHUD.h"
 #import <Parse/Parse.h>
+#import "Reachability.h"
+#import "HomeFeedViewController.h"
+
 
 @interface AppDelegate (){
     BOOL firstLaunch;
@@ -16,6 +19,7 @@
 
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSTimer *autoFollowTimer;
+//@property (nonatomic, strong) HomeFeedViewController **activityViewController;
 
 
 -(void)setupAppearance;
@@ -62,14 +66,30 @@
 
 #pragma mark - UITabBarControllerDelegate 
 
--(BOOL)tabBarController:(UITabBarController*)aTabBarController shouldSelectViewController:(UIViewController *)viewController{
-    //
-}
+//-(BOOL)tabBarController:(UITabBarController*)aTabBarController shouldSelectViewController:(UIViewController *)viewController{
+//    //
+//}
 
 #pragma mark - AppDelegate
 
 -(BOOL)isParseReachable {
     return self.networkStatus != NotReachable;
 }
+
+-(void)presentLoginViewController {
+    [self presentLoginViewController:YES];
+}
+
+//-(void)presenTabBarController {
+//    self.tabBarController = [[NavTabBarController alloc]init];
+//    //Set up so that home view controller is firstLaunch
+//    self.activityViewController = [[HomeFeedViewController alloc]init];
+//
+//    UINavigationController *activityFeedNavigationController = [[UINavigationController alloc]init];
+//
+// image:<#(UIImage *)#> selectedImage:<#(UIImage *)#>]
+//
+//
+//}
 
 @end

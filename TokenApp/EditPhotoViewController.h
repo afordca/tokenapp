@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Macros.h"
+#import "ParseUI.h"
+#import "Constants.h"
 
 @interface EditPhotoViewController : UIViewController
 
 - (id)initWithImage:(UIImage *)aImage;
+@property (nonatomic,strong) PFObject *photo;
+
 
 @end
