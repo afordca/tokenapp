@@ -8,6 +8,7 @@
 
 #import "CreateContentViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
+#import "CreatePostViewController.h"
 
 @interface CreateContentViewController ()
 
@@ -80,6 +81,13 @@
 
 }
 
+-(void)presentPostView
+{
+    CreatePostViewController *postVC = [[CreatePostViewController alloc]init];
+
+
+
+}
 #pragma mark - NavBarController Stuff
 
 //-(BOOL)shouldPresentPhotoCaptureController

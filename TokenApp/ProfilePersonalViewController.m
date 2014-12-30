@@ -28,6 +28,37 @@
     [super viewDidLoad];
     [self getUserProfilePictureFromParse];
 
+    profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 8, 75, 75)];
+    profileImageView.layer.borderColor = [UIColor blackColor].CGColor;
+    profileImageView.layer.borderWidth = 1.0;
+    profileImageView.layer.cornerRadius = 2.0;
+
+    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/3 - 25, 4, 185, 16)];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+    nameLabel.text = @"Alex Ford-Carther";
+
+    quoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/3 - 35, 25, 195, 16)];
+    quoteLabel.numberOfLines = 1;
+    quoteLabel.textAlignment = NSTextAlignmentCenter;
+    quoteLabel.text = @"\"Striving to live life boldly with excellence\"";
+    quoteLabel.textColor = [UIColor grayColor];
+    quoteLabel.font = [UIFont fontWithName:@"Helvetica" size:9];
+
+    jobTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/3 - 35, 44, 195, 16)];
+    jobTitleLabel.numberOfLines = 1;
+    jobTitleLabel.textAlignment = NSTextAlignmentCenter;
+    jobTitleLabel.text = @"Founder & Team Leader - TOKEN";
+    jobTitleLabel.textColor = [UIColor grayColor];
+    jobTitleLabel.font = [UIFont fontWithName:@"Helvetica" size:9];
+
+    websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/3 - 35, 64, 195, 16)];
+    websiteLabel.numberOfLines = 1;
+    websiteLabel.textAlignment = NSTextAlignmentCenter;
+    websiteLabel.text = @"www.token.com";
+    websiteLabel.textColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0];
+    websiteLabel.font = [UIFont fontWithName:@"Helvetica" size:9];
+
 }
 
 - (void)didReceiveMemoryWarning {

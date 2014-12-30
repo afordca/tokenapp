@@ -138,7 +138,6 @@
 
 -(void)presentTabBarViewController {
     self.tabBarController = [[NavTabBarController alloc]init];
-    [self presentLoginViewController:YES];
 
     TKHomeViewController *tkhomeFeedVC = [[TKHomeViewController alloc]init];
       UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[[UIImage imageNamed:@"Profile.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconHomeSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
