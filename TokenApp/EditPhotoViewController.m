@@ -24,19 +24,14 @@
 @property (nonatomic, strong) UITextField *commentTextField;
 
 
-@end
 
+@end
 
 
 @implementation EditPhotoViewController
 
 @synthesize photo;
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
+@synthesize scrollView;
 
 - (id)initWithImage:(UIImage *)aImage {
     self = [super initWithNibName:nil bundle:nil];
@@ -52,12 +47,63 @@
     return self;
 }
 
+-(void)loadView
+{
+    self.scrollView = [[UIScrollView alloc]initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    self.scrollView.delegate = self;
+    self.scrollView.backgroundColor = [UIColor blackColor];
+    self.view = self.scrollView;
+
+    UIImageView *photoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 42.0f, 320.0f, 320.0f)];
+    [photoImageView setBackgroundColor:[UIColor blackColor]];
+    [photoImageView setImage:self.image];
+    [photoImageView setContentMode:UIViewContentModeScaleAspectFill];
+    // Do any additional setup after loading the view.
+
+    [self.scrollView addSubview:photoImageView];
+
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width, photoImageView.frame.origin.y + photoImageView.frame.size.height)];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    [self.navigationItem setHidesBackButton:YES];
+
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonAction:)];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
+    [self shouldUploadImage:self.image];
+    
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self doneButtonAction:textField];
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.commentTextField resignFirstResponder];
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - UIViewController 
+
+
 
 //The goal here is to store two versions of the photo in order to boost the performance of the UITableViews. 
 
@@ -97,6 +143,29 @@
     }];
 
     return YES;
+}
+
+
+- (void)keyboardWillShow:(NSNotification *)note {
+    CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGSize scrollViewContentSize = self.scrollView.bounds.size;
+    scrollViewContentSize.height += keyboardFrameEnd.size.height;
+    [self.scrollView setContentSize:scrollViewContentSize];
+
+    CGPoint scrollViewContentOffset = self.scrollView.contentOffset;
+    // Align the bottom edge of the photo with the keyboard
+    scrollViewContentOffset.y = scrollViewContentOffset.y + keyboardFrameEnd.size.height*3.0f - [UIScreen mainScreen].bounds.size.height;
+
+    [self.scrollView setContentOffset:scrollViewContentOffset animated:YES];
+}
+
+- (void)keyboardWillHide:(NSNotification *)note {
+    CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGSize scrollViewContentSize = self.scrollView.bounds.size;
+    scrollViewContentSize.height -= keyboardFrameEnd.size.height;
+    [UIView animateWithDuration:0.200f animations:^{
+        [self.scrollView setContentSize:scrollViewContentSize];
+    }];
 }
 
 
@@ -200,7 +269,7 @@
 
 -(void)cancelButtonAction:(id)sender
 {
-    //
+    [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 

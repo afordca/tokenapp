@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 ABaselNotBasilProduction. All rights reserved.
 //
 
+
+
 #import "AppDelegate.h"
 #import "MBProgressHUD.h"
 #import <Parse/Parse.h>
@@ -208,7 +210,16 @@
     [hostReach startNotifier];
 }
 
-
+#pragma mark passWord Recovery 
+//-(void)passWordRecovery
+//{
+//    NSString *emailString = textfield.text
+//    [PFUser requestPasswordResetForEmailInBackground:emailString block:^(BOOL succeeded, NSError *error) {
+//        if (error){
+//        UIAlertView *passwordError = [[UIAlertView alloc
+//        }
+//    }
+//}
 
 
 
