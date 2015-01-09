@@ -17,6 +17,7 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "TKCache.h"
 #import "Constants.h"
+#import "TKTabBarController.h"
 
 @interface AppDelegate (){
     BOOL firstLaunch;
@@ -139,7 +140,11 @@
 
 
 -(void)presentTabBarViewController {
-    self.tabBarController = [[NavTabBarController alloc]init];
+    self.tabBarController = [[TKTabBarController alloc]init];
+    self.homeViewController = [[TKHomeViewController alloc]initWithStyle:UITableViewStylePlain];
+    [self.homeViewController setFirstLaunch:firstLaunch];
+    self.activityViewController = [[]]
+
 
     TKHomeViewController *tkhomeFeedVC = [[TKHomeViewController alloc]init];
       UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[[UIImage imageNamed:@"Profile.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconHomeSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];

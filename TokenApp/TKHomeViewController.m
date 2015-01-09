@@ -13,6 +13,10 @@
 @end
 
 @implementation TKHomeViewController
+@synthesize firstLaunch;
+
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

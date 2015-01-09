@@ -34,8 +34,9 @@
 		B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B01A42C0410012CBF2 /* UIImage+AlphaAdditions.m */; };
 		B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B21A42C0410012CBF2 /* UIImage+ResizeAdditions.m */; };
 		B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B91278C31A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m */; };
-		B9145C931A3D042200A88B94 /* NavTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9145C921A3D042200A88B94 /* NavTabBarController.m */; };
 		B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */; };
+		B94B62D51A5F82E200C42FAF /* TKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = B94B62D41A5F82E200C42FAF /* TKTabBarController.m */; };
+		B94B62DB1A5F94E800C42FAF /* TKActivityFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B94B62DA1A5F94E800C42FAF /* TKActivityFeedViewController.m */; };
 		B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */; };
 		B991FD8F1A3E6C8B00BB902F /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B991FD8E1A3E6C8B00BB902F /* Default@3x.png */; };
 		B9A4D3931A49161F00EDD2C9 /* PopularResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3921A49161F00EDD2C9 /* PopularResultsViewController.m */; };
@@ -124,10 +125,12 @@
 		B91278C21A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCornerAdditions.h"; sourceTree = "<group>"; };
 		B91278C31A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCornerAdditions.m"; sourceTree = "<group>"; };
 		B9145C901A3CFA4C00A88B94 /* Macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
-		B9145C911A3D042200A88B94 /* NavTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTabBarController.h; sourceTree = "<group>"; };
-		B9145C921A3D042200A88B94 /* NavTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTabBarController.m; sourceTree = "<group>"; };
 		B948FBA41A3ABFF5000B6C7E /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		B94B62D31A5F82E200C42FAF /* TKTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKTabBarController.h; sourceTree = "<group>"; };
+		B94B62D41A5F82E200C42FAF /* TKTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKTabBarController.m; sourceTree = "<group>"; };
+		B94B62D91A5F94E800C42FAF /* TKActivityFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKActivityFeedViewController.h; sourceTree = "<group>"; };
+		B94B62DA1A5F94E800C42FAF /* TKActivityFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKActivityFeedViewController.m; sourceTree = "<group>"; };
 		B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomActivityTableViewCell.h; sourceTree = "<group>"; };
 		B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomActivityTableViewCell.m; sourceTree = "<group>"; };
 		B991FD8E1A3E6C8B00BB902F /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@3x.png"; sourceTree = "<group>"; };
@@ -257,8 +260,10 @@
 				B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */,
 				B9F236741A3A7CF700E485CE /* NavigationViewController.m */,
 				B9F236731A3A7CF600E485CE /* NavigationViewController.h */,
-				B9145C911A3D042200A88B94 /* NavTabBarController.h */,
-				B9145C921A3D042200A88B94 /* NavTabBarController.m */,
+				B94B62D31A5F82E200C42FAF /* TKTabBarController.h */,
+				B94B62D41A5F82E200C42FAF /* TKTabBarController.m */,
+				B94B62D91A5F94E800C42FAF /* TKActivityFeedViewController.h */,
+				B94B62DA1A5F94E800C42FAF /* TKActivityFeedViewController.m */,
 				B9F2366C1A3A468B00E485CE /* Login.xcassets */,
 				B9FD55851A415665006AE066 /* Content.xcassets */,
 				B9FD55891A4157EF006AE066 /* Create.xcassets */,
@@ -585,6 +590,7 @@
 			files = (
 				25A72F341A319CF20076AE07 /* ViewController.m in Sources */,
 				B9D393431A4BDD6100C7733A /* EditVideoViewController.m in Sources */,
+				B94B62D51A5F82E200C42FAF /* TKTabBarController.m in Sources */,
 				B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */,
 				B90C76401A4B9A860025BA6E /* TKWelcomeViewController.m in Sources */,
 				25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */,
@@ -592,8 +598,8 @@
 				B9D1A6B01A44A27700BA2874 /* SettingsButtonItem.m in Sources */,
 				B9D393331A4BCC5D00C7733A /* TKHomeViewController.m in Sources */,
 				B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */,
+				B94B62DB1A5F94E800C42FAF /* TKActivityFeedViewController.m in Sources */,
 				B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */,
-				B9145C931A3D042200A88B94 /* NavTabBarController.m in Sources */,
 				B9D3934C1A4BE20E00C7733A /* TrendingViewController.m in Sources */,
 				B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */,
 				B9D393391A4BD5A100C7733A /* TKContentTimelineViewController.m in Sources */,

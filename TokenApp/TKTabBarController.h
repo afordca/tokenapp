@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EditPhotoViewController.h"
 
-@interface TKTabBarController : NSObject
+
+
+@interface TKTabBarController : UITabBarController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+
+-(BOOL)shouldPresentPhotoCaptureController;
+
+@end
+
+@protocol TKTabBarControllerDelegate <NSObject>
+
+-(void)tabBarController:(UITabBarController *)tabBarController cameraButtonTouchUpInside:(UIButton*)button;
 
 @end

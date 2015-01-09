@@ -12,6 +12,6 @@
 
 @interface TKHomeViewController : TKContentTimelineViewController
 
-@property (nonatomic, assign, getter= isFirstLaunch) BOOL isFirstLaunch;
+@property (nonatomic, assign, getter = isFirstLaunch) BOOL firstLaunch;
 
 @end

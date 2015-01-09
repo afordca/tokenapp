@@ -10,4 +10,6 @@
 
 @interface TKActivityFeedViewController : PFQueryTableViewController
 
++(NSString *)stringForActivityType:(NSString *)activityType;
+
 @end
