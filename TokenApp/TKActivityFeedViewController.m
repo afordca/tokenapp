@@ -11,10 +11,12 @@
 #import "MBProgressHUD.h"
 #import "PTKContentDetailTableViewController.h"
 #import "TKCache.h"
+#import "PTKContentDetailTableViewController.h"
 
 
 @interface TKActivityFeedViewController ()
 
+//(nonatomic, strong) TKSettingsActionDelegate *settingsActionSheetDelegate;
 @property (nonatomic, strong) NSDate *lastRefresh;
 @property (nonatomic, strong) UIView *blankTimelineView;
 
@@ -22,6 +24,10 @@
 
 
 @implementation TKActivityFeedViewController
+
+@synthesize settingsActionSheetDelegate;
+@synthesize lastRefresh;
+@synthesize blankTimelineView;
 
 #pragma mark - Initialization 
 
@@ -60,9 +66,7 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 
     // Add Settings button
-    self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidReceiveRemoteNotification:) name:PAPAppDelegateApplicationDidReceiveRemoteNotification object:nil];
+    self.navigationItem.rightBarButtonItem = [[TKSettingsButton alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
 
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
 
@@ -72,7 +76,7 @@
     [button addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.blankTimelineView addSubview:button];
 
-    lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:kPAPUserDefaultsActivityFeedViewControllerLastRefreshKey];
+    lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:kTKUserDefaultsActivityFeedViewControllerLastRefreshKey];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -89,12 +93,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < self.objects.count) {
         PFObject *object = [self.objects objectAtIndex:indexPath.row];
-        NSString *activityString = [TK stringForActivityType:(NSString*)[object objectForKey:kPAPActivityTypeKey]];
+        NSString *activityString = [TKActivityFeedViewController stringForActivityType:(NSString*)[object objectForKey:kPTKActivityTypeKey]];
 
-        PFUser *user = (PFUser*)[object objectForKey:kPAPActivityFromUserKey];
+        PFUser *user = (PFUser*)[object objectForKey:kPTKActivityFromUserKey];
         NSString *nameString = NSLocalizedString(@"Someone", nil);
-        if (user && [user objectForKey:kPAPUserDisplayNameKey] && [[user objectForKey:kPAPUserDisplayNameKey] length] > 0) {
-            nameString = [user objectForKey:kPAPUserDisplayNameKey];
+        if (user && [user objectForKey:kTKUserDisplayNameKey] && [[user objectForKey:kTKUserDisplayNameKey] length] > 0) {
+            nameString = [user objectForKey:kTKUserDisplayNameKey];
         }
 
         return [TKActivityCell heightForCellWithName:nameString contentString:activityString];
@@ -107,13 +111,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row < self.objects.count) {
         PFObject *activity = [self.objects objectAtIndex:indexPath.row];
-        if ([activity objectForKey:kPAPActivityPhotoKey]) {
-            PAPPhotoDetailsViewController *detailViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:[activity objectForKey:kPAPActivityPhotoKey]];
+        if ([activity objectForKey:kPTKActivityPhotoKey]) {
+            PTKContentDetailTableViewController *detailViewController = [[PTKContentDetailTableViewController alloc] initWithPhoto:[activity objectForKey:kPTKActivityPhotoKey]];
             [self.navigationController pushViewController:detailViewController animated:YES];
-        } else if ([activity objectForKey:kPAPActivityFromUserKey]) {
+        } else if ([activity objectForKey:kPTKActivityFromUserKey]) {
             PAPAccountViewController *detailViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
-            NSLog(@"Presenting account view controller with user: %@", [activity objectForKey:kPAPActivityFromUserKey]);
-            [detailViewController setUser:[activity objectForKey:kPAPActivityFromUserKey]];
+            NSLog(@"Presenting account view controller with user: %@", [activity objectForKey:kPTKActivityFromUserKey]);
+            [detailViewController setUser:[activity objectForKey:kPTKActivityFromUserKey]];
             [self.navigationController pushViewController:detailViewController animated:YES];
         }
     } else if (self.paginationEnabled) {
@@ -232,7 +236,7 @@
 
 #pragma mark - PAPActivityCellDelegate Methods
 
-- (void)cell:(PAPActivityCell *)cellView didTapActivityButton:(PFObject *)activity {
+- (void)cell:(TKActivityCell *)cellView didTapActivityButton:(PFObject *)activity {
     // Get image associated with the activity
     PFObject *photo = [activity objectForKey:kPAPActivityPhotoKey];
 
@@ -241,7 +245,7 @@
     [self.navigationController pushViewController:photoViewController animated:YES];
 }
 
-- (void)cell:(PAPBaseTextCell *)cellView didTapUserButton:(PFUser *)user {
+- (void)cell:(TKBaseCellText *)cellView didTapUserButton:(PFUser *)user {
     // Push account view controller
     PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
     NSLog(@"Presenting account view controller with user: %@", user);
@@ -250,16 +254,16 @@
 }
 
 
-#pragma mark - PAPActivityFeedViewController
+#pragma mark - TKActivityFeedViewController
 
 + (NSString *)stringForActivityType:(NSString *)activityType {
-    if ([activityType isEqualToString:kPAPActivityTypeLike]) {
+    if ([activityType isEqualToString:kPTKActivityTypeLike]) {
         return NSLocalizedString(@"liked your photo", nil);
-    } else if ([activityType isEqualToString:kPAPActivityTypeFollow]) {
+    } else if ([activityType isEqualToString:kPTKActivityTypeFollow]) {
         return NSLocalizedString(@"started following you", nil);
-    } else if ([activityType isEqualToString:kPAPActivityTypeComment]) {
+    } else if ([activityType isEqualToString:kPTKActivityTypeComment]) {
         return NSLocalizedString(@"commented on your photo", nil);
-    } else if ([activityType isEqualToString:kPAPActivityTypeJoined]) {
+    } else if ([activityType isEqualToString:kPTKActivityTypeJoined]) {
         return NSLocalizedString(@"joined Anypic", nil);
     } else {
         return nil;
