@@ -18,6 +18,7 @@
 #import "TKCache.h"
 #import "Constants.h"
 #import "TKTabBarController.h"
+#import "TKActivityFeedViewController.h"
 
 @interface AppDelegate (){
     BOOL firstLaunch;
@@ -27,6 +28,7 @@
 @property (nonatomic, strong) NSTimer *autoFollowTimer;
 @property (nonatomic, strong) TKWelcomeViewController *welcomeViewController;
 @property (nonatomic, strong) TKHomeViewController *homeViewController;
+@property (nonatomic, strong) TKActivityFeedViewController *activityViewController;
 //@property (nonatomic, strong) HomeFeedViewController **activityViewController;
 
 
@@ -143,12 +145,34 @@
     self.tabBarController = [[TKTabBarController alloc]init];
     self.homeViewController = [[TKHomeViewController alloc]initWithStyle:UITableViewStylePlain];
     [self.homeViewController setFirstLaunch:firstLaunch];
-    self.activityViewController = [[]]
+    self.activityViewController = [[TKActivityFeedViewController alloc]initWithStyle:UITableViewStylePlain];
+
+    UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
+    UINavigationController *emptyNavigationController = [[UINavigationController alloc] init];
+    UINavigationController *activityFeedNavigationController = [[UINavigationController alloc] initWithRootViewController:self.activityViewController];
+
+    UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[[UIImage imageNamed:@"IconHome.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconHomeSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [homeTabBarItem setTitleTextAttributes: @{ NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateSelected];
+    [homeTabBarItem setTitleTextAttributes: @{ NSForegroundColorAttributeName: [UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateNormal];
+
+    UITabBarItem *activityFeedTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Activity", @"Activity") image:[[UIImage imageNamed:@"IconTimeline.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconTimelineSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [activityFeedTabBarItem setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateSelected];
+    [activityFeedTabBarItem setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateNormal];
+
+    [homeNavigationController setTabBarItem:homeTabBarItem];
+    [activityFeedNavigationController setTabBarItem:activityFeedTabBarItem];
+
+    self.tabBarController.delegate = self;
+    self.tabBarController.viewControllers = @[ homeNavigationController, emptyNavigationController, activityFeedNavigationController];
+
+    [self.navController setViewControllers:@[ self.welcomeViewController, self.tabBarController ] animated:NO];
 
 
-    TKHomeViewController *tkhomeFeedVC = [[TKHomeViewController alloc]init];
-      UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[[UIImage imageNamed:@"Profile.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconHomeSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [tkhomeFeedVC setTabBarItem:homeTabBarItem];
+
+
+//    TKHomeViewController *tkhomeFeedVC = [[TKHomeViewController alloc]init];
+//      UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[[UIImage imageNamed:@"Profile.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconHomeSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+//    [tkhomeFeedVC setTabBarItem:homeTabBarItem];
 
 }
 
@@ -156,10 +180,10 @@
     // clear cache
     [[TKCache sharedCache] clear];
 
-    // clear NSUserDefaults
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTKUserDefaultsCacheFacebookFriendsKey];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTKUserDefaultsCacheFacebookFriendsKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    // clear NSUserDefaults
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTKUserDefaultsCacheFacebookFriendsKey];
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTKUserDefaultsCacheFacebookFriendsKey];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
 
     // Clear all caches
     [PFQuery clearAllCachedResults];
