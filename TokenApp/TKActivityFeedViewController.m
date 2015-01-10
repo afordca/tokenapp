@@ -12,6 +12,7 @@
 #import "PTKContentDetailTableViewController.h"
 #import "TKCache.h"
 #import "PTKContentDetailTableViewController.h"
+#import "TKSettingsButtonItem.m"
 
 
 @interface TKActivityFeedViewController ()
@@ -66,7 +67,7 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 
     // Add Settings button
-    self.navigationItem.rightBarButtonItem = [[TKSettingsButton alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
+    self.navigationItem.rightBarButtonItem = [[TKSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
 
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
 
@@ -137,11 +138,11 @@
     }
 
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    [query whereKey:kPAPActivityToUserKey equalTo:[PFUser currentUser]];
-    [query whereKey:kPAPActivityFromUserKey notEqualTo:[PFUser currentUser]];
-    [query whereKeyExists:kPAPActivityFromUserKey];
-    [query includeKey:kPAPActivityFromUserKey];
-    [query includeKey:kPAPActivityPhotoKey];
+    [query whereKey:kPTKActivityToUserKey equalTo:[PFUser currentUser]];
+    [query whereKey:kPTKActivityFromUserKey notEqualTo:[PFUser currentUser]];
+    [query whereKeyExists:kPTKActivityFromUserKey];
+    [query includeKey:kPTKActivityFromUserKey];
+    [query includeKey:kPTKActivityPhotoKey];
     [query orderByDescending:@"createdAt"];
 
     [query setCachePolicy:kPFCachePolicyNetworkOnly];
@@ -161,7 +162,7 @@
     [super objectsDidLoad:error];
 
     lastRefresh = [NSDate date];
-    [[NSUserDefaults standardUserDefaults] setObject:lastRefresh forKey:kPAPUserDefaultsActivityFeedViewControllerLastRefreshKey];
+    [[NSUserDefaults standardUserDefaults] setObject:lastRefresh forKey:kTKUserDefaultsActivityFeedViewControllerLastRefreshKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
     [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -184,7 +185,7 @@
 
         NSUInteger unreadCount = 0;
         for (PFObject *activity in self.objects) {
-            if ([lastRefresh compare:[activity createdAt]] == NSOrderedAscending && ![[activity objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeJoined]) {
+            if ([lastRefresh compare:[activity createdAt]] == NSOrderedAscending && ![[activity objectForKey:kPTKActivityTypeKey] isEqualToString:kPTKActivityTypeJoined]) {
                 unreadCount++;
             }
         }

@@ -20,8 +20,8 @@
         //        [settingsButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         [settingsButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         [settingsButton setFrame:CGRectMake(0.0f, 0.0f, 35.0f, 32.0f)];
-        [settingsButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        [settingsButton setImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
+        [settingsButton setImage:[UIImage imageNamed:@"Settings@3x.png"] forState:UIControlStateNormal];
+        [settingsButton setImage:[UIImage imageNamed:@"Settings@2x.png"] forState:UIControlStateHighlighted];
     }
 
     return self;

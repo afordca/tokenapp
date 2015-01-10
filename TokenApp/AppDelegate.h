@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NavTabBarController.h"
+#import "TKTabBarController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (nonatomic, strong) NavTabBarController *tabBarController;
+@property (nonatomic, strong) TKTabBarController *tabBarController;
 @property (nonatomic, strong) UINavigationController *navController;
 
 @property (nonatomic, readonly) int networkStatus;

@@ -11,7 +11,7 @@
 #import <Parse/Parse.h>
 #import "Macros.h"
 #import "ProfilePersonalViewController.h"
-#import "NavTabBarController.h"
+#import "TKTabBarController.h"
 #import "ProfilePersonalViewController.h"
 #import <MBProgressHUD.h>
 #import "AppDelegate.h"
