@@ -12,12 +12,17 @@
 #import "PTKContentDetailTableViewController.h"
 #import "TKCache.h"
 #import "PTKContentDetailTableViewController.h"
-#import "TKSettingsButtonItem.m"
+#import "TKSettingsButtonItem.h"
+#import "TKActivityCell.h"
+#import "TKLoadMoreCell.h"
+#import "TKAccountViewController.h"
+#import "TKSettingsActionDelegate.h"
+
 
 
 @interface TKActivityFeedViewController ()
 
-//(nonatomic, strong) TKSettingsActionDelegate *settingsActionSheetDelegate;
+@property (nonatomic, strong) TKSettingsActionDelegate *settingsActionSheetDelegate;
 @property (nonatomic, strong) NSDate *lastRefresh;
 @property (nonatomic, strong) UIView *blankTimelineView;
 
@@ -26,7 +31,7 @@
 
 @implementation TKActivityFeedViewController
 
-@synthesize settingsActionSheetDelegate;
+//@synthesize settingsActionSheetDelegate;
 @synthesize lastRefresh;
 @synthesize blankTimelineView;
 
@@ -116,7 +121,7 @@
             PTKContentDetailTableViewController *detailViewController = [[PTKContentDetailTableViewController alloc] initWithPhoto:[activity objectForKey:kPTKActivityPhotoKey]];
             [self.navigationController pushViewController:detailViewController animated:YES];
         } else if ([activity objectForKey:kPTKActivityFromUserKey]) {
-            PAPAccountViewController *detailViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
+            TKAccountViewController *detailViewController = [[TKAccountViewController alloc] initWithStyle:UITableViewStylePlain];
             NSLog(@"Presenting account view controller with user: %@", [activity objectForKey:kPTKActivityFromUserKey]);
             [detailViewController setUser:[activity objectForKey:kPTKActivityFromUserKey]];
             [self.navigationController pushViewController:detailViewController animated:YES];
@@ -201,9 +206,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
     static NSString *CellIdentifier = @"ActivityCell";
 
-    PAPActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TKActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[PAPActivityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[TKActivityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         [cell setDelegate:self];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
@@ -224,9 +229,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *LoadMoreCellIdentifier = @"LoadMoreCell";
 
-    PAPLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:LoadMoreCellIdentifier];
+    TKLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:LoadMoreCellIdentifier];
     if (!cell) {
-        cell = [[PAPLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoadMoreCellIdentifier];
+        cell = [[TKLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoadMoreCellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.hideSeparatorBottom = YES;
         cell.mainView.backgroundColor = [UIColor clearColor];
@@ -239,16 +244,16 @@
 
 - (void)cell:(TKActivityCell *)cellView didTapActivityButton:(PFObject *)activity {
     // Get image associated with the activity
-    PFObject *photo = [activity objectForKey:kPAPActivityPhotoKey];
+    PFObject *photo = [activity objectForKey:kPTKActivityPhotoKey];
 
     // Push single photo view controller
-    PAPPhotoDetailsViewController *photoViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:photo];
+    PTKContentDetailTableViewController *photoViewController = [[PTKContentDetailTableViewController alloc] initWithPhoto:photo];
     [self.navigationController pushViewController:photoViewController animated:YES];
 }
 
 - (void)cell:(TKBaseCellText *)cellView didTapUserButton:(PFUser *)user {
     // Push account view controller
-    PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
+    TKAccountViewController *accountViewController = [[TKAccountViewController alloc] initWithStyle:UITableViewStylePlain];
     NSLog(@"Presenting account view controller with user: %@", user);
     [accountViewController setUser:user];
     [self.navigationController pushViewController:accountViewController animated:YES];

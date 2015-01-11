@@ -10,6 +10,7 @@ pod 'SendGrid', '~> 0.3'
 pod 'ParseUI'
 pod 'MBProgressHUD', '~> 0.8'
 pod 'Reachability', '~> 3.2'
+pod 'FormatterKit', '~> 1.7'
 end
 
 target 'TokenAppTests' do

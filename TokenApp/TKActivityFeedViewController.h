@@ -8,8 +8,8 @@
 
 #import "PFQueryTableViewController.h"
 
-@interface TKActivityFeedViewController : PFQueryTableViewController
+@interface TKActivityFeedViewController : PFQueryTableViewController 
 
-+(NSString *)stringForActivityType:(NSString *)activityType;
++ (NSString *)stringForActivityType:(NSString *)activityType;
 
 @end

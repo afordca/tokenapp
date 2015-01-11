@@ -145,11 +145,12 @@
     self.tabBarController = [[TKTabBarController alloc]init];
     self.homeViewController = [[TKHomeViewController alloc]initWithStyle:UITableViewStylePlain];
     [self.homeViewController setFirstLaunch:firstLaunch];
-    self.activityViewController = [[TKActivityFeedViewController alloc]initWithStyle:UITableViewStylePlain];
+    //self.activityViewController = [[TKActivityFeedViewController alloc]initWithStyle:UITableViewStylePlain];
 
     UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
     UINavigationController *emptyNavigationController = [[UINavigationController alloc] init];
-    UINavigationController *activityFeedNavigationController = [[UINavigationController alloc] initWithRootViewController:self.activityViewController];
+    //Temporary Test
+    UINavigationController *activityFeedNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
 
     UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[[UIImage imageNamed:@"IconHome.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconHomeSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [homeTabBarItem setTitleTextAttributes: @{ NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateSelected];

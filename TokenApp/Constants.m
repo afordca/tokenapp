@@ -31,10 +31,10 @@ NSString *const kPTKActivityContentKey     = @"content";
 NSString *const kPTKActivityPhotoKey       = @"photo";
 
 // Type values
-NSString *const kPAPActivityTypeLike       = @"like";
-NSString *const kPAPActivityTypeFollow     = @"follow";
+NSString *const kPTKActivityTypeLike       = @"like";
+NSString *const kPTKActivityTypeFollow     = @"follow";
 NSString *const kPTKActivityTypeComment    = @"comment";
-NSString *const kPAPActivityTypeJoined     = @"joined";
+NSString *const kPTKActivityTypeJoined     = @"joined";
 
 #pragma mark - User Class
 // Field keys
