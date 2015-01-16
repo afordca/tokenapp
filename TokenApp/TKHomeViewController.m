@@ -20,7 +20,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+    [titleView setImage:[UIImage imageNamed:@"MarkNav"]];
+    [self.navigationItem setTitleView:titleView];
+
+
 }
 
 - (void)didReceiveMemoryWarning {

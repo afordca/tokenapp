@@ -19,7 +19,7 @@
 #import "Constants.h"
 #import "TKTabBarController.h"
 #import "TKActivityFeedViewController.h"
-
+#import "ProfilePersonalViewController.h"
 @interface AppDelegate (){
     BOOL firstLaunch;
 }
@@ -27,6 +27,7 @@
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSTimer *autoFollowTimer;
 @property (nonatomic, strong) TKWelcomeViewController *welcomeViewController;
+@property (nonatomic, strong) ProfilePersonalViewController *profilePersonalController;
 @property (nonatomic, strong) TKHomeViewController *homeViewController;
 @property (nonatomic, strong) TKActivityFeedViewController *activityViewController;
 //@property (nonatomic, strong) HomeFeedViewController **activityViewController;
@@ -43,6 +44,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
     [Parse setApplicationId:@"dNPSXSwJgJXVxTxkbta8EmoFFouOI4TIXlO1kTiz"
                   clientKey:@"Dbxo2R7VxPwOv6ub5tQ9qK3sWwinkBCUQSqyUld3"];
     //Track app open
@@ -59,10 +63,12 @@
 
     self.welcomeViewController = [[TKWelcomeViewController alloc]init];
 
-    self.navController = [[UINavigationController alloc]initWithRootViewController:self.welcomeViewController];
+    self.activityViewController = [[TKActivityFeedViewController alloc]init];
+
+    self.navController = [[UINavigationController alloc]initWithRootViewController:self.activityViewController];
     self.navController.navigationBarHidden = YES;
 
-    self.window.rootViewController = self.navController;
+    self.window.rootViewController = self.activityViewController;
     [self.window makeKeyAndVisible];
 
     //Handle Push notifications here
@@ -145,7 +151,7 @@
     self.tabBarController = [[TKTabBarController alloc]init];
     self.homeViewController = [[TKHomeViewController alloc]initWithStyle:UITableViewStylePlain];
     [self.homeViewController setFirstLaunch:firstLaunch];
-    //self.activityViewController = [[TKActivityFeedViewController alloc]initWithStyle:UITableViewStylePlain];
+    self.activityViewController = [[TKActivityFeedViewController alloc]initWithStyle:UITableViewStylePlain];
 
     UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
     UINavigationController *emptyNavigationController = [[UINavigationController alloc] init];
@@ -164,7 +170,7 @@
     [activityFeedNavigationController setTabBarItem:activityFeedTabBarItem];
 
     self.tabBarController.delegate = self;
-    self.tabBarController.viewControllers = @[ homeNavigationController, emptyNavigationController, activityFeedNavigationController];
+    self.tabBarController.viewControllers = @[homeNavigationController, emptyNavigationController, activityFeedNavigationController];
 
     [self.navController setViewControllers:@[ self.welcomeViewController, self.tabBarController ] animated:NO];
 
@@ -270,6 +276,14 @@
 //        }
 //    }
 //}
+
+- (BOOL)shouldProceedToMainInterface:(PFUser *)user {
+    [MBProgressHUD hideHUDForView:self.navController.presentedViewController.view animated:YES];
+    [self presentTabBarViewController];
+
+    [self.navController dismissViewControllerAnimated:YES completion:nil];
+    return YES;
+}
 
 
 

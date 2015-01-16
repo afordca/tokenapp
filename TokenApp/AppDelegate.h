@@ -22,7 +22,7 @@
 
 -(void)presentLoginViewController;
 -(void)presentLoginViewController:(BOOL)animated;
--(void)presentTabBarController;
+-(void)presentTabBarViewController;
 
 -(void)logOut;
 

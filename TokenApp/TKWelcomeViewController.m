@@ -29,8 +29,10 @@
 
 #pragma mark - UIViewController 
 -(void)loadView {
+    NSLog(@"Loadinghere");
     UIImageView *backgroundImageView = [[UIImageView alloc]initWithFrame:[[UIScreen mainScreen]applicationFrame]];
-    [backgroundImageView setImage:[UIImage imageNamed:@"Splash-iphone6plus@3x.png"]];
+    [backgroundImageView setImage:[UIImage imageNamed:@"Splash-iphone6plus"]];
+    NSLog(@"Load image here");
     self.view = backgroundImageView;
 }
 
@@ -46,15 +48,38 @@
 
     //Present the UI
 
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] presentTabBarController];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] presentTabBarViewController];
 
     //Refresh the current user with server side data == checks if user is still valid and so on
     _facebookResponseCount = 0;
     [[PFUser currentUser] fetchInBackgroundWithTarget:self selector:@selector(refreshCurrentUserCallbackWithResult:error:)];
 
+    //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default@3x.png"]];
+
+    // Creating image view that will hold mark Image
+    // MarkImageView is on hold for time being
+    // markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(147.5, 35, 80, 80)];
+    // [markImageView setImage:[UIImage imageNamed:@"Mark"]];
+
+    // Creating image view that will hold token logo
+    logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(37.5, 140, 300, 76)];
+    [logoImageView setImage:[UIImage imageNamed:@"Logo"]];
+
+    // Creating login button
+    loginButton = [[UIButton alloc] initWithFrame:CGRectMake(37.5, 585, 300, 40)];
+
+    // Creating sign up button
+    signUpButton = [[UIButton alloc] initWithFrame:CGRectMake(37.5, 535, 300, 40)];
+
+    // Setting the button title to SIGN UP
+    [signUpButton setTitle:@"SIGN UP" forState:UIControlStateNormal];
+
+    // Setting the button title to LOGIN
+    [loginButton setTitle:@"LOGIN" forState:UIControlStateNormal];
+
 }
 
-#pragma mark - TKWelcomeViewController 
+#pragma mark - TKWelcomeViewController
 
 -(void)presentLoginViewController:(BOOL)animated{
     if (_presentedLoginViewController){

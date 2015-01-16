@@ -8,7 +8,6 @@
 
 #import "TKContentTimelineViewController.h"
 
-
 @interface TKAccountViewController : TKContentTimelineViewController
 
 @property (nonatomic, strong) PFUser *user;

@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *Tokens;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) UIWindow *window;
+
 
 
 
@@ -26,8 +28,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getUserProfilePictureFromParse];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
+    NSLog(@"Entro");
     profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 8, 75, 75)];
     profileImageView.layer.borderColor = [UIColor blackColor].CGColor;
     profileImageView.layer.borderWidth = 1.0;

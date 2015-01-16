@@ -89,6 +89,7 @@
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     [self handleFacebookSession];
+    NSLog(@"Facebook pressed");
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
