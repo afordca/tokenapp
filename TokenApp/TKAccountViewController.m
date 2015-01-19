@@ -33,7 +33,7 @@
         self.user = aUser;
 
         if (!aUser) {
-            [NSException raise:NSInvalidArgumentException format:@"PAPAccountViewController init exception: user cannot be nil"];
+            [NSException raise:NSInvalidArgumentException format:@"TKAccountViewController init exception: user cannot be nil"];
         }
 
     }
