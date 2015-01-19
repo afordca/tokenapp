@@ -18,6 +18,11 @@
 @protocol LoginViewControllerDelegate;
 
 @interface LoginViewController : UIViewController <FBLoginViewDelegate>
+{
+    UIImageView *logoImageView;
+    UIButton *loginButton;
+    UIButton *signUpButton;
+}
 
 @property (nonatomic, assign) id<LoginViewControllerDelegate> delegate;
 

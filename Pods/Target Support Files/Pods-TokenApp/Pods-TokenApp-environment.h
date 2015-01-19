@@ -162,3 +162,9 @@
 #define COCOAPODS_VERSION_MINOR_SendGrid 3
 #define COCOAPODS_VERSION_PATCH_SendGrid 0
 
+// UIImageEffects
+#define COCOAPODS_POD_AVAILABLE_UIImageEffects
+#define COCOAPODS_VERSION_MAJOR_UIImageEffects 0
+#define COCOAPODS_VERSION_MINOR_UIImageEffects 0
+#define COCOAPODS_VERSION_PATCH_UIImageEffects 1
+

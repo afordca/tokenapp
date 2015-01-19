@@ -14,6 +14,10 @@
 extern NSString *const kTKUserDefaultsActivityFeedViewControllerLastRefreshKey;
 extern NSString *const kTKUserDefaultsCacheFacebookFriendsKey;
 
+#pragma mark - Launch URLs
+extern NSString *const kTKLaunchURLHostTakePicture;
+
+
 #pragma mark - PFObject Activity Class
 // Class key
 extern NSString *const kPTKActivityClassKey;
@@ -76,7 +80,16 @@ extern NSString *const PTKPhotoDetailsViewControllerUserDeletedPhotoNotification
 extern NSString *const PTKTabBarControllerDidFinishEditingPhotoNotification;
 extern NSString *const PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification;
 
-
+#pragma mark - NSNotification
+extern NSString *const TKAppDelegateApplicationDidReceiveRemoteNotification;
+extern NSString *const TKUtilityUserFollowingChangedNotification;
+extern NSString *const TKUtilityUserLikedUnlikedPhotoCallbackFinishedNotification;
+extern NSString *const TKUtilityDidFinishProcessingProfilePictureNotification;
+extern NSString *const TKTabBarControllerDidFinishEditingPhotoNotification;
+extern NSString *const TKTabBarControllerDidFinishImageFileUploadNotification;
+extern NSString *const TKPhotoDetailsViewControllerUserDeletedPhotoNotification;
+extern NSString *const TKPhotoDetailsViewControllerUserLikedUnlikedPhotoNotification;
+extern NSString *const TKPhotoDetailsViewControllerUserCommentedOnPhotoNotification;
 
 
 

@@ -19,6 +19,5 @@
 
 @protocol TKTabBarControllerDelegate <NSObject>
 
--(void)tabBarController:(UITabBarController *)tabBarController cameraButtonTouchUpInside:(UIButton*)button;
-
+- (void)tabBarController:(UITabBarController *)tabBarController cameraButtonTouchUpInsideAction:(UIButton *)button;
 @end

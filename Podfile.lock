@@ -56,6 +56,7 @@ PODS:
     - AFNetworking (~> 2.0)
     - SMTPAPI
   - SMTPAPI (0.2.0)
+  - UIImageEffects (0.0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
@@ -66,6 +67,7 @@ DEPENDENCIES:
   - ParseUI
   - Reachability (~> 3.2)
   - SendGrid (~> 0.3)
+  - UIImageEffects (~> 0.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
@@ -79,5 +81,6 @@ SPEC CHECKSUMS:
   Reachability: 1ef8adf5c4e3d362f96515d4278f68dad3c26930
   SendGrid: cc1980dee8b2fba2a82ad0ff41e02f92bc213e70
   SMTPAPI: 6dd830b6fb939e2cd288e68c455a44613ddbbbb5
+  UIImageEffects: 69cd1e1f8fc4042a8fefcf4a0727cbf213e4dbfb
 
 COCOAPODS: 0.35.0

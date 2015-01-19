@@ -47,8 +47,11 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
+    //[ParseCrashReporting enable];
     [Parse setApplicationId:@"dNPSXSwJgJXVxTxkbta8EmoFFouOI4TIXlO1kTiz"
                   clientKey:@"Dbxo2R7VxPwOv6ub5tQ9qK3sWwinkBCUQSqyUld3"];
+    [PFFacebookUtils initializeFacebook];
+
     //Track app open
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
@@ -63,12 +66,10 @@
 
     self.welcomeViewController = [[TKWelcomeViewController alloc]init];
 
-    self.activityViewController = [[TKActivityFeedViewController alloc]init];
-
-    self.navController = [[UINavigationController alloc]initWithRootViewController:self.activityViewController];
+    self.navController = [[UINavigationController alloc]initWithRootViewController:self.welcomeViewController];
     self.navController.navigationBarHidden = YES;
 
-    self.window.rootViewController = self.activityViewController;
+    self.window.rootViewController = self.navController;
     [self.window makeKeyAndVisible];
 
     //Handle Push notifications here
@@ -128,8 +129,9 @@
 
 #pragma mark - UITabBarControllerDelegate 
 
-//-(BOOL)tabBarController:(UITabBarController*)aTabBarController shouldSelectViewController:(UIViewController *)viewController{
-//    //
+//- (BOOL)tabBarController:(UITabBarController *)aTabBarController shouldSelectViewController:(UIViewController *)viewController {
+//    // The empty UITabBarItem behind should not load a view controller for now.
+//    return ![viewController isEqual:aTabBarController.viewControllers[PAPEmptyTabBarItemIndex]];
 //}
 
 #pragma mark - AppDelegate
@@ -156,7 +158,7 @@
     UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
     UINavigationController *emptyNavigationController = [[UINavigationController alloc] init];
     //Temporary Test
-    UINavigationController *activityFeedNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
+    UINavigationController *activityFeedNavigationController = [[UINavigationController alloc] initWithRootViewController:self.activityViewController];
 
     UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[[UIImage imageNamed:@"IconHome.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconHomeSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [homeTabBarItem setTitleTextAttributes: @{ NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateSelected];
@@ -170,10 +172,11 @@
     [activityFeedNavigationController setTabBarItem:activityFeedTabBarItem];
 
     self.tabBarController.delegate = self;
-    self.tabBarController.viewControllers = @[homeNavigationController, emptyNavigationController, activityFeedNavigationController];
+    self.tabBarController.viewControllers = @[ homeNavigationController, emptyNavigationController, activityFeedNavigationController];
 
-    [self.navController setViewControllers:@[ self.welcomeViewController, self.tabBarController ] animated:NO];
-
+#pragma mark -- Prototype necessities
+    //[self.navController setViewControllers:@[ self.welcomeViewController, self.tabBarController ] animated:NO];
+    [self.navController setViewControllers:@[self.welcomeViewController, self.tabBarController] animated:NO];
 
 
 
@@ -277,12 +280,70 @@
 //    }
 //}
 
+- (void)autoFollowTimerFired:(NSTimer *)aTimer {
+    [MBProgressHUD hideHUDForView:self.navController.presentedViewController.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.homeViewController.view animated:YES];
+    [self.homeViewController loadObjects];
+}
+
 - (BOOL)shouldProceedToMainInterface:(PFUser *)user {
     [MBProgressHUD hideHUDForView:self.navController.presentedViewController.view animated:YES];
     [self presentTabBarViewController];
 
     [self.navController dismissViewControllerAnimated:YES completion:nil];
     return YES;
+}
+
+- (BOOL)handleActionURL:(NSURL *)url {
+    if ([[url host] isEqualToString:kTKLaunchURLHostTakePicture]) {
+        if ([PFUser currentUser]) {
+            return [self.tabBarController shouldPresentPhotoCaptureController];
+        }
+    } else {
+        if ([[url fragment] rangeOfString:@"^pic/[A-Za-z0-9]{10}$" options:NSRegularExpressionSearch].location != NSNotFound) {
+            NSString *photoObjectId = [[url fragment] substringWithRange:NSMakeRange(4, 10)];
+            if (photoObjectId && photoObjectId.length > 0) {
+                NSLog(@"WOOP: %@", photoObjectId);
+                [self shouldNavigateToPhoto:[PFObject objectWithoutDataWithClassName:kPTKPhotoClassKey objectId:photoObjectId]];
+                return YES;
+            }
+        }
+    }
+
+    return NO;
+}
+
+- (void)shouldNavigateToPhoto:(PFObject *)targetPhoto {
+    for (PFObject *photo in self.homeViewController.objects) {
+        if ([photo.objectId isEqualToString:targetPhoto.objectId]) {
+            targetPhoto = photo;
+            break;
+        }
+    }
+
+    // if we have a local copy of this photo, this won't result in a network fetch
+//    [targetPhoto fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+//        if (!error) {
+//            UINavigationController *homeNavigationController = [[self.tabBarController viewControllers] objectAtIndex:TKHomeTabBarIndex];
+//            [self.tabBarController setSelectedViewController:homeNavigationController];
+//
+//            TKPhotoDetailsViewController *detailViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:object];
+//            [homeNavigationController pushViewController:detailViewController animated:YES];
+//        }
+//    }];
+}
+
+
+
+- (void)autoFollowUsers {
+    firstLaunch = YES;
+    [PFCloud callFunctionInBackground:@"autoFollowUsers" withParameters:nil block:^(id object, NSError *error) {
+        if (error) {
+            NSLog(@"Error auto following users: %@", error);
+        }
+        [MBProgressHUD hideHUDForView:self.navController.presentedViewController.view animated:NO];
+        [self.homeViewController loadObjects];
+    }];
 }
 
 

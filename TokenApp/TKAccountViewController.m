@@ -13,6 +13,8 @@
 #import "Macros.h"
 #import "Constants.h"
 #import "TKUtility.h"
+#import "ParseUI.h"
+#import "TKCache.h"
 
 @interface TKAccountViewController()
 @property (nonatomic, strong) UIView *headerView;
@@ -75,7 +77,7 @@
     profilePictureImageView.alpha = 0.0f;
 
     if ([TKUtility userHasProfilePictures:self.user]) {
-        PFFile *imageFile = [self.user objectForKey:kPAPUserProfilePicMediumKey];
+        PFFile *imageFile = [self.user objectForKey:kPTKUserProfilePicMediumKey];
         [profilePictureImageView setFile:imageFile];
         [profilePictureImageView loadInBackground:^(UIImage *image, NSError *error) {
             if (!error) {
@@ -95,13 +97,13 @@
             }
         }];
     } else {
-        profilePictureImageView.image = [PAPUtility defaultProfilePicture];
+        profilePictureImageView.image = [TKUtility defaultProfilePicture];
         [UIView animateWithDuration:0.2f animations:^{
             profilePictureBackgroundView.alpha = 1.0f;
             profilePictureImageView.alpha = 1.0f;
         }];
 
-        UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[[PAPUtility defaultProfilePicture] applyDarkEffect]];
+        UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[[TKUtility defaultProfilePicture] applyDarkEffect]];
         backgroundImageView.frame = self.tableView.backgroundView.bounds;
         backgroundImageView.alpha = 0.0f;
         [self.tableView.backgroundView addSubview:backgroundImageView];
@@ -161,20 +163,20 @@
     [photoCountLabel setText:@"0 photos"];
 
     PFQuery *queryPhotoCount = [PFQuery queryWithClassName:@"Photo"];
-    [queryPhotoCount whereKey:kPAPPhotoUserKey equalTo:self.user];
+    [queryPhotoCount whereKey:kPTKPhotoUserKey equalTo:self.user];
     [queryPhotoCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
     [queryPhotoCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
             [photoCountLabel setText:[NSString stringWithFormat:@"%d photo%@", number, number==1?@"":@"s"]];
-            [[PAPCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:self.user];
+            [[TKCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:self.user];
         }
     }];
 
     [followerCountLabel setText:@"0 followers"];
 
-    PFQuery *queryFollowerCount = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [queryFollowerCount whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
-    [queryFollowerCount whereKey:kPAPActivityToUserKey equalTo:self.user];
+    PFQuery *queryFollowerCount = [PFQuery queryWithClassName:kPTKActivityClassKey];
+    [queryFollowerCount whereKey:kPTKActivityTypeKey equalTo:kPTKActivityTypeFollow];
+    [queryFollowerCount whereKey:kPTKActivityToUserKey equalTo:self.user];
     [queryFollowerCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
     [queryFollowerCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
@@ -188,9 +190,9 @@
         [followingCountLabel setText:[NSString stringWithFormat:@"%lu following", (unsigned long)[[followingDictionary allValues] count]]];
     }
 
-    PFQuery *queryFollowingCount = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [queryFollowingCount whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
-    [queryFollowingCount whereKey:kPAPActivityFromUserKey equalTo:self.user];
+    PFQuery *queryFollowingCount = [PFQuery queryWithClassName:kPTKActivityClassKey];
+    [queryFollowingCount whereKey:kPTKActivityTypeKey equalTo:kPTKActivityTypeFollow];
+    [queryFollowingCount whereKey:kPTKActivityFromUserKey equalTo:self.user];
     [queryFollowingCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
     [queryFollowingCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
@@ -204,10 +206,10 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:loadingActivityIndicatorView];
 
         // check if the currentUser is following this user
-        PFQuery *queryIsFollowing = [PFQuery queryWithClassName:kPAPActivityClassKey];
-        [queryIsFollowing whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
-        [queryIsFollowing whereKey:kPAPActivityToUserKey equalTo:self.user];
-        [queryIsFollowing whereKey:kPAPActivityFromUserKey equalTo:[PFUser currentUser]];
+        PFQuery *queryIsFollowing = [PFQuery queryWithClassName:kPTKActivityClassKey];
+        [queryIsFollowing whereKey:kPTKActivityTypeKey equalTo:kPTKActivityTypeFollow];
+        [queryIsFollowing whereKey:kPTKActivityToUserKey equalTo:self.user];
+        [queryIsFollowing whereKey:kPTKActivityFromUserKey equalTo:[PFUser currentUser]];
         [queryIsFollowing setCachePolicy:kPFCachePolicyCacheThenNetwork];
         [queryIsFollowing countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             if (error && [error code] != kPFErrorCacheMiss) {
@@ -244,9 +246,9 @@
     if (self.objects.count == 0) {
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
-    [query whereKey:kPAPPhotoUserKey equalTo:self.user];
+    [query whereKey:kPTKPhotoUserKey equalTo:self.user];
     [query orderByDescending:@"createdAt"];
-    [query includeKey:kPAPPhotoUserKey];
+    [query includeKey:kPTKPhotoUserKey];
 
     return query;
 }
@@ -254,9 +256,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *LoadMoreCellIdentifier = @"LoadMoreCell";
 
-    PAPLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:LoadMoreCellIdentifier];
+    TKLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:LoadMoreCellIdentifier];
     if (!cell) {
-        cell = [[PAPLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoadMoreCellIdentifier];
+        cell = [[TKLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoadMoreCellIdentifier];
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         cell.separatorImageTop.image = [UIImage imageNamed:@"SeparatorTimelineDark.png"];
         cell.hideSeparatorBottom = YES;
@@ -275,7 +277,7 @@
 
     [self configureUnfollowButton];
 
-    [PAPUtility followUserEventually:self.user block:^(BOOL succeeded, NSError *error) {
+    [TKUtility followUserEventually:self.user block:^(BOOL succeeded, NSError *error) {
         if (error) {
             [self configureFollowButton];
         }
@@ -289,7 +291,7 @@
 
     [self configureFollowButton];
 
-    [PAPUtility unfollowUserEventually:self.user];
+    [TKUtility unfollowUserEventually:self.user];
 }
 
 - (void)backButtonAction:(id)sender {
@@ -298,12 +300,12 @@
 
 - (void)configureFollowButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow" style:UIBarButtonItemStylePlain target:self action:@selector(followButtonAction:)];
-    [[PAPCache sharedCache] setFollowStatus:NO user:self.user];
+    [[TKCache sharedCache] setFollowStatus:NO user:self.user];
 }
 
 - (void)configureUnfollowButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowButtonAction:)];
-    [[PAPCache sharedCache] setFollowStatus:YES user:self.user];
+    [[TKCache sharedCache] setFollowStatus:YES user:self.user];
 }
 
 @end

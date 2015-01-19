@@ -11,6 +11,7 @@ pod 'ParseUI'
 pod 'MBProgressHUD', '~> 0.8'
 pod 'Reachability', '~> 3.2'
 pod 'FormatterKit', '~> 1.7'
+pod 'UIImageEffects', '~> 0.0'
 end
 
 target 'TokenAppTests' do

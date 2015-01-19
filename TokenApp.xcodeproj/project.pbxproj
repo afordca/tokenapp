@@ -62,9 +62,9 @@
 		B9D4AFB51A623B8E0071CA52 /* TKActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D4AFB41A623B8E0071CA52 /* TKActivityCell.m */; };
 		B9D4AFB91A6241B70071CA52 /* TKLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */; };
 		B9E39CA81A68A79E0030D6CA /* TKFindFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E39CA71A68A79E0030D6CA /* TKFindFriendsCell.m */; };
+		B9E723C01A6CAC18006B5B99 /* TKContentTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E723BF1A6CAC18006B5B99 /* TKContentTimelineViewController.m */; };
 		B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366C1A3A468B00E485CE /* Login.xcassets */; };
 		B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366E1A3A46D300E485CE /* Profile.xcassets */; };
-		B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */; };
 		B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236741A3A7CF700E485CE /* NavigationViewController.m */; };
 		B9F359D31A43AEBF00476FF7 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F359D21A43AEBF00476FF7 /* Constants.m */; };
 		B9F359D61A43B22A00476FF7 /* TKCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F359D51A43B22A00476FF7 /* TKCache.m */; };
@@ -186,10 +186,10 @@
 		B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKLoadMoreCell.m; sourceTree = "<group>"; };
 		B9E39CA61A68A79E0030D6CA /* TKFindFriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKFindFriendsCell.h; sourceTree = "<group>"; };
 		B9E39CA71A68A79E0030D6CA /* TKFindFriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKFindFriendsCell.m; sourceTree = "<group>"; };
+		B9E723BE1A6CAC18006B5B99 /* TKContentTimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKContentTimelineViewController.h; sourceTree = "<group>"; };
+		B9E723BF1A6CAC18006B5B99 /* TKContentTimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKContentTimelineViewController.m; sourceTree = "<group>"; };
 		B9F2366C1A3A468B00E485CE /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
 		B9F2366E1A3A46D300E485CE /* Profile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Profile.xcassets; sourceTree = "<group>"; };
-		B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedViewController.h; sourceTree = "<group>"; };
-		B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedViewController.m; sourceTree = "<group>"; };
 		B9F236731A3A7CF600E485CE /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		B9F236741A3A7CF700E485CE /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		B9F359D11A43AE7600476FF7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -286,14 +286,14 @@
 				25F621441A3219800069A742 /* ProfilePersonalViewController.h */,
 				B9D1A6AE1A44A27700BA2874 /* SettingsButtonItem.h */,
 				B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */,
-				B9F236701A3A7A9700E485CE /* HomeFeedViewController.h */,
-				B9F236711A3A7A9700E485CE /* HomeFeedViewController.m */,
 				B9F236741A3A7CF700E485CE /* NavigationViewController.m */,
 				B9F236731A3A7CF600E485CE /* NavigationViewController.h */,
 				B94B62D31A5F82E200C42FAF /* TKTabBarController.h */,
 				B94B62D41A5F82E200C42FAF /* TKTabBarController.m */,
 				B94B62D91A5F94E800C42FAF /* TKActivityFeedViewController.h */,
 				B94B62DA1A5F94E800C42FAF /* TKActivityFeedViewController.m */,
+				B9E723BE1A6CAC18006B5B99 /* TKContentTimelineViewController.h */,
+				B9E723BF1A6CAC18006B5B99 /* TKContentTimelineViewController.m */,
 				B9F2366C1A3A468B00E485CE /* Login.xcassets */,
 				B9FD55851A415665006AE066 /* Content.xcassets */,
 				B9FD55891A4157EF006AE066 /* Create.xcassets */,
@@ -641,7 +641,6 @@
 				B9D1A6B01A44A27700BA2874 /* SettingsButtonItem.m in Sources */,
 				B9D393331A4BCC5D00C7733A /* TKHomeViewController.m in Sources */,
 				B9E39CA81A68A79E0030D6CA /* TKFindFriendsCell.m in Sources */,
-				B9F236721A3A7A9700E485CE /* HomeFeedViewController.m in Sources */,
 				B94B62DB1A5F94E800C42FAF /* TKActivityFeedViewController.m in Sources */,
 				B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */,
 				B9D3934C1A4BE20E00C7733A /* TrendingViewController.m in Sources */,
@@ -658,6 +657,7 @@
 				B906CE0B1A60D29400F1BFD2 /* TKSettingsActionDelegate.m in Sources */,
 				B9D393491A4BE1D000C7733A /* SearchViewController.m in Sources */,
 				B9D4AFAD1A6200580071CA52 /* TKBaseCellText.m in Sources */,
+				B9E723C01A6CAC18006B5B99 /* TKContentTimelineViewController.m in Sources */,
 				B9D4AFB91A6241B70071CA52 /* TKLoadMoreCell.m in Sources */,
 				B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */,
 				B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */,

@@ -28,6 +28,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(45, 30, 200, 40)];
+    tf.textColor = [UIColor colorWithRed:0/256.0 green:84/256.0 blue:129/256.0 alpha:1.0];
+    tf.font = [UIFont fontWithName:@"Helvetica-Bold" size:25];
+    tf.backgroundColor=[UIColor whiteColor];
+    tf.text=@"Hello World";
 }
 
 - (void)didReceiveMemoryWarning {

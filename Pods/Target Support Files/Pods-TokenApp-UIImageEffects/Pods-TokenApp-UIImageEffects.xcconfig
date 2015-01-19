@@ -1,0 +1,1 @@
+PODS_TOKENAPP_UIIMAGEEFFECTS_OTHER_LDFLAGS = -framework "Accelerate"

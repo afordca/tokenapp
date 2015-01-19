@@ -13,6 +13,7 @@
 #import "TKUtility.h"
 #import "TKBaseCellText.h"
 #import <FormatterKit/TTTTimeIntervalFormatter.h>
+#import "TKActivityFeedViewController.h"
 
 
 

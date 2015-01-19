@@ -8,12 +8,19 @@
 
 #import "Constants.h"
 
+#pragma mark - Launch URLs
+
+NSString *const kTKLaunchURLHostTakePicture = @"camera";
+
+
 #pragma mark - NSNotification 
 
-NSString *const PTKPhotoDetailsViewControllerUserDeletedPhotoNotification       = @"com.parse.Anypic.photoDetailsViewController.userDeletedPhoto";
-NSString *const PTKTabBarControllerDidFinishImageFileUploadNotification         = @"com.parse.Anypic.tabBarController.didFinishImageFileUploadNotification";
-NSString *const PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification     = @"com.parse.Anypic.utility.userLikedUnlikedPhotoCallbackFinished";
-NSString *const PTKTabBarControllerDidFinishEditingPhotoNotification            = @"com.parse.Anypic.tabBarController.didFinishEditingPhoto";
+NSString *const TKPhotoDetailsViewControllerUserDeletedPhotoNotification       = @"com.parse.TOKEN.photoDetailsViewController.userDeletedPhoto";
+NSString *const TKTabBarControllerDidFinishImageFileUploadNotification         = @"com.parse.TOKEN.tabBarController.didFinishImageFileUploadNotification";
+NSString *const TKUtilityUserLikedUnlikedPhotoCallbackFinishedNotification     = @"com.parse.TOKEN.utility.userLikedUnlikedPhotoCallbackFinished";
+NSString *const TKTabBarControllerDidFinishEditingPhotoNotification            = @"com.parse.TOKEN.tabBarController.didFinishEditingPhoto";
+NSString *const TKPhotoDetailsViewControllerUserCommentedOnPhotoNotification   = @"com.parse.TOKEN.photoDetailsViewController.userCommentedOnPhotoInDetailsViewNotification";
+
 
 #pragma mark - NSUserDefaults
 NSString *const kTKUserDefaultsActivityFeedViewControllerLastRefreshKey    = @"com.parse.Anypic.userDefaults.activityFeedViewController.lastRefresh";
