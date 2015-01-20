@@ -57,41 +57,41 @@
         yPosition = 640.0f;
     }
 
-//     if (IS_IPHONE_6P) {
-//
-//    // Creating image view that will hold token logo
-//    logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(37.5, 140, 300, 76)];
-//    [logoImageView setImage:[UIImage imageNamed:@"Logo"]];
-//
-//    // Creating login button
+     if (IS_IPHONE_6P) {
+
+    // Creating image view that will hold token logo
+    logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(37.5, 140, 300, 76)];
+    [logoImageView setImage:[UIImage imageNamed:@"Logo"]];
+
+    // Creating login button
 //    loginButton = [[UIButton alloc] initWithFrame:CGRectMake(37.5, 585, 300, 40)];
-//
-//    // Creating sign up button
-//    signUpButton = [[UIButton alloc] initWithFrame:CGRectMake(37.5, 535, 300, 40)];
-//
-//    // Setting the button title to SIGN UP
-//    [signUpButton setTitle:@"SIGN UP" forState:UIControlStateNormal];
-//
-//    // Setting the button title to LOGIN
-//    [loginButton setTitle:@"LOGIN" forState:UIControlStateNormal];
-//
-//    signUpButton.layer.cornerRadius = 2;
-//    signUpButton.layer.borderWidth = 1;
-//    signUpButton.layer.borderColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0].CGColor;
-//    signUpButton.backgroundColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0];
-//
-//    loginButton.layer.cornerRadius = 2;
-//    loginButton.layer.borderWidth = 1;
-//    loginButton.layer.borderColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0].CGColor;
-//    //loginButton.backgroundColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0];
-//
-//
-//    // Adding Views to launch View Controller
-//    [self.view addSubview:logoImageView];
-//    [self.view addSubview:signUpButton];
-//    [self.view addSubview:loginButton];
-//     }
-//
+
+    // Creating sign up button
+    signUpButton = [[UIButton alloc] initWithFrame:CGRectMake(37.5, 535, 300, 40)];
+
+    // Setting the button title to SIGN UP
+    [signUpButton setTitle:@"SIGN UP" forState:UIControlStateNormal];
+
+    // Setting the button title to LOGIN
+    //[loginButton setTitle:@"LOGIN" forState:UIControlStateNormal];
+
+    signUpButton.layer.cornerRadius = 2;
+    signUpButton.layer.borderWidth = 1;
+    signUpButton.layer.borderColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0].CGColor;
+    signUpButton.backgroundColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0];
+
+    loginButton.layer.cornerRadius = 2;
+    loginButton.layer.borderWidth = 1;
+    loginButton.layer.borderColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0].CGColor;
+    //loginButton.backgroundColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0];
+
+
+    // Adding Views to launch View Controller
+    [self.view addSubview:logoImageView];
+    [self.view addSubview:signUpButton];
+    [self.view addSubview:loginButton];
+     }
+
 
     _facebookLoginView = [[FBLoginView alloc] initWithReadPermissions:@[@"public_profile", @"user_friends", @"email", @"user_photos"]];
     _facebookLoginView.frame = CGRectMake(36.0f, yPosition, 244.0f, 44.0f);
