@@ -21,7 +21,7 @@
 #import "TKActivityFeedViewController.h"
 #import "ProfilePersonalViewController.h"
 #import "CreateContentViewController.h"
-#import "BalanceViewController.h"
+#import "BalanceTableViewController.h"
 
 @interface AppDelegate (){
     BOOL firstLaunch;
@@ -34,7 +34,7 @@
 @property (nonatomic, strong) TKHomeViewController *homeViewController;
 @property (nonatomic, strong) TKActivityFeedViewController *activityViewController;
 @property (nonatomic, strong) CreateContentViewController *createContentViewController;
-@property (nonatomic, strong) BalanceViewController *balanceViewController;
+@property (nonatomic, strong) BalanceTableViewController *balanceViewController;
 //@property (nonatomic, strong) HomeFeedViewController **activityViewController;
 
 
@@ -160,7 +160,7 @@
     [self.homeViewController setFirstLaunch:firstLaunch];
     self.activityViewController = [[TKActivityFeedViewController alloc]initWithStyle:UITableViewStylePlain];
     self.createContentViewController = [[CreateContentViewController alloc]init];
-    self.balanceViewController = [[BalanceViewController alloc]init];
+    self.balanceViewController = [[BalanceTableViewController alloc]initWithStyle:UITableViewStylePlain];
 
 
     UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];

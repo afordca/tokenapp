@@ -26,7 +26,6 @@
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0]}];
 
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BalanceTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"Cell"];
 
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Marketplace"] style:UIBarButtonItemStylePlain target:self action:@selector(presentMarketplaceView)];
 
@@ -43,12 +42,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)presentMarketplaceView
-{
-    MarketplaceTableViewController *marketVC = [[MarketplaceTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    UINavigationController *marketNav = [[UINavigationController alloc] initWithRootViewController:marketVC];
-    [self.navigationController presentViewController:marketNav animated:YES completion:nil];
-}
+
 
 #pragma mark - Table view data source
 
@@ -63,10 +57,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    BalanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+//    BalanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+//    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
     if (indexPath.row==0) {
         //cell.frame = CGRectMake(0, 0, self.view.frame.size.width, cell.frame.size.height);

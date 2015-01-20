@@ -10,4 +10,5 @@
 
 @implementation BalanceTableViewCell
 
+
 @end
