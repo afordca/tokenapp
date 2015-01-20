@@ -76,9 +76,7 @@ extern NSString *const PTKPhotoDetailsViewControllerUserLikedUnlikedPhotoNotific
 extern NSString *const kPTKEditPhotoViewControllerUserInfoCommentKey;
 
 #pragma mark - NSNotificaton 
-extern NSString *const PTKPhotoDetailsViewControllerUserDeletedPhotoNotification;
-extern NSString *const PTKTabBarControllerDidFinishEditingPhotoNotification;
-extern NSString *const PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification;
+
 
 #pragma mark - NSNotification
 extern NSString *const TKAppDelegateApplicationDidReceiveRemoteNotification;

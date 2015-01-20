@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-#import "HomeFeedViewController.h"
+//#import "HomeFeedViewController.h"
 #import <Parse/Parse.h>
 #import "Macros.h"
 #import "ProfilePersonalViewController.h"

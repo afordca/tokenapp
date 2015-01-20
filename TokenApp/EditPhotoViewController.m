@@ -183,7 +183,7 @@
         // Delete photo
         [self.photo deleteEventually];
     }];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PTKPhotoDetailsViewControllerUserDeletedPhotoNotification object:[self.photo objectId]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TKPhotoDetailsViewControllerUserDeletedPhotoNotification object:[self.photo objectId]];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -252,7 +252,7 @@
             }
             //We cal NSNotification so that the timeline viewcontroller can refresh itself when the user
             //visits the Timeline.
-            [[NSNotificationCenter defaultCenter] postNotificationName:PTKTabBarControllerDidFinishEditingPhotoNotification object:photo];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TKTabBarControllerDidFinishEditingPhotoNotification object:photo];
         } else {
             NSLog(@"Photo failed to save: %@", error);
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];

@@ -11,6 +11,10 @@
 
 
 @interface TKHomeViewController : TKContentTimelineViewController
+{
+    UIImageView *profileImage01;
+
+}
 
 @property (nonatomic, assign, getter = isFirstLaunch) BOOL firstLaunch;
 

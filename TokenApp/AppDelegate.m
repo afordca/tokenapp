@@ -20,6 +20,9 @@
 #import "TKTabBarController.h"
 #import "TKActivityFeedViewController.h"
 #import "ProfilePersonalViewController.h"
+#import "CreateContentViewController.h"
+#import "BalanceViewController.h"
+
 @interface AppDelegate (){
     BOOL firstLaunch;
 }
@@ -30,6 +33,8 @@
 @property (nonatomic, strong) ProfilePersonalViewController *profilePersonalController;
 @property (nonatomic, strong) TKHomeViewController *homeViewController;
 @property (nonatomic, strong) TKActivityFeedViewController *activityViewController;
+@property (nonatomic, strong) CreateContentViewController *createContentViewController;
+@property (nonatomic, strong) BalanceViewController *balanceViewController;
 //@property (nonatomic, strong) HomeFeedViewController **activityViewController;
 
 
@@ -154,11 +159,16 @@
     self.homeViewController = [[TKHomeViewController alloc]initWithStyle:UITableViewStylePlain];
     [self.homeViewController setFirstLaunch:firstLaunch];
     self.activityViewController = [[TKActivityFeedViewController alloc]initWithStyle:UITableViewStylePlain];
+    self.createContentViewController = [[CreateContentViewController alloc]init];
+    self.balanceViewController = [[BalanceViewController alloc]init];
+
 
     UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
     UINavigationController *emptyNavigationController = [[UINavigationController alloc] init];
     //Temporary Test
     UINavigationController *activityFeedNavigationController = [[UINavigationController alloc] initWithRootViewController:self.activityViewController];
+    UINavigationController *createContentNavigationController = [[UINavigationController alloc]initWithRootViewController:self.createContentViewController];
+    UINavigationController *balanceNavigationController = [[UINavigationController alloc]initWithRootViewController:self.balanceViewController];
 
     UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[[UIImage imageNamed:@"IconHome.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconHomeSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [homeTabBarItem setTitleTextAttributes: @{ NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateSelected];
@@ -168,11 +178,22 @@
     [activityFeedTabBarItem setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateSelected];
     [activityFeedTabBarItem setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateNormal];
 
+    UITabBarItem *createContentTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Create", @"Create") image:[[UIImage imageNamed:@"IconTimeline.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconTimelineSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [createContentTabBarItem setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateSelected];
+    [createContentTabBarItem setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateNormal];
+
+    UITabBarItem *balanceContentTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Balance", @"Balance") image:[[UIImage imageNamed:@"IconTimeline.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconTimelineSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [createContentTabBarItem setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateSelected];
+    [createContentTabBarItem setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f], NSFontAttributeName: [UIFont boldSystemFontOfSize:13] } forState:UIControlStateNormal];
+
     [homeNavigationController setTabBarItem:homeTabBarItem];
     [activityFeedNavigationController setTabBarItem:activityFeedTabBarItem];
+    [createContentNavigationController setTabBarItem:createContentTabBarItem];
+    [balanceNavigationController setTabBarItem:balanceContentTabBarItem];
+
 
     self.tabBarController.delegate = self;
-    self.tabBarController.viewControllers = @[ homeNavigationController, emptyNavigationController, activityFeedNavigationController];
+    self.tabBarController.viewControllers = @[homeNavigationController, emptyNavigationController, activityFeedNavigationController, createContentNavigationController];
 
 #pragma mark -- Prototype necessities
     //[self.navController setViewControllers:@[ self.welcomeViewController, self.tabBarController ] animated:NO];

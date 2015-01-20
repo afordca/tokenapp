@@ -25,6 +25,8 @@
     [titleView setImage:[UIImage imageNamed:@"MarkNav"]];
     [self.navigationItem setTitleView:titleView];
 
+    NSLog(@"Create content present");
+
 
 }
 
