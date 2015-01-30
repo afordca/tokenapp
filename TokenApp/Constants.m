@@ -17,7 +17,7 @@ NSString *const kTKLaunchURLHostTakePicture = @"camera";
 
 //Notifications mostly done
 
-NSString *const TKDelegateApplicationDidRecieveNotification = @"com.parse.Anypic.appDelegate.applicationDidReceiveRemoteNotification";
+NSString *const TKDelegateApplicationDidRecieveNotification = @"com.parse.TOKEN.appDelegate.applicationDidReceiveRemoteNotification";
 NSString *const TKUtilityUserFollowingChangedNotification =
     @"com.parse.TOKEN.utility.userFollowingChanged";
 NSString *const TKUtilityUserLikedUnlikedPhotoCallbackFinishedNotification     = @"com.parse.TOKEN.utility.userLikedUnlikedPhotoCallbackFinished";

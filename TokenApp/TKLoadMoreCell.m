@@ -80,7 +80,7 @@
 }
 
 
-#pragma mark - PAPLoadMoreCell
+#pragma mark - TKLoadMoreCell
 
 - (void)setCellInsetWidth:(CGFloat)insetWidth {
     cellInsetWidth = insetWidth;

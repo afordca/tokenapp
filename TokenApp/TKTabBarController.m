@@ -84,7 +84,7 @@
 }
 
 
-#pragma mark - PAPTabBarController
+#pragma mark - TKTabBarController
 
 - (BOOL)shouldPresentPhotoCaptureController {
     BOOL presentedPhotoCaptureController = [self shouldStartCameraController];

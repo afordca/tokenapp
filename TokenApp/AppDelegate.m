@@ -136,7 +136,7 @@
 
 //- (BOOL)tabBarController:(UITabBarController *)aTabBarController shouldSelectViewController:(UIViewController *)viewController {
 //    // The empty UITabBarItem behind should not load a view controller for now.
-//    return ![viewController isEqual:aTabBarController.viewControllers[PAPEmptyTabBarItemIndex]];
+//    return ![viewController isEqual:aTabBarController.viewControllers[TKEmptyTabBarItemIndex]];
 //}
 
 #pragma mark - AppDelegate
@@ -247,7 +247,7 @@
 
 #pragma mark - ()
 
-// Set up appearance parameters to achieve Anypic's custom look and feel
+// Set up appearance parameters to achieve Token's custom look and feel
 - (void)setupAppearance {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
@@ -348,7 +348,7 @@
 //            UINavigationController *homeNavigationController = [[self.tabBarController viewControllers] objectAtIndex:TKHomeTabBarIndex];
 //            [self.tabBarController setSelectedViewController:homeNavigationController];
 //
-//            TKPhotoDetailsViewController *detailViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:object];
+//            TKPhotoDetailsViewController *detailViewController = [[TKPhotoDetailsViewController alloc] initWithPhoto:object];
 //            [homeNavigationController pushViewController:detailViewController animated:YES];
 //        }
 //    }];

@@ -266,12 +266,45 @@
 
 +(void)unfollowUserEventually:(PFUser *)user
 {
-
+    PFQuery *query = [PFQuery queryWithClassName:kPTKActivityClassKey];
+    [query whereKey:kPTKActivityFromUserKey equalTo:[PFUser currentUser]];
+    [query whereKey:kPTKActivityToUserKey equalTo:user];
+    [query whereKey:kPTKActivityTypeKey equalTo:kPTKActivityTypeFollow];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *followActivities, NSError *error) {
+        if (!error){
+            for (PFObject *followActivity in followActivities) {
+                [followActivity deleteEventually];
+            }
+        }
+    }];
+    [[TKCache sharedCache] setFollowStatus:NO user:user];
+    
 }
 
 +(void)unfollowUsersEventually:(NSArray *)users
 {
+    PFQuery *query = [PFQuery queryWithClassName:kPTKActivityClassKey];
+    [query whereKey:kPTKActivityFromUserKey equalTo:[PFUser currentUser]];
+    [query whereKey:kPTKActivityToUserKey containedIn:users];
+    [query whereKey:kPTKActivityTypeKey equalTo:kPTKActivityTypeFollow];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+        for (PFObject *activity in activities) {
+            [activity deleteEventually];
+        }
+    }];
+    for (PFUser *user in users) {
+        [[TKCache sharedCache] setFollowStatus:NO user:user];
+    }
 
+}
+
+#pragma mark Activities 
+
++(PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy
+{
+    PFQuery *queryLikes = [PFQuery queryWithClassName:kPTKActivityClassKey];
+    [queryLikes whereKey:kPTKActivityPhotoKey equalTo:photo];
+    [queryLikes whereKey:kPTKActivityTypeKey equalTo:photo];
 }
 
 @end

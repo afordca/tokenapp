@@ -360,8 +360,8 @@
 - (void)handleLogInError:(NSError *)error {
     if (error) {
         NSLog(@"Error: %@", [[error userInfo] objectForKey:@"com.facebook.sdk:ErrorLoginFailedReason"]);
-        NSString *title = NSLocalizedString(@"Login Error", @"Login error title in PAPLogInViewController");
-        NSString *message = NSLocalizedString(@"Something went wrong. Please try again.", @"Login error message in PAPLogInViewController");
+        NSString *title = NSLocalizedString(@"Login Error", @"Login error title in TKLogInViewController");
+        NSString *message = NSLocalizedString(@"Something went wrong. Please try again.", @"Login error message in TKLogInViewController");
 
         if ([[[error userInfo] objectForKey:@"com.facebook.sdk:ErrorLoginFailedReason"] isEqualToString:@"com.facebook.sdk:UserLoginCancelled"]) {
             return;

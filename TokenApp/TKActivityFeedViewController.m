@@ -240,7 +240,7 @@
 }
 
 
-#pragma mark - PAPActivityCellDelegate Methods
+#pragma mark - TKActivityCellDelegate Methods
 
 - (void)cell:(TKActivityCell *)cellView didTapActivityButton:(PFObject *)activity {
     // Get image associated with the activity
@@ -270,7 +270,7 @@
     } else if ([activityType isEqualToString:kPTKActivityTypeComment]) {
         return NSLocalizedString(@"commented on your photo", nil);
     } else if ([activityType isEqualToString:kPTKActivityTypeJoined]) {
-        return NSLocalizedString(@"joined Anypic", nil);
+        return NSLocalizedString(@"joined Token", nil);
     } else {
         return nil;
     }

@@ -22,7 +22,7 @@
 
 
 /*!
- The protocol defines methods a delegate of a PAPBaseTextCell should implement.
+ The protocol defines methods a delegate of a TKBaseTextCell should implement.
  */
 @protocol TKActivityCellDelegate <TKBaseCellTextDelegate>
 @optional

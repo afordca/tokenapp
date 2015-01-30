@@ -192,7 +192,7 @@ enum ActionSheetTags {
             }
 
             [activityItems addObject:[UIImage imageWithData:data]];
-            [activityItems addObject:[NSURL URLWithString:[NSString stringWithFormat:@"https://anypic.org/#pic/%@", self.photo.objectId]]];
+            [activityItems addObject:[NSURL URLWithString:[NSString stringWithFormat:@"https://token.org/#pic/%@", self.photo.objectId]]];
 
             UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
             [self.navigationController presentViewController:activityViewController animated:YES completion:nil];
