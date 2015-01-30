@@ -47,9 +47,9 @@
 
     if ([UIScreen mainScreen].bounds.size.height > 480.0f) {
         // for the iPhone 5
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default.png"]];
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Splash_iphone6plus@3x.png"]];
     } else {
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default.png"]];
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Splash_iphone6plus@3x.png"]];
     }
 
     CGFloat yPosition = 360.0f;
@@ -64,7 +64,7 @@
     [logoImageView setImage:[UIImage imageNamed:@"Logo"]];
 
     // Creating login button
-//    loginButton = [[UIButton alloc] initWithFrame:CGRectMake(37.5, 585, 300, 40)];
+    loginButton = [[UIButton alloc] initWithFrame:CGRectMake(37.5, 585, 300, 40)];
 
     // Creating sign up button
     signUpButton = [[UIButton alloc] initWithFrame:CGRectMake(37.5, 535, 300, 40)];
@@ -73,7 +73,7 @@
     [signUpButton setTitle:@"SIGN UP" forState:UIControlStateNormal];
 
     // Setting the button title to LOGIN
-    //[loginButton setTitle:@"LOGIN" forState:UIControlStateNormal];
+    [loginButton setTitle:@"LOGIN" forState:UIControlStateNormal];
 
     signUpButton.layer.cornerRadius = 2;
     signUpButton.layer.borderWidth = 1;
@@ -83,7 +83,7 @@
     loginButton.layer.cornerRadius = 2;
     loginButton.layer.borderWidth = 1;
     loginButton.layer.borderColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0].CGColor;
-    //loginButton.backgroundColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0];
+    loginButton.backgroundColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0];
 
 
     // Adding Views to launch View Controller
@@ -91,6 +91,53 @@
     [self.view addSubview:signUpButton];
     [self.view addSubview:loginButton];
      }
+
+
+    if (IS_IPHONE_6) {
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default"]];
+        NSLog(@"On an iPhone 6");
+
+        // Creating image view that will hold mark Image
+        // MarkImageView is on hold for time being
+        // markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(147.5, 35, 80, 80)];
+        // [markImageView setImage:[UIImage imageNamed:@"Mark"]];
+
+        // Creating image view that will hold token logo
+        logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(37.5, 140, 300, 76)];
+        [logoImageView setImage:[UIImage imageNamed:@"Logo"]];
+
+        // Creating login button
+        loginButton = [[UIButton alloc] initWithFrame:CGRectMake(37.5, 585, 300, 40)];
+
+        // Creating sign up button
+        signUpButton = [[UIButton alloc] initWithFrame:CGRectMake(37.5, 535, 300, 40)];
+
+        // Setting the button title to SIGN UP
+        [signUpButton setTitle:@"SIGN UP" forState:UIControlStateNormal];
+
+        // Setting the button title to LOGIN
+        [loginButton setTitle:@"LOGIN" forState:UIControlStateNormal];
+
+        /*** Since the launch of iOS 7 buttons have come default without a border and when you set a border by setting UIButtonType property, the closest thing that you get to a rectangle border is a rounded rectangle. To get the plain rectangle border on a button, we use the following.           *****************Ya****Dig*/
+
+        signUpButton.layer.cornerRadius = 2;
+        signUpButton.layer.borderWidth = 1;
+        signUpButton.layer.borderColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0].CGColor;
+        signUpButton.backgroundColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0];
+
+        loginButton.layer.cornerRadius = 2;
+        loginButton.layer.borderWidth = 1;
+        loginButton.layer.borderColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0].CGColor;
+        loginButton.backgroundColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0];
+
+        [signUpButton addTarget:self action:@selector(presentSignUpViewController) forControlEvents:UIControlEventTouchDown];
+
+        // Adding Views to launch View Controller
+        [self.view addSubview:logoImageView];
+        [self.view addSubview:signUpButton];
+        [self.view addSubview:loginButton];
+    }
+
 
 
     _facebookLoginView = [[FBLoginView alloc] initWithReadPermissions:@[@"public_profile", @"user_friends", @"email", @"user_photos"]];

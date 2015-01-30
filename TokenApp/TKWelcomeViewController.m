@@ -60,7 +60,7 @@
     loginButton.layer.cornerRadius = 2;
     loginButton.layer.borderWidth = 1;
     loginButton.layer.borderColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0].CGColor;
-    //loginButton.backgroundColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0];
+    loginButton.backgroundColor = [UIColor colorWithRed:0.4549 green:0.717647 blue:0.290196 alpha:1.0];
 
 
     // Adding Views to launch View Controller

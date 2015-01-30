@@ -89,5 +89,16 @@ extern NSString *const TKPhotoDetailsViewControllerUserDeletedPhotoNotification;
 extern NSString *const TKPhotoDetailsViewControllerUserLikedUnlikedPhotoNotification;
 extern NSString *const TKPhotoDetailsViewControllerUserCommentedOnPhotoNotification;
 
+#pragma mark - Push Notifications
+NSString *const kPTKPushPayloadPayloadTypeKey;
+NSString *const kPTKPushPayloadPayloadTypeActivityKey;
 
+NSString *const kPTKPushPayloadActivityTypeKey;
+NSString *const kPTKPushPayloadActivityLikeKey;
+NSString *const kPTKPushPayloadActivityCommentKey;
+NSString *const kPTKPushPayloadActivityFollowKey;
+
+NSString *const kPTKPushPayloadFromUserObjectIdKey;
+NSString *const kPTKPushPayloadToUserObjectIdKey;
+NSString *const kPTKPushPayloadPhotoObjectIdKey;
 

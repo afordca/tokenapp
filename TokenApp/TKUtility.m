@@ -137,6 +137,8 @@
     }];  
 }
 
+#pragma mark Facebook
+
 + (BOOL)userHasValidFacebookData:(PFUser *)user {
     // Check that PFUser has valid fbid that matches current FBSessions userId
     NSString *facebookId = [user objectForKey:kPTKUserFacebookIDKey];
@@ -151,6 +153,7 @@
 
     UIImage *image = [UIImage imageWithData:newProfilePictureData];
 
+    //Using a JPEG for larger pictures
     UIImage *mediumImage = [image thumbnailImage:280 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationHigh];
     UIImage *smallRoundedImage = [image thumbnailImage:64 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationLow];
 
@@ -179,6 +182,96 @@
     NSLog(@"Processed profile picture");
 }
 
++(BOOL)userHasProfilePictures:(PFUser *)user
+{
+    PFFile *profilePictureMedium = [user objectForKey:kPTKUserProfilePicMediumKey];
+    PFFile *profilePictureSmall = [user objectForKeyedSubscript:kPTKUserProfilePicSmallKey];
 
+    return (profilePictureMedium && profilePictureSmall);
+}
+
++ (UIImage *)defaultProfilePicture {
+    return [UIImage imageNamed:@"AvatarPlaceholder.png"];
+}
+
+#pragma mark Display Name
+
++ (NSString *)firstNameForDisplayName:(NSString *)displayName {
+    if (!displayName || displayName.length == 0) {
+        return @"Someone";
+    }
+
+    NSArray *displayNameComponents = [displayName componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *firstName = [displayNameComponents objectAtIndex:0];
+    if (firstName.length > 100) {
+        // truncate to 100 so that it fits in a Push payload
+        firstName = [firstName substringToIndex:100];
+    }
+    return firstName;
+}
+
+#pragma mark User Following 
+
++ (void)followUserInBackground:(PFUser *)user block:(void (^)(BOOL, NSError *))completionBlock
+{
+    if ([[user objectId] isEqualToString:[[PFUser currentUser] objectId]]){
+        return;
+    }
+
+    PFObject *followActivity = [PFObject objectWithClassName:kPTKActivityClassKey];
+    [followActivity setObject:[PFUser currentUser] forKey:kPTKActivityFromUserKey];
+    [followActivity setObject:user forKey:kPTKActivityToUserKey];
+    [followActivity setObject:kPTKActivityTypeFollow forKey:kPTKActivityTypeKey];
+
+    PFACL *followACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [followACL setPublicReadAccess:YES];
+    followActivity.ACL = followACL;
+
+    [followActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (completionBlock)
+        {
+            completionBlock(succeeded, error);
+        }}];
+    [[TKCache sharedCache] setFollowStatus:YES user:user];
+
+}
+
++(void)followUserEventually:(PFUser *)user block:(void (^)(BOOL, NSError *))completionBlock
+{
+    if ([[user objectId] isEqualToString:[[PFUser currentUser] objectId]]){
+        return;
+    }
+
+    PFObject *followActivity = [PFObject objectWithClassName:kPTKActivityClassKey];
+    [followActivity setObject:[PFUser currentUser] forKey:kPTKActivityFromUserKey];
+    [followActivity setObject:user forKey:kPTKActivityToUserKey];
+    [followActivity setObject:kPTKActivityTypeFollow forKey:kPTKActivityTypeKey];
+
+    PFACL *followACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [followACL setPublicReadAccess:YES];
+    followActivity.ACL = followACL;
+
+    [followActivity saveEventually:completionBlock];
+    [[TKCache sharedCache] setFollowStatus:YES user:user];
+
+}
+
++(void)followUsersEventually:(NSArray *)users block:(void (^)(BOOL, NSError *))completionBlock
+{
+    for (PFUser *user in users) {
+        [TKUtility followUserEventually:user block:completionBlock];
+        [[TKCache sharedCache] setFollowStatus:YES user:user];
+    }
+}
+
++(void)unfollowUserEventually:(PFUser *)user
+{
+
+}
+
++(void)unfollowUsersEventually:(NSArray *)users
+{
+
+}
 
 @end
