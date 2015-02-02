@@ -94,7 +94,7 @@
 
 
     if (IS_IPHONE_6) {
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default"]];
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Splash-iphone6"]];
         NSLog(@"On an iPhone 6");
 
         // Creating image view that will hold mark Image
@@ -354,7 +354,6 @@
     [self.hud removeFromSuperview];
     [[FBSession activeSession] closeAndClearTokenInformation];
     [PFUser logOut];
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] presentLoginViewController:NO];
 }
 
 - (void)handleLogInError:(NSError *)error {
@@ -397,7 +396,7 @@
         [alertView show];
     }
 }
-//
+
 //-(void)presentLoginViewController
 //{
 //     *vc = [[SignUpViewController alloc]init];

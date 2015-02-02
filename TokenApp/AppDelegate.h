@@ -7,27 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TKTabBarController.h"
+#import "User.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, NSURLConnectionDataDelegate, UITabBarControllerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
+
+{
+    User *singleUser;
+
+}
 
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (nonatomic, strong) TKTabBarController *tabBarController;
-@property (nonatomic, strong) UINavigationController *navController;
-
-@property (nonatomic, readonly) int networkStatus;
-
--(BOOL)isParseReachable;
-
--(void)presentLoginViewController;
--(void)presentLoginViewController:(BOOL)animated;
--(void)presentTabBarViewController;
-
--(void)logOut;
-
--(void)autoFollowUsers;
 
 @end
 

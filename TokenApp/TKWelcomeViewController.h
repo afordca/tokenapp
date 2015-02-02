@@ -7,15 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#include "LoginViewController.h"
 
-@interface TKWelcomeViewController : UIViewController <LoginViewControllerDelegate>
-{
-    UIImageView *logoImageView;
-    UIButton *loginButton;
-    UIButton *signUpButton;
-}
+@interface TKWelcomeViewController : UIViewController
 
--(void)presentLoginViewController:(BOOL)animated;
+
 
 @end

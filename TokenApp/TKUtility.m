@@ -298,13 +298,13 @@
 
 }
 
-#pragma mark Activities 
-
-+(PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy
-{
-    PFQuery *queryLikes = [PFQuery queryWithClassName:kPTKActivityClassKey];
-    [queryLikes whereKey:kPTKActivityPhotoKey equalTo:photo];
-    [queryLikes whereKey:kPTKActivityTypeKey equalTo:photo];
-}
+//#pragma mark Activities 
+//
+//+(PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy
+//{
+//    PFQuery *queryLikes = [PFQuery queryWithClassName:kPTKActivityClassKey];
+//    [queryLikes whereKey:kPTKActivityPhotoKey equalTo:photo];
+//    [queryLikes whereKey:kPTKActivityTypeKey equalTo:photo];
+//}
 
 @end
