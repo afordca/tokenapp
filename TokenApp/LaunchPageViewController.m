@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonLogin;
 
+
 @end
 
 @implementation LaunchPageViewController
@@ -29,6 +30,8 @@
     layer.borderWidth = 1.0f;
 
 }
+
+
 
 #pragma mark - Segue methods
 

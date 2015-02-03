@@ -35,38 +35,6 @@
     self.permissions = @[@"public_profile", @"email"];
 }
 
-- (IBAction)logOn:(id)sender
-{
-    NSURL *url = [NSURL URLWithString:VALIDURL];
-
-
-    if (![self isValidURL:url]) {
-        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"Connection Error" message:@"Your network connection is weak, wait until you have a better internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-
-        [alertView show];
-    } else if ([self.textFieldLogInUserName.text isEqualToString:@""] || self.textFieldLogInUserName.text == nil || [self.textFieldLogInPassword.text isEqualToString:@""] || self.textFieldLogInUserName.text == nil) {
-        UIAlertView *alertViewFirst = [[UIAlertView alloc] initWithTitle:@"Ooops!" message:@"Username or password are blank." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertViewFirst show];
-    } else {
-        [PFUser logInWithUsernameInBackground:self.textFieldLogInUserName.text password:self.textFieldLogInPassword.text block:^(PFUser *user, NSError *error) {
-            if (error) {
-                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Sorry" message:[[error.userInfo objectForKey:@"error"] capitalizedString] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alertView show];
-            } else {
-                PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-                [currentInstallation setObject:user forKey:@"user"];
-                [currentInstallation saveInBackground];
-                // We add a delay of two seconds to help Parse loading the stuff.
-                double delayInSeconds = 2.0;
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    [self performSegueWithIdentifier:@"goToSwap" sender:nil];
-                });
-                [self setupUserProfile];
-            }
-        }];
-    }
-}
 
 -(void)setupUserProfile
 {
@@ -106,7 +74,7 @@
                         user.email = [result objectForKey:@"email"];
 
                         [user setObject: [result objectForKey:@"first_name"] forKey:@"username"];
-                        [user setObject:[NSNumber numberWithInt:50] forKey:@"numberOfMiles"];
+
 
                         PFInstallation *currentInstallation = [PFInstallation currentInstallation];
                         [currentInstallation setObject:user forKey:@"user"];
@@ -124,14 +92,14 @@
                                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oooops!" message:[NSString stringWithFormat:@"There's an error: %@", [error userInfo]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                                 [alertView show];
                             } else {
-                                [self performSegueWithIdentifier:@"goToSwap" sender:nil];
+                                [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
                             }
                         }];
                     }
                 }];
             } else {
                 NSLog(@"User logged in through Facebook!");
-                [self performSegueWithIdentifier:@"goToSwap" sender:nil];
+                [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
             }
         }];
     }
@@ -181,7 +149,7 @@
                 double delayInSeconds = 2.0;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    [self performSegueWithIdentifier:@"goToSwap" sender:nil];
+                    [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
                 });
                 [self setupUserProfile];
             }

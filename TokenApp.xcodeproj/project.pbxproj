@@ -11,6 +11,9 @@
 		00ED60331A7EDA7100ED1229 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60321A7EDA7100ED1229 /* User.m */; };
 		00ED60361A7F5BA300ED1229 /* MFC_LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60351A7F5BA300ED1229 /* MFC_LogInViewController.m */; };
 		00ED603F1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED603E1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m */; };
+		00ED60421A7FDE1800ED1229 /* MFC_SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60411A7FDE1800ED1229 /* MFC_SignupViewController.m */; };
+		00ED604E1A800CFE00ED1229 /* MFC_HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED604D1A800CFE00ED1229 /* MFC_HomeFeedViewController.m */; };
+		00ED60511A804B5D00ED1229 /* MFC_ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60501A804B5D00ED1229 /* MFC_ProfileViewController.m */; };
 		12C3ECEC58F2EFB60B8FCB19 /* libPods-TokenApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AC5C335474F0AB015BEB33A /* libPods-TokenApp.a */; };
 		25A72F2E1A319CF20076AE07 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A72F2D1A319CF20076AE07 /* main.m */; };
 		25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A72F301A319CF20076AE07 /* AppDelegate.m */; };
@@ -98,6 +101,12 @@
 		00ED60351A7F5BA300ED1229 /* MFC_LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_LogInViewController.m; sourceTree = "<group>"; };
 		00ED603D1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		00ED603E1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_ForgotPasswordViewController.m; sourceTree = "<group>"; };
+		00ED60401A7FDE1800ED1229 /* MFC_SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_SignupViewController.h; sourceTree = "<group>"; };
+		00ED60411A7FDE1800ED1229 /* MFC_SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_SignupViewController.m; sourceTree = "<group>"; };
+		00ED604C1A800CFE00ED1229 /* MFC_HomeFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_HomeFeedViewController.h; sourceTree = "<group>"; };
+		00ED604D1A800CFE00ED1229 /* MFC_HomeFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_HomeFeedViewController.m; sourceTree = "<group>"; };
+		00ED604F1A804B5D00ED1229 /* MFC_ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_ProfileViewController.h; sourceTree = "<group>"; };
+		00ED60501A804B5D00ED1229 /* MFC_ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_ProfileViewController.m; sourceTree = "<group>"; };
 		25A72F281A319CF20076AE07 /* TokenApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TokenApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A72F2C1A319CF20076AE07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25A72F2D1A319CF20076AE07 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -284,6 +293,12 @@
 				B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */,
 				B97F00F41A6EC2E400690309 /* Settings */,
 				25A72F351A319CF20076AE07 /* Main.storyboard */,
+				00ED604F1A804B5D00ED1229 /* MFC_ProfileViewController.h */,
+				00ED60501A804B5D00ED1229 /* MFC_ProfileViewController.m */,
+				00ED604C1A800CFE00ED1229 /* MFC_HomeFeedViewController.h */,
+				00ED604D1A800CFE00ED1229 /* MFC_HomeFeedViewController.m */,
+				00ED60401A7FDE1800ED1229 /* MFC_SignupViewController.h */,
+				00ED60411A7FDE1800ED1229 /* MFC_SignupViewController.m */,
 				00ED602E1A7ED68500ED1229 /* LaunchPageViewController.h */,
 				00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */,
 				00ED60341A7F5BA300ED1229 /* MFC_LogInViewController.h */,
@@ -688,10 +703,12 @@
 				B9D393391A4BD5A100C7733A /* TKContentTimelineViewController.m in Sources */,
 				B9D4AFB51A623B8E0071CA52 /* TKActivityCell.m in Sources */,
 				B9D1A6AD1A44A23000BA2874 /* PTKContentDetailTableViewController.m in Sources */,
+				00ED60511A804B5D00ED1229 /* MFC_ProfileViewController.m in Sources */,
 				00ED60331A7EDA7100ED1229 /* User.m in Sources */,
 				B9A4D3961A49163F00EDD2C9 /* ExploreResultsViewController.m in Sources */,
 				B9A4D39A1A4920BB00EDD2C9 /* CategoriesViewController.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
+				00ED604E1A800CFE00ED1229 /* MFC_HomeFeedViewController.m in Sources */,
 				B9F359D61A43B22A00476FF7 /* TKCache.m in Sources */,
 				B98946F41A60CE780011288F /* TKSettingsButtonItem.m in Sources */,
 				B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */,
@@ -708,6 +725,7 @@
 				00ED603F1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m in Sources */,
 				B9A4D3931A49161F00EDD2C9 /* PopularResultsViewController.m in Sources */,
 				25F621461A3219800069A742 /* ProfilePersonalViewController.m in Sources */,
+				00ED60421A7FDE1800ED1229 /* MFC_SignupViewController.m in Sources */,
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
 				B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */,
 				B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */,
