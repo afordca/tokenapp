@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00A4B58B1A809F6A006EC01B /* MFC_CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */; };
 		00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */; };
 		00ED60331A7EDA7100ED1229 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60321A7EDA7100ED1229 /* User.m */; };
 		00ED60361A7F5BA300ED1229 /* MFC_LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60351A7F5BA300ED1229 /* MFC_LogInViewController.m */; };
@@ -93,6 +94,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00A4B5891A809F6A006EC01B /* MFC_CreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_CreateViewController.h; sourceTree = "<group>"; };
+		00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_CreateViewController.m; sourceTree = "<group>"; };
 		00ED602E1A7ED68500ED1229 /* LaunchPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchPageViewController.h; sourceTree = "<group>"; };
 		00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchPageViewController.m; sourceTree = "<group>"; };
 		00ED60311A7EDA7100ED1229 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = ../Datshup/Datshup/User.h; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 				B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */,
 				B97F00F41A6EC2E400690309 /* Settings */,
 				25A72F351A319CF20076AE07 /* Main.storyboard */,
+				00A4B5891A809F6A006EC01B /* MFC_CreateViewController.h */,
+				00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */,
 				00ED604F1A804B5D00ED1229 /* MFC_ProfileViewController.h */,
 				00ED60501A804B5D00ED1229 /* MFC_ProfileViewController.m */,
 				00ED604C1A800CFE00ED1229 /* MFC_HomeFeedViewController.h */,
@@ -696,6 +701,7 @@
 				B97F00FD1A6ECAD400690309 /* BalanceTableViewCell.m in Sources */,
 				B94B62DB1A5F94E800C42FAF /* TKActivityFeedViewController.m in Sources */,
 				00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */,
+				00A4B58B1A809F6A006EC01B /* MFC_CreateViewController.m in Sources */,
 				B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */,
 				B9D3934C1A4BE20E00C7733A /* TrendingViewController.m in Sources */,
 				B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */,
@@ -854,6 +860,8 @@
 			baseConfigurationReference = C2B542139EC1BE1E94B41BEC /* Pods-TokenApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -861,6 +869,7 @@
 				INFOPLIST_FILE = TokenApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -869,6 +878,8 @@
 			baseConfigurationReference = 63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -876,6 +887,7 @@
 				INFOPLIST_FILE = TokenApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
