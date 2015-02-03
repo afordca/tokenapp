@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		00A4B58B1A809F6A006EC01B /* MFC_CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */; };
 		00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */; };
-		00ED60331A7EDA7100ED1229 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60321A7EDA7100ED1229 /* User.m */; };
 		00ED60361A7F5BA300ED1229 /* MFC_LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60351A7F5BA300ED1229 /* MFC_LogInViewController.m */; };
 		00ED603F1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED603E1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m */; };
 		00ED60421A7FDE1800ED1229 /* MFC_SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60411A7FDE1800ED1229 /* MFC_SignupViewController.m */; };
@@ -50,6 +49,7 @@
 		B98946F41A60CE780011288F /* TKSettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B98946F31A60CE780011288F /* TKSettingsButtonItem.m */; };
 		B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */; };
 		B991FD8F1A3E6C8B00BB902F /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B991FD8E1A3E6C8B00BB902F /* Default@3x.png */; };
+		B996AD201A8163F300C3B98E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B996AD1F1A8163F300C3B98E /* User.m */; };
 		B9A4D3931A49161F00EDD2C9 /* PopularResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3921A49161F00EDD2C9 /* PopularResultsViewController.m */; };
 		B9A4D3961A49163F00EDD2C9 /* ExploreResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3951A49163F00EDD2C9 /* ExploreResultsViewController.m */; };
 		B9A4D39A1A4920BB00EDD2C9 /* CategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3991A4920BB00EDD2C9 /* CategoriesViewController.m */; };
@@ -98,8 +98,6 @@
 		00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_CreateViewController.m; sourceTree = "<group>"; };
 		00ED602E1A7ED68500ED1229 /* LaunchPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchPageViewController.h; sourceTree = "<group>"; };
 		00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchPageViewController.m; sourceTree = "<group>"; };
-		00ED60311A7EDA7100ED1229 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = ../Datshup/Datshup/User.h; sourceTree = "<group>"; };
-		00ED60321A7EDA7100ED1229 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = ../Datshup/Datshup/User.m; sourceTree = "<group>"; };
 		00ED60341A7F5BA300ED1229 /* MFC_LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_LogInViewController.h; sourceTree = "<group>"; };
 		00ED60351A7F5BA300ED1229 /* MFC_LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_LogInViewController.m; sourceTree = "<group>"; };
 		00ED603D1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_ForgotPasswordViewController.h; sourceTree = "<group>"; };
@@ -171,6 +169,8 @@
 		B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomActivityTableViewCell.h; sourceTree = "<group>"; };
 		B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomActivityTableViewCell.m; sourceTree = "<group>"; };
 		B991FD8E1A3E6C8B00BB902F /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@3x.png"; sourceTree = "<group>"; };
+		B996AD1E1A8163F300C3B98E /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		B996AD1F1A8163F300C3B98E /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		B9A4D3911A49161F00EDD2C9 /* PopularResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopularResultsViewController.h; path = ../PopularResultsViewController.h; sourceTree = "<group>"; };
 		B9A4D3921A49161F00EDD2C9 /* PopularResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PopularResultsViewController.m; path = ../PopularResultsViewController.m; sourceTree = "<group>"; };
 		B9A4D3941A49163F00EDD2C9 /* ExploreResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExploreResultsViewController.h; sourceTree = "<group>"; };
@@ -264,8 +264,6 @@
 		25A72F1F1A319CF20076AE07 = {
 			isa = PBXGroup;
 			children = (
-				00ED60311A7EDA7100ED1229 /* User.h */,
-				00ED60321A7EDA7100ED1229 /* User.m */,
 				25A72F2A1A319CF20076AE07 /* TokenApp */,
 				25A72F441A319CF30076AE07 /* TokenAppTests */,
 				25A72F291A319CF20076AE07 /* Products */,
@@ -286,6 +284,8 @@
 		25A72F2A1A319CF20076AE07 /* TokenApp */ = {
 			isa = PBXGroup;
 			children = (
+				B996AD1E1A8163F300C3B98E /* User.h */,
+				B996AD1F1A8163F300C3B98E /* User.m */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
 				B97F00F31A6EC2D100690309 /* Balance */,
@@ -710,7 +710,6 @@
 				B9D4AFB51A623B8E0071CA52 /* TKActivityCell.m in Sources */,
 				B9D1A6AD1A44A23000BA2874 /* PTKContentDetailTableViewController.m in Sources */,
 				00ED60511A804B5D00ED1229 /* MFC_ProfileViewController.m in Sources */,
-				00ED60331A7EDA7100ED1229 /* User.m in Sources */,
 				B9A4D3961A49163F00EDD2C9 /* ExploreResultsViewController.m in Sources */,
 				B9A4D39A1A4920BB00EDD2C9 /* CategoriesViewController.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
@@ -726,6 +725,7 @@
 				B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */,
 				B9A4D39D1A49253400EDD2C9 /* CreatePostViewController.m in Sources */,
 				B9D4AFB31A62376A0071CA52 /* TKProfileImageView.m in Sources */,
+				B996AD201A8163F300C3B98E /* User.m in Sources */,
 				B9D3933D1A4BD6D000C7733A /* TKAccountViewController.m in Sources */,
 				25ED67471A320DDF004CD269 /* LoginViewController.m in Sources */,
 				00ED603F1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m in Sources */,
