@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00A4B58B1A809F6A006EC01B /* MFC_CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */; };
+		00D14FBE1A81BF9700271031 /* CamerOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D14FBD1A81BF9700271031 /* CamerOverlay.m */; };
 		00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */; };
 		00ED60361A7F5BA300ED1229 /* MFC_LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60351A7F5BA300ED1229 /* MFC_LogInViewController.m */; };
 		00ED603F1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED603E1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m */; };
@@ -96,6 +97,8 @@
 /* Begin PBXFileReference section */
 		00A4B5891A809F6A006EC01B /* MFC_CreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_CreateViewController.h; sourceTree = "<group>"; };
 		00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_CreateViewController.m; sourceTree = "<group>"; };
+		00D14FBC1A81BF9700271031 /* CamerOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamerOverlay.h; sourceTree = "<group>"; };
+		00D14FBD1A81BF9700271031 /* CamerOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamerOverlay.m; sourceTree = "<group>"; };
 		00ED602E1A7ED68500ED1229 /* LaunchPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchPageViewController.h; sourceTree = "<group>"; };
 		00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchPageViewController.m; sourceTree = "<group>"; };
 		00ED60341A7F5BA300ED1229 /* MFC_LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_LogInViewController.h; sourceTree = "<group>"; };
@@ -298,6 +301,8 @@
 				25A72F351A319CF20076AE07 /* Main.storyboard */,
 				00A4B5891A809F6A006EC01B /* MFC_CreateViewController.h */,
 				00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */,
+				00D14FBC1A81BF9700271031 /* CamerOverlay.h */,
+				00D14FBD1A81BF9700271031 /* CamerOverlay.m */,
 				00ED604F1A804B5D00ED1229 /* MFC_ProfileViewController.h */,
 				00ED60501A804B5D00ED1229 /* MFC_ProfileViewController.m */,
 				00ED604C1A800CFE00ED1229 /* MFC_HomeFeedViewController.h */,
@@ -733,6 +738,7 @@
 				25F621461A3219800069A742 /* ProfilePersonalViewController.m in Sources */,
 				00ED60421A7FDE1800ED1229 /* MFC_SignupViewController.m in Sources */,
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
+				00D14FBE1A81BF9700271031 /* CamerOverlay.m in Sources */,
 				B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */,
 				B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */,
 				B9D1A6B31A44A89B00BA2874 /* TKUtility.m in Sources */,
