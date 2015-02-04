@@ -68,7 +68,7 @@
 
 
     //hide all controls
-    self.imagePicker.showsCameraControls = NO;
+    self.imagePicker.showsCameraControls = YES;
     self.imagePicker.navigationBarHidden = YES;
     self.imagePicker.toolbarHidden = YES;
 
@@ -78,7 +78,7 @@
                            CAMERA_TRANSFORM_Y);
 
     //set our custom overlay view
-    self.imagePicker.cameraOverlayView = overlay;
+    //self.imagePicker.cameraOverlayView = overlay;
 
 }
 
