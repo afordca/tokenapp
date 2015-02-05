@@ -17,13 +17,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Splash-iphone6" translatesAutoresizingMaskIntoConstraints="NO" id="SQc-PE-Ebv">
-                                <rect key="frame" x="0.0" y="0.0" width="335" height="566"/>
+                                <rect key="frame" x="-7" y="2" width="335" height="566"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="D6c-aj-sN8">
                                 <rect key="frame" x="47" y="86" width="240" height="128"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Czo-Tc-J5g">
-                                <rect key="frame" x="33" y="455" width="268" height="45"/>
+                                <rect key="frame" x="33" y="485" width="268" height="45"/>
                                 <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
                                 <state key="normal" title="LOGIN">
@@ -35,7 +35,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uK7-K7-2Bx">
-                                <rect key="frame" x="33" y="386" width="268" height="45"/>
+                                <rect key="frame" x="33" y="324" width="268" height="45"/>
                                 <color key="backgroundColor" red="0.46666666666666667" green="0.70980392156862748" blue="0.31764705882352939" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
                                 <state key="normal" title="SIGN UP">
@@ -46,6 +46,30 @@
                                     <segue destination="sQO-Vg-5kw" kind="push" id="cWX-QF-irc"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Vj-kE-qBC">
+                                <rect key="frame" x="33" y="435" width="268" height="45"/>
+                                <color key="backgroundColor" red="0.2354842446" green="0.44769802889999999" blue="0.85869738520000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
+                                <state key="normal" title="LOGIN WITH FACEBOOK">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="faceBookLogin:" destination="RkZ-dz-EAR" eventType="touchUpInside" id="BP5-ar-few"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bnr-jz-jAk">
+                                <rect key="frame" x="33" y="379" width="268" height="45"/>
+                                <color key="backgroundColor" red="0.079301838183580386" green="0.71232154922286262" blue="0.85869738520000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
+                                <state key="normal" title="TWITTER">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="twitterLogin:" destination="RkZ-dz-EAR" eventType="touchUpInside" id="Onb-Hy-vA6"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <navigationItem key="navigationItem" id="fgt-Pd-pHm"/>
@@ -53,11 +77,12 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="buttonLogin" destination="Czo-Tc-J5g" id="PHc-bf-sgR"/>
+                        <segue destination="EPn-4S-2Qy" kind="push" identifier="pushToFeedFromFBTwitter" id="VbR-f8-NEH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eh7-JQ-ZHz" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2540" y="-601"/>
+            <point key="canvasLocation" x="-2540" y="-567"/>
         </scene>
         <!--HomeFeed-->
         <scene sceneID="Cd2-0p-u1M">
@@ -182,7 +207,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KMb-fc-Hjn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1545.5" y="192.5"/>
+            <point key="canvasLocation" x="-1545.5" y="198.5"/>
         </scene>
         <!--Explore new users-->
         <scene sceneID="GC9-pi-ajQ">
@@ -423,7 +448,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhp-3V-Hgi">
                                 <rect key="frame" x="111" y="76" width="248" height="21"/>
                                 <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="&quot;Striving to live life bodly with excellence&quot;" translatesAutoresizingMaskIntoConstraints="NO" id="pDt-6m-fft">
@@ -732,7 +757,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rg1-kM-KQL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2540" y="193"/>
+            <point key="canvasLocation" x="-2540" y="199"/>
         </scene>
         <!--FORGOT PASSWORD-->
         <scene sceneID="F6t-OV-x2F">
@@ -910,6 +935,7 @@
                                 </state>
                                 <connections>
                                     <action selector="buttonPressVideo:" destination="Qsp-XS-xXF" eventType="touchUpInside" id="fr4-Vg-5Co"/>
+                                    <segue destination="2Iz-xV-1Rx" kind="modal" identifier="pushToDescription" modalTransitionStyle="crossDissolve" id="6Gx-2y-Ls6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -918,7 +944,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="imageViewBackground" destination="YdT-io-o66" id="Fvs-Kf-d7B"/>
-                        <segue destination="2Iz-xV-1Rx" kind="push" identifier="pushToDescription" id="KF6-wc-xUf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1U1-ei-AxS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -928,13 +953,13 @@
         <!--Description View Controller-->
         <scene sceneID="9Aw-wR-vaE">
             <objects>
-                <viewController id="2Iz-xV-1Rx" customClass="TK_DescriptionViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Description" id="2Iz-xV-1Rx" customClass="TK_DescriptionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EfW-sR-Elm"/>
                         <viewControllerLayoutGuide type="bottom" id="iCK-4M-fQ8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="V3c-uI-yHN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z5P-9e-LMg">
@@ -947,6 +972,9 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="buttonPressCancel:" destination="2Iz-xV-1Rx" eventType="touchUpInside" id="pih-Xd-rtD"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SHARE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47p-Nb-ggw">
                                         <rect key="frame" x="123" y="24" width="77" height="21"/>
@@ -957,33 +985,71 @@
                                 <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Description and hashtags ..." translatesAutoresizingMaskIntoConstraints="NO" id="B2n-kp-CL6">
-                                <rect key="frame" x="32" y="78" width="272" height="134"/>
+                                <rect key="frame" x="32" y="93" width="272" height="77"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5pU-41-moQ">
-                                <rect key="frame" x="11" y="78" width="2" height="134"/>
+                                <rect key="frame" x="11" y="93" width="3" height="77"/>
                                 <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1TW-f6-nJ7">
-                                <rect key="frame" x="11" y="243" width="2" height="56"/>
+                                <rect key="frame" x="11" y="193" width="3" height="30"/>
+                                <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yOd-Aw-vq9">
+                                <rect key="frame" x="158" y="233" width="3" height="30"/>
                                 <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tag People" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8l5-1k-xbN">
-                                <rect key="frame" x="32" y="256" width="272" height="30"/>
+                                <rect key="frame" x="32" y="193" width="272" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XgJ-vX-GTh">
+                                <rect key="frame" x="163" y="233" width="157" height="30"/>
+                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mN4-iB-qFR">
+                                <rect key="frame" x="32" y="282" width="256" height="43"/>
+                                <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="21"/>
+                                <state key="normal" title="SHARE">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonPressShare:" destination="2Iz-xV-1Rx" eventType="touchUpInside" id="KKD-Ee-uMO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOM-RL-7wF">
+                                <rect key="frame" x="0.0" y="233" width="161" height="30"/>
+                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
+                                <state key="normal" title="Facebook">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonPressFacebook:" destination="2Iz-xV-1Rx" eventType="touchUpInside" id="gAR-Ra-YBd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="LP7-r6-BPH"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="buttonShare" destination="mN4-iB-qFR" id="H1J-BB-zGs"/>
+                        <outlet property="textFieldTagPeople" destination="8l5-1k-xbN" id="4bc-H1-TnD"/>
+                        <outlet property="textViewDescriptionHashtags" destination="B2n-kp-CL6" id="hgm-MY-KlO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R6E-9e-h7x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="608" y="-614"/>
+            <point key="canvasLocation" x="655" y="-834"/>
         </scene>
         <!--News-->
         <scene sceneID="oXI-wi-kYw">
@@ -1091,4 +1157,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="VbR-f8-NEH"/>
+    </inferredMetricsTieBreakers>
 </document>

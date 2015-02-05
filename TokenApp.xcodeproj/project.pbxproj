@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00A4B58B1A809F6A006EC01B /* MFC_CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */; };
 		00B204861A82B3F8006A259A /* TK_DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B204851A82B3F8006A259A /* TK_DescriptionViewController.m */; };
+		00CBEFB31A84125E00A32D0D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CBEFB21A84125E00A32D0D /* Parse.framework */; };
 		00D14FBE1A81BF9700271031 /* CamerOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D14FBD1A81BF9700271031 /* CamerOverlay.m */; };
 		00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */; };
 		00ED60361A7F5BA300ED1229 /* MFC_LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60351A7F5BA300ED1229 /* MFC_LogInViewController.m */; };
@@ -100,6 +101,7 @@
 		00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_CreateViewController.m; sourceTree = "<group>"; };
 		00B204841A82B3F8006A259A /* TK_DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_DescriptionViewController.h; sourceTree = "<group>"; };
 		00B204851A82B3F8006A259A /* TK_DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TK_DescriptionViewController.m; sourceTree = "<group>"; };
+		00CBEFB21A84125E00A32D0D /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		00D14FBC1A81BF9700271031 /* CamerOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamerOverlay.h; sourceTree = "<group>"; };
 		00D14FBD1A81BF9700271031 /* CamerOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamerOverlay.m; sourceTree = "<group>"; };
 		00ED602E1A7ED68500ED1229 /* LaunchPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchPageViewController.h; sourceTree = "<group>"; };
@@ -241,18 +243,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25ED67631A32132D004CD269 /* Social.framework in Frameworks */,
+				25ED67511A3212CE004CD269 /* Accounts.framework in Frameworks */,
 				25ED67671A321345004CD269 /* SystemConfiguration.framework in Frameworks */,
 				25ED67651A321337004CD269 /* StoreKit.framework in Frameworks */,
-				25ED67631A32132D004CD269 /* Social.framework in Frameworks */,
 				25ED67611A321327004CD269 /* Security.framework in Frameworks */,
 				25ED675F1A321319004CD269 /* QuartzCore.framework in Frameworks */,
 				25ED675D1A32130F004CD269 /* MobileCoreServices.framework in Frameworks */,
 				25ED675B1A321305004CD269 /* libz.dylib in Frameworks */,
 				25ED67591A3212F9004CD269 /* CoreLocation.framework in Frameworks */,
 				25ED67571A3212EF004CD269 /* CoreGraphics.framework in Frameworks */,
+				00CBEFB31A84125E00A32D0D /* Parse.framework in Frameworks */,
 				25ED67551A3212E8004CD269 /* CFNetwork.framework in Frameworks */,
 				25ED67531A3212DD004CD269 /* AudioToolbox.framework in Frameworks */,
-				25ED67511A3212CE004CD269 /* Accounts.framework in Frameworks */,
 				12C3ECEC58F2EFB60B8FCB19 /* libPods-TokenApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,6 +397,7 @@
 				25ED67521A3212DD004CD269 /* AudioToolbox.framework */,
 				25ED67501A3212CE004CD269 /* Accounts.framework */,
 				25ED67481A3212AB004CD269 /* Bolts.framework */,
+				00CBEFB21A84125E00A32D0D /* Parse.framework */,
 				25ED67491A3212AB004CD269 /* Parse.framework */,
 				25ED674A1A3212AB004CD269 /* ParseFacebookUtils.framework */,
 				25ED674B1A3212AB004CD269 /* ParseUI.framework */,

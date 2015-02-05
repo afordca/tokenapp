@@ -8,6 +8,7 @@
 
 #import "MFC_CreateViewController.h"
 #import "CamerOverlay.h"
+#import "TK_DescriptionViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -138,6 +139,7 @@
         if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
         {
             UIImageWriteToSavedPhotosAlbum(self.imageCreatePhoto, nil, nil, nil);
+
         }
     }
     // Check if Video
@@ -155,7 +157,13 @@
         }
     }
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+    }];
+
+
+
+
 }
 
 

@@ -7,10 +7,16 @@
 //
 
 #import "LaunchPageViewController.h"
+#import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <FacebookSDK/FacebookSDK.h>
+
+#define VALIDURL (@"http://www.google.com")
 
 @interface LaunchPageViewController ()
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonLogin;
+@property NSArray *permissions;
 
 
 @end
@@ -23,6 +29,8 @@
 
     [self.navigationController.navigationBar setHidden:YES];
 
+    self.permissions = @[@"public_profile", @"email"];
+
     // Setup LoginButton Appearance
     CALayer *layer = self.buttonLogin.layer;
     layer.backgroundColor = [[UIColor clearColor] CGColor];
@@ -32,6 +40,184 @@
 
 }
 
+
+#pragma mark - Login Methods
+
+
+- (IBAction)twitterLogin:(id)sender
+{
+
+    NSURL *url = [NSURL URLWithString:VALIDURL];
+
+    if (![self isValidURL:url])
+    {
+        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"Connection Error" message:@"Your network connection is weak, wait until you have a better internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    else
+    {
+
+    [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error)
+        {
+        if (!user)
+        {
+            NSLog(@"Uh oh. The user cancelled the Twitter login.");
+            return;
+        }
+        else if (user.isNew)
+        {
+            NSLog(@"User signed up and logged in with Twitter!");
+
+            NSURL *verify = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json"];
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
+            [[PFTwitterUtils twitter] signRequest:request];
+            NSURLResponse *response = nil;
+            NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                                 returningResponse:&response
+                                                             error:&error];
+
+            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+
+            NSLog(@"Result: %@",result);
+
+            user.username = [result objectForKey:@"name"];
+
+            NSURL *url = [NSURL URLWithString:[result objectForKey:@"profile_image_url"]];
+            NSData *dataForImage = [NSData dataWithContentsOfURL:url];
+            PFFile *imageFile = [PFFile fileWithName:@"image.png" data:dataForImage];
+            [user setObject:imageFile forKey:@"profileImage"];
+
+            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) {
+
+                } else {
+                    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                    [currentInstallation setObject:[PFUser currentUser] forKey: @"userPointer"];
+                    [currentInstallation saveEventually:^(BOOL succeeded, NSError *error) {
+                        if (error) { } else {
+
+                            [self performSegueWithIdentifier:@"pushToFeedFromFBTwitter" sender:self ];                        }
+                    }];
+                }
+            }];
+
+        }
+        else
+        {
+            if (error == nil)
+            {
+                NSURL *verify = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json"];
+                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
+                [[PFTwitterUtils twitter] signRequest:request];
+                NSURLResponse *response = nil;
+                NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                                     returningResponse:&response
+                                                                 error:&error];
+
+                NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+
+                NSLog(@"Result: %@",result);
+
+                user.username = [result objectForKey:@"name"];
+
+                NSURL *url = [NSURL URLWithString:[result objectForKey:@"profile_image_url"]];
+                NSData *dataForImage = [NSData dataWithContentsOfURL:url];
+                PFFile *imageFile = [PFFile fileWithName:@"image.png" data:dataForImage];
+                [user setObject:imageFile forKey:@"profileImage"];
+
+                [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (error) {
+
+                    } else {
+                        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                        [currentInstallation setObject:[PFUser currentUser] forKey: @"userPointer"];
+                        [currentInstallation saveEventually:^(BOOL succeeded, NSError *error) {
+                            if (error) { } else {
+
+                                [self performSegueWithIdentifier:@"pushToFeedFromFBTwitter" sender:self ];                            }
+                        }];
+                    }
+                }];
+
+            }
+        }
+        }];
+    }
+
+
+}
+
+
+- (IBAction)faceBookLogin:(id)sender
+{
+    NSURL *url = [NSURL URLWithString:VALIDURL];
+
+
+    if (![self isValidURL:url]) {
+        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"Connection Error" message:@"Your network connection is weak, wait until you have a better internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+    } else {
+        [PFFacebookUtils logInWithPermissions:self.permissions block:^(PFUser *user, NSError *error) {
+            if (!user) {
+                NSLog(@"Uh oh. The user cancelled the Facebook login.");
+            } else if (user.isNew) {
+                NSLog(@"User signed up and logged in through Facebook!");
+                // Here we'll create the user with all the stuff.
+
+                [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                    if (!error) {
+                        // I save the ID because it's unique in terms of our app, if you save the name or last name, it's not.
+
+                        NSLog(@"%@",result);
+                        user.username = [result objectForKey:@"name"];
+                        user.email = [result objectForKey:@"email"];
+
+
+                        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                        [currentInstallation setObject:user forKey:@"user"];
+                        [currentInstallation saveInBackground];
+
+                        NSString *stringWithFacebookURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
+                        NSURL *url = [NSURL URLWithString:stringWithFacebookURL];
+                        NSData *dataForImage = [NSData dataWithContentsOfURL:url];
+                        PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataForImage];
+                        [user setObject:imageFile forKey:@"profileImage"];
+
+                        // We use save eventually because, if you don't have internet connection, it's going to save it later.
+                        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if (error) {
+                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oooops!" message:[NSString stringWithFormat:@"There's an error: %@", [error userInfo]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                [alertView show];
+                            } else {
+                                [self performSegueWithIdentifier:@"pushToFeedFromFBTwitter" sender:nil];
+                            }
+                        }];
+                    }
+                }];
+            } else {
+                NSLog(@"User logged in through Facebook!");
+                [self performSegueWithIdentifier:@"pushToFeedFromFBTwitter" sender:nil];
+            }
+        }];
+    }
+}
+
+#pragma mark - Helper Methods
+
+- (BOOL)isValidURL:(NSURL *)url
+{
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    NSHTTPURLResponse *res = nil;
+    NSError *err = nil;
+    [NSURLConnection sendSynchronousRequest:req returningResponse:&res error:&err];
+    if (err || res.statusCode == 404) {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 
 
 #pragma mark - Segue methods

@@ -9,8 +9,6 @@
 #import "MFC_LogInViewController.h"
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
-#import <FacebookSDK/FacebookSDK.h>
 
 #define VALIDURL (@"http://www.google.com")
 
@@ -19,7 +17,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldLogInUserName;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldLogInPassword;
 
-@property NSArray *permissions;
 
 
 @end
@@ -32,7 +29,7 @@
     [self.navigationController.navigationBar setHidden:YES];
 
 
-    self.permissions = @[@"public_profile", @"email"];
+    
 }
 
 
@@ -50,60 +47,6 @@
     }];
 }
 
-- (IBAction)faceBookLogin:(id)sender
-{
-    NSURL *url = [NSURL URLWithString:VALIDURL];
-
-
-    if (![self isValidURL:url]) {
-        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"Connection Error" message:@"Your network connection is weak, wait until you have a better internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-    } else {
-        [PFFacebookUtils logInWithPermissions:self.permissions block:^(PFUser *user, NSError *error) {
-            if (!user) {
-                NSLog(@"Uh oh. The user cancelled the Facebook login.");
-            } else if (user.isNew) {
-                NSLog(@"User signed up and logged in through Facebook!");
-                // Here we'll create the user with all the stuff.
-
-                [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                    if (!error) {
-                        // I save the ID because it's unique in terms of our app, if you save the name or last name, it's not.
-
-                        user.username = [result objectForKey:@"first_name"];
-                        user.email = [result objectForKey:@"email"];
-
-                        [user setObject: [result objectForKey:@"first_name"] forKey:@"username"];
-
-
-                        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-                        [currentInstallation setObject:user forKey:@"user"];
-                        [currentInstallation saveInBackground];
-
-                        NSString *stringWithFacebookURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
-                        NSURL *url = [NSURL URLWithString:stringWithFacebookURL];
-                        NSData *dataForImage = [NSData dataWithContentsOfURL:url];
-                        PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataForImage];
-                        [user setObject:imageFile forKey:@"profileImage"];
-
-                        // We use save eventually because, if you don't have internet connection, it's going to save it later.
-                        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                            if (error) {
-                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oooops!" message:[NSString stringWithFormat:@"There's an error: %@", [error userInfo]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                [alertView show];
-                            } else {
-                                [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
-                            }
-                        }];
-                    }
-                }];
-            } else {
-                NSLog(@"User logged in through Facebook!");
-                [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
-            }
-        }];
-    }
-}
 
 - (IBAction)newUser:(id)sender
 {
