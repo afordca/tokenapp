@@ -33,7 +33,7 @@
         self.outstandingSectionHeaderQueries = [NSMutableDictionary dictionary];
 
         // The className to query on
-        self.className = kPAPPhotoClassKey;
+        //self.className = kPAPPhotoClassKey;
 
         // Whether the built-in pull-to-refresh is enabled
         self.pullToRefreshEnabled = YES;
@@ -69,13 +69,13 @@
 
 #pragma mark - PFQueryTableViewcontroller 
 
-- (PFQuery *)queryForTable {
-    if (![PFUser currentUser]){
-        PFQuery *query = [PFQuery queryWithClassName:self.className];
-        [query ]
-
-
-    }
-}
+//- (PFQuery *)queryForTable {
+//    if (![PFUser currentUser]){
+//        PFQuery *query = [PFQuery queryWithClassName:self.className];
+//        [query ]
+//
+//
+//    }
+//}
 
 @end
