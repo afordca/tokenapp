@@ -64,11 +64,6 @@
 
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
 
-    EditPhotoViewController *viewController = [[EditPhotoViewController alloc] initWithImage:image];
-    [viewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-
-    [self.navController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    [self.navController pushViewController:viewController animated:NO];
 
     [self presentViewController:self.navController animated:YES completion:nil];
 }

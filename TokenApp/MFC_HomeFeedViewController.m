@@ -33,9 +33,9 @@
     
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithStyle:style];
+    self = [super initWithCoder:aDecoder];
     if (self) {
 
         self.outstandingSectionHeaderQueries = [NSMutableDictionary dictionary];
@@ -90,7 +90,7 @@
     followingActivitiesQuery.limit = 1000;
 
     PFQuery *autoFollowUsersQuery = [PFUser query];
-    [autoFollowUsersQuery whereKey:kPTKPUserAutoFollowKey equalTo:@YES];
+    [autoFollowUsersQuery whereKey:kPTKUserAutoFollowKey equalTo:@YES];
 
     PFQuery *photosFromFollowedUsersQuery = [PFQuery queryWithClassName:self.parseClassName];
     [photosFromFollowedUsersQuery whereKey:kPTKPhotoUserKey matchesKey:kPTKActivityToUserKey inQuery:followingActivitiesQuery];

@@ -205,21 +205,6 @@
 
     self.image = [info objectForKey:UIImagePickerControllerEditedImage];
 
-    NSLog(@"image here");
-
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-
-    EditPhotoViewController *editPhotoVC = [[EditPhotoViewController alloc]initWithImage:image];
-    [editPhotoVC setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-
-    [self.navController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    [self.navController pushViewController:editPhotoVC animated:NO];
-
-    [self presentViewController:navController animated:YES completion:nil];
-
-    //[self dismissViewControllerAnimated:YES completion:nil];
-
-
 
     [self dismissViewControllerAnimated:YES completion:^{
         [self performSegueWithIdentifier:@"pushToDescription" sender:self];

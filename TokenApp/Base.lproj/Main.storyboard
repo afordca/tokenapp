@@ -87,7 +87,7 @@
         <!--HomeFeed-->
         <scene sceneID="Cd2-0p-u1M">
             <objects>
-                <viewController id="94a-xH-nEI" userLabel="HomeFeed" sceneMemberID="viewController">
+                <viewController id="94a-xH-nEI" userLabel="HomeFeed" customClass="MFC_HomeFeedViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XCd-bo-y78"/>
                         <viewControllerLayoutGuide type="bottom" id="twW-ds-gmc"/>
@@ -177,12 +177,12 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="tableViewHomeFeed" destination="Yo9-0O-nwv" id="4ax-Sk-M58"/>
+                        <outlet property="tableViewHomeFeed" destination="Yo9-0O-nwv" id="hec-VG-yfb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TLo-ad-tQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="81.5" y="-2376.5"/>
+            <point key="canvasLocation" x="93.5" y="-2376.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="4dR-Qr-8hJ">
