@@ -127,7 +127,14 @@
     self.shouldReloadOnAppear = YES;
 }
 
-
+//- (PFQuery *)queryForTable {
+//    if (![PFUser currentUser]){
+//        PFQuery *query = [PFQuery queryWithClassName:self.className];
+//        [query ]
+//
+//
+//    }
+//}
 
 
 @end
