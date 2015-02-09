@@ -30,76 +30,80 @@
 
 @implementation EditPhotoViewController
 
-@synthesize photo;
 @synthesize scrollView;
+@synthesize image;
+@synthesize commentTextField;
+@synthesize photoFile;
+@synthesize thumbnailFile;
+@synthesize fileUploadBackgroundTaskId;
+@synthesize photoPostBackgroundTaskId;
 
-- (id)initWithImage:(UIImage *)aImage {
-    self = [super initWithNibName:nil bundle:nil];
++ (id)initWithImage:(UIImage *)aImage {
     if (self) {
         if (!aImage) {
             return nil;
         }
 
-        self.image = aImage;
+        image = aImage;
         self.fileUploadBackgroundTaskId = UIBackgroundTaskInvalid;
         self.photoPostBackgroundTaskId = UIBackgroundTaskInvalid;
     }
     return self;
 }
 
--(void)loadView
-{
-    self.scrollView = [[UIScrollView alloc]initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    self.scrollView.delegate = self;
-    self.scrollView.backgroundColor = [UIColor blackColor];
-    self.view = self.scrollView;
+//-(void)loadView
+//{
+//    self.scrollView = [[UIScrollView alloc]initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+//    self.scrollView.delegate = self;
+//    self.scrollView.backgroundColor = [UIColor blackColor];
+//    self.view = self.scrollView;
+//
+//    UIImageView *photoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 42.0f, 320.0f, 320.0f)];
+//    [photoImageView setBackgroundColor:[UIColor blackColor]];
+//    [photoImageView setImage:self.image];
+//    [photoImageView setContentMode:UIViewContentModeScaleAspectFill];
+//    // Do any additional setup after loading the view.
+//
+//    [self.scrollView addSubview:photoImageView];
+//
+//    [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width, photoImageView.frame.origin.y + photoImageView.frame.size.height)];
+//}
+//
+//- (void)viewDidLoad {
+//    [super viewDidLoad];
+//
+//    [self.navigationItem setHidesBackButton:YES];
+//
+//    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonAction:)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonAction:)];
+//
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+//
+//    [self shouldUploadImage:self.image];
+//    
+//}
+//
+//#pragma mark - UITextFieldDelegate
+//
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+//    [self doneButtonAction:textField];
+//    [textField resignFirstResponder];
+//    return YES;
+//}
+//
+//#pragma mark - UIScrollViewDelegate
+//
+//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+//    [self.commentTextField resignFirstResponder];
+//}
 
-    UIImageView *photoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 42.0f, 320.0f, 320.0f)];
-    [photoImageView setBackgroundColor:[UIColor blackColor]];
-    [photoImageView setImage:self.image];
-    [photoImageView setContentMode:UIViewContentModeScaleAspectFill];
-    // Do any additional setup after loading the view.
 
-    [self.scrollView addSubview:photoImageView];
-
-    [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width, photoImageView.frame.origin.y + photoImageView.frame.size.height)];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    [self.navigationItem setHidesBackButton:YES];
-
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonAction:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonAction:)];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-
-    [self shouldUploadImage:self.image];
-    
-}
-
-#pragma mark - UITextFieldDelegate
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self doneButtonAction:textField];
-    [textField resignFirstResponder];
-    return YES;
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.commentTextField resignFirstResponder];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+//- (void)didReceiveMemoryWarning {
+//    [super didReceiveMemoryWarning];
+//    // Dispose of any resources that can be recreated.
+//}
 
 #pragma mark - UIViewController 
 

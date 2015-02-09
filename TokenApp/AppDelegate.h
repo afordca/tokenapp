@@ -16,6 +16,9 @@
 
 }
 
+@property (nonatomic, readonly) int networkStatus;
+
+- (BOOL)isParseReachable;
 
 @property (strong, nonatomic) UIWindow *window;
 

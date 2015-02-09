@@ -12,6 +12,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "TK_DescriptionViewController.h"
+#import "EditPhotoViewController.h"
 
 //transform values for full screen support
 #define CAMERA_TRANSFORM_X 1
@@ -28,12 +29,16 @@
 @property UIImage *imageCreatePhoto;
 @property UIImage *image;
 
+@property (nonatomic,strong) UINavigationController *navController;
+
 @property (strong, nonatomic) NSURL *videoURL;
 @property (strong, nonatomic) MPMoviePlayerController *videoController;
 
 @end
 
 @implementation MFC_CreateViewController
+
+@synthesize navController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -94,7 +99,12 @@
 
     [self presentViewController:self.imagePicker animated:YES completion:nil];
 
+    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+    NSLog(@"ButtonEntro");
+    [self presentViewController:self.imagePicker animated:NO completion:nil];
+
 }
+
 
 - (IBAction)buttonPressVideo:(id)sender
 {
@@ -128,11 +138,43 @@
 }
 
 
+- (BOOL)shouldStartPhotoLibraryPickerController {
+    if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO
+         && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)) {
+        return NO;
+    }
+
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]
+        && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary] containsObject:(NSString *)kUTTypeImage]) {
+
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        self.imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
+
+    } else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]
+               && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum] containsObject:(NSString *)kUTTypeImage]) {
+
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        self.imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
+
+    } else {
+        return NO;
+    }
+
+    self.imagePicker.allowsEditing = YES;
+    self.imagePicker.delegate = self;
+
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
+    
+    return YES;
+}
+
 #pragma mark - UIImagePicker Methods
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+
+    NSLog(@"Entro");
 
     // Check if photo
 
@@ -162,6 +204,20 @@
     }
 
     self.image = [info objectForKey:UIImagePickerControllerEditedImage];
+
+    NSLog(@"image here");
+
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+
+    EditPhotoViewController *editPhotoVC = [[EditPhotoViewController alloc]initWithImage:image];
+    [editPhotoVC setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+
+    [self.navController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    [self.navController pushViewController:editPhotoVC animated:NO];
+
+    [self presentViewController:navController animated:YES completion:nil];
+
+    //[self dismissViewControllerAnimated:YES completion:nil];
 
 
 
