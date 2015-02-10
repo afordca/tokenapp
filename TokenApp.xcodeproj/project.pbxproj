@@ -610,11 +610,11 @@
 				TargetAttributes = {
 					25A72F271A319CF20076AE07 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 77JGXNAM7B;
+						DevelopmentTeam = M937F246YV;
 					};
 					25A72F401A319CF30076AE07 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 77JGXNAM7B;
+						DevelopmentTeam = M937F246YV;
 						TestTargetID = 25A72F271A319CF20076AE07;
 					};
 				};
