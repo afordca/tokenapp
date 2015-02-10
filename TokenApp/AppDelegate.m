@@ -39,6 +39,8 @@
     [Parse setApplicationId:@"dNPSXSwJgJXVxTxkbta8EmoFFouOI4TIXlO1kTiz"
                   clientKey:@"Dbxo2R7VxPwOv6ub5tQ9qK3sWwinkBCUQSqyUld3"];
 
+    
+
     //Twitter setup
     [PFTwitterUtils initializeWithConsumerKey:@"zZ6XjwBvVEKbin2fr69ocsUqv"
                             consumerSecret:@"MOOl0dai4uxW6mIpEOBH1ogweVa2XNmiCaJwtR2NDathdAs0mk"];
@@ -65,6 +67,10 @@
     [self SetUser];
 
     return YES;
+}
+
+- (BOOL)isParseReachable {
+    return self.networkStatus != NotReachable;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
