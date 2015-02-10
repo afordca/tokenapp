@@ -11,6 +11,7 @@
 #import "TK_DescriptionViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "TK_DescriptionViewController.h"
 
 //transform values for full screen support
 #define CAMERA_TRANSFORM_X 1
@@ -25,6 +26,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewBackground;
 @property UIImagePickerController *imagePicker;
 @property UIImage *imageCreatePhoto;
+@property UIImage *image;
 
 @property (strong, nonatomic) NSURL *videoURL;
 @property (strong, nonatomic) MPMoviePlayerController *videoController;
@@ -63,20 +65,20 @@
                             initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGTH)];
 
     self.imagePicker = [UIImagePickerController new];
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     self.imagePicker.delegate = self;
     self.imagePicker.allowsEditing = YES;
 
 
     //hide all controls
-    self.imagePicker.showsCameraControls = YES;
-    self.imagePicker.navigationBarHidden = YES;
-    self.imagePicker.toolbarHidden = YES;
-
-    self.imagePicker.cameraViewTransform =
-    CGAffineTransformScale(self.imagePicker.cameraViewTransform,
-                           CAMERA_TRANSFORM_X,
-                           CAMERA_TRANSFORM_Y);
+//    self.imagePicker.showsCameraControls = NO;
+//    self.imagePicker.navigationBarHidden = YES;
+//    self.imagePicker.toolbarHidden = YES;
+//
+//    self.imagePicker.cameraViewTransform =
+//    CGAffineTransformScale(self.imagePicker.cameraViewTransform,
+//                           CAMERA_TRANSFORM_X,
+//                           CAMERA_TRANSFORM_Y);
 
     //set our custom overlay view
     //self.imagePicker.cameraOverlayView = overlay;
@@ -87,8 +89,10 @@
 
 - (IBAction)buttonPressCamera:(id)sender
 {
-    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-    [self presentViewController:self.imagePicker animated:NO completion:nil];
+//    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+//    [self presentViewController:self.imagePicker animated:NO completion:nil];
+
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
 
 }
 
@@ -157,15 +161,24 @@
         }
     }
 
+    self.image = [info objectForKey:UIImagePickerControllerEditedImage];
+
+
+
     [self dismissViewControllerAnimated:YES completion:^{
         [self performSegueWithIdentifier:@"pushToDescription" sender:self];
     }];
 
-
-
-
 }
 
-
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    TK_DescriptionViewController *dVC = [TK_DescriptionViewController new];
+    NSLog(@"Segue here");
+    if ([[segue identifier]isEqualToString:@"pushToDescription"]){
+        dVC = segue.destinationViewController;
+        dVC.image = self.image;
+    }
+}
 
 @end

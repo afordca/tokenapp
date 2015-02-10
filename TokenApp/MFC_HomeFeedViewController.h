@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PFQueryTableViewController.h"
 
-@interface MFC_HomeFeedViewController : UIViewController
+
+@interface MFC_HomeFeedViewController : PFQueryTableViewController
 
 @end
