@@ -12,6 +12,7 @@
 #import "TKUtility.h"
 #import "TKCache.h"
 #import "AppDelegate.h"
+#import <ParseUI/ParseUI.h>2
 
 
 
@@ -30,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -60,18 +61,24 @@
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    if (self.shouldReloadOnAppear) {
+        self.shouldReloadOnAppear = NO;
+        [self loadObjects];
+    }
+}
+
 #pragma mark - UITableView Delegate Methods
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 0;
 
-}
+//-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return self.objects.count * 2 + (self.paginationEnabled ? 1 : 0);
+//}
 
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return nil;
-}
+
 
 -(IBAction)unwindToHomeFeed:(UIStoryboard*)sender{}
 
@@ -120,6 +127,12 @@
 
 }
 
+- (void)objectsDidLoad:(NSError *)error {
+    [super objectsDidLoad:error];
+
+    // This method is called every time objects are loaded from Parse via the PFQuery
+}
+
 #pragma mark - ()
 
 - (void)userFollowingChanged:(NSNotification *)note {
@@ -127,14 +140,6 @@
     self.shouldReloadOnAppear = YES;
 }
 
-//- (PFQuery *)queryForTable {
-//    if (![PFUser currentUser]){
-//        PFQuery *query = [PFQuery queryWithClassName:self.className];
-//        [query ]
-//
-//
-//    }
-//}
 
 
 @end
