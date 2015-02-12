@@ -15,6 +15,8 @@
 -(void)onClickCameraReverse:(NSString *)customClass;
 -(void)onClickCameraLibrary;
 -(void)onClickCameraCapturePhoto;
+-(void)onClickCancel;
+-(void)onClickFlashMode;
 
 @end
 
@@ -28,5 +30,7 @@
 -(void)cameraReverse;
 -(void)cameraLibrary;
 -(void)cameraCapture;
+-(void)cameraCancel;
+-(void)cameraFlash;
 
 @end

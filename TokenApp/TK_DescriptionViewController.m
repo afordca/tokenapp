@@ -57,25 +57,31 @@
     // Setting User
     self.currentUser = [PFUser currentUser];
 
-    // Resize photo
-    self.imagePhoto = [self resizeImage:self.imagePhoto scaledToSize:150];
+    //For Video
+    if (self.isVideo)
+    {
+        // Setting Video for upload to Parse
+        self.video = [PFObject objectWithClassName:@"Video"];
+        NSData *dataVideo = [NSData dataWithContentsOfURL:self.urlVideo];
+        PFFile *videoFile = [PFFile fileWithName:@"video" data:dataVideo];
 
-    // Setting Photo for upload to Parse
-    self.photo = [PFObject objectWithClassName:@"Photo"];
-    NSData *dataPhoto = UIImagePNGRepresentation(self.imagePhoto);
-    PFFile *imagePhotoFile = [PFFile fileWithName:@"photo.png" data:dataPhoto];
+        [self.video setObject:self.currentUser forKey:@"user"];
+        [self.video setObject:videoFile forKey:@"video"];
+    }
+    else
+    // For Photo
+    {
+        // Resize photo
+        self.imagePhoto = [self resizeImage:self.imagePhoto scaledToSize:150];
+        // Setting Photo for upload to Parse
+        self.photo = [PFObject objectWithClassName:@"Photo"];
+        NSData *dataPhoto = UIImagePNGRepresentation(self.imagePhoto);
+        PFFile *imagePhotoFile = [PFFile fileWithName:@"photo.png" data:dataPhoto];
 
-    [self.photo setObject:self.currentUser forKey:@"user"];
-    [self.photo setObject:imagePhotoFile forKey:@"image"];
+        [self.photo setObject:self.currentUser forKey:@"user"];
+        [self.photo setObject:imagePhotoFile forKey:@"image"];
 
-    // Setting Video for upload to Parse
-    self.video = [PFObject objectWithClassName:@"Video"];
-    NSData *dataVideo = [NSData dataWithContentsOfURL:self.urlVideo];
-    PFFile *videoFile = [PFFile fileWithName:@"video" data:dataVideo];
-
-    [self.video setObject:self.currentUser forKey:@"user"];
-    [self.video setObject:videoFile forKey:@"video"];
-
+    }
 
 }
 
@@ -174,7 +180,6 @@
         [self.photo setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
         [self savePhotoToParse];
     }
-
 
 }
 

@@ -17,7 +17,48 @@
         self.opaque = NO;
         self.backgroundColor = [UIColor clearColor];
 
+
+        //Setting up Top Nav Bar
+        UIView *viewTopNavBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+        viewTopNavBar.backgroundColor = [UIColor blackColor];
+
+        //add Cancel button to Top Nav Bar
+
+        UIButton *btnCancel = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [btnCancel setTitle:@"CANCEL" forState:UIControlStateNormal];
+       // UIColor *colorTokenGreen = [UIColor colorWithRed:119.0 green:181.0 blue:81.0 alpha:.85];
+
+        btnCancel.tintColor = [UIColor greenColor];
+
+        //set the frame
+        CGRect btnCancelFrame = CGRectMake(0, 0, 100, 40);
+        btnCancel.frame = btnCancelFrame;
+        [btnCancel addTarget:self
+                   action:@selector(cameraCancel)
+                   forControlEvents:UIControlEventTouchUpInside];
+        
+        [viewTopNavBar addSubview:btnCancel];
+
+        UIButton *btnFlash = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [btnFlash setTitle:@"FLASH" forState:UIControlStateNormal];
+
+        btnFlash.tintColor = [UIColor greenColor];
+
+        //set the frame
+        CGRect btnFlashFrame = CGRectMake(110, 0, 100, 40);
+        btnFlash.frame = btnFlashFrame;
+        [btnFlash addTarget:self
+                      action:@selector(cameraFlash)
+            forControlEvents:UIControlEventTouchUpInside];
+
+        [viewTopNavBar addSubview:btnFlash];
+
+
+        [self addSubview:viewTopNavBar];
+
+
         //add Camera Capture Photo to the overlay view.
+
         UIButton *btnCamCapturePhoto = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btnCamCapturePhoto setTitle:@"Take Photo" forState:UIControlStateNormal];
         //set the frame
@@ -31,6 +72,7 @@
 
 
         //add Camera Reverse button to the overlay view.
+
         UIButton *btnCamReverse = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btnCamReverse setTitle:@"Reverse" forState:UIControlStateNormal];
         //set the frame
@@ -43,6 +85,7 @@
         [self addSubview:btnCamReverse];
 
         //add Camera Library button to the overlay view;
+
         UIButton *btnCamLibrary = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btnCamLibrary setTitle:@"Library" forState:UIControlStateNormal];
         //set the frame
@@ -80,5 +123,16 @@
     [self.delegate onClickCameraCapturePhoto];
 }
 
+-(void)cameraCancel
+{
+    NSLog(@"TEST: Camera Cancel");
+    [self.delegate onClickCancel];
+}
+
+-(void)cameraFlash
+{
+    NSLog(@"TEST: Camera Flash");
+    [self.delegate onClickFlashMode];
+}
 
 @end

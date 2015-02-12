@@ -890,7 +890,6 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="buttonPressCancel:" destination="2Iz-xV-1Rx" eventType="touchUpInside" id="pih-Xd-rtD"/>
                                             <action selector="onButtonCancel:" destination="2Iz-xV-1Rx" eventType="touchUpInside" id="58j-3k-zmT"/>
                                         </connections>
                                     </button>

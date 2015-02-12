@@ -28,6 +28,9 @@
 @property UIImage *imageCreatePhoto;
 @property (strong, nonatomic) NSURL *videoURL;
 
+@property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
+
+
 @property BOOL isVideo;
 
 @end
@@ -75,6 +78,8 @@
     self.imagePicker.delegate = self;
     self.imagePicker.allowsEditing = YES;
 
+    self.flashMode = UIImagePickerControllerCameraFlashModeAuto;
+    self.imagePicker.cameraFlashMode = self.flashMode;
 
     //hide all controls
     self.imagePicker.showsCameraControls = NO;
@@ -144,7 +149,6 @@
 -(void)onClickCameraCapturePhoto
 {
     self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage,(NSString*)kUTTypeMovie, nil];
 
     if (self.isVideo)
     {
@@ -157,6 +161,25 @@
 
 }
 
+-(void)onClickCancel
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
+
+-(void)onClickFlashMode
+{
+    if (self.flashMode == UIImagePickerControllerCameraFlashModeAuto) {
+        //toggle your button to "on"
+        self.flashMode = UIImagePickerControllerCameraFlashModeOn;
+    }else if (self.flashMode == UIImagePickerControllerCameraFlashModeOn){
+        //toggle your button to "Off"
+        self.flashMode = UIImagePickerControllerCameraFlashModeOff;
+    }else if (self.flashMode == UIImagePickerControllerCameraFlashModeOff){
+        //toggle your button to "Auto"
+        self.flashMode = UIImagePickerControllerCameraFlashModeAuto;
+    }
+}
 
 #pragma mark - UIImagePicker Methods
 
