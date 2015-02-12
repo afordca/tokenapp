@@ -9,6 +9,7 @@
 #import "MFC_CreateViewController.h"
 #import "CamerOverlay.h"
 #import "TK_DescriptionViewController.h"
+#import "TK_PostViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -238,10 +239,16 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    TK_DescriptionViewController *tkDescriptionViewController = [segue destinationViewController];
-    tkDescriptionViewController.imagePhoto = self.imageCreatePhoto;
-    tkDescriptionViewController.urlVideo = self.videoURL;
-    tkDescriptionViewController.isVideo = self.isVideo;
+
+    if ([segue.identifier  isEqual: @"pushToDescription"])
+    {
+        TK_DescriptionViewController *tkDescriptionViewController = [segue destinationViewController];
+        tkDescriptionViewController.imagePhoto = self.imageCreatePhoto;
+        tkDescriptionViewController.urlVideo = self.videoURL;
+        tkDescriptionViewController.isVideo = self.isVideo;
+    }
+
+
 }
 
 

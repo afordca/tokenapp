@@ -27,6 +27,7 @@
 @property PFUser *currentUser;
 @property PFObject *photo;
 @property PFObject *video;
+@property PFObject *note;
 @property PFFile *photoFile;
 
 
@@ -57,8 +58,16 @@
     // Setting User
     self.currentUser = [PFUser currentUser];
 
+    if (self.isPost)
+    {
+        self.note = [PFObject objectWithClassName:@"Note"];
+        [self.note setObject:self.stringPost forKey:@"note"];
+        [self.note setObject:self.currentUser forKey:@"user"];
+    }
+
+
     //For Video
-    if (self.isVideo)
+   else if (self.isVideo)
     {
         // Setting Video for upload to Parse
         self.video = [PFObject objectWithClassName:@"Video"];
@@ -160,6 +169,20 @@
     }];
 }
 
+-(void)saveNoteToParse
+{
+    [self.note saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            NSLog(@"%@",[error userInfo]);
+        }
+        else
+        {
+            NSLog(@"Note Saved");
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }];
+}
+
 #pragma mark - Button Press Methods
 
 - (IBAction)buttonPressFacebook:(id)sender
@@ -170,8 +193,14 @@
 
 - (IBAction)buttonPressShare:(id)sender
 {
+    if (self.isPost)
+    {
+        [self.note setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+        [self saveNoteToParse];
+    }
 
-    if (self.isVideo) {
+   else if (self.isVideo)
+    {
         [self.video setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
         [self saveVideoToParse];
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		000F079C1A8D3CBF003E1596 /* TK_PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000F079B1A8D3CBF003E1596 /* TK_PostViewController.m */; };
 		00A4B58B1A809F6A006EC01B /* MFC_CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */; };
 		00B204861A82B3F8006A259A /* TK_DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B204851A82B3F8006A259A /* TK_DescriptionViewController.m */; };
 		00CBEFB31A84125E00A32D0D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CBEFB21A84125E00A32D0D /* Parse.framework */; };
@@ -97,6 +98,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		000F079A1A8D3CBF003E1596 /* TK_PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_PostViewController.h; sourceTree = "<group>"; };
+		000F079B1A8D3CBF003E1596 /* TK_PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TK_PostViewController.m; sourceTree = "<group>"; };
 		00A4B5891A809F6A006EC01B /* MFC_CreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_CreateViewController.h; sourceTree = "<group>"; };
 		00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_CreateViewController.m; sourceTree = "<group>"; };
 		00B204841A82B3F8006A259A /* TK_DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_DescriptionViewController.h; sourceTree = "<group>"; };
@@ -305,6 +308,8 @@
 				B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */,
 				B97F00F41A6EC2E400690309 /* Settings */,
 				25A72F351A319CF20076AE07 /* Main.storyboard */,
+				000F079A1A8D3CBF003E1596 /* TK_PostViewController.h */,
+				000F079B1A8D3CBF003E1596 /* TK_PostViewController.m */,
 				00A4B5891A809F6A006EC01B /* MFC_CreateViewController.h */,
 				00A4B58A1A809F6A006EC01B /* MFC_CreateViewController.m */,
 				00B204841A82B3F8006A259A /* TK_DescriptionViewController.h */,
@@ -753,6 +758,7 @@
 				B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */,
 				B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */,
 				B9D1A6B31A44A89B00BA2874 /* TKUtility.m in Sources */,
+				000F079C1A8D3CBF003E1596 /* TK_PostViewController.m in Sources */,
 				B9D393461A4BE0B800C7733A /* EditPostViewController.m in Sources */,
 				B9F359D31A43AEBF00476FF7 /* Constants.m in Sources */,
 			);

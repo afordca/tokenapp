@@ -15,5 +15,8 @@
 @property UIImage *imagePhoto;
 @property NSURL *urlVideo;
 @property BOOL isVideo;
+@property BOOL isPost;
+
+@property NSString *stringPost;
 
 @end
