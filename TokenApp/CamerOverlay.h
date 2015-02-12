@@ -13,6 +13,8 @@
 
 // define protocol functions that can be used in any class using this delegate
 -(void)onClickCameraReverse:(NSString *)customClass;
+-(void)onClickCameraLibrary;
+-(void)onClickCameraCapturePhoto;
 
 @end
 
@@ -23,7 +25,8 @@
 
 
 // define public functions
--(void)onClickCameraReverse;
-
+-(void)cameraReverse;
+-(void)cameraLibrary;
+-(void)cameraCapture;
 
 @end

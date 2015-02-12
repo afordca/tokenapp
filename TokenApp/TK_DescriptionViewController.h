@@ -8,13 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Macros.h"
-#import "ParseUI.h"
 #import "Constants.h"
 
 @interface TK_DescriptionViewController : UIViewController
 
-- (id)initWithImage:(UIImage *)aImage;
-@property (nonatomic,strong) PFObject *photo;
-@property UIImage *image;
+@property UIImage *imagePhoto;
+@property NSURL *urlVideo;
+@property BOOL isVideo;
 
 @end

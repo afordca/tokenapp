@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="NOK-V3-1nH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="NOK-V3-1nH">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
     </dependencies>
@@ -816,16 +816,6 @@
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T3h-oM-kXY">
                                 <rect key="frame" x="0.0" y="0.0" width="322" height="63"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LxE-s5-L73">
-                                        <rect key="frame" x="16" y="17" width="65" height="36"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KlS-KR-d8N">
@@ -862,7 +852,6 @@
                                 </state>
                                 <connections>
                                     <action selector="buttonPressVideo:" destination="Qsp-XS-xXF" eventType="touchUpInside" id="fr4-Vg-5Co"/>
-                                    <segue destination="2Iz-xV-1Rx" kind="modal" identifier="pushToDescription" modalTransitionStyle="crossDissolve" id="6Gx-2y-Ls6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -871,6 +860,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="imageViewBackground" destination="YdT-io-o66" id="Fvs-Kf-d7B"/>
+                        <segue destination="2Iz-xV-1Rx" kind="push" identifier="pushToDescription" id="wEp-m4-K9s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1U1-ei-AxS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -886,7 +876,7 @@
                         <viewControllerLayoutGuide type="bottom" id="iCK-4M-fQ8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="V3c-uI-yHN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z5P-9e-LMg">
@@ -901,6 +891,7 @@
                                         </state>
                                         <connections>
                                             <action selector="buttonPressCancel:" destination="2Iz-xV-1Rx" eventType="touchUpInside" id="pih-Xd-rtD"/>
+                                            <action selector="onButtonCancel:" destination="2Iz-xV-1Rx" eventType="touchUpInside" id="58j-3k-zmT"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SHARE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47p-Nb-ggw">
@@ -976,7 +967,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R6E-9e-h7x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="655" y="-834"/>
+            <point key="canvasLocation" x="483" y="-614"/>
         </scene>
         <!--News-->
         <scene sceneID="oXI-wi-kYw">

@@ -11,38 +11,33 @@
 #import "TK_DescriptionViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "TK_DescriptionViewController.h"
-#import "EditPhotoViewController.h"
 
 //transform values for full screen support
 #define CAMERA_TRANSFORM_X 1
 #define CAMERA_TRANSFORM_Y 1.12412
 //iphone screen dimensions
 #define SCREEN_WIDTH  320
-#define SCREEN_HEIGTH 480
+#define SCREEN_HEIGTH 568
 
 
-@interface MFC_CreateViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface MFC_CreateViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewBackground;
+
 @property UIImagePickerController *imagePicker;
 @property UIImage *imageCreatePhoto;
-@property UIImage *image;
-
-@property (nonatomic,strong) UINavigationController *navController;
-
 @property (strong, nonatomic) NSURL *videoURL;
-@property (strong, nonatomic) MPMoviePlayerController *videoController;
+
+@property BOOL isVideo;
 
 @end
 
 @implementation MFC_CreateViewController
 
-@synthesize navController;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUI];
+    [self setUpCamera];
 
 }
 
@@ -62,31 +57,37 @@
     visualEffectView.frame = self.imageViewBackground.bounds;
     [self.imageViewBackground addSubview:visualEffectView];
 
+}
 
+-(void)setUpCamera
+{
     //UIImagePicker Setup
+
+    self.isVideo = NO;
 
     //create an overlay view instance
     CamerOverlay *overlay = [[CamerOverlay alloc]
-                            initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGTH)];
+                             initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGTH)];
+    overlay.delegate = self;
 
     self.imagePicker = [UIImagePickerController new];
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
     self.imagePicker.delegate = self;
     self.imagePicker.allowsEditing = YES;
 
 
     //hide all controls
-//    self.imagePicker.showsCameraControls = NO;
-//    self.imagePicker.navigationBarHidden = YES;
-//    self.imagePicker.toolbarHidden = YES;
-//
-//    self.imagePicker.cameraViewTransform =
-//    CGAffineTransformScale(self.imagePicker.cameraViewTransform,
-//                           CAMERA_TRANSFORM_X,
-//                           CAMERA_TRANSFORM_Y);
+    self.imagePicker.showsCameraControls = NO;
+    self.imagePicker.navigationBarHidden = YES;
+    self.imagePicker.toolbarHidden = YES;
+
+    self.imagePicker.cameraViewTransform =
+    CGAffineTransformScale(self.imagePicker.cameraViewTransform,
+                           CAMERA_TRANSFORM_X,
+                           CAMERA_TRANSFORM_Y);
 
     //set our custom overlay view
-    //self.imagePicker.cameraOverlayView = overlay;
+    self.imagePicker.cameraOverlayView = overlay;
 
 }
 
@@ -94,21 +95,16 @@
 
 - (IBAction)buttonPressCamera:(id)sender
 {
-//    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-//    [self presentViewController:self.imagePicker animated:NO completion:nil];
-
-    [self presentViewController:self.imagePicker animated:YES completion:nil];
-
     self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-    NSLog(@"ButtonEntro");
     [self presentViewController:self.imagePicker animated:NO completion:nil];
 
 }
 
-
 - (IBAction)buttonPressVideo:(id)sender
 {
+    self.isVideo = YES;
     self.imagePicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+    self.imagePicker.videoMaximumDuration = 20; //seconds
     [self presentViewController:self.imagePicker animated:NO completion:nil];
 
 }
@@ -123,9 +119,17 @@
 
 }
 
-//IBAction (for switching between front and rear camera).
+#pragma mark - CameraOverlay Delegate Methods
 
--(IBAction)onClickButtonCamReverse:(id)sender
+-(void)onClickCameraLibrary
+{
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    self.imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:self.imagePicker.sourceType];
+
+}
+
+//IBAction (for switching between front and rear camera).
+-(void)onClickCameraReverse:(NSString *)customClass
 {
     if(self.imagePicker.cameraDevice == UIImagePickerControllerCameraDeviceFront)
     {
@@ -137,36 +141,22 @@
     }
 }
 
+-(void)onClickCameraCapturePhoto
+{
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage,(NSString*)kUTTypeMovie, nil];
 
-- (BOOL)shouldStartPhotoLibraryPickerController {
-    if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO
-         && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)) {
-        return NO;
+    if (self.isVideo)
+    {
+        [self.imagePicker startVideoCapture];
+    }
+    else
+    {
+        [self.imagePicker takePicture];
     }
 
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]
-        && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary] containsObject:(NSString *)kUTTypeImage]) {
-
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        self.imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
-
-    } else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]
-               && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum] containsObject:(NSString *)kUTTypeImage]) {
-
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-        self.imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
-
-    } else {
-        return NO;
-    }
-
-    self.imagePicker.allowsEditing = YES;
-    self.imagePicker.delegate = self;
-
-    [self presentViewController:self.imagePicker animated:YES completion:nil];
-    
-    return YES;
 }
+
 
 #pragma mark - UIImagePicker Methods
 
@@ -174,19 +164,22 @@
 {
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
 
-    NSLog(@"Entro");
-
     // Check if photo
 
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage])
     {
         self.imageCreatePhoto = [info objectForKey:UIImagePickerControllerOriginalImage];
 
+        // Pictures taken from camera shot are stored to device
         if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
         {
+            //Save to Photos Album
             UIImageWriteToSavedPhotosAlbum(self.imageCreatePhoto, nil, nil, nil);
 
         }
+
+        [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+
     }
     // Check if Video
 
@@ -199,27 +192,34 @@
             // Saving the video / // Get the new unique filename
             NSString *sourcePath = [[info objectForKey:@"UIImagePickerControllerMediaURL"]relativePath];
             UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);
+            [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+
 
         }
     }
-
-    self.image = [info objectForKey:UIImagePickerControllerEditedImage];
-
-
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self performSegueWithIdentifier:@"pushToDescription" sender:self];
-    }];
-
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self setUpCamera];
+     self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+     [self dismissViewControllerAnimated:YES completion:^{
+         [self presentViewController:self.imagePicker animated:NO completion:nil];
+
+     }];
+}
+
+#pragma mark - Prepare Segue Methods
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    TK_DescriptionViewController *dVC = [TK_DescriptionViewController new];
-    NSLog(@"Segue here");
-    if ([[segue identifier]isEqualToString:@"pushToDescription"]){
-        dVC = segue.destinationViewController;
-        dVC.image = self.image;
-    }
+    TK_DescriptionViewController *tkDescriptionViewController = [segue destinationViewController];
+    tkDescriptionViewController.imagePhoto = self.imageCreatePhoto;
+    tkDescriptionViewController.urlVideo = self.videoURL;
+    tkDescriptionViewController.isVideo = self.isVideo;
 }
+
 
 @end
