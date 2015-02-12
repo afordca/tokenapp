@@ -28,6 +28,7 @@
 @property PFObject *photo;
 @property PFObject *video;
 @property PFObject *note;
+@property PFObject *link;
 @property PFFile *photoFile;
 
 
@@ -58,7 +59,14 @@
     // Setting User
     self.currentUser = [PFUser currentUser];
 
-    if (self.isPost)
+
+    if (self.isLink) {
+        self.link = [PFObject objectWithClassName:@"Link"];
+        [self.link setObject:self.stringLink forKey:@"url"];
+        [self.link setObject:self.currentUser forKey:@"user"];
+    }
+
+   else if (self.isPost)
     {
         self.note = [PFObject objectWithClassName:@"Note"];
         [self.note setObject:self.stringPost forKey:@"note"];
@@ -183,6 +191,20 @@
     }];
 }
 
+-(void)saveLinkToParse
+{
+    [self.link saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            NSLog(@"%@",[error userInfo]);
+        }
+        else
+        {
+            NSLog(@"Link Saved");
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }];
+}
+
 #pragma mark - Button Press Methods
 
 - (IBAction)buttonPressFacebook:(id)sender
@@ -193,6 +215,12 @@
 
 - (IBAction)buttonPressShare:(id)sender
 {
+    if (self.isLink)
+    {
+        [self.link setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+        [self saveLinkToParse];
+    }
+
     if (self.isPost)
     {
         [self.note setObject:self.textViewDescriptionHashtags.text forKey:@"description"];

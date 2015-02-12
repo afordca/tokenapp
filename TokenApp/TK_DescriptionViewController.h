@@ -16,7 +16,9 @@
 @property NSURL *urlVideo;
 @property BOOL isVideo;
 @property BOOL isPost;
+@property BOOL isLink;
 
 @property NSString *stringPost;
+@property NSString *stringLink;
 
 @end

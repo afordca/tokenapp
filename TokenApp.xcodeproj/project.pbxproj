@@ -12,6 +12,7 @@
 		00B204861A82B3F8006A259A /* TK_DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B204851A82B3F8006A259A /* TK_DescriptionViewController.m */; };
 		00CBEFB31A84125E00A32D0D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CBEFB21A84125E00A32D0D /* Parse.framework */; };
 		00D14FBE1A81BF9700271031 /* CamerOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D14FBD1A81BF9700271031 /* CamerOverlay.m */; };
+		00D71CC81A8D6B290022E856 /* TK_LinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D71CC71A8D6B290022E856 /* TK_LinkViewController.m */; };
 		00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */; };
 		00ED60361A7F5BA300ED1229 /* MFC_LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60351A7F5BA300ED1229 /* MFC_LogInViewController.m */; };
 		00ED603F1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED603E1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m */; };
@@ -107,6 +108,8 @@
 		00CBEFB21A84125E00A32D0D /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		00D14FBC1A81BF9700271031 /* CamerOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamerOverlay.h; sourceTree = "<group>"; };
 		00D14FBD1A81BF9700271031 /* CamerOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamerOverlay.m; sourceTree = "<group>"; };
+		00D71CC61A8D6B290022E856 /* TK_LinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_LinkViewController.h; sourceTree = "<group>"; };
+		00D71CC71A8D6B290022E856 /* TK_LinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TK_LinkViewController.m; sourceTree = "<group>"; };
 		00ED602E1A7ED68500ED1229 /* LaunchPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchPageViewController.h; sourceTree = "<group>"; };
 		00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchPageViewController.m; sourceTree = "<group>"; };
 		00ED60341A7F5BA300ED1229 /* MFC_LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_LogInViewController.h; sourceTree = "<group>"; };
@@ -308,6 +311,8 @@
 				B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */,
 				B97F00F41A6EC2E400690309 /* Settings */,
 				25A72F351A319CF20076AE07 /* Main.storyboard */,
+				00D71CC61A8D6B290022E856 /* TK_LinkViewController.h */,
+				00D71CC71A8D6B290022E856 /* TK_LinkViewController.m */,
 				000F079A1A8D3CBF003E1596 /* TK_PostViewController.h */,
 				000F079B1A8D3CBF003E1596 /* TK_PostViewController.m */,
 				00A4B5891A809F6A006EC01B /* MFC_CreateViewController.h */,
@@ -741,6 +746,7 @@
 				B9D393491A4BE1D000C7733A /* SearchViewController.m in Sources */,
 				B9D4AFAD1A6200580071CA52 /* TKBaseCellText.m in Sources */,
 				B9D4AFB91A6241B70071CA52 /* TKLoadMoreCell.m in Sources */,
+				00D71CC81A8D6B290022E856 /* TK_LinkViewController.m in Sources */,
 				B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */,
 				B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */,
 				B9A4D39D1A49253400EDD2C9 /* CreatePostViewController.m in Sources */,
