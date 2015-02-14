@@ -11,10 +11,11 @@
 #import "ParseUI.h"
 #import "Constants.h"
 
-@interface EditPhotoViewController : UIViewController <UIScrollViewDelegate, UITextFieldDelegate>
+@interface EditPhotoViewController : NSObject
 
-- (id)initWithImage:(UIImage *)aImage;
++(id)initWithImage:(UIImage *)aImage;
 @property (nonatomic,strong) PFObject *photo;
+
 
 
 @end
