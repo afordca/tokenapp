@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="NOK-V3-1nH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="NOK-V3-1nH">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
     </dependencies>
@@ -721,7 +721,6 @@
         <!--Home-->
         <scene sceneID="J1R-an-VKb">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="inA-jf-7kJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="czT-6l-ySU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="Feed" id="QXu-Jd-iQJ"/>
                     <toolbarItems/>
@@ -740,20 +739,20 @@
                         <segue destination="ANI-pJ-edR" kind="relationship" relationship="rootViewController" id="5ah-x4-4BA"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="inA-jf-7kJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-475.5" y="-2376.5"/>
         </scene>
         <!--Home Feed View Controller-->
         <scene sceneID="FsD-By-hdI">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TEM-ml-URs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="ANI-pJ-edR" customClass="MFC_HomeFeedViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uOS-Y0-blT">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="279" sectionHeaderHeight="22" sectionFooterHeight="22" id="uOS-Y0-blT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Utl-YS-cU2">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="279" id="Utl-YS-cU2">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Utl-YS-cU2" id="XkA-75-GN3">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -767,6 +766,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="5OR-Rp-Ncd"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TEM-ml-URs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="MEU-d7-Jbh">
                     <rect key="frame" x="0.0" y="0.0" width="322" height="63"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

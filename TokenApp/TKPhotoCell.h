@@ -8,6 +8,7 @@
 
 #import "PFTableViewCell.h"
 
+@class PFImageView;
 @interface TKPhotoCell : PFTableViewCell
 
 @end
