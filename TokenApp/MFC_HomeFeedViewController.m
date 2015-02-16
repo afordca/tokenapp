@@ -139,6 +139,9 @@
 - (void)userFollowingChanged:(NSNotification *)note {
     NSLog(@"User following changed.");
     self.shouldReloadOnAppear = YES;
+
+    UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 50.0f)];
+
 }
 
 @end
