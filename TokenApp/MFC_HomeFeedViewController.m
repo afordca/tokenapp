@@ -154,6 +154,9 @@
 //    }
 
     TKPhotoCell *cell = (TKPhotoCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[TKPhotoCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
 
     cell.imageView.image = [UIImage imageNamed:@""];
 
@@ -169,6 +172,11 @@
 
 
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 

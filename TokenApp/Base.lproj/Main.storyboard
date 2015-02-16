@@ -757,6 +757,9 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Utl-YS-cU2" id="XkA-75-GN3">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Br9-h4-3ma" kind="modal" id="Two-Lw-mvQ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -774,6 +777,24 @@
                 </view>
             </objects>
             <point key="canvasLocation" x="-46" y="-2432"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="BTr-vZ-eFz">
+            <objects>
+                <viewController id="Br9-h4-3ma" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="28w-wg-57K"/>
+                        <viewControllerLayoutGuide type="bottom" id="Qrh-P1-Qr6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="J5C-2o-XCI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Hf-Um-tTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="403" y="-2432"/>
         </scene>
         <!--Explore-->
         <scene sceneID="It5-AK-DVh">
