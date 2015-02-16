@@ -7,12 +7,13 @@
 //
 
 #import "MFC_HomeFeedViewController.h"
+#import "CreateMainView.h"
 #import "Constants.h"
 #import <Parse/Parse.h>
 #import "TKUtility.h"
 #import "TKCache.h"
 #import "AppDelegate.h"
-#import <ParseUI/ParseUI.h>2
+#import <ParseUI/ParseUI.h>
 
 
 
@@ -21,6 +22,7 @@
 @property (nonatomic, assign) BOOL shouldReloadOnAppear;
 @property (nonatomic, strong) NSMutableSet *reusableSectionHeaderViews;
 @property (nonatomic, strong) NSMutableDictionary *outstandingSectionHeaderQueries;
+@property UIVisualEffectView *visualEffectView;
 
 @end
 
@@ -32,6 +34,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // Add Observer
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receivedNotification:)
+                                                 name:@"CreateMainView"
+                                               object:nil];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -133,7 +140,14 @@
     // This method is called every time objects are loaded from Parse via the PFQuery
 }
 
-#pragma mark - ()
+#pragma mark - Button Methods
+
+-(IBAction)Cancel:(id)sender
+{
+    // code here
+}
+
+#pragma mark - Notification Methods
 
 - (void)userFollowingChanged:(NSNotification *)note {
     NSLog(@"User following changed.");
@@ -141,5 +155,20 @@
 }
 
 
+- (void)receivedNotification:(NSNotification *) notification {
+    if ([[notification name] isEqualToString:@"CreateMainView"])
+    {
+
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+
+
+        self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+
+        self.visualEffectView.frame = self.tableView.bounds;
+        [self.view addSubview:self.visualEffectView];
+
+    }
+}
 
 @end

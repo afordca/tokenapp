@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MFC_ProfileViewController : UIViewController
+@interface MFC_ProfileViewController : UIViewController 
 
 @end
