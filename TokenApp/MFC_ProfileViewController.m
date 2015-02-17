@@ -230,7 +230,9 @@
 
         }
 
-        [self pushSegueToDescriptionViewController];
+       // [self pushSegueToDescriptionViewController];
+        [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+
 
 
 
@@ -246,8 +248,8 @@
             // Saving the video / // Get the new unique filename
             NSString *sourcePath = [[info objectForKey:@"UIImagePickerControllerMediaURL"]relativePath];
             UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);
-            //[self performSegueWithIdentifier:@"pushToDescription" sender:self];
-             [self pushSegueToDescriptionViewController];
+            [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+            // [self pushSegueToDescriptionViewController];
 
 
         }
