@@ -14,6 +14,7 @@
 #import "TKCache.h"
 #import "AppDelegate.h"
 #import <ParseUI/ParseUI.h>
+#import "TKPhotoCell.h"
 
 
 
@@ -135,11 +136,80 @@
 
 }
 
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+// Override to customize the look of a cell representing an object. The default is to display
+// a UITableViewCellStyleDefault style cell with the label being the textKey in the object,
+// and the imageView being the imageKey in the object.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
+    static NSString *CellIdentifier = @"Cell";
+
+    //Photo
+//    PFTableViewCell *cell = (PFTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    if (cell == nil) {
+//        cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//    }
+
+    TKPhotoCell *cell = (TKPhotoCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[TKPhotoCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+
+    cell.imageView.image = [UIImage imageNamed:@""];
+
+    if (object) {
+        cell.imageView.file = [object objectForKey:kPTKPhotoPictureKey];
+
+        // PFQTVC will take care of asynchronously downloading files, but will only load them when the tableview is not moving. If the data is there, let's load it right away.
+        if ([cell.imageView.file isDataAvailable]) {
+            [cell.imageView loadInBackground];
+
+        }
+    }
+
+
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+
+
+//-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    static NSString *CellIdentifier = @"Cell";
+//
+//
+//}
+
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
 
     // This method is called every time objects are loaded from Parse via the PFQuery
 }
+
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    return self.objects.count * 2 + (self.paginationEnabled ? 1 : 0);
+//}
+//
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+//
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//
+//    if (![self objectAtIndexPath:indexPath]) {
+//        // Load More Cell
+//        [self loadNextPage];
+//    }
+//}
 
 #pragma mark - Button Methods
 

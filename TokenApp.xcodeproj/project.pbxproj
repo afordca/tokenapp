@@ -54,6 +54,7 @@
 		B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B948FBA51A3ABFF5000B6C7E /* SignUpViewController.m */; };
 		B94B62D51A5F82E200C42FAF /* TKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = B94B62D41A5F82E200C42FAF /* TKTabBarController.m */; };
 		B94B62DB1A5F94E800C42FAF /* TKActivityFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B94B62DA1A5F94E800C42FAF /* TKActivityFeedViewController.m */; };
+		B979B8591A927D1E00C0EEAA /* TKPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B979B8581A927D1E00C0EEAA /* TKPhotoCell.m */; };
 		B97F00FA1A6EC71C00690309 /* BalanceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B97F00F91A6EC71C00690309 /* BalanceTableViewController.m */; };
 		B97F00FD1A6ECAD400690309 /* BalanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B97F00FC1A6ECAD400690309 /* BalanceTableViewCell.m */; };
 		B98946F41A60CE780011288F /* TKSettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B98946F31A60CE780011288F /* TKSettingsButtonItem.m */; };
@@ -188,6 +189,8 @@
 		B94B62D41A5F82E200C42FAF /* TKTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKTabBarController.m; sourceTree = "<group>"; };
 		B94B62D91A5F94E800C42FAF /* TKActivityFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKActivityFeedViewController.h; sourceTree = "<group>"; };
 		B94B62DA1A5F94E800C42FAF /* TKActivityFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKActivityFeedViewController.m; sourceTree = "<group>"; };
+		B979B8571A927D1E00C0EEAA /* TKPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKPhotoCell.h; sourceTree = "<group>"; };
+		B979B8581A927D1E00C0EEAA /* TKPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKPhotoCell.m; sourceTree = "<group>"; };
 		B97F00F81A6EC71C00690309 /* BalanceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceTableViewController.h; sourceTree = "<group>"; };
 		B97F00F91A6EC71C00690309 /* BalanceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceTableViewController.m; sourceTree = "<group>"; };
 		B97F00FB1A6ECAD400690309 /* BalanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceTableViewCell.h; sourceTree = "<group>"; };
@@ -380,6 +383,8 @@
 				00494E5C1A91D24600405586 /* UIViewController+Camera.m */,
 				00ED604C1A800CFE00ED1229 /* MFC_HomeFeedViewController.h */,
 				00ED604D1A800CFE00ED1229 /* MFC_HomeFeedViewController.m */,
+				B979B8571A927D1E00C0EEAA /* TKPhotoCell.h */,
+				B979B8581A927D1E00C0EEAA /* TKPhotoCell.m */,
 				B9D3933A1A4BD5C400C7733A /* Home */,
 				B9A4D3971A491BEA00EDD2C9 /* Discover */,
 				B9B61BC61A462E0F00A83987 /* Support */,
@@ -793,6 +798,7 @@
 				B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */,
 				B906CE0B1A60D29400F1BFD2 /* TKSettingsActionDelegate.m in Sources */,
 				B9D393491A4BE1D000C7733A /* SearchViewController.m in Sources */,
+				B979B8591A927D1E00C0EEAA /* TKPhotoCell.m in Sources */,
 				B9D4AFAD1A6200580071CA52 /* TKBaseCellText.m in Sources */,
 				B9D4AFB91A6241B70071CA52 /* TKLoadMoreCell.m in Sources */,
 				00D71CC81A8D6B290022E856 /* TK_LinkViewController.m in Sources */,
