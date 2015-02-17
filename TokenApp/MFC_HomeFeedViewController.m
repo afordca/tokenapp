@@ -53,6 +53,7 @@
         // The className to query on
         self.parseClassName = kPTKPhotoClassKey;
 
+
         // Whether the built-in pull-to-refresh is enabled
         self.pullToRefreshEnabled = YES;
 
@@ -228,6 +229,7 @@
 }
 
 
+
 - (void)receivedNotification:(NSNotification *) notification {
     if ([[notification name] isEqualToString:@"CreateMainView"])
     {
@@ -243,5 +245,6 @@
 
     }
 }
+
 
 @end
