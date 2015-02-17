@@ -63,6 +63,23 @@
     [self addObserver];
 }
 
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    if (self.shouldReloadOnAppear) {
+        self.shouldReloadOnAppear = NO;
+        [self loadObjects];
+    }
+
+    //Has to be unregistered always, otherwise nav controllers down the line will call this method
+    //[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -91,14 +108,7 @@
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
 
-    if (self.shouldReloadOnAppear) {
-        self.shouldReloadOnAppear = NO;
-        [self loadObjects];
-    }
-}
 
 #pragma mark - UITableView Delegate Methods
 
@@ -270,7 +280,10 @@
 -(void)pushSegueToDescriptionViewController
 {
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
+    TK_DescriptionViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
+    vc.imagePhoto = self.imageCreatePhoto;
+    vc.urlVideo = self.videoURL;
+    vc.isVideo = self.isVideo;
     [self.navigationController pushViewController: vc animated:YES];
 
 }
@@ -446,7 +459,7 @@
         }
 
         [self pushSegueToDescriptionViewController];
-        // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+  //  [self performSegueWithIdentifier:@"pushToDescription" sender:self];
 
 
 

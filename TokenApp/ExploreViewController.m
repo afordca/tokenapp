@@ -1,11 +1,12 @@
 //
-//  MFC_ProfileViewController.m
+//  ExploreViewController.m
 //  TokenApp
 //
-//  Created by Emmanuel Masangcay on 2/2/15.
+//  Created by Emmanuel Masangcay on 2/17/15.
 //  Copyright (c) 2015 ABaselNotBasilProduction. All rights reserved.
 //
 
+#import "ExploreViewController.h"
 #import "MFC_ProfileViewController.h"
 #import "TK_DescriptionViewController.h"
 #import "TK_LinkViewController.h"
@@ -21,8 +22,7 @@
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGTH 568
 
-
-@interface MFC_ProfileViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate>
+@interface ExploreViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate>
 
 @property UIVisualEffectView *visualEffectView;
 
@@ -37,7 +37,7 @@
 
 @end
 
-@implementation MFC_ProfileViewController
+@implementation ExploreViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,11 +45,17 @@
 
 
     [self.navigationController.navigationBar setHidden:YES];
-
-
 }
 
 
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    //Has to be unregistered always, otherwise nav controllers down the line will call this method
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark - Helper Methods
 
@@ -322,5 +328,7 @@
     
     
 }
+
+
 
 @end

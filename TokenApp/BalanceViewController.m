@@ -1,10 +1,12 @@
 //
-//  MFC_ProfileViewController.m
+//  BalanceViewController.m
 //  TokenApp
 //
-//  Created by Emmanuel Masangcay on 2/2/15.
+//  Created by Emmanuel Masangcay on 2/17/15.
 //  Copyright (c) 2015 ABaselNotBasilProduction. All rights reserved.
 //
+
+#import "BalanceViewController.h"
 
 #import "MFC_ProfileViewController.h"
 #import "TK_DescriptionViewController.h"
@@ -21,8 +23,7 @@
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGTH 568
 
-
-@interface MFC_ProfileViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate>
+@interface BalanceViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate>
 
 @property UIVisualEffectView *visualEffectView;
 
@@ -37,18 +38,29 @@
 
 @end
 
-@implementation MFC_ProfileViewController
+@implementation BalanceViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addObserver];
 
+    
+}
 
-    [self.navigationController.navigationBar setHidden:YES];
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    [self addObserver];
 
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    //Has to be unregistered always, otherwise nav controllers down the line will call this method
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 
 #pragma mark - Helper Methods
@@ -322,5 +334,6 @@
     
     
 }
+
 
 @end
