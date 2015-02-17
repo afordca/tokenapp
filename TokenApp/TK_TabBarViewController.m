@@ -7,6 +7,7 @@
 //
 
 #import "TK_TabBarViewController.h"
+#import "MFC_CreateViewController.h"
 #import "CustomTabBar.h"
 
 @interface TK_TabBarViewController ()<CustomTabBarDelegate>
@@ -27,6 +28,8 @@
 
     self.tabBarNavigation.hidden = NO;
 
+
+
 }
 
 #pragma mark - Custom TabBar Delegate Methods
@@ -45,6 +48,11 @@
 -(void)onClickCreate
 {
     NSLog(@"Create");
+
+
+    // Notification setup
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CreateMainView" object:self];
+
 }
 
 -(void)onClickProfile
