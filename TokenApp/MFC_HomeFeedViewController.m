@@ -51,6 +51,7 @@
         // The className to query on
         self.parseClassName = kPTKPhotoClassKey;
 
+
         // Whether the built-in pull-to-refresh is enabled
         self.pullToRefreshEnabled = YES;
 
