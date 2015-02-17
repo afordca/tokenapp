@@ -49,6 +49,8 @@
 
 }
 
+
+
 #pragma mark - Helper Methods
 
 -(void)addObserver
@@ -61,7 +63,7 @@
     // Observer for when CANCEL button is pressed. Removes the CreateMainView from superview
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receivedNotification:)
-                                            name:@"SendCancel"
+                                                 name:@"SendCancel"
                                                object:nil];
 
     // Observer for when TAKE PHOTO button is pressed. UIImagePickerController presented
@@ -86,7 +88,10 @@
 -(void)pushSegueToDescriptionViewController
 {
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
+    TK_DescriptionViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
+    vc.imagePhoto = self.imageCreatePhoto;
+    vc.urlVideo = self.videoURL;
+    vc.isVideo = self.isVideo;
     [self.navigationController pushViewController: vc animated:YES];
 
 }
@@ -108,8 +113,8 @@
         self.visualEffectView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 520);
 
         UIView *mainView = [[[NSBundle mainBundle] loadNibNamed:@"CreateMainView"
-                                                   owner:self
-                                                   options:nil] objectAtIndex:0];
+                                                          owner:self
+                                                        options:nil] objectAtIndex:0];
 
         [self.visualEffectView addSubview:mainView];
         [self.view addSubview:self.visualEffectView];
@@ -179,7 +184,7 @@
 
     //set our custom overlay view
     self.imagePicker.cameraOverlayView = overlay;
-    
+
 }
 
 #pragma mark - CameraOverlay Delegate Methods
@@ -260,7 +265,7 @@
         }
 
         [self pushSegueToDescriptionViewController];
-       // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+        //  [self performSegueWithIdentifier:@"pushToDescription" sender:self];
 
 
 
@@ -277,8 +282,8 @@
             // Saving the video / // Get the new unique filename
             NSString *sourcePath = [[info objectForKey:@"UIImagePickerControllerMediaURL"]relativePath];
             UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);
-           // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
-             [self pushSegueToDescriptionViewController];
+            // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+            [self pushSegueToDescriptionViewController];
 
 
         }
@@ -293,7 +298,7 @@
     self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
     [self dismissViewControllerAnimated:YES completion:^{
         [self presentViewController:self.imagePicker animated:NO completion:nil];
-        
+
     }];
 }
 
@@ -310,12 +315,12 @@
         tkDescriptionViewController.imagePhoto = self.imageCreatePhoto;
         tkDescriptionViewController.urlVideo = self.videoURL;
         tkDescriptionViewController.isVideo = self.isVideo;
-
+        
     }
-
-
-
-
+    
+    
+    
+    
 }
 
 @end

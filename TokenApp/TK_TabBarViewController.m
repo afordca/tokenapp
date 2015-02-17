@@ -43,6 +43,7 @@
 -(void)onClickDiscover
 {
     NSLog(@"Discover");
+    self.selectedIndex = 1;
 }
 
 -(void)onClickCreate
@@ -64,6 +65,7 @@
 -(void)onClickBalance
 {
     NSLog(@"Balance");
+    self.selectedIndex = 2;
 }
 
 @end
