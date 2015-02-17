@@ -35,12 +35,12 @@
 
 - (IBAction)onButtonPost:(id)sender
 {
-
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"PostNote" object:self];
 }
 
 - (IBAction)onButtonLink:(id)sender
 {
-
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"PostLink" object:self];
 }
 
 - (IBAction)onButtonCancel:(id)sender

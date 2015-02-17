@@ -35,7 +35,7 @@
     NSLog(@"TEST: NEXT");
     if (![self.textFieldLink.text isEqualToString:@""])
     {
-        [self performSegueWithIdentifier:@"pushToDescription" sender:nil];
+        [self performSegueWithIdentifier:@"PushToDescription" sender:nil];
     }
 }
 
