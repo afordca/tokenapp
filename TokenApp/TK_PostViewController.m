@@ -41,7 +41,7 @@
     NSLog(@"TEST: NEXT");
     if (![self.textViewPost.text isEqualToString:@""])
     {
-        [self performSegueWithIdentifier:@"pushToDescription" sender:nil];
+        [self performSegueWithIdentifier:@"PushToDescription" sender:nil];
     }
 }
 

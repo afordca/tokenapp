@@ -8,6 +8,8 @@
 
 #import "MFC_ProfileViewController.h"
 #import "TK_DescriptionViewController.h"
+#import "TK_LinkViewController.h"
+#import "TK_PostViewController.h"
 #import "CamerOverlay.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -67,6 +69,18 @@
                                              selector:@selector(receivedNotification:)
                                                  name:@"TakePhoto"
                                                object:nil];
+
+    // Observer for when Post Note button is pressed.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receivedNotification:)
+                                                 name:@"PostNote"
+                                               object:nil];
+
+    // Observer for when Post Note button is pressed.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receivedNotification:)
+                                                 name:@"PostLink"
+                                               object:nil];
 }
 
 -(void)pushSegueToDescriptionViewController
@@ -74,6 +88,7 @@
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
     [self.navigationController pushViewController: vc animated:YES];
+
 }
 
 #pragma mark - Notification Methods
@@ -113,6 +128,20 @@
 
         self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
         [self presentViewController:self.imagePicker animated:NO completion:nil];
+    }
+    else if ([[notification name] isEqualToString:@"PostNote"])
+    {
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Post"];
+        [self.navigationController pushViewController: vc animated:YES];
+
+    }
+    else if ([[notification name] isEqualToString:@"PostLink"])
+    {
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Link"];
+        [self.navigationController pushViewController: vc animated:YES];
+
     }
 
 }
@@ -230,8 +259,8 @@
 
         }
 
-       // [self pushSegueToDescriptionViewController];
-        [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+        [self pushSegueToDescriptionViewController];
+       // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
 
 
 
@@ -248,8 +277,8 @@
             // Saving the video / // Get the new unique filename
             NSString *sourcePath = [[info objectForKey:@"UIImagePickerControllerMediaURL"]relativePath];
             UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);
-            [self performSegueWithIdentifier:@"pushToDescription" sender:self];
-            // [self pushSegueToDescriptionViewController];
+           // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+             [self pushSegueToDescriptionViewController];
 
 
         }
@@ -273,15 +302,20 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 
+    NSLog(@"Prepare for segue");
+
     if ([segue.identifier  isEqual: @"pushToDescription"])
     {
         TK_DescriptionViewController *tkDescriptionViewController = [segue destinationViewController];
         tkDescriptionViewController.imagePhoto = self.imageCreatePhoto;
         tkDescriptionViewController.urlVideo = self.videoURL;
         tkDescriptionViewController.isVideo = self.isVideo;
+
     }
-    
-    
+
+
+
+
 }
 
 @end
