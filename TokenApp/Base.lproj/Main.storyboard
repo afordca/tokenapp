@@ -580,13 +580,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="279" id="Utl-YS-cU2">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="279" id="Utl-YS-cU2">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Utl-YS-cU2" id="XkA-75-GN3">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="201-fp-QKX">
+                                            <rect key="frame" x="600" y="0.0" width="320" height="279"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Br9-h4-3ma" kind="modal" id="Two-Lw-mvQ"/>
+                                    <segue destination="MFA-H1-d2v" kind="push" id="k4M-oT-4xY"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -607,22 +613,36 @@
             <point key="canvasLocation" x="-387" y="-1241"/>
         </scene>
         <!--View Controller-->
-        <scene sceneID="BTr-vZ-eFz">
+        <scene sceneID="Rbg-cH-ZXt">
             <objects>
-                <viewController id="Br9-h4-3ma" sceneMemberID="viewController">
+                <viewController id="MFA-H1-d2v" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="28w-wg-57K"/>
-                        <viewControllerLayoutGuide type="bottom" id="Qrh-P1-Qr6"/>
+                        <viewControllerLayoutGuide type="top" id="HPP-7s-jTE"/>
+                        <viewControllerLayoutGuide type="bottom" id="qJ2-vv-c0z"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="J5C-2o-XCI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <view key="view" contentMode="scaleToFill" id="ff3-Ic-6b6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e9P-U4-YYT">
+                                <rect key="frame" x="0.0" y="100" width="320" height="176"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Cuq-0X-8iy"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7Hf-Um-tTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ve0-dD-XL8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+
             <point key="canvasLocation" x="133" y="-1241"/>
+
+
+            <point key="canvasLocation" x="363" y="-2432"/>
+
+            <point key="canvasLocation" x="461" y="-2377"/>
+
+
         </scene>
         <!--Explore-->
         <scene sceneID="It5-AK-DVh">
