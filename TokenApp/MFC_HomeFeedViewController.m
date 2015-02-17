@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSMutableDictionary *outstandingSectionHeaderQueries;
 @property UIVisualEffectView *visualEffectView;
 
+
 @end
 
 @implementation MFC_HomeFeedViewController
@@ -163,6 +164,7 @@
     if (object) {
         cell.imageView.file = [object objectForKey:kPTKPhotoPictureKey];
 
+
         // PFQTVC will take care of asynchronously downloading files, but will only load them when the tableview is not moving. If the data is there, let's load it right away.
         if ([cell.imageView.file isDataAvailable]) {
             [cell.imageView loadInBackground];
@@ -174,18 +176,19 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-
 
 //-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    static NSString *CellIdentifier = @"Cell";
 //
 //
+//}
+
+//-(void)tableView:(UITableViewCell *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [UIView animateWithDuration:.3 animations:^{
+//        self.cellPopOverView.frame = self.view.frame;
+//    }];
 //}
 
 - (void)objectsDidLoad:(NSError *)error {
