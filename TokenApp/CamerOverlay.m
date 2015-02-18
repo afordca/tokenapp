@@ -97,10 +97,6 @@
                 forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnCamLibrary];
 
-
-
-
-
     }
     return self;
 }

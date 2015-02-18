@@ -104,6 +104,9 @@
 
 -(void)setUI
 {
+
+    [self.navigationController.navigationBar setHidden:YES];
+
     // Setup LoginButton Appearance
     CALayer *layer = self.buttonShare.layer;
     layer.backgroundColor = [[UIColor clearColor] CGColor];

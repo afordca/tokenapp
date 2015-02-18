@@ -634,15 +634,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ve0-dD-XL8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-
             <point key="canvasLocation" x="133" y="-1241"/>
-
-
-            <point key="canvasLocation" x="363" y="-2432"/>
-
-            <point key="canvasLocation" x="461" y="-2377"/>
-
-
         </scene>
         <!--Explore-->
         <scene sceneID="It5-AK-DVh">
@@ -677,12 +669,9 @@
                         <viewControllerLayoutGuide type="bottom" id="d7F-fB-ZYF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ezv-Z9-HcC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="520"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Wireframe Profile_FEED" translatesAutoresizingMaskIntoConstraints="NO" id="YdT-io-o66">
-                                <rect key="frame" x="0.0" y="0.0" width="335" height="586"/>
-                            </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UW9-H1-etG">
                                 <rect key="frame" x="40" y="260" width="254" height="2"/>
                                 <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -732,12 +721,11 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="YkW-b8-Cbk"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="imageViewBackground" destination="YdT-io-o66" id="Fvs-Kf-d7B"/>
-                    </connections>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="520"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1U1-ei-AxS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1059,7 +1047,6 @@
         <image name="Profile" width="25" height="25"/>
         <image name="Splash-iphone6" width="375" height="667"/>
         <image name="Video" width="50" height="50"/>
-        <image name="Wireframe Profile_FEED" width="3125" height="5558"/>
         <image name="Write" width="50" height="50"/>
         <image name="leonidas" width="116" height="92"/>
     </resources>
