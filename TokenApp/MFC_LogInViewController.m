@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldLogInUserName;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldLogInPassword;
 
+@property PFUser *currentUser;
+
 
 
 @end
@@ -27,26 +29,33 @@
 {
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
+     self.currentUser = [PFUser currentUser];
 
-
-    
 }
 
-
--(void)setupUserProfile
+-(void)checkUser
 {
-    PFUser *user = [PFUser currentUser];
 
-    PFFile *parseFileWithImage = [user objectForKey:@"profileImage"];
-    NSURL *profileURL = [NSURL URLWithString:parseFileWithImage.url];
-    NSURLRequest *request = [NSURLRequest requestWithURL:profileURL];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        singleUser = [User sharedSingleton];
-        singleUser.profileImage = [UIImage imageWithData:data];
-        singleUser.userName = user.username;
+
+    if (self.currentUser)
+    {
+
+    PFQuery *query = [PFUser query];
+    [query getObjectInBackgroundWithId:[self.currentUser objectId] block:^(PFObject *user, NSError *error){
+        if (!error) {
+            // The get request succeeded. Log the score
+            NSLog(@"Success, I exist so it's all good");
+
+        } else {
+            // Log details of our failure
+            NSLog(@"This is the Error!: %@ %@", error, [error userInfo]);
+            [PFUser logOut];
+        }
     }];
-}
 
+
+    }
+}
 
 - (IBAction)newUser:(id)sender
 {
@@ -92,9 +101,23 @@
                 double delayInSeconds = 2.0;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
+
+                    NSNumber *newUserNumber = [[PFUser currentUser] objectForKey: @"newuser"];
+                    bool newUserBoolean = [newUserNumber boolValue];
+
+                    if (newUserBoolean)
+                    {
+                        NSLog(@"USER NEEDS PROFILE PIC");
+
+
+                    }
+                    else
+                    {
+                        [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
+
+                    }
+
                 });
-                [self setupUserProfile];
             }
         }];
     }

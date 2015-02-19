@@ -14,11 +14,13 @@
 {
     UIImage *profileImage;
     NSString *userName;
+    NSMutableArray *arrayOfPhotos;
 
 }
 
 @property (nonatomic, strong) UIImage *profileImage;
 @property (nonatomic,strong) NSString *userName;
+@property (nonatomic,strong) NSMutableArray *arrayOfPhotos;
 
 // This is the method to access this Singleton class
 + (User *)sharedSingleton;

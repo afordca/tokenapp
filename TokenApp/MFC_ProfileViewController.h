@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
-@interface MFC_ProfileViewController : UIViewController 
+@interface MFC_ProfileViewController : UIViewController
+{
+    User *currentUser;
+}
 
 @end

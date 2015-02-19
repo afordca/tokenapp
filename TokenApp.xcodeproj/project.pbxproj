@@ -14,6 +14,7 @@
 		002E162C1A93E957000AE37B /* BalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E162B1A93E957000AE37B /* BalanceViewController.m */; };
 		002E162F1A93F6E4000AE37B /* ExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E162E1A93F6E4000AE37B /* ExploreViewController.m */; };
 		002E163A1A94EFAF000AE37B /* UIViewController+Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E16391A94EFAF000AE37B /* UIViewController+Camera.m */; };
+		002E163D1A955973000AE37B /* ProfileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */; };
 		00B204861A82B3F8006A259A /* TK_DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B204851A82B3F8006A259A /* TK_DescriptionViewController.m */; };
 		00BF7B911A8DB9440089194E /* TK_TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BF7B901A8DB9440089194E /* TK_TabBarViewController.m */; };
 		00BF7B941A8DBABD0089194E /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BF7B931A8DBABD0089194E /* CustomTabBar.m */; };
@@ -117,6 +118,8 @@
 		002E162E1A93F6E4000AE37B /* ExploreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExploreViewController.m; sourceTree = "<group>"; };
 		002E16381A94EFAF000AE37B /* UIViewController+Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Camera.h"; sourceTree = "<group>"; };
 		002E16391A94EFAF000AE37B /* UIViewController+Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Camera.m"; sourceTree = "<group>"; };
+		002E163B1A955973000AE37B /* ProfileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCollectionViewCell.h; sourceTree = "<group>"; };
+		002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCollectionViewCell.m; sourceTree = "<group>"; };
 		00B204841A82B3F8006A259A /* TK_DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_DescriptionViewController.h; sourceTree = "<group>"; };
 		00B204851A82B3F8006A259A /* TK_DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TK_DescriptionViewController.m; sourceTree = "<group>"; };
 		00BF7B8F1A8DB9440089194E /* TK_TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_TabBarViewController.h; sourceTree = "<group>"; };
@@ -324,6 +327,8 @@
 			children = (
 				00ED604F1A804B5D00ED1229 /* MFC_ProfileViewController.h */,
 				00ED60501A804B5D00ED1229 /* MFC_ProfileViewController.m */,
+				002E163B1A955973000AE37B /* ProfileCollectionViewCell.h */,
+				002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -792,6 +797,7 @@
 				B9D393401A4BDD0D00C7733A /* CreateVideoViewController.m in Sources */,
 				B9D1A6B01A44A27700BA2874 /* SettingsButtonItem.m in Sources */,
 				B9D393331A4BCC5D00C7733A /* TKHomeViewController.m in Sources */,
+				002E163D1A955973000AE37B /* ProfileCollectionViewCell.m in Sources */,
 				B9E39CA81A68A79E0030D6CA /* TKFindFriendsCell.m in Sources */,
 				B97F00FD1A6ECAD400690309 /* BalanceTableViewCell.m in Sources */,
 				B94B62DB1A5F94E800C42FAF /* TKActivityFeedViewController.m in Sources */,

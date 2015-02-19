@@ -64,6 +64,7 @@
         self.link = [PFObject objectWithClassName:@"Link"];
         [self.link setObject:self.stringLink forKey:@"url"];
         [self.link setObject:self.currentUser forKey:@"user"];
+        [self.link setObject:self.currentUser.objectId forKey:@"userName"];
     }
 
    else if (self.isPost)
@@ -71,6 +72,7 @@
         self.note = [PFObject objectWithClassName:@"Note"];
         [self.note setObject:self.stringPost forKey:@"note"];
         [self.note setObject:self.currentUser forKey:@"user"];
+        [self.note setObject:self.currentUser.objectId forKey:@"userName"];
     }
 
 
@@ -83,6 +85,7 @@
         PFFile *videoFile = [PFFile fileWithName:@"video" data:dataVideo];
 
         [self.video setObject:self.currentUser forKey:@"user"];
+        [self.video setObject:self.currentUser.objectId forKey:@"userName"];
         [self.video setObject:videoFile forKey:@"video"];
     }
     else
@@ -96,6 +99,7 @@
         PFFile *imagePhotoFile = [PFFile fileWithName:@"photo.png" data:dataPhoto];
 
         [self.photo setObject:self.currentUser forKey:@"user"];
+        [self.photo setObject:self.currentUser.objectId forKey:@"userName"];
         [self.photo setObject:imagePhotoFile forKey:@"image"];
 
     }
