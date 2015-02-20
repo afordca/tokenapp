@@ -10,17 +10,37 @@
 
 @interface TKFollowerProfileViewController ()
 
+@property (nonatomic) bool isFollowing;
+
 @end
 
+
 @implementation TKFollowerProfileViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    //Does logged in user follow this user?
+    //Yes --> show 'unfollow"
+
+
+    self.isFollowing = FALSE;
+
+
+    
 }
+
+-(void)importUsersFollowers:(NSString *)
+{
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+
     // Dispose of any resources that can be recreated.
 }
 
