@@ -110,6 +110,7 @@
         newUser.username = userName;
         newUser.password = password;
         newUser.email = email;
+        [newUser setObject:[NSNumber numberWithBool:YES] forKey:@"newuser"];
 
         //Setting Singleton User
         singleUser.userName = userName;

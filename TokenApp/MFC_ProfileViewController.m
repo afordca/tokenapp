@@ -8,9 +8,11 @@
 
 #import "MFC_ProfileViewController.h"
 #import "TK_DescriptionViewController.h"
+#import "UIViewController+Camera.h"
 #import "TK_LinkViewController.h"
 #import "TK_PostViewController.h"
 #import "CamerOverlay.h"
+#import "ProfileCollectionViewCell.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -22,305 +24,176 @@
 #define SCREEN_HEIGTH 568
 
 
-@interface MFC_ProfileViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate>
+@interface MFC_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet UILabel *labelUserName;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionViewProfile;
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
+
+@property CGPoint location;
+
+// Create Main View
 @property UIVisualEffectView *visualEffectView;
-
 @property UIImagePickerController *imagePicker;
 @property UIImage *imageCreatePhoto;
 @property (strong, nonatomic) NSURL *videoURL;
-
 @property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
-
-
 @property BOOL isVideo;
+
 
 @end
 
 @implementation MFC_ProfileViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self addObserver];
 
-
     [self.navigationController.navigationBar setHidden:YES];
+    self.collectionViewProfile.delegate = self;
 
+    //Accessing User Singleton
+    currentUser = [User sharedSingleton];
 
-}
-
-
-
-#pragma mark - Helper Methods
-
--(void)addObserver
-{
-    // Observer for when CREATE button is pressed. Presents Create Main View
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receivedNotification:)
-                                                 name:@"CreateMainView"
-                                               object:nil];
-    // Observer for when CANCEL button is pressed. Removes the CreateMainView from superview
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receivedNotification:)
-                                                 name:@"SendCancel"
-                                               object:nil];
-
-    // Observer for when TAKE PHOTO button is pressed. UIImagePickerController presented
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receivedNotification:)
-                                                 name:@"TakePhoto"
-                                               object:nil];
-
-    // Observer for when Post Note button is pressed.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receivedNotification:)
-                                                 name:@"PostNote"
-                                               object:nil];
-
-    // Observer for when Post Note button is pressed.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receivedNotification:)
-                                                 name:@"PostLink"
-                                               object:nil];
-}
-
--(void)pushSegueToDescriptionViewController
-{
-    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    TK_DescriptionViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
-    vc.imagePhoto = self.imageCreatePhoto;
-    vc.urlVideo = self.videoURL;
-    vc.isVideo = self.isVideo;
-    [self.navigationController pushViewController: vc animated:YES];
-
-}
-
-#pragma mark - Notification Methods
-
-- (void)receivedNotification:(NSNotification *) notification {
-
-    if ([[notification name] isEqualToString:@"CreateMainView"])
+    self.labelUserName.text = currentUser.userName;
+    if (currentUser.profileImage)
     {
-        //Create blurEffect and intialize visualEffect View
-
-        UIVisualEffect *blurEffect;
-        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-
-#warning Revisit these magic numbers!!! Add them to Constants Class
-
-        self.visualEffectView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 520);
-
-        UIView *mainView = [[[NSBundle mainBundle] loadNibNamed:@"CreateMainView"
-                                                          owner:self
-                                                        options:nil] objectAtIndex:0];
-
-        [self.visualEffectView addSubview:mainView];
-        [self.view addSubview:self.visualEffectView];
-        [self.view bringSubviewToFront:self.visualEffectView];
-
+         self.imageViewProfilePic.image = currentUser.profileImage;
     }
 
-    else if ([[notification name] isEqualToString:@"SendCancel"])
-    {
-        [self.visualEffectView removeFromSuperview];
-    }
+}
 
-    else if ([[notification name] isEqualToString:@"TakePhoto"])
-    {
-        [self setUpCamera];
+#pragma mark - UICollectionView Methods
 
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return currentUser.arrayOfPhotos.count;
+}
+
+-(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ProfileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProfile" forIndexPath:indexPath];
+
+    cell.imageViewProfileContent.image = currentUser.arrayOfPhotos[indexPath.row];
+
+
+    return cell;
+}
+
+#pragma mark Tap Gesture Method
+
+- (IBAction)tapProfilePic:(UITapGestureRecognizer *)tapGestureRecognizer
+{
+     self.location = [tapGestureRecognizer locationInView:self.view];
+
+     if (CGRectContainsPoint(self.imageViewProfilePic.frame, self.location))
+     {
+         NSLog(@"Tap");
+         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Profile Image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo",@"Choose Existing", nil];
+
+         [actionSheet showInView:self.view];
+     }
+}
+
+#pragma mark UIAction Sheet Methods
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        self.imagePicker = [[UIImagePickerController alloc]init];
+        self.imagePicker.delegate = self;
+        self.imagePicker.allowsEditing = YES;
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-        [self presentViewController:self.imagePicker animated:NO completion:nil];
+
+        [self presentViewController:self.imagePicker animated:YES completion:nil];
     }
-    else if ([[notification name] isEqualToString:@"PostNote"])
+    else if (buttonIndex == 1)
     {
-        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Post"];
-        [self.navigationController pushViewController: vc animated:YES];
+        self.imagePicker = [[UIImagePickerController alloc]init];
+        self.imagePicker.delegate = self;
+        self.imagePicker.allowsEditing = YES;
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        UIColor *backgroundColor = [UIColor colorWithRed:0.38 green:0.51 blue:0.85 alpha:1.0];
+        self.imagePicker.navigationBar.barTintColor = backgroundColor;
+        self.imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:self.imagePicker.sourceType];
 
-    }
-    else if ([[notification name] isEqualToString:@"PostLink"])
-    {
-        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Link"];
-        [self.navigationController pushViewController: vc animated:YES];
-
-    }
-
-}
-
-#pragma mark - Camera Methods
-
--(void)setUpCamera
-{
-    //UIImagePicker Setup
-
-    self.isVideo = NO;
-
-    //create an overlay view instance
-    CamerOverlay *overlay = [[CamerOverlay alloc]
-                             initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGTH)];
-    overlay.delegate = self;
-
-    self.imagePicker = [UIImagePickerController new];
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.delegate = self;
-    self.imagePicker.allowsEditing = YES;
-
-    self.flashMode = UIImagePickerControllerCameraFlashModeAuto;
-    self.imagePicker.cameraFlashMode = self.flashMode;
-
-    //hide all controls
-    self.imagePicker.showsCameraControls = NO;
-    self.imagePicker.navigationBarHidden = YES;
-    self.imagePicker.toolbarHidden = YES;
-
-    self.imagePicker.cameraViewTransform =
-    CGAffineTransformScale(self.imagePicker.cameraViewTransform,
-                           CAMERA_TRANSFORM_X,
-                           CAMERA_TRANSFORM_Y);
-
-    //set our custom overlay view
-    self.imagePicker.cameraOverlayView = overlay;
-
-}
-
-#pragma mark - CameraOverlay Delegate Methods
-
--(void)onClickCameraLibrary
-{
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    self.imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:self.imagePicker.sourceType];
-
-}
-
-//IBAction (for switching between front and rear camera).
--(void)onClickCameraReverse:(NSString *)customClass
-{
-    if(self.imagePicker.cameraDevice == UIImagePickerControllerCameraDeviceFront)
-    {
-        self.imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-    }
-    else
-    {
-        self.imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+        [self presentViewController:self.imagePicker animated:YES completion:nil];
     }
 }
 
--(void)onClickCameraCapturePhoto
-{
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-
-    if (self.isVideo)
-    {
-        [self.imagePicker startVideoCapture];
-    }
-    else
-    {
-        [self.imagePicker takePicture];
-    }
-
-}
-
--(void)onClickCancel
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-}
-
--(void)onClickFlashMode
-{
-    if (self.flashMode == UIImagePickerControllerCameraFlashModeAuto) {
-        //toggle your button to "on"
-        self.flashMode = UIImagePickerControllerCameraFlashModeOn;
-    }else if (self.flashMode == UIImagePickerControllerCameraFlashModeOn){
-        //toggle your button to "Off"
-        self.flashMode = UIImagePickerControllerCameraFlashModeOff;
-    }else if (self.flashMode == UIImagePickerControllerCameraFlashModeOff){
-        //toggle your button to "Auto"
-        self.flashMode = UIImagePickerControllerCameraFlashModeAuto;
-    }
-}
-
-#pragma mark - UIImagePicker Methods
+#pragma mark - UIImagePicker Controller Methods
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    PFUser *user = [PFUser currentUser];
+
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
 
-    // Check if photo
-
-    if ([mediaType isEqualToString:(NSString *)kUTTypeImage])
-    {
-        self.imageCreatePhoto = [info objectForKey:UIImagePickerControllerOriginalImage];
-
-        // Pictures taken from camera shot are stored to device
-        if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
-        {
-            //Save to Photos Album
-            UIImageWriteToSavedPhotosAlbum(self.imageCreatePhoto, nil, nil, nil);
-
-        }
-
-        [self pushSegueToDescriptionViewController];
-        //  [self performSegueWithIdentifier:@"pushToDescription" sender:self];
-
-
-
-
-    }
-    // Check if Video
-
-    else if ([mediaType isEqualToString:@"public.movie"])
-    {
-        self.videoURL = info[UIImagePickerControllerMediaURL];
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+        self.imageViewProfilePic.image = [info objectForKey:UIImagePickerControllerOriginalImage];
 
         if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
         {
-            // Saving the video / // Get the new unique filename
-            NSString *sourcePath = [[info objectForKey:@"UIImagePickerControllerMediaURL"]relativePath];
-            UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);
-            // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
-            [self pushSegueToDescriptionViewController];
-
-
+            UIImageWriteToSavedPhotosAlbum(self.imageViewProfilePic.image, nil, nil, nil);
         }
     }
 
+    self.imageViewProfilePic.image = [self squareImageFromImage:self.imageViewProfilePic.image scaledToSize:200];
+
+    NSData *dataFromImage = UIImagePNGRepresentation(self.imageViewProfilePic.image);
+    PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataFromImage];
+    [user setObject:imageFile forKey:@"profileImage"];
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self setUpCamera];
-    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self presentViewController:self.imagePicker animated:NO completion:nil];
-
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            NSLog(@"%@", [error userInfo]);
+        } else {
+            currentUser.profileImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+        }
     }];
+
 }
 
-#pragma mark - Prepare Segue Methods
+#pragma mark - Crop image
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (UIImage *)squareImageFromImage:(UIImage *)image scaledToSize:(CGFloat)newSize {
 
-    NSLog(@"Prepare for segue");
+    CGAffineTransform scaleTransform;
+    CGPoint origin;
 
-    if ([segue.identifier  isEqual: @"pushToDescription"])
-    {
-        TK_DescriptionViewController *tkDescriptionViewController = [segue destinationViewController];
-        tkDescriptionViewController.imagePhoto = self.imageCreatePhoto;
-        tkDescriptionViewController.urlVideo = self.videoURL;
-        tkDescriptionViewController.isVideo = self.isVideo;
-        
+    if (image.size.width > image.size.height) {
+        CGFloat scaleRatio = newSize / image.size.height;
+        scaleTransform = CGAffineTransformMakeScale(scaleRatio, scaleRatio);
+
+        origin = CGPointMake(-(image.size.width - image.size.height) / 2.0f, 0);
+    } else {
+        CGFloat scaleRatio = newSize / image.size.width;
+        scaleTransform = CGAffineTransformMakeScale(scaleRatio, scaleRatio);
+
+        origin = CGPointMake(0, -(image.size.height - image.size.width) / 2.0f);
     }
-    
-    
-    
-    
+
+    CGSize size = CGSizeMake(newSize, newSize);
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+    } else {
+        UIGraphicsBeginImageContext(size);
+    }
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextConcatCTM(context, scaleTransform);
+
+    [image drawAtPoint:origin];
+
+    image = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+
+    return image;
 }
+
 
 @end

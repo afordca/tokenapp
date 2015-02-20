@@ -30,7 +30,7 @@
 
 - (IBAction)onButtonVideo:(id)sender
 {
-
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"TakeVideo" object:self];
 }
 
 - (IBAction)onButtonPost:(id)sender

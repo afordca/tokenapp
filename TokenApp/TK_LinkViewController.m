@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setHidden:YES];
     self.textFieldLink.delegate = self;
     self.isLink = YES;
 }

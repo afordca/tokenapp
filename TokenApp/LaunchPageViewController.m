@@ -196,7 +196,32 @@
                 }];
             } else {
                 NSLog(@"User logged in through Facebook!");
-                [self performSegueWithIdentifier:@"pushToFeedFromFBTwitter" sender:nil];
+                [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                    if (!error) {
+                        // I save the ID because it's unique in terms of our app, if you save the name or last name, it's not.
+
+                        NSLog(@"%@",result);
+                        user.username = [result objectForKey:@"name"];
+                        user.email = [result objectForKey:@"email"];
+
+                        NSString *stringWithFacebookURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
+                        NSURL *url = [NSURL URLWithString:stringWithFacebookURL];
+                        NSData *dataForImage = [NSData dataWithContentsOfURL:url];
+                        PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataForImage];
+                        [user setObject:imageFile forKey:@"profileImage"];
+
+                        // We use save eventually because, if you don't have internet connection, it's going to save it later.
+                        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if (error) {
+                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oooops!" message:[NSString stringWithFormat:@"There's an error: %@", [error userInfo]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                [alertView show];
+                            } else {
+                                [self performSegueWithIdentifier:@"pushToFeedFromFBTwitter" sender:nil];
+                            }
+                        }];
+                    }
+                }];
+
             }
         }];
     }

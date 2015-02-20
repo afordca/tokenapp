@@ -11,8 +11,4 @@
 
 @interface MFC_LogInViewController : UIViewController
 
-{
-    User *singleUser;
-}
-
 @end
