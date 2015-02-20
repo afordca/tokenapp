@@ -25,4 +25,6 @@
 // This is the method to access this Singleton class
 + (User *)sharedSingleton;
 
+-(void)loadPhotos;
+
 @end

@@ -16,6 +16,7 @@
 #import "CamerOverlay.h"
 #import "TKUtility.h"
 #import "TKCache.h"
+#import "User.h"
 #import "AppDelegate.h"
 
 #import <Parse/Parse.h>
@@ -61,6 +62,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self SetUser];
 
     [self addObserver];
 }
@@ -251,7 +253,49 @@
 //    }
 //}
 
+-(void)SetUser
+{
+    PFUser *user = [PFUser currentUser];
+    singleUser = [User sharedSingleton];
+    singleUser.arrayOfPhotos = [NSMutableArray new];
 
+    //Loading Profile Image
+    PFFile *profileImageFile = [user objectForKey:@"profileImage"];
+    PFImageView *imageView = [PFImageView new];
+    imageView.file = profileImageFile;
+
+    [imageView loadInBackground:^(UIImage *image, NSError *error) {
+
+        //Setting image to singleton class USER
+
+        singleUser.profileImage = image;
+
+        //Setting Username to singleton class USER
+        if ([user objectForKey:@"username"]) {
+            singleUser.userName = [user objectForKey:@"username"];
+        } else {
+            singleUser.userName = user.username;
+
+        }
+
+    }];
+
+    //Loading Array of photos and setting it in singleton class USER
+
+    PFQuery *queryForUserContent = [PFQuery queryWithClassName:@"Photo"];
+    [queryForUserContent whereKey:@"userName" equalTo:user.objectId];
+    [queryForUserContent findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"%@",[error userInfo]);
+        }
+        else
+        {
+            for (PFObject *photo in objects) {
+                [singleUser.arrayOfPhotos addObject:photo];
+            }
+        }
+    }];
+}
 
 
 

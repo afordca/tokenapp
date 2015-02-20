@@ -7,8 +7,19 @@
 //
 
 #import "MFC_LogInViewController.h"
-#import "LogInViewController.h"
+#import "MBProgressHUD.h"
 #import <Parse/Parse.h>
+#import "Reachability.h"
+#import "TKHomeViewController.h"
+#import "TKWelcomeViewController.h"
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "TKCache.h"
+#import "Constants.h"
+#import "TKTabBarController.h"
+#import "TKActivityFeedViewController.h"
+#import "ProfilePersonalViewController.h"
+#import "CreateContentViewController.h"
+#import "BalanceTableViewController.h"
 
 #define VALIDURL (@"http://www.google.com")
 
@@ -30,6 +41,7 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
      self.currentUser = [PFUser currentUser];
+    User *user = [User sharedSingleton];
 
 }
 
@@ -107,8 +119,9 @@
 
                     if (newUserBoolean)
                     {
-                        NSLog(@"USER NEEDS PROFILE PIC");
-
+                        //WE CAN ADD LOGIC HERE TO HANDLE NEW USERS
+                        
+                        [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
 
                     }
                     else
@@ -150,5 +163,7 @@
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+
 
 @end

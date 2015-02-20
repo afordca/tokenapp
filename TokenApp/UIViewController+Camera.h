@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 //transform values for full screen support
 #define CAMERA_TRANSFORM_X 1
@@ -17,9 +18,15 @@
 
 @interface UIViewController (Camera)
 
+@property User *currentUser;
+
+
 @property UIVisualEffectView *visualEffectView;
 
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
+
 @property UIImagePickerController *imagePicker;
+@property UIImagePickerController *imagePickerProfile;
 @property UIImage *imageCreatePhoto;
 @property (strong, nonatomic) NSURL *videoURL;
 

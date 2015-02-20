@@ -360,6 +360,15 @@
 			name = Create;
 			sourceTree = "<group>";
 		};
+		00E8ECC31A965B430088C6C0 /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				002E162D1A93F6E4000AE37B /* ExploreViewController.h */,
+				002E162E1A93F6E4000AE37B /* ExploreViewController.m */,
+			);
+			name = Explore;
+			sourceTree = "<group>";
+		};
 		25A72F1F1A319CF20076AE07 = {
 			isa = PBXGroup;
 			children = (
@@ -396,8 +405,7 @@
 				B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */,
 				B97F00F41A6EC2E400690309 /* Settings */,
 				002E16271A93E0C4000AE37B /* Main.storyboard */,
-				002E162D1A93F6E4000AE37B /* ExploreViewController.h */,
-				002E162E1A93F6E4000AE37B /* ExploreViewController.m */,
+				00E8ECC31A965B430088C6C0 /* Explore */,
 				000FC6841A91122700A4F50F /* LogIn */,
 				000FC6831A9111FA00A4F50F /* TabBar */,
 				00BF7B951A8DCA720089194E /* Create */,

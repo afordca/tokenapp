@@ -168,9 +168,6 @@
                                 <color key="textColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="leonidas" translatesAutoresizingMaskIntoConstraints="NO" id="Yqx-ce-bNN">
-                                <rect key="frame" x="28" y="76" width="75" height="75"/>
-                            </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cCe-2g-Wce">
                                 <rect key="frame" x="16" y="76" width="2" height="75"/>
                                 <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -276,6 +273,13 @@
                                     <outlet property="delegate" destination="ucO-yO-ARo" id="xTE-u4-mXe"/>
                                 </connections>
                             </collectionView>
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ProfileDefault" translatesAutoresizingMaskIntoConstraints="NO" id="Yqx-ce-bNN">
+                                <rect key="frame" x="28" y="76" width="75" height="75"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="gVN-0w-Ack" appends="YES" id="bPI-QD-iTA"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -284,11 +288,16 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="collectionViewProfile" destination="70q-nP-gpd" id="p08-0d-173"/>
-                        <outlet property="imageViewProfilePic" destination="Yqx-ce-bNN" id="7Av-8j-bgd"/>
+                        <outlet property="imageViewProfilePic" destination="Yqx-ce-bNN" id="lcu-7F-DNx"/>
                         <outlet property="labelUserName" destination="FSw-Ll-H7W" id="JX5-jd-esP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xo2-uC-pNK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="gVN-0w-Ack">
+                    <connections>
+                        <action selector="tapProfilePic:" destination="ucO-yO-ARo" id="0bO-oF-ABl"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-377" y="1009"/>
         </scene>
@@ -1057,10 +1066,10 @@
         <image name="Notification" width="22" height="22"/>
         <image name="Photo" width="50" height="50"/>
         <image name="Profile" width="25" height="25"/>
+        <image name="ProfileDefault" width="125" height="125"/>
         <image name="Splash-iphone6" width="375" height="667"/>
         <image name="Video" width="50" height="50"/>
         <image name="Write" width="50" height="50"/>
-        <image name="leonidas" width="116" height="92"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
