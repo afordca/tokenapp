@@ -75,21 +75,8 @@
 {
     ProfileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProfile" forIndexPath:indexPath];
 
-    PFObject *image = currentUser.arrayOfPhotos[indexPath.row];
-    PFFile *parseFileWithImage = [image objectForKey:@"image"];
-    NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-    NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+    cell.imageViewProfileContent.image = currentUser.arrayOfPhotos[indexPath.row];
 
-        if (connectionError)
-        {
-            NSLog(@"%@",[connectionError userInfo]);
-        }
-        else
-        {
-            cell.imageViewProfileContent.image = [UIImage imageWithData:data];
-        }
-    }];
 
     return cell;
 }

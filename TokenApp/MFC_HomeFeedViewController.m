@@ -290,8 +290,25 @@
         }
         else
         {
-            for (PFObject *photo in objects) {
-                [singleUser.arrayOfPhotos addObject:photo];
+            for (PFObject *photo in objects)
+            {
+                PFFile *parseFileWithImage = [photo objectForKey:@"image"];
+                NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+                NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+                [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+
+                    if (connectionError)
+                    {
+                        NSLog(@"%@",[connectionError userInfo]);
+                    }
+                    else
+                    {
+                        [singleUser.arrayOfPhotos addObject:[UIImage imageWithData:data]];
+                    }
+                }];
+
+
+
             }
         }
     }];
