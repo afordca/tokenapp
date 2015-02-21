@@ -10,6 +10,7 @@
 		000F079C1A8D3CBF003E1596 /* TK_PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000F079B1A8D3CBF003E1596 /* TK_PostViewController.m */; };
 		000FC6861A91142900A4F50F /* CreateMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 000FC6851A91142900A4F50F /* CreateMainView.xib */; };
 		000FC6891A91194B00A4F50F /* CreateMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 000FC6881A91194B00A4F50F /* CreateMainView.m */; };
+		00292EFC1A9850BB0086A219 /* ProfileCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00292EFB1A9850BB0086A219 /* ProfileCollectionReusableView.m */; };
 		002E16291A93E0C4000AE37B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 002E16271A93E0C4000AE37B /* Main.storyboard */; };
 		002E162C1A93E957000AE37B /* BalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E162B1A93E957000AE37B /* BalanceViewController.m */; };
 		002E162F1A93F6E4000AE37B /* ExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E162E1A93F6E4000AE37B /* ExploreViewController.m */; };
@@ -111,6 +112,8 @@
 		000FC6851A91142900A4F50F /* CreateMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateMainView.xib; sourceTree = "<group>"; };
 		000FC6871A91194B00A4F50F /* CreateMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateMainView.h; sourceTree = "<group>"; };
 		000FC6881A91194B00A4F50F /* CreateMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateMainView.m; sourceTree = "<group>"; };
+		00292EFA1A9850BB0086A219 /* ProfileCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCollectionReusableView.h; sourceTree = "<group>"; };
+		00292EFB1A9850BB0086A219 /* ProfileCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCollectionReusableView.m; sourceTree = "<group>"; };
 		002E16281A93E0C4000AE37B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = TokenApp/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		002E162A1A93E957000AE37B /* BalanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceViewController.h; sourceTree = "<group>"; };
 		002E162B1A93E957000AE37B /* BalanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceViewController.m; sourceTree = "<group>"; };
@@ -405,6 +408,8 @@
 				B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */,
 				B97F00F41A6EC2E400690309 /* Settings */,
 				002E16271A93E0C4000AE37B /* Main.storyboard */,
+				00292EFA1A9850BB0086A219 /* ProfileCollectionReusableView.h */,
+				00292EFB1A9850BB0086A219 /* ProfileCollectionReusableView.m */,
 				00E8ECC31A965B430088C6C0 /* Explore */,
 				000FC6841A91122700A4F50F /* LogIn */,
 				000FC6831A9111FA00A4F50F /* TabBar */,
@@ -831,6 +836,7 @@
 				B979B8591A927D1E00C0EEAA /* TKPhotoCell.m in Sources */,
 				B9D4AFAD1A6200580071CA52 /* TKBaseCellText.m in Sources */,
 				B9D4AFB91A6241B70071CA52 /* TKLoadMoreCell.m in Sources */,
+				00292EFC1A9850BB0086A219 /* ProfileCollectionReusableView.m in Sources */,
 				00D71CC81A8D6B290022E856 /* TK_LinkViewController.m in Sources */,
 				000FC6891A91194B00A4F50F /* CreateMainView.m in Sources */,
 				B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */,

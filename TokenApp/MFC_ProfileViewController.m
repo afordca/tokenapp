@@ -13,6 +13,7 @@
 #import "TK_PostViewController.h"
 #import "CamerOverlay.h"
 #import "ProfileCollectionViewCell.h"
+#import "ProfileCollectionReusableView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -24,11 +25,15 @@
 #define SCREEN_HEIGTH 568
 
 
-@interface MFC_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface MFC_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) IBOutlet UILabel *labelUserName;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionViewProfile;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
+@property (strong, nonatomic) IBOutlet UIView *viewContentView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollviewProfile;
+
+@property NSDictionary *dicViews;
 
 @property CGPoint location;
 
@@ -44,6 +49,9 @@
 @end
 
 @implementation MFC_ProfileViewController
+
+@synthesize scrollviewProfile;
+@synthesize viewContentView;
 
 - (void)viewDidLoad
 {
@@ -64,6 +72,8 @@
 
 }
 
+
+
 #pragma mark - UICollectionView Methods
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -80,6 +90,13 @@
 
     return cell;
 }
+
+- (UICollectionReusableView *)collectionView: (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    ProfileCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
+                                         UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeaderView" forIndexPath:indexPath];
+    return headerView;
+}
+
 
 #pragma mark Tap Gesture Method
 
@@ -155,6 +172,15 @@
         }
     }];
 
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+
+    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+
+    }];
 }
 
 #pragma mark - Crop image

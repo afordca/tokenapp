@@ -50,6 +50,7 @@
 
         UIButton *btnCreate = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btnCreate setImage:[UIImage imageNamed:@"Upload"] forState:UIControlStateNormal];
+        [btnCreate setContentMode:UIViewContentModeScaleAspectFit];
         [btnCreate setTintColor:[UIColor whiteColor]];
 
         //set the frame
