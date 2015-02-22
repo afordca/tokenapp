@@ -204,12 +204,6 @@
                                 <rect key="frame" x="4" y="67" width="312" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="USERNAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSw-Ll-H7W">
-                                <rect key="frame" x="-1" y="28" width="322" height="21"/>
-                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="25"/>
-                                <color key="textColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="70q-nP-gpd">
                                 <rect key="frame" x="3" y="70" width="313" height="445"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -239,7 +233,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProfileHeaderView" id="cw7-KE-yTs" customClass="ProfileCollectionReusableView">
-                                    <rect key="frame" x="0.0" y="0.0" width="313" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="313" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E26-Ad-Vq3">
@@ -311,13 +305,6 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <gestureRecognizers/>
                                         </view>
-                                        <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ProfileDefault" translatesAutoresizingMaskIntoConstraints="NO" id="QXw-tM-lZQ">
-                                            <rect key="frame" x="22" y="10" width="75" height="75"/>
-                                            <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="IyP-B4-JgR" appends="YES" id="uBe-V1-rgU"/>
-                                            </connections>
-                                        </imageView>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Oz-GL-iQJ">
                                             <rect key="frame" x="10" y="10" width="2" height="75"/>
                                             <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -328,10 +315,24 @@
                                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
+                                        <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QXw-tM-lZQ">
+                                            <rect key="frame" x="22" y="10" width="75" height="75"/>
+                                            <gestureRecognizers/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zUw-rk-0Qt">
+                                            <rect key="frame" x="22" y="10" width="75" height="75"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="buttonPressProfilePic:" destination="cw7-KE-yTs" eventType="touchUpInside" id="q59-hc-yCM"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <gestureRecognizers/>
                                     <connections>
-                                        <outlet property="imageViewProfilePic" destination="QXw-tM-lZQ" id="M9k-dd-JmD"/>
+                                        <outlet property="imageViewProfilePic" destination="QXw-tM-lZQ" id="xZ9-Bs-nw8"/>
                                     </connections>
                                 </collectionReusableView>
                                 <connections>
@@ -339,6 +340,12 @@
                                     <outlet property="delegate" destination="ucO-yO-ARo" id="xTE-u4-mXe"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="USERNAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSw-Ll-H7W">
+                                <rect key="frame" x="-1" y="28" width="322" height="21"/>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="25"/>
+                                <color key="textColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -351,7 +358,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xo2-uC-pNK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="IyP-B4-JgR"/>
             </objects>
             <point key="canvasLocation" x="-377" y="1009"/>
         </scene>
@@ -1120,7 +1126,6 @@
         <image name="Notification" width="22" height="22"/>
         <image name="Photo" width="50" height="50"/>
         <image name="Profile" width="25" height="25"/>
-        <image name="ProfileDefault" width="125" height="125"/>
         <image name="Splash-iphone6" width="375" height="667"/>
         <image name="Video" width="50" height="50"/>
         <image name="Write" width="50" height="50"/>

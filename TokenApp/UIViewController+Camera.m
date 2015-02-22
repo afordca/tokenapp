@@ -9,6 +9,7 @@
 #import "UIViewController+Camera.h"
 #import "TK_DescriptionViewController.h"
 #import "CamerOverlay.h"
+#import "User.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -226,6 +227,46 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    if (picker == self.imagePickerProfile) {
+
+        NSLog(@"ProfilePickerController");
+        self.imageProfile = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+        PFUser *user = [PFUser currentUser];
+        User *currentUser = [User sharedSingleton];
+
+        NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+
+        if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+            self.imageProfile = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+            if (self.imagePickerProfile.sourceType == UIImagePickerControllerSourceTypeCamera)
+            {
+                UIImageWriteToSavedPhotosAlbum(self.imageProfile, nil, nil, nil);
+            }
+        }
+
+        self.imageProfile = [self squareImageFromImage:self.imageProfile scaledToSize:200];
+
+        NSData *dataFromImage = UIImagePNGRepresentation(self.imageProfile);
+        PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataFromImage];
+        [user setObject:imageFile forKey:@"profileImage"];
+
+        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                NSLog(@"%@", [error userInfo]);
+            } else {
+                currentUser.profileImage = self.imageProfile;
+                
+                
+            }
+        }];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+
+    }
+else
+{
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
 
     // Check if photo
@@ -263,8 +304,47 @@
 
         }
     }
+}
 
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Crop image
+
+- (UIImage *)squareImageFromImage:(UIImage *)image scaledToSize:(CGFloat)newSize {
+
+    CGAffineTransform scaleTransform;
+    CGPoint origin;
+
+    if (image.size.width > image.size.height) {
+        CGFloat scaleRatio = newSize / image.size.height;
+        scaleTransform = CGAffineTransformMakeScale(scaleRatio, scaleRatio);
+
+        origin = CGPointMake(-(image.size.width - image.size.height) / 2.0f, 0);
+    } else {
+        CGFloat scaleRatio = newSize / image.size.width;
+        scaleTransform = CGAffineTransformMakeScale(scaleRatio, scaleRatio);
+
+        origin = CGPointMake(0, -(image.size.height - image.size.width) / 2.0f);
+    }
+
+    CGSize size = CGSizeMake(newSize, newSize);
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+    } else {
+        UIGraphicsBeginImageContext(size);
+    }
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextConcatCTM(context, scaleTransform);
+
+    [image drawAtPoint:origin];
+
+    image = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

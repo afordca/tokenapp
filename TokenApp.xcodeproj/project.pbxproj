@@ -328,6 +328,8 @@
 		002E16361A94ED0B000AE37B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				00292EFA1A9850BB0086A219 /* ProfileCollectionReusableView.h */,
+				00292EFB1A9850BB0086A219 /* ProfileCollectionReusableView.m */,
 				00ED604F1A804B5D00ED1229 /* MFC_ProfileViewController.h */,
 				00ED60501A804B5D00ED1229 /* MFC_ProfileViewController.m */,
 				002E163B1A955973000AE37B /* ProfileCollectionViewCell.h */,
@@ -408,8 +410,6 @@
 				B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */,
 				B97F00F41A6EC2E400690309 /* Settings */,
 				002E16271A93E0C4000AE37B /* Main.storyboard */,
-				00292EFA1A9850BB0086A219 /* ProfileCollectionReusableView.h */,
-				00292EFB1A9850BB0086A219 /* ProfileCollectionReusableView.m */,
 				00E8ECC31A965B430088C6C0 /* Explore */,
 				000FC6841A91122700A4F50F /* LogIn */,
 				000FC6831A9111FA00A4F50F /* TabBar */,

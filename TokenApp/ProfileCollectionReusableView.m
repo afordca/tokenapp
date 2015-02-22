@@ -10,4 +10,46 @@
 
 @implementation ProfileCollectionReusableView
 
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder])
+    {
+        //Accessing User Singleton
+        currentUser = [User sharedSingleton];
+
+    }
+
+    return self;
+}
+
+
+- (IBAction)buttonPressProfilePic:(id)sender
+{
+
+    NSLog(@"TAP");
+
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Profile Image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo",@"Choose Existing", nil];
+    //
+            [actionSheet showInView:self];
+}
+
+#pragma mark UIAction Sheet Methods
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        
+        [self.delegate tapOnCamera];
+
+    }
+    else if (buttonIndex == 1)
+    {
+
+        [self.delegate tapOnLibrary];
+
+    }
+}
+
 @end

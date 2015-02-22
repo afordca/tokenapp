@@ -13,7 +13,9 @@
 #import "TK_PostViewController.h"
 #import "CamerOverlay.h"
 #import "ProfileCollectionViewCell.h"
+#import "UIViewController+Camera.h"
 #import "ProfileCollectionReusableView.h"
+#import <Parse/Parse.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -25,13 +27,13 @@
 #define SCREEN_HEIGTH 568
 
 
-@interface MFC_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegateFlowLayout>
+@interface MFC_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegateFlowLayout,CustomProfileDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *labelUserName;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionViewProfile;
+@property UIImage *imageProfile;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
-@property (strong, nonatomic) IBOutlet UIView *viewContentView;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollviewProfile;
+
 
 @property NSDictionary *dicViews;
 
@@ -45,13 +47,12 @@
 @property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
 @property BOOL isVideo;
 
+@property UIImagePickerController *imagePickerProfile;
+
 
 @end
 
 @implementation MFC_ProfileViewController
-
-@synthesize scrollviewProfile;
-@synthesize viewContentView;
 
 - (void)viewDidLoad
 {
@@ -65,13 +66,8 @@
     currentUser = [User sharedSingleton];
 
     self.labelUserName.text = currentUser.userName;
-    if (currentUser.profileImage)
-    {
-         self.imageViewProfilePic.image = currentUser.profileImage;
-    }
 
 }
-
 
 
 #pragma mark - UICollectionView Methods
@@ -88,138 +84,45 @@
     cell.imageViewProfileContent.image = currentUser.arrayOfPhotos[indexPath.row];
 
 
+
     return cell;
 }
 
 - (UICollectionReusableView *)collectionView: (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     ProfileCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                          UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeaderView" forIndexPath:indexPath];
+    headerView.delegate = self;
+    headerView.imageViewProfilePic.image = currentUser.profileImage;
+
     return headerView;
 }
 
+#pragma mark - CustomProfileDelegate Methods
 
-#pragma mark Tap Gesture Method
-
-- (IBAction)tapProfilePic:(UITapGestureRecognizer *)tapGestureRecognizer
+-(void)tapOnCamera
 {
-     self.location = [tapGestureRecognizer locationInView:self.view];
+    self.imagePickerProfile = [[UIImagePickerController alloc]init];
+    self.imagePickerProfile.delegate = self;
+    self.imagePickerProfile.allowsEditing = YES;
+    self.imagePickerProfile.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.imagePickerProfile.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
 
-     if (CGRectContainsPoint(self.imageViewProfilePic.frame, self.location))
-     {
-         NSLog(@"Tap");
-         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Profile Image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo",@"Choose Existing", nil];
-
-         [actionSheet showInView:self.view];
-     }
+   [self presentViewController:self.imagePickerProfile animated:YES completion:nil];
 }
 
-#pragma mark UIAction Sheet Methods
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+-(void)tapOnLibrary
 {
-    if (buttonIndex == 0)
-    {
-        self.imagePicker = [[UIImagePickerController alloc]init];
-        self.imagePicker.delegate = self;
-        self.imagePicker.allowsEditing = YES;
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-
-        [self presentViewController:self.imagePicker animated:YES completion:nil];
-    }
-    else if (buttonIndex == 1)
-    {
-        self.imagePicker = [[UIImagePickerController alloc]init];
-        self.imagePicker.delegate = self;
-        self.imagePicker.allowsEditing = YES;
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        UIColor *backgroundColor = [UIColor colorWithRed:0.38 green:0.51 blue:0.85 alpha:1.0];
-        self.imagePicker.navigationBar.barTintColor = backgroundColor;
-        self.imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:self.imagePicker.sourceType];
-
-        [self presentViewController:self.imagePicker animated:YES completion:nil];
-    }
-}
-
-#pragma mark - UIImagePicker Controller Methods
-
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    PFUser *user = [PFUser currentUser];
-
-    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-
-    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-        self.imageViewProfilePic.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-
-        if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
-        {
-            UIImageWriteToSavedPhotosAlbum(self.imageViewProfilePic.image, nil, nil, nil);
-        }
-    }
-
-    self.imageViewProfilePic.image = [self squareImageFromImage:self.imageViewProfilePic.image scaledToSize:200];
-
-    NSData *dataFromImage = UIImagePNGRepresentation(self.imageViewProfilePic.image);
-    PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataFromImage];
-    [user setObject:imageFile forKey:@"profileImage"];
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (error) {
-            NSLog(@"%@", [error userInfo]);
-        } else {
-            currentUser.profileImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-        }
-    }];
+    self.imagePickerProfile = [[UIImagePickerController alloc]init];
+    self.imagePickerProfile.delegate = self;
+    self.imagePickerProfile.allowsEditing = YES;
+    self.imagePickerProfile.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    UIColor *backgroundColor = [UIColor colorWithRed:0.38 green:0.51 blue:0.85 alpha:1.0];
+    self.imagePickerProfile.navigationBar.barTintColor = backgroundColor;
+    self.imagePickerProfile.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:self.imagePickerProfile.sourceType];
+    [self presentViewController:self.imagePickerProfile animated:YES completion:nil];
 
 }
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-
-    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-    [self dismissViewControllerAnimated:YES completion:^{
-
-    }];
-}
-
-#pragma mark - Crop image
-
-- (UIImage *)squareImageFromImage:(UIImage *)image scaledToSize:(CGFloat)newSize {
-
-    CGAffineTransform scaleTransform;
-    CGPoint origin;
-
-    if (image.size.width > image.size.height) {
-        CGFloat scaleRatio = newSize / image.size.height;
-        scaleTransform = CGAffineTransformMakeScale(scaleRatio, scaleRatio);
-
-        origin = CGPointMake(-(image.size.width - image.size.height) / 2.0f, 0);
-    } else {
-        CGFloat scaleRatio = newSize / image.size.width;
-        scaleTransform = CGAffineTransformMakeScale(scaleRatio, scaleRatio);
-
-        origin = CGPointMake(0, -(image.size.height - image.size.width) / 2.0f);
-    }
-
-    CGSize size = CGSizeMake(newSize, newSize);
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-        UIGraphicsBeginImageContextWithOptions(size, YES, 0);
-    } else {
-        UIGraphicsBeginImageContext(size);
-    }
-
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextConcatCTM(context, scaleTransform);
-
-    [image drawAtPoint:origin];
-
-    image = UIGraphicsGetImageFromCurrentImageContext();
-
-    UIGraphicsEndImageContext();
-
-    return image;
-}
 
 
 @end

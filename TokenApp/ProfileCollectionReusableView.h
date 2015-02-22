@@ -7,20 +7,31 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "User.h"
 
-@protocol CustomProfileHeaderDelegate <NSObject>
+@protocol CustomProfileDelegate <NSObject>
 
--(void)onTapProfilePic;
+-(void)tapOnCamera;
+-(void)tapOnLibrary;
 
 @end
 
+@interface ProfileCollectionReusableView : UICollectionReusableView <UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
-@interface ProfileCollectionReusableView : UICollectionReusableView<UIGestureRecognizerDelegate>
+{
+    User *currentUser;
+}
+
+
+@property id<CustomProfileDelegate>delegate;
+
+@property ProfileCollectionReusableView *profileCollectionView;
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
 
-
-@property id <CustomProfileHeaderDelegate> delegate;
+@property UIImagePickerController *imagePickerProfile;
 
 
 
