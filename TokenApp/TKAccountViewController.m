@@ -217,7 +217,7 @@
                 self.navigationItem.rightBarButtonItem = nil;
             } else {
                 if (number == 0) {
-                    [self configureFollowButton];
+                    //[self configureFollowButton];
                 } else {
                     [self configureUnfollowButton];
                 }
@@ -279,7 +279,7 @@
 
     [TKUtility followUserEventually:self.user block:^(BOOL succeeded, NSError *error) {
         if (error) {
-            [self configureFollowButton];
+            //[self configureFollowButton];
         }
     }];
 }
@@ -289,7 +289,7 @@
     [loadingActivityIndicatorView startAnimating];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:loadingActivityIndicatorView];
 
-    [self configureFollowButton];
+    //[self configureFollowButton];
 
     [TKUtility unfollowUserEventually:self.user];
 }
@@ -298,10 +298,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)configureFollowButton {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow" style:UIBarButtonItemStylePlain target:self action:@selector(followButtonAction:)];
-    [[TKCache sharedCache] setFollowStatus:NO user:self.user];
-}
+
 
 - (void)configureUnfollowButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowButtonAction:)];

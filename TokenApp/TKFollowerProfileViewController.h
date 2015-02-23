@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TKHomeViewController.h"
 
 @interface TKFollowerProfileViewController : UIViewController
 

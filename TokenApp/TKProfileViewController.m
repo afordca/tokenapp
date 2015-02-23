@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ABaselNotBasilProduction. All rights reserved.
 //
 
-#import "MFC_ProfileViewController.h"
+#import "TKProfileViewController.h"
 #import "TK_DescriptionViewController.h"
 #import "UIViewController+Camera.h"
 #import "TK_LinkViewController.h"
@@ -24,7 +24,7 @@
 #define SCREEN_HEIGTH 568
 
 
-@interface MFC_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface TKProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *labelUserName;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionViewProfile;
@@ -43,7 +43,7 @@
 
 @end
 
-@implementation MFC_ProfileViewController
+@implementation TKProfileViewController
 
 - (void)viewDidLoad
 {

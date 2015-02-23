@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 
-@interface MFC_ProfileViewController : UIViewController
+@interface TKProfileViewController : UIViewController
 {
     User *currentUser;
 }

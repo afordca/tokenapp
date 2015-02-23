@@ -7,7 +7,11 @@
 //
 
 #import "PFTableViewCell.h"
+#import <MediaPlayer/MPMediaPlayback.h>
+
+@property (nonatomic, retain) MPMoviePlayerController *movie;
 
 @interface TKVideoCell : PFTableViewCell
+
 
 @end
