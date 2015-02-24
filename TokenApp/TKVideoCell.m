@@ -18,25 +18,25 @@
 }
 */
 
--(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    if (self)
-    {
-        self.opaque = NO;
-        self.selectionStyle = UITableViewCellStyleDefault;
-
-        self.accessoryType = UITableViewCellAccessoryNone;
-        self.clipsToBounds = NO;
-
-        self.backgroundColor = [UIColor clearColor];
-
-        self.movie = [[MPMoviePlayerController alloc]init];
-        self.imageView.backgroundColor = [UIColor clearColor];
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-
-    }
-    return self;
-}
+//-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+//{
+//    if (self)
+//    {
+//        self.opaque = NO;
+//        self.selectionStyle = UITableViewCellStyleDefault;
+//
+//        self.accessoryType = UITableViewCellAccessoryNone;
+//        self.clipsToBounds = NO;
+//
+//        self.backgroundColor = [UIColor clearColor];
+//
+//        self.movie = [[MPMoviePlayerController alloc]init];
+//        self.imageView.backgroundColor = [UIColor clearColor];
+//        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+//
+//    }
+//    return self;
+//}
 
 -(void)layoutSubviews
 {

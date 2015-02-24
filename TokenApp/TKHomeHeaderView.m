@@ -7,17 +7,29 @@
 //
 
 #import "TKHomeHeaderView.h"
+#import "Macros.h"
+#import "Constants.h"
 
 @implementation TKHomeHeaderView
 
-- (void)awakeFromNib {
-    // Initialization code
+#pragma mark - Initialization 
+
+-(id)initWithFrame:(CGRect)frame buttons:(TKHomeHeaderButtons)otherButtons
+{
+    self = [super initWithFrame:frame];
+
+    return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+#pragma mark - TKPhotoHeaderView
 
-    // Configure the view for the selected state
+-(void)setPhoto:(PFObject *)aPhoto
+{
+    self.photo = aPhoto;
+
+    //Here we set the User's Avatar
+    PFUser *user = [self.photo objectForKey:kPTKActivityPhotoKey];
+
 }
 
 @end
