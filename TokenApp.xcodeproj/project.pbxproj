@@ -60,6 +60,7 @@
 		B979B8591A927D1E00C0EEAA /* TKPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B979B8581A927D1E00C0EEAA /* TKPhotoCell.m */; };
 		B97F00FD1A6ECAD400690309 /* BalanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B97F00FC1A6ECAD400690309 /* BalanceTableViewCell.m */; };
 		B98946F41A60CE780011288F /* TKSettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B98946F31A60CE780011288F /* TKSettingsButtonItem.m */; };
+		B98DBF8E1A9BDA630038AFE6 /* TKHomeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B98DBF8D1A9BDA630038AFE6 /* TKHomeHeaderView.m */; };
 		B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */; };
 		B991FD8F1A3E6C8B00BB902F /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B991FD8E1A3E6C8B00BB902F /* Default@3x.png */; };
 		B996AD201A8163F300C3B98E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B996AD1F1A8163F300C3B98E /* User.m */; };
@@ -205,6 +206,8 @@
 		B97F00FC1A6ECAD400690309 /* BalanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceTableViewCell.m; sourceTree = "<group>"; };
 		B98946F21A60CE780011288F /* TKSettingsButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKSettingsButtonItem.h; sourceTree = "<group>"; };
 		B98946F31A60CE780011288F /* TKSettingsButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKSettingsButtonItem.m; sourceTree = "<group>"; };
+		B98DBF8C1A9BDA630038AFE6 /* TKHomeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKHomeHeaderView.h; sourceTree = "<group>"; };
+		B98DBF8D1A9BDA630038AFE6 /* TKHomeHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKHomeHeaderView.m; sourceTree = "<group>"; };
 		B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomActivityTableViewCell.h; sourceTree = "<group>"; };
 		B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomActivityTableViewCell.m; sourceTree = "<group>"; };
 		B991FD8E1A3E6C8B00BB902F /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@3x.png"; sourceTree = "<group>"; };
@@ -401,6 +404,8 @@
 			children = (
 				002E16381A94EFAF000AE37B /* UIViewController+Camera.h */,
 				002E16391A94EFAF000AE37B /* UIViewController+Camera.m */,
+				B98DBF8C1A9BDA630038AFE6 /* TKHomeHeaderView.h */,
+				B98DBF8D1A9BDA630038AFE6 /* TKHomeHeaderView.m */,
 				002E16371A94EE6C000AE37B /* Singletons */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
@@ -871,6 +876,7 @@
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
 				00D14FBE1A81BF9700271031 /* CamerOverlay.m in Sources */,
 				00B204861A82B3F8006A259A /* TK_DescriptionViewController.m in Sources */,
+				B98DBF8E1A9BDA630038AFE6 /* TKHomeHeaderView.m in Sources */,
 				B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */,
 				B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */,
 				B9D1A6B31A44A89B00BA2874 /* TKUtility.m in Sources */,

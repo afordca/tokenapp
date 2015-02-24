@@ -404,8 +404,8 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJi-0a-dg4">
-                                <rect key="frame" x="57" y="237" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <rect key="frame" x="31" y="237" width="91" height="30"/>
+                                <state key="normal" title="Add Follower">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -413,10 +413,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="FQ6-W3-7qY"/>
+                    <connections>
+                        <outlet property="countForFollowers" destination="m51-e9-KR3" id="Qkh-hB-juP"/>
+                        <outlet property="followButton" destination="TJi-0a-dg4" id="pnI-fJ-j5w"/>
+                        <outlet property="profilePictureImageView" destination="vPF-Vq-W46" id="0W6-OZ-c09"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="csJ-Rl-9sz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="15" y="1009"/>
+            <point key="canvasLocation" x="7" y="1009"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Ffy-32-0u4">

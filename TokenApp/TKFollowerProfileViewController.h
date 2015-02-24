@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TKHomeViewController.h"
 
-@interface TKFollowerProfileViewController : UIViewController
+@interface TKFollowerProfileViewController : TKHomeViewController
 
+-(id)initWithUser:(PFUser *)aUser;
 
 @end
