@@ -15,12 +15,16 @@
     UIImage *profileImage;
     NSString *userName;
     NSMutableArray *arrayOfPhotos;
+    NSMutableArray *arrayOfUserActivity;
+    NSMutableArray *arrayOfFollowers;
 
 }
 
 @property (nonatomic, strong) UIImage *profileImage;
 @property (nonatomic,strong) NSString *userName;
 @property (nonatomic,strong) NSMutableArray *arrayOfPhotos;
+@property (nonatomic,strong) NSMutableArray *arrayOfUserActivity;
+@property (nonatomic,strong) NSMutableArray *arrayOfFollowers;
 
 // This is the method to access this Singleton class
 + (User *)sharedSingleton;

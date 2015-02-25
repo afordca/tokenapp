@@ -48,6 +48,13 @@
     [self.navigationController.navigationBar setHidden:YES];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:YES];
+    NSLog(@"View Did Disappear");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
+
+}
 
 
 

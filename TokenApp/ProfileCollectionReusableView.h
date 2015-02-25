@@ -15,6 +15,8 @@
 
 -(void)tapOnCamera;
 -(void)tapOnLibrary;
+-(void)presentActivityView;
+-(void)presentFollowersView;
 
 @end
 

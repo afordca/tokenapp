@@ -15,6 +15,8 @@
 #import "ProfileCollectionViewCell.h"
 #import "UIViewController+Camera.h"
 #import "ProfileCollectionReusableView.h"
+#import "PersonalActivityViewController.h"
+#import "FollowersViewController.h"
 #import <Parse/Parse.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -34,6 +36,8 @@
 @property UIImage *imageProfile;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
 
+@property (strong, nonatomic) IBOutlet UIButton *buttonCancelView;
+@property UIView *mainView;
 
 @property NSDictionary *dicViews;
 
@@ -49,6 +53,8 @@
 
 @property UIImagePickerController *imagePickerProfile;
 
+@property (retain,nonatomic)PersonalActivityViewController *pvc;
+@property (retain,nonatomic)FollowersViewController *fvc;
 
 @end
 
@@ -57,15 +63,65 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self addObserver];
+//    [self addObserver];
 
     [self.navigationController.navigationBar setHidden:YES];
+    [self.buttonCancelView setHidden:YES];
     self.collectionViewProfile.delegate = self;
 
     //Accessing User Singleton
     currentUser = [User sharedSingleton];
 
     self.labelUserName.text = currentUser.userName;
+
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    [self addObserver];
+
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:YES];
+    NSLog(@"View Did Disappear");
+   // [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
+    [[NSNotificationCenter defaultCenter ]removeObserver:self];
+
+}
+
+#pragma mark - Button Press Methods
+
+- (IBAction)onButtonPressCancel:(id)sender
+{
+    // Dismiss ActivityView with animation left to right
+
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        self.self.mainView.alpha = 1;
+        self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+            self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+        } completion:^(BOOL finished) {
+            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+            } completion:^(BOOL finished) {
+                [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                    self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+                } completion:^(BOOL finished) {
+                    [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                        self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
+                    } completion:^(BOOL finished) {
+
+                        [self.mainView removeFromSuperview];
+                        [self.buttonCancelView setHidden:YES];
+                    }];
+                }];
+            }];
+        }];
+    }];
 
 }
 
@@ -123,6 +179,125 @@
 
 }
 
+-(void)presentActivityView
+{
+    self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
 
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"PersonalActivity"];
+    [self.mainView addSubview:self.pvc.view];
+    self.mainView.alpha = 0;
 
+    [self.view addSubview:self.mainView];
+    [self.buttonCancelView setHidden:NO];
+
+// Present ActivityView with animation left to right
+
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        self.self.mainView.alpha = 1;
+        self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
+        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+            self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+        } completion:^(BOOL finished) {
+            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+            } completion:^(BOOL finished) {
+                [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                    self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+                } completion:^(BOOL finished) {
+                    [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                        self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                    } completion:^(BOOL finished) {
+                    }];
+                }];
+            }];
+        }];
+    }];
+}
+
+-(void)presentFollowersView
+{
+    self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
+
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"FollowersActivity"];
+    [self.mainView addSubview:self.pvc.view];
+    self.mainView.alpha = 0;
+
+    [self.view addSubview:self.mainView];
+    [self.buttonCancelView setHidden:NO];
+
+    // Present ActivityView with animation left to right
+
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        self.self.mainView.alpha = 1;
+        self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
+        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+            self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+        } completion:^(BOOL finished) {
+            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+            } completion:^(BOOL finished) {
+                [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                    self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+                } completion:^(BOOL finished) {
+                    [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                        self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                    } completion:^(BOOL finished) {
+                    }];
+                }];
+            }];
+        }];
+    }];
+}
+
+//#pragma mark UIImagePickerController Methods
+//
+//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+//{
+//        if (picker == self.imagePickerProfile)
+//        {
+//    
+//            NSLog(@"ProfilePickerController");
+//            self.imageProfile = [info objectForKey:UIImagePickerControllerOriginalImage];
+//    
+//            PFUser *user = [PFUser currentUser];
+//            currentUser = [User sharedSingleton];
+//    
+//            NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+//    
+//            if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+//                self.imageProfile = [info objectForKey:UIImagePickerControllerOriginalImage];
+//    
+//                if (self.imagePickerProfile.sourceType == UIImagePickerControllerSourceTypeCamera)
+//                {
+//                    UIImageWriteToSavedPhotosAlbum(self.imageProfile, nil, nil, nil);
+//                }
+//            }
+//    
+//            self.imageProfile = [self squareImageFromImage:self.imageProfile scaledToSize:200];
+//    
+//            NSData *dataFromImage = UIImagePNGRepresentation(self.imageProfile);
+//            PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataFromImage];
+//            [user setObject:imageFile forKey:@"profileImage"];
+//    
+//            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//                if (error) {
+//                    NSLog(@"%@", [error userInfo]);
+//                } else {
+//                    currentUser.profileImage = self.imageProfile;
+//    
+//    
+//                }
+//            }];
+//            
+//            [self dismissViewControllerAnimated:YES completion:^{
+//
+//
+//            }];
+//    
+//        }
+//}
 @end

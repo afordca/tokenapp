@@ -22,6 +22,12 @@
 
 @interface CustomTabBar : UIView
 
+@property UIButton *btnHomeFeed;
+@property UIButton *btnDiscover;
+@property UIButton *btnCreate;
+@property UIButton *btnProfile;
+@property UIButton *btnBalance;
+
 // define delegate property
 @property id <CustomTabBarDelegate> delegate;
 

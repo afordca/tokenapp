@@ -62,17 +62,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setHidden:YES];
     [self SetUser];
 
-    [self addObserver];
+//    [self addObserver];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:YES];
     [self addObserver];
+
 }
-
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -82,11 +83,16 @@
         [self loadObjects];
     }
 
-   // Has to be unregistered always, otherwise nav controllers down the line will call this method
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:YES];
+    NSLog(@"View Did Disappear");
+    // [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
+    [[NSNotificationCenter defaultCenter ]removeObserver:self];
 
+}
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -255,37 +261,39 @@
 
 -(void)SetUser
 {
+    //Initialization
     PFUser *user = [PFUser currentUser];
     singleUser = [User sharedSingleton];
     singleUser.arrayOfPhotos = [NSMutableArray new];
+    singleUser.arrayOfUserActivity = [NSMutableArray new];
+    singleUser.arrayOfFollowers = [NSMutableArray new];
 
     //Loading Profile Image
     PFFile *profileImageFile = [user objectForKey:@"profileImage"];
     PFImageView *imageView = [PFImageView new];
     imageView.file = profileImageFile;
-
     [imageView loadInBackground:^(UIImage *image, NSError *error) {
 
         //Setting image to singleton class USER
-
         singleUser.profileImage = image;
 
         //Setting Username to singleton class USER
-        if ([user objectForKey:@"username"]) {
+        if ([user objectForKey:@"username"])
+        {
             singleUser.userName = [user objectForKey:@"username"];
-        } else {
+        } else
+        {
             singleUser.userName = user.username;
-
         }
 
     }];
 
     //Loading Array of photos and setting it in singleton class USER
-
     PFQuery *queryForUserContent = [PFQuery queryWithClassName:@"Photo"];
     [queryForUserContent whereKey:@"userName" equalTo:user.objectId];
     [queryForUserContent findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error) {
+        if (error)
+        {
             NSLog(@"%@",[error userInfo]);
         }
         else
@@ -306,13 +314,50 @@
                         [singleUser.arrayOfPhotos addObject:[UIImage imageWithData:data]];
                     }
                 }];
+            }
+        }
+    }];
 
+    //Loading Array of Activity and setting it in singleton class USER
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+    [queryForActivity whereKey:@"fromUser" equalTo:user];
+    [queryForActivity includeKey:@"toUser"];
+    [queryForActivity includeKey:@"photo"];
+    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"%@",[error userInfo]);
+        }
+        else{
 
+            for (PFObject *activity in objects) {
+                [singleUser.arrayOfUserActivity addObject:activity];
+            }
+        }
+    }];
+
+    //Loading Array of Followers and setting it in singleton class USER
+    PFQuery *queryForFollowers = [PFQuery queryWithClassName:@"Activity"];
+    [queryForFollowers whereKey:@"toUser" equalTo:user];
+    [queryForFollowers whereKey:@"type" equalTo:@"followed"];
+    [queryForFollowers includeKey:@"fromUser"];
+    [queryForFollowers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error)
+        {
+            NSLog(@"%@",[error userInfo]);
+        }
+        else
+        {
+            NSLog(@"Activity Loaded: %@",objects);
+            for (PFObject *activity in objects)
+            {
+                PFUser *userFollower = [activity objectForKey:@"fromUser"];
+                    [singleUser.arrayOfFollowers addObject:userFollower];
 
             }
         }
     }];
 }
+
 
 
 

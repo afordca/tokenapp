@@ -69,6 +69,7 @@
                                              selector:@selector(receivedNotification:)
                                                  name:@"CreateMainView"
                                                object:nil];
+  
     // Observer for when CANCEL button is pressed. Removes the CreateMainView from superview
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receivedNotification:)
@@ -124,18 +125,34 @@
 
 
         [self.visualEffectView addSubview:mainView];
+        self.visualEffectView.alpha = 0.f;
         [self.view addSubview:self.visualEffectView];
         [self.view bringSubviewToFront:self.visualEffectView];
+
+        [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [self.visualEffectView setAlpha:1.f];
+        } completion:^(BOOL finished) {
+
+        }];
 
     }
 
     else if ([[notification name] isEqualToString:@"SendCancel"])
     {
-        [self.visualEffectView removeFromSuperview];
+        [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [self.visualEffectView setAlpha:0.f];
+        } completion:^(BOOL finished) {
+
+            [self.visualEffectView removeFromSuperview];
+
+        }];
+
     }
 
     else if ([[notification name] isEqualToString:@"TakePhoto"])
     {
+    
+
         [self setUpCamera];
 
         self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
@@ -227,13 +244,14 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    if (picker == self.imagePickerProfile) {
+    if (picker == self.imagePickerProfile)
+    {
 
         NSLog(@"ProfilePickerController");
         self.imageProfile = [info objectForKey:UIImagePickerControllerOriginalImage];
 
         PFUser *user = [PFUser currentUser];
-        User *currentUser = [User sharedSingleton];
+        self.currentUser = [User sharedSingleton];
 
         NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
 
@@ -256,17 +274,21 @@
             if (error) {
                 NSLog(@"%@", [error userInfo]);
             } else {
-                currentUser.profileImage = self.imageProfile;
-                
-                
+                self.currentUser.profileImage = self.imageProfile;
+
+
             }
         }];
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
+
+        [self dismissViewControllerAnimated:YES completion:^{
+
+
+        }];
 
     }
-else
-{
+
+    else
+    {
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
 
     // Check if photo
@@ -350,11 +372,14 @@ else
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self setUpCamera];
+
+
     self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
     [self dismissViewControllerAnimated:YES completion:^{
         [self presentViewController:self.imagePicker animated:NO completion:nil];
         
     }];
+
 }
 
 @end

@@ -34,6 +34,16 @@
             [actionSheet showInView:self];
 }
 
+- (IBAction)buttonPressActivity:(id)sender
+{
+    [self.delegate presentActivityView];
+}
+
+- (IBAction)buttonPressFollowers:(id)sender
+{
+    [self.delegate presentFollowersView];
+}
+
 #pragma mark UIAction Sheet Methods
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
