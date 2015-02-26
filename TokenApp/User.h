@@ -19,8 +19,12 @@
     NSString *userName;
     NSMutableArray *arrayOfPhotos;
     NSMutableArray *arrayOfUserActivity;
+    NSMutableArray *arrayOfFromUserActivity;
     NSMutableArray *arrayOfFollowers;
     NSMutableArray *arrayOfFollowing;
+    NSMutableArray *arrayOfNotificationComments;
+    NSMutableArray *arrayOfNotificationLikes;
+    NSMutableArray *arrayOfNotificationTags;
     PFUser *user;
 
 }
@@ -29,8 +33,14 @@
 @property (nonatomic,strong) NSString *userName;
 @property (nonatomic,strong) NSMutableArray *arrayOfPhotos;
 @property (nonatomic,strong) NSMutableArray *arrayOfUserActivity;
+@property (nonatomic,strong) NSMutableArray *arrayOfFromUserActivity;
 @property (nonatomic,strong) NSMutableArray *arrayOfFollowers;
 @property (nonatomic,strong) NSMutableArray *arrayOfFollowing;
+@property (nonatomic,strong) NSMutableArray *arrayOfNotificationComments;
+@property (nonatomic,strong) NSMutableArray *arrayOfNotificationLikes;
+@property (nonatomic,strong) NSMutableArray *arrayOfNotificationTags;
+
+
 @property PFUser *user;
 
 // This is the method to access this Singleton class
@@ -41,5 +51,7 @@
 -(void)loadPhotos;
 -(void)setUserProfile;
 -(void)loadActivityToCurrentUser;
+-(void)loadActivityFromCurrentUser;
+-(void)loadArrayOfNotificationsUsers;
 
 @end

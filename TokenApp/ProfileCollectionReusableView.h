@@ -17,6 +17,7 @@
 -(void)tapOnLibrary;
 -(void)presentActivityView;
 -(void)presentFollowersView;
+-(void)presentNotificationsView;
 
 @end
 

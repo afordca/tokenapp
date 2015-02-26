@@ -17,6 +17,7 @@
 #import "ProfileCollectionReusableView.h"
 #import "PersonalActivityViewController.h"
 #import "FollowersViewController.h"
+#import "NotificationViewController.h"
 #import <Parse/Parse.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -55,6 +56,7 @@
 
 @property (retain,nonatomic)PersonalActivityViewController *pvc;
 @property (retain,nonatomic)FollowersViewController *fvc;
+@property (retain,nonatomic)NotificationViewController *nvc;
 
 @end
 
@@ -224,6 +226,43 @@
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"FollowersActivity"];
     [self.mainView addSubview:self.pvc.view];
+    self.mainView.alpha = 0;
+
+    [self.view addSubview:self.mainView];
+    [self.buttonCancelView setHidden:NO];
+
+    // Present ActivityView with animation left to right
+
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        self.self.mainView.alpha = 1;
+        self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
+        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+            self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+        } completion:^(BOOL finished) {
+            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+            } completion:^(BOOL finished) {
+                [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                    self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+                } completion:^(BOOL finished) {
+                    [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                        self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                    } completion:^(BOOL finished) {
+                    }];
+                }];
+            }];
+        }];
+    }];
+}
+
+-(void)presentNotificationsView
+{
+    self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
+
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.nvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Notifications"];
+    [self.mainView addSubview:self.nvc.view];
     self.mainView.alpha = 0;
 
     [self.view addSubview:self.mainView];

@@ -21,6 +21,9 @@
 		009EE0CB1A9BC79B00BEA172 /* UserActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009EE0CA1A9BC79B00BEA172 /* UserActivityTableViewCell.m */; };
 		00A68E951A9D10C500AAB98F /* FollowersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A68E941A9D10C500AAB98F /* FollowersTableViewCell.m */; };
 		00A68E9B1A9D12C100AAB98F /* FollowersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A68E9A1A9D12C100AAB98F /* FollowersViewController.m */; };
+		00A68EA71A9EDC1F00AAB98F /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A68EA61A9EDC1F00AAB98F /* NotificationViewController.m */; };
+		00A68EAD1A9EEE5F00AAB98F /* NotificationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A68EAC1A9EEE5F00AAB98F /* NotificationsTableViewCell.m */; };
+		00A68EB01A9F9B2300AAB98F /* Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A68EAF1A9F9B2300AAB98F /* Notifications.m */; };
 		00B204861A82B3F8006A259A /* TK_DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B204851A82B3F8006A259A /* TK_DescriptionViewController.m */; };
 		00BF7B911A8DB9440089194E /* TK_TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BF7B901A8DB9440089194E /* TK_TabBarViewController.m */; };
 		00BF7B941A8DBABD0089194E /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BF7B931A8DBABD0089194E /* CustomTabBar.m */; };
@@ -138,6 +141,12 @@
 		00A68E941A9D10C500AAB98F /* FollowersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowersTableViewCell.m; sourceTree = "<group>"; };
 		00A68E991A9D12C100AAB98F /* FollowersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowersViewController.h; sourceTree = "<group>"; };
 		00A68E9A1A9D12C100AAB98F /* FollowersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowersViewController.m; sourceTree = "<group>"; };
+		00A68EA51A9EDC1F00AAB98F /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
+		00A68EA61A9EDC1F00AAB98F /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
+		00A68EAB1A9EEE5F00AAB98F /* NotificationsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsTableViewCell.h; sourceTree = "<group>"; };
+		00A68EAC1A9EEE5F00AAB98F /* NotificationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsTableViewCell.m; sourceTree = "<group>"; };
+		00A68EAE1A9F9B2300AAB98F /* Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notifications.h; sourceTree = "<group>"; };
+		00A68EAF1A9F9B2300AAB98F /* Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notifications.m; sourceTree = "<group>"; };
 		00B204841A82B3F8006A259A /* TK_DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_DescriptionViewController.h; sourceTree = "<group>"; };
 		00B204851A82B3F8006A259A /* TK_DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TK_DescriptionViewController.m; sourceTree = "<group>"; };
 		00BF7B8F1A8DB9440089194E /* TK_TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_TabBarViewController.h; sourceTree = "<group>"; };
@@ -358,6 +367,10 @@
 				00292EFB1A9850BB0086A219 /* ProfileCollectionReusableView.m */,
 				00ED604F1A804B5D00ED1229 /* MFC_ProfileViewController.h */,
 				00ED60501A804B5D00ED1229 /* MFC_ProfileViewController.m */,
+				00A68EA51A9EDC1F00AAB98F /* NotificationViewController.h */,
+				00A68EA61A9EDC1F00AAB98F /* NotificationViewController.m */,
+				00A68EAB1A9EEE5F00AAB98F /* NotificationsTableViewCell.h */,
+				00A68EAC1A9EEE5F00AAB98F /* NotificationsTableViewCell.m */,
 				0004765F1A9AB47B00247BF8 /* PersonalActivityViewController.h */,
 				000476601A9AB47B00247BF8 /* PersonalActivityViewController.m */,
 				002E163B1A955973000AE37B /* ProfileCollectionViewCell.h */,
@@ -377,6 +390,8 @@
 			children = (
 				B996AD1E1A8163F300C3B98E /* User.h */,
 				B996AD1F1A8163F300C3B98E /* User.m */,
+				00A68EAE1A9F9B2300AAB98F /* Notifications.h */,
+				00A68EAF1A9F9B2300AAB98F /* Notifications.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -880,6 +895,8 @@
 				002E163A1A94EFAF000AE37B /* UIViewController+Camera.m in Sources */,
 				B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */,
 				B9A4D39D1A49253400EDD2C9 /* CreatePostViewController.m in Sources */,
+				00A68EA71A9EDC1F00AAB98F /* NotificationViewController.m in Sources */,
+				00A68EAD1A9EEE5F00AAB98F /* NotificationsTableViewCell.m in Sources */,
 				B9D4AFB31A62376A0071CA52 /* TKProfileImageView.m in Sources */,
 				B996AD201A8163F300C3B98E /* User.m in Sources */,
 				00BF7B941A8DBABD0089194E /* CustomTabBar.m in Sources */,
@@ -892,6 +909,7 @@
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
 				00D14FBE1A81BF9700271031 /* CamerOverlay.m in Sources */,
 				00B204861A82B3F8006A259A /* TK_DescriptionViewController.m in Sources */,
+				00A68EB01A9F9B2300AAB98F /* Notifications.m in Sources */,
 				B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */,
 				00A68E9B1A9D12C100AAB98F /* FollowersViewController.m in Sources */,
 				B948FBA61A3ABFF5000B6C7E /* SignUpViewController.m in Sources */,

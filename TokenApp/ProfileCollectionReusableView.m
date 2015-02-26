@@ -43,6 +43,10 @@
 {
     [self.delegate presentFollowersView];
 }
+- (IBAction)buttonPressNotifications:(id)sender
+{
+    [self.delegate presentNotificationsView];
+}
 
 #pragma mark UIAction Sheet Methods
 

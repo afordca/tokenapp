@@ -17,9 +17,6 @@
 @property NSInteger likesCount;
 @property NSInteger photoCount;
 
-
-
-
 @end
 
 @implementation PersonalActivityViewController
@@ -27,21 +24,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     self.tableViewProfileActivity.delegate = self;
+
     //Accessing User Singleton
     currentUser = [User sharedSingleton];
 
+    //User Activity Array
+    self.arrayOfActivity = [NSArray new];
+    self.arrayOfActivity = [NSArray arrayWithArray:currentUser.arrayOfFromUserActivity];
 
-    self.arrayOfActivity = [NSArray arrayWithArray:currentUser.arrayOfUserActivity];
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"toUser.objectId"
-                                                 ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    self.arrayOfActivity  = [self.arrayOfActivity sortedArrayUsingDescriptors:sortDescriptors];
-
-
-
-    
 }
 
 #pragma mark - UITableView Delegate Methods
@@ -56,28 +48,51 @@
     UserActivityTableViewCell *cellActivity = [tableView dequeueReusableCellWithIdentifier:@"UserActivity"];
 
     NSString *type = [[self.arrayOfActivity objectAtIndex:indexPath.row]objectForKey:@"type"];
+    PFUser *user = [[self.arrayOfActivity objectAtIndex:indexPath.row]objectForKey:@"toUser"];
     NSString *stringMediaType = [[self.arrayOfActivity objectAtIndex:indexPath.row]objectForKey:@"mediaType"];
     PFObject *photo = [[self.arrayOfActivity objectAtIndex:indexPath.row]objectForKey:@"photo"];
-    PFUser *toUser = [[self.arrayOfActivity objectAtIndex:indexPath.row]objectForKey:@"toUser"];
 
 
-    cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ a %@",currentUser.userName, type,stringMediaType];
-
+    //Set and Round Profile Pic
     cellActivity.imageViewProfilePic.image = currentUser.profileImage;
-
-    //Round Profile Pic
     cellActivity.imageViewProfilePic.layer.cornerRadius = cellActivity.imageViewProfilePic.frame.size.height /2;
     cellActivity.imageViewProfilePic.layer.masksToBounds = YES;
     cellActivity.imageViewProfilePic.layer.borderWidth = 0;
 
-    PFFile *parseFileWithImage = [photo objectForKey:@"image"];
-    NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-    NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        cellActivity.imageViewPhoto.image = [UIImage imageWithData:data];
-    }];
+    //User Activity Description
+    if (!stringMediaType)
+    {
+        //Follow activity
+        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ %@",currentUser.userName, type,user.username];
 
-    return cellActivity;
+        PFFile *parseFileWithImage = [user objectForKey:@"profileImage"];
+        NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+        NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+        [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            cellActivity.imageViewPhoto.image = [UIImage imageWithData:data];
+            //Set and Round Profile Pic
+            cellActivity.imageViewPhoto.layer.cornerRadius = cellActivity.imageViewPhoto.frame.size.height /2;
+            cellActivity.imageViewPhoto.layer.masksToBounds = YES;
+            cellActivity.imageViewPhoto.layer.borderWidth = 0;
+        }];
+    }
+    else
+    {
+        //Media activity
+        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ a %@",currentUser.userName, type,stringMediaType];
+
+
+        PFFile *parseFileWithImage = [photo objectForKey:@"image"];
+        NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+        NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+        [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            cellActivity.imageViewPhoto.image = [UIImage imageWithData:data];
+        }];
+
+
+    }
+return cellActivity;
+
 
 }
 

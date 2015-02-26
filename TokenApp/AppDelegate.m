@@ -129,6 +129,7 @@
     [singleUser setUserProfile];
     [singleUser loadPhotos];
     [singleUser loadActivityToCurrentUser];
+    [singleUser loadActivityFromCurrentUser];
    
 
 
