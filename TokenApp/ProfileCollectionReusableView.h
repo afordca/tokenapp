@@ -34,6 +34,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
 
 @property UIImagePickerController *imagePickerProfile;
+@property (strong, nonatomic) IBOutlet UILabel *labelFollowersCount;
 
 
 

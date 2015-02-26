@@ -25,8 +25,6 @@
 
 @interface AppDelegate ()
 
-
-
 @end
 
 @implementation AppDelegate
@@ -63,6 +61,8 @@
         // Register for Push Notifications before iOS 8
         [application registerForRemoteNotifications];
     }
+
+    [self SetUser];
 
     return YES;
 }
@@ -119,6 +119,65 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
+}
+
+
+-(void)SetUser
+{
+    //Initialization
+    singleUser = [User sharedSingleton];
+    [singleUser setUserProfile];
+    [singleUser loadPhotos];
+    [singleUser loadActivityToCurrentUser];
+   
+
+
+
+
+
+//    PFQuery *queryForFollowers = [PFQuery queryWithClassName:@"Activity"];
+//    [queryForFollowers whereKey:@"toUser" equalTo:user];
+//    [queryForFollowers whereKey:@"type" equalTo:@"followed"];
+//    [queryForFollowers includeKey:@"fromUser"];
+//    [queryForFollowers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (error)
+//        {
+//            NSLog(@"%@",[error userInfo]);
+//        }
+//        else
+//        {
+//            NSLog(@"Activity Loaded: %@",objects);
+//            for (PFObject *activity in objects)
+//            {
+//                PFUser *userFollower = [activity objectForKey:@"fromUser"];
+//                    [singleUser.arrayOfFollowers addObject:userFollower];
+//
+//            }
+//        }
+//    }];
+
+//    //Loading Array of Users you are following and setting it in singleton class USER
+//    PFQuery *queryForFollowing = [PFQuery queryWithClassName:@"Activity"];
+//    [queryForFollowing whereKey:@"fromUser" equalTo:user];
+//    [queryForFollowers whereKey:@"type" equalTo:@"followed"];
+//    [queryForFollowers includeKey:@"toUser"];
+//    [queryForFollowers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (error)
+//        {
+//            NSLog(@"%@",[error userInfo]);
+//        }
+//        else
+//        {
+//            NSLog(@"Activity Loaded: %@",objects);
+//            for (PFObject *activity in objects)
+//            {
+//                PFUser *userFollowing = [activity objectForKey:@"toUser"];
+//                [singleUser.arrayOfFollowing addObject:userFollowing];
+//
+//            }
+//        }
+//    }];
+//
 }
 
 @end

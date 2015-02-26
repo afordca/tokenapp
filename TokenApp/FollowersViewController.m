@@ -24,10 +24,10 @@
     currentUser = [User sharedSingleton];
 
 
-
-
-
+    
 }
+
+
 
 #pragma mark UITableView Delegate Methods
 
@@ -41,7 +41,6 @@
     FollowersTableViewCell *cellFollowers = [tableView dequeueReusableCellWithIdentifier:@"FollowersActivity"];
 
     // User that is following Current User
-
     cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]objectForKey:@"username"];
 
     //Round Profile Pic
@@ -49,6 +48,7 @@
     cellFollowers.imageViewFollowerProfilePic.layer.masksToBounds = YES;
     cellFollowers.imageViewFollowerProfilePic.layer.borderWidth = 0;
 
+    //Follower Profile Pic
     PFFile *parseFileWithImage = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row] objectForKey:@"profileImage"];
     NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
     NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];

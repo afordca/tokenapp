@@ -152,7 +152,6 @@
     else if ([[notification name] isEqualToString:@"TakePhoto"])
     {
     
-
         [self setUpCamera];
 
         self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
@@ -244,51 +243,7 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    if (picker == self.imagePickerProfile)
-    {
 
-        NSLog(@"ProfilePickerController");
-        self.imageProfile = [info objectForKey:UIImagePickerControllerOriginalImage];
-
-        PFUser *user = [PFUser currentUser];
-        self.currentUser = [User sharedSingleton];
-
-        NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-
-        if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-            self.imageProfile = [info objectForKey:UIImagePickerControllerOriginalImage];
-
-            if (self.imagePickerProfile.sourceType == UIImagePickerControllerSourceTypeCamera)
-            {
-                UIImageWriteToSavedPhotosAlbum(self.imageProfile, nil, nil, nil);
-            }
-        }
-
-        self.imageProfile = [self squareImageFromImage:self.imageProfile scaledToSize:200];
-
-        NSData *dataFromImage = UIImagePNGRepresentation(self.imageProfile);
-        PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataFromImage];
-        [user setObject:imageFile forKey:@"profileImage"];
-
-        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (error) {
-                NSLog(@"%@", [error userInfo]);
-            } else {
-                self.currentUser.profileImage = self.imageProfile;
-
-
-            }
-        }];
-
-        [self dismissViewControllerAnimated:YES completion:^{
-
-
-        }];
-
-    }
-
-    else
-    {
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
 
     // Check if photo
@@ -323,10 +278,8 @@
             // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
             [self pushSegueToDescriptionViewController];
 
-
         }
     }
-}
 
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -372,7 +325,6 @@
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self setUpCamera];
-
 
     self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
     [self dismissViewControllerAnimated:YES completion:^{

@@ -149,6 +149,7 @@
                                          UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeaderView" forIndexPath:indexPath];
     headerView.delegate = self;
     headerView.imageViewProfilePic.image = currentUser.profileImage;
+    headerView.labelFollowersCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowers.count];
 
     return headerView;
 }
@@ -253,51 +254,95 @@
     }];
 }
 
-//#pragma mark UIImagePickerController Methods
+#pragma mark - UIImagePicker Methods
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    if (picker == self.imagePicker) {
+        NSLog(@"TEST");
+        NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+
+        // Check if photo
+
+        if ([mediaType isEqualToString:(NSString *)kUTTypeImage])
+        {
+            self.imageCreatePhoto = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+            // Pictures taken from camera shot are stored to device
+            if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
+            {
+                //Save to Photos Album
+                UIImageWriteToSavedPhotosAlbum(self.imageCreatePhoto, nil, nil, nil);
+
+            }
+
+            [self pushSegueToDescriptionViewController];
+            //  [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+
+        }
+        // Check if Video
+
+        else if ([mediaType isEqualToString:@"public.movie"])
+        {
+            self.videoURL = info[UIImagePickerControllerMediaURL];
+
+            if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
+            {
+                // Saving the video / // Get the new unique filename
+                NSString *sourcePath = [[info objectForKey:@"UIImagePickerControllerMediaURL"]relativePath];
+                UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);
+                // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+                [self pushSegueToDescriptionViewController];
+                
+            }
+        }
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else
+    {
+        NSLog(@"TEST,Profile");
 //
-//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-//{
-//        if (picker == self.imagePickerProfile)
-//        {
-//    
-//            NSLog(@"ProfilePickerController");
-//            self.imageProfile = [info objectForKey:UIImagePickerControllerOriginalImage];
-//    
-//            PFUser *user = [PFUser currentUser];
-//            currentUser = [User sharedSingleton];
-//    
-//            NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-//    
-//            if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-//                self.imageProfile = [info objectForKey:UIImagePickerControllerOriginalImage];
-//    
-//                if (self.imagePickerProfile.sourceType == UIImagePickerControllerSourceTypeCamera)
-//                {
-//                    UIImageWriteToSavedPhotosAlbum(self.imageProfile, nil, nil, nil);
-//                }
-//            }
-//    
-//            self.imageProfile = [self squareImageFromImage:self.imageProfile scaledToSize:200];
-//    
-//            NSData *dataFromImage = UIImagePNGRepresentation(self.imageProfile);
-//            PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataFromImage];
-//            [user setObject:imageFile forKey:@"profileImage"];
-//    
-//            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//                if (error) {
-//                    NSLog(@"%@", [error userInfo]);
-//                } else {
-//                    currentUser.profileImage = self.imageProfile;
-//    
-//    
-//                }
-//            }];
-//            
-//            [self dismissViewControllerAnimated:YES completion:^{
-//
-//
-//            }];
-//    
-//        }
-//}
+        PFUser *user = [PFUser currentUser];
+//        currentUser = [User sharedSingleton];
+
+        NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+
+        if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+            self.imageProfile = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+            if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
+            {
+                UIImageWriteToSavedPhotosAlbum(self.imageProfile, nil, nil, nil);
+            }
+        }
+
+        self.imageProfile = [self squareImageFromImage:self.imageProfile scaledToSize:200];
+
+        NSData *dataFromImage = UIImagePNGRepresentation(self.imageProfile);
+        PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataFromImage];
+        [user setObject:imageFile forKey:@"profileImage"];
+
+        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                NSLog(@"%@", [error userInfo]);
+            } else {
+                currentUser.profileImage = self.imageProfile;
+
+
+            }
+        }];
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+
+
+        }];
+
+
+    }
+
+
+}
+
+
 @end

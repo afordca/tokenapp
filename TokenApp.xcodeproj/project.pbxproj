@@ -372,13 +372,13 @@
 			name = Profile;
 			sourceTree = "<group>";
 		};
-		002E16371A94EE6C000AE37B /* Singletons */ = {
+		002E16371A94EE6C000AE37B /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				B996AD1E1A8163F300C3B98E /* User.h */,
 				B996AD1F1A8163F300C3B98E /* User.m */,
 			);
-			name = Singletons;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		00BF7B951A8DCA720089194E /* Create */ = {
@@ -433,7 +433,7 @@
 			children = (
 				002E16271A93E0C4000AE37B /* Main.storyboard */,
 				0004765E1A9AA02000247BF8 /* Categories */,
-				002E16371A94EE6C000AE37B /* Singletons */,
+				002E16371A94EE6C000AE37B /* Model */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
 				B97F00F41A6EC2E400690309 /* Settings */,

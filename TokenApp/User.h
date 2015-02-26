@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseUI/ParseUI.h>
 
 
 @interface User : NSObject
@@ -17,6 +20,8 @@
     NSMutableArray *arrayOfPhotos;
     NSMutableArray *arrayOfUserActivity;
     NSMutableArray *arrayOfFollowers;
+    NSMutableArray *arrayOfFollowing;
+    PFUser *user;
 
 }
 
@@ -25,10 +30,16 @@
 @property (nonatomic,strong) NSMutableArray *arrayOfPhotos;
 @property (nonatomic,strong) NSMutableArray *arrayOfUserActivity;
 @property (nonatomic,strong) NSMutableArray *arrayOfFollowers;
+@property (nonatomic,strong) NSMutableArray *arrayOfFollowing;
+@property PFUser *user;
 
 // This is the method to access this Singleton class
 + (User *)sharedSingleton;
 
+-(void)loadArrayOfFollowers;
+
 -(void)loadPhotos;
+-(void)setUserProfile;
+-(void)loadActivityToCurrentUser;
 
 @end

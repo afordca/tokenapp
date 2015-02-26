@@ -46,6 +46,9 @@
 @property UIImage *imageCreatePhoto;
 @property (strong, nonatomic) NSURL *videoURL;
 
+@property PFUser *user;
+
+
 @property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
 
 
@@ -63,9 +66,7 @@
 {
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
-    [self SetUser];
 
-//    [self addObserver];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -258,108 +259,6 @@
 //        [self loadNextPage];
 //    }
 //}
-
--(void)SetUser
-{
-    //Initialization
-    PFUser *user = [PFUser currentUser];
-    singleUser = [User sharedSingleton];
-    singleUser.arrayOfPhotos = [NSMutableArray new];
-    singleUser.arrayOfUserActivity = [NSMutableArray new];
-    singleUser.arrayOfFollowers = [NSMutableArray new];
-
-    //Loading Profile Image
-    PFFile *profileImageFile = [user objectForKey:@"profileImage"];
-    PFImageView *imageView = [PFImageView new];
-    imageView.file = profileImageFile;
-    [imageView loadInBackground:^(UIImage *image, NSError *error) {
-
-        //Setting image to singleton class USER
-        singleUser.profileImage = image;
-
-        //Setting Username to singleton class USER
-        if ([user objectForKey:@"username"])
-        {
-            singleUser.userName = [user objectForKey:@"username"];
-        } else
-        {
-            singleUser.userName = user.username;
-        }
-
-    }];
-
-    //Loading Array of photos and setting it in singleton class USER
-    PFQuery *queryForUserContent = [PFQuery queryWithClassName:@"Photo"];
-    [queryForUserContent whereKey:@"userName" equalTo:user.objectId];
-    [queryForUserContent findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error)
-        {
-            NSLog(@"%@",[error userInfo]);
-        }
-        else
-        {
-            for (PFObject *photo in objects)
-            {
-                PFFile *parseFileWithImage = [photo objectForKey:@"image"];
-                NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-                NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-                [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-
-                    if (connectionError)
-                    {
-                        NSLog(@"%@",[connectionError userInfo]);
-                    }
-                    else
-                    {
-                        [singleUser.arrayOfPhotos addObject:[UIImage imageWithData:data]];
-                    }
-                }];
-            }
-        }
-    }];
-
-    //Loading Array of Activity and setting it in singleton class USER
-    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-    [queryForActivity whereKey:@"fromUser" equalTo:user];
-    [queryForActivity includeKey:@"toUser"];
-    [queryForActivity includeKey:@"photo"];
-    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error) {
-            NSLog(@"%@",[error userInfo]);
-        }
-        else{
-
-            for (PFObject *activity in objects) {
-                [singleUser.arrayOfUserActivity addObject:activity];
-            }
-        }
-    }];
-
-    //Loading Array of Followers and setting it in singleton class USER
-    PFQuery *queryForFollowers = [PFQuery queryWithClassName:@"Activity"];
-    [queryForFollowers whereKey:@"toUser" equalTo:user];
-    [queryForFollowers whereKey:@"type" equalTo:@"followed"];
-    [queryForFollowers includeKey:@"fromUser"];
-    [queryForFollowers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error)
-        {
-            NSLog(@"%@",[error userInfo]);
-        }
-        else
-        {
-            NSLog(@"Activity Loaded: %@",objects);
-            for (PFObject *activity in objects)
-            {
-                PFUser *userFollower = [activity objectForKey:@"fromUser"];
-                    [singleUser.arrayOfFollowers addObject:userFollower];
-
-            }
-        }
-    }];
-}
-
-
-
 
 
 @end
