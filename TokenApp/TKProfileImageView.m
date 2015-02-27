@@ -59,10 +59,11 @@
         return;
     }
 
-    //self.profileImageView.image = [UIImage imageNamed:@""];
+    self.profileImageView.image = [UIImage imageNamed:@"tthegreathero"];
     self.profileImageView.file = file;
     [self.profileImageView loadInBackground];
 }
+
 
 - (void)setImage:(UIImage *)image {
     self.profileImageView.image = image;
