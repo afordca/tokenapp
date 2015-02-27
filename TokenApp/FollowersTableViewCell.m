@@ -1,3 +1,4 @@
+
 //
 //  FollowersTableViewCell.m
 //  TokenApp
@@ -9,5 +10,20 @@
 #import "FollowersTableViewCell.h"
 
 @implementation FollowersTableViewCell
+
+- (IBAction)buttonPressFollowFollowing:(id)sender
+{
+    if ([self.buttonFollowerFollowing.imageView.image isEqual:[UIImage imageNamed:@"Following"]])
+    {
+        self.stringStatus = @"Following";
+    }
+    else
+    {
+       self.stringStatus = @"Follower";
+    }
+
+
+    [self.delegate followerFollowingPressed:self.stringStatus];
+}
 
 @end

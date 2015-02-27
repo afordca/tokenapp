@@ -59,6 +59,26 @@
     }
 }
 
+-(void)loadArrayOfFollowing
+{
+    user = [PFUser currentUser];
+    self.arrayOfFollowing = [NSMutableArray new];
+    //   Loading Array of Followers and setting it in singleton class USER
+    for (PFObject *object in self.arrayOfFromUserActivity)
+    {
+
+        PFUser *fromUser = [object objectForKey:@"fromUser"];
+        NSString *stringType = [object objectForKey:@"type"];
+        if ([fromUser.objectId isEqual:user.objectId] && [stringType isEqual:@"followed"])
+        {
+            PFUser *followingUser = [object objectForKey:@"toUser"];
+            [self.arrayOfFollowing addObject:followingUser];
+        }
+        
+    }
+
+}
+
 -(void)loadArrayOfNotificationsUsers
 {
     self.arrayOfNotificationComments = [NSMutableArray new];
@@ -236,8 +256,10 @@
     [queryForActivity includeKey:@"fromUser"];
     [queryForActivity includeKey: @"toUser"];
     [queryForActivity includeKey:@"photo"];
-    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error) {
+    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        if (error)
+        {
             NSLog(@"%@",[error userInfo]);
         }
         else{
@@ -245,8 +267,10 @@
             for (PFObject *activity in objects)
             {
                 [self.arrayOfFromUserActivity addObject:activity];
+
             }
         }
+         [self loadArrayOfFollowing];
     }];
 }
 

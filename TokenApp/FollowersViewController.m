@@ -9,9 +9,10 @@
 #import "FollowersViewController.h"
 #import "FollowersTableViewCell.h"
 
+
 #import <Parse/Parse.h>
 
-@interface FollowersViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface FollowersViewController ()<UITableViewDataSource, UITableViewDelegate,FollowersTableViewCellDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableviewFollowers;
 
 @end
@@ -23,11 +24,7 @@
     [super viewDidLoad];
     currentUser = [User sharedSingleton];
 
-
-    
 }
-
-
 
 #pragma mark UITableView Delegate Methods
 
@@ -39,6 +36,9 @@
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FollowersTableViewCell *cellFollowers = [tableView dequeueReusableCellWithIdentifier:@"FollowersActivity"];
+    cellFollowers.delegate = self;
+
+    PFUser *userFollowing = [currentUser.arrayOfFollowers objectAtIndex:indexPath.row];
 
     // User that is following Current User
     cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]objectForKey:@"username"];
@@ -56,7 +56,30 @@
         cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageWithData:data];
     }];
 
+    for (PFUser *followingUser in currentUser.arrayOfFollowing)
+    {
+        if ([followingUser.objectId isEqual:userFollowing.objectId]) {
+            cellFollowers.buttonFollowerFollowing.imageView.image = [UIImage imageNamed:@"Following"];
+        }
+        else
+        {
+            cellFollowers.buttonFollowerFollowing.imageView.image = [UIImage imageNamed:@"FollowAdd"];
+
+        }
+    }
+
     return cellFollowers;
 }
+
+#pragma mark - FollowersTableViewCell Delegate Method
+
+-(void)followerFollowingPressed:(NSString *)status
+{
+    NSLog(@"TEST Status: %@",status);
+    [self.tableviewFollowers reloadData];
+    
+
+}
+
 
 @end

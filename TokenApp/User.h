@@ -47,6 +47,7 @@
 + (User *)sharedSingleton;
 
 -(void)loadArrayOfFollowers;
+-(void)loadArrayOfFollowing;
 
 -(void)loadPhotos;
 -(void)setUserProfile;
