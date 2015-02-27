@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "TOKEN": {
+            "applicationId": "dNPSXSwJgJXVxTxkbta8EmoFFouOI4TIXlO1kTiz", 
+            "masterKey": "jzsF6QznXp9Qrdheuq2xiXjPPf3X5nzIR6vz0gCI"
+        }, 
+        "_default": {
+            "link": "TOKEN"
+        }
+    }
+}
