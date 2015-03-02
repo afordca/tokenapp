@@ -58,11 +58,8 @@
             for (PFUser *userFollower in objects)
             {
                 [self.arrayOfFollowers addObject:userFollower];
-
             }
-
         }
-
     }];
 }
 
@@ -76,7 +73,6 @@
         if (error)
         {
             NSLog(@"%@",[error userInfo]);
-
         }
         else
         {
@@ -84,14 +80,11 @@
             {
                 [self.arrayOfFollowing addObject:userFollower];
             }
-
             if (update)
             {
                 [self.delegate reloadTableAfterArrayUpdate:row];
             }
-
         }
-
     }];
 
 }
@@ -326,6 +319,7 @@
             [self loadArrayOfFollowing:YES row:row];
         }
 
+        [self.delegate reloadTableAfterArrayUpdate:row];
         
 
     }];
