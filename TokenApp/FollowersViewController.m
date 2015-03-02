@@ -12,7 +12,7 @@
 
 #import <Parse/Parse.h>
 
-@interface FollowersViewController ()<UITableViewDataSource, UITableViewDelegate,FollowersTableViewCellDelegate>
+@interface FollowersViewController ()<UITableViewDataSource, UITableViewDelegate,FollowersTableViewCellDelegate,UserDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableviewFollowers;
 
 @end
@@ -23,8 +23,16 @@
 {
     [super viewDidLoad];
     currentUser = [User sharedSingleton];
+    currentUser.delegate = self;
 
 }
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+
+}
+
 
 #pragma mark UITableView Delegate Methods
 
@@ -38,7 +46,9 @@
     FollowersTableViewCell *cellFollowers = [tableView dequeueReusableCellWithIdentifier:@"FollowersActivity"];
     cellFollowers.delegate = self;
 
-    PFUser *userFollowing = [currentUser.arrayOfFollowers objectAtIndex:indexPath.row];
+    cellFollowers.row = indexPath.row;
+
+    cellFollowers.userFollower = [currentUser.arrayOfFollowers objectAtIndex:indexPath.row];
 
     // User that is following Current User
     cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]objectForKey:@"username"];
@@ -52,34 +62,69 @@
     PFFile *parseFileWithImage = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row] objectForKey:@"profileImage"];
     NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
     NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageWithData:data];
-    }];
-
-    for (PFUser *followingUser in currentUser.arrayOfFollowing)
+    [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
     {
-        if ([followingUser.objectId isEqual:userFollowing.objectId]) {
-            cellFollowers.buttonFollowerFollowing.imageView.image = [UIImage imageNamed:@"Following"];
+        if (!data)
+        {   // Default Profile Pic
+            cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
         }
         else
-        {
-            cellFollowers.buttonFollowerFollowing.imageView.image = [UIImage imageNamed:@"FollowAdd"];
-
+        {   // Profile Pic
+            cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageWithData:data];
         }
-    }
+    }];
+
+    //Set Follower / Following Status
+
+    cellFollowers.imageViewFollowStatus.image = [currentUser followerStatus:[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]];
+
 
     return cellFollowers;
 }
 
-#pragma mark - FollowersTableViewCell Delegate Method
 
--(void)followerFollowingPressed:(NSString *)status
+- (void)reloadRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation
 {
-    NSLog(@"TEST Status: %@",status);
-    [self.tableviewFollowers reloadData];
-    
 
 }
+
+
+#pragma mark - FollowersTableViewCell Delegate Method
+
+-(void)followerFollowingPressed:(PFUser *)user row:(NSInteger)row
+{
+    NSLog(@"%@",user);
+    BOOL isFollowingFollower = [currentUser isFollowingFollower:user];
+
+    if (isFollowingFollower)
+    {
+        //Unfollow this user
+        [currentUser removeUserFromFollowing:user row:row];
+
+    }
+    else
+    {
+        //Follow this user
+        [currentUser addUserToFollowing:user row:row];
+
+
+    }
+}
+
+#pragma mark - User Delegate Methods
+
+
+-(void)reloadTableAfterArrayUpdate:(NSInteger)row
+{
+//    //Call reload on the main thread
+//    [self.tableviewFollowers performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+
+    NSArray *indexPathArray = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:row inSection:0]];
+    //You can add one or more indexPath in this array...
+
+    [self.tableviewFollowers reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
+}
+
 
 
 @end

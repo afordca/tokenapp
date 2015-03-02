@@ -66,6 +66,7 @@
 {
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
+   
 
 }
 

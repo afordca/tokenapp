@@ -53,10 +53,12 @@
 @property BOOL isVideo;
 
 @property UIImagePickerController *imagePickerProfile;
+@property NSMutableArray *arrayOfFollowers;
 
 @property (retain,nonatomic)PersonalActivityViewController *pvc;
 @property (retain,nonatomic)FollowersViewController *fvc;
 @property (retain,nonatomic)NotificationViewController *nvc;
+@property PFUser *user;
 
 @end
 
@@ -74,14 +76,18 @@
     //Accessing User Singleton
     currentUser = [User sharedSingleton];
 
-    self.labelUserName.text = currentUser.userName;
+
+    self.user = [PFUser currentUser];
 
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+
+    self.labelUserName.text = currentUser.userName;
     [self addObserver];
+
 
 }
 
@@ -98,6 +104,8 @@
 
 - (IBAction)onButtonPressCancel:(id)sender
 {
+    self.labelUserName.text = currentUser.userName;
+
     // Dismiss ActivityView with animation left to right
 
     [UIView animateWithDuration:0.5 animations:^{
@@ -221,6 +229,7 @@
 
 -(void)presentFollowersView
 {
+    self.labelUserName.text = @"Followers";
     self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
 
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

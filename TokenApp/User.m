@@ -40,46 +40,63 @@
     }
 }
 
+#pragma mark - LOAD ARRAY METHODS
+
 -(void)loadArrayOfFollowers
 {
     user = [PFUser currentUser];
     self.arrayOfFollowers = [NSMutableArray new];
- //   Loading Array of Followers and setting it in singleton class USER
-    for (PFObject *object in arrayOfUserActivity)
-    {
-
-        PFUser *toUser = [object objectForKey:@"toUser"];
-        NSString *stringType = [object objectForKey:@"type"];
-        if ([toUser.objectId isEqual:user.objectId] && [stringType isEqual:@"followed"])
+    PFRelation *userFollowerRelation = [user relationForKey:@"Followers" ];
+    PFQuery *queryForFollowers = userFollowerRelation.query;
+    [queryForFollowers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error)
         {
-            PFUser *follower = [object objectForKey:@"fromUser"];
-            [self.arrayOfFollowers addObject:follower];
+            NSLog(@"%@",[error userInfo]);
+        }
+        else
+        {
+            for (PFUser *userFollower in objects)
+            {
+                [self.arrayOfFollowers addObject:userFollower];
+
+            }
+
         }
 
-    }
+    }];
 }
 
--(void)loadArrayOfFollowing
+-(void)loadArrayOfFollowing:(BOOL)update row:(NSInteger)row
 {
     user = [PFUser currentUser];
     self.arrayOfFollowing = [NSMutableArray new];
-    //   Loading Array of Followers and setting it in singleton class USER
-    for (PFObject *object in self.arrayOfFromUserActivity)
-    {
-
-        PFUser *fromUser = [object objectForKey:@"fromUser"];
-        NSString *stringType = [object objectForKey:@"type"];
-        if ([fromUser.objectId isEqual:user.objectId] && [stringType isEqual:@"followed"])
+    PFRelation *userFollowingRelation = [user relationForKey:@"Following" ];
+    PFQuery *queryForFollowing = userFollowingRelation.query;
+    [queryForFollowing findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error)
         {
-            PFUser *followingUser = [object objectForKey:@"toUser"];
-            [self.arrayOfFollowing addObject:followingUser];
+            NSLog(@"%@",[error userInfo]);
+
         }
-        
-    }
+        else
+        {
+            for (PFUser *userFollower in objects)
+            {
+                [self.arrayOfFollowing addObject:userFollower];
+            }
+
+            if (update)
+            {
+                [self.delegate reloadTableAfterArrayUpdate:row];
+            }
+
+        }
+
+    }];
 
 }
 
--(void)loadArrayOfNotificationsUsers
+-(void)loadArrayOfNotifications
 {
     self.arrayOfNotificationComments = [NSMutableArray new];
     self.arrayOfNotificationLikes = [NSMutableArray new];
@@ -163,7 +180,7 @@
 
 }
 
--(void)loadPhotos
+-(void)loadArrayOfPhotos
 {
     user = [PFUser currentUser];
     self.arrayOfPhotos = [NSMutableArray new];
@@ -198,6 +215,62 @@
     }];
 }
 
+-(void)loadActivityToCurrentUser
+{
+    user = [PFUser currentUser];
+    self.arrayOfUserActivity = [NSMutableArray new];
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+    [queryForActivity whereKey:@"toUser" equalTo:user];
+    [queryForActivity includeKey:@"fromUser"];
+    [queryForActivity includeKey: @"toUser"];
+    [queryForActivity includeKey:@"photo"];
+    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"%@",[error userInfo]);
+        }
+        else{
+
+            for (PFObject *activity in objects)
+            {
+                [self.arrayOfUserActivity addObject:activity];
+            }
+        }
+        [self loadArrayOfNotifications];
+    }];
+}
+
+-(void)loadActivityFromCurrentUser
+{
+
+
+    user = [PFUser currentUser];
+    self.arrayOfFromUserActivity = [NSMutableArray new];
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+    [queryForActivity whereKey:@"fromUser" equalTo:user];
+    [queryForActivity includeKey:@"fromUser"];
+    [queryForActivity includeKey: @"toUser"];
+    [queryForActivity includeKey:@"photo"];
+    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"%@",[error userInfo]);
+         }
+         else{
+
+             for (PFObject *activity in objects)
+             {
+                 [self.arrayOfFromUserActivity addObject:activity];
+
+             }
+         }
+         [self loadArrayOfFollowing:nil row:0];
+     }];
+}
+
+
+#pragma mark - User Helper Methods
+
 -(void)setUserProfile
 {
         user = [PFUser currentUser];
@@ -222,56 +295,79 @@
         }];
 }
 
--(void)loadActivityToCurrentUser
+-(BOOL)isFollowingFollower:(PFUser *)follower
 {
-        user = [PFUser currentUser];
-        self.arrayOfUserActivity = [NSMutableArray new];
-        PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-        [queryForActivity whereKey:@"toUser" equalTo:user];
-        [queryForActivity includeKey:@"fromUser"];
-        [queryForActivity includeKey: @"toUser"];
-        [queryForActivity includeKey:@"photo"];
-        [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            if (error) {
-                NSLog(@"%@",[error userInfo]);
+        // Determine if Current User is following follower
+        for (PFUser *userFollowed in self.arrayOfFollowing)
+        {
+            if ([follower.objectId isEqual:userFollowed.objectId])
+            {
+                return YES;
             }
-            else{
-    
-                for (PFObject *activity in objects)
-                {
-                    [self.arrayOfUserActivity addObject:activity];
-                }
-            }
-             [self loadArrayOfFollowers];
-            [self loadArrayOfNotificationsUsers];
-        }];
+        }
+    return NO;
 }
 
--(void)loadActivityFromCurrentUser
+-(void)removeUserFromFollowing:(PFUser *)follower row:(NSInteger)row
 {
+    // Remove follower from relation
     user = [PFUser currentUser];
-    self.arrayOfFromUserActivity = [NSMutableArray new];
-    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-    [queryForActivity whereKey:@"fromUser" equalTo:user];
-    [queryForActivity includeKey:@"fromUser"];
-    [queryForActivity includeKey: @"toUser"];
-    [queryForActivity includeKey:@"photo"];
-    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-    {
+    PFRelation *relation = [user relationForKey:@"Following"];
+    PFObject *removedUser = follower;
+    [relation removeObject:removedUser];
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error)
         {
             NSLog(@"%@",[error userInfo]);
         }
-        else{
-
-            for (PFObject *activity in objects)
-            {
-                [self.arrayOfFromUserActivity addObject:activity];
-
-            }
+        else
+        {
+            NSLog(@"User has been removed from Following");
+            [self loadArrayOfFollowing:YES row:row];
         }
-         [self loadArrayOfFollowing];
+
+        
+
     }];
+
+}
+
+-(void)addUserToFollowing:(PFUser *)follower row:(NSInteger)row
+{
+    // Add follower to relation
+    user = [PFUser currentUser];
+    PFRelation *relation = [user relationForKey:@"Following"];
+    [relation addObject:follower];
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error)
+        {
+            NSLog(@"%@",[error userInfo]);
+        }
+        else
+        {
+            NSLog(@"User has been added to Following");
+            [self loadArrayOfFollowing:YES row:row];
+        }
+
+        [self.delegate reloadTableAfterArrayUpdate:row];
+       
+    }];
+
+}
+
+-(UIImage *)followerStatus:(PFUser *)follower
+{
+      BOOL isFollowingFollower = [self isFollowingFollower:follower];
+
+    if (isFollowingFollower)
+    {
+        return  [UIImage imageNamed:@"Following"];
+    }
+    else
+    {
+        return  [UIImage imageNamed:@"FollowAdd"];
+
+    }
 }
 
 

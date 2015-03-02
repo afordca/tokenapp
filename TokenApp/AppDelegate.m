@@ -127,58 +127,39 @@
     //Initialization
     singleUser = [User sharedSingleton];
     [singleUser setUserProfile];
-    [singleUser loadPhotos];
+    [singleUser loadArrayOfPhotos];
+    [singleUser loadArrayOfFollowing:NO row:0];
     [singleUser loadActivityToCurrentUser];
     [singleUser loadActivityFromCurrentUser];
-   
+    [singleUser loadArrayOfFollowers];
 
 
 
-
-
-//    PFQuery *queryForFollowers = [PFQuery queryWithClassName:@"Activity"];
-//    [queryForFollowers whereKey:@"toUser" equalTo:user];
-//    [queryForFollowers whereKey:@"type" equalTo:@"followed"];
-//    [queryForFollowers includeKey:@"fromUser"];
-//    [queryForFollowers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//  Code to populate Relation fields
+    
+//    PFQuery *query = [PFUser query];
+//    [query whereKey:@"newuser" equalTo:[NSNumber numberWithBool:NO]];
+//   [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+//    {
 //        if (error)
 //        {
 //            NSLog(@"%@",[error userInfo]);
 //        }
 //        else
 //        {
-//            NSLog(@"Activity Loaded: %@",objects);
-//            for (PFObject *activity in objects)
-//            {
-//                PFUser *userFollower = [activity objectForKey:@"fromUser"];
-//                    [singleUser.arrayOfFollowers addObject:userFollower];
-//
-//            }
+//             for (PFUser *userFollow in objects)
+//             {
+//                 PFUser *user = [PFUser currentUser];
+//                 PFRelation *relation = [user relationForKey:@"Following"];
+//                 [relation addObject:userFollow];
+//                 [user saveInBackground];
+//             }
 //        }
 //    }];
 
-//    //Loading Array of Users you are following and setting it in singleton class USER
-//    PFQuery *queryForFollowing = [PFQuery queryWithClassName:@"Activity"];
-//    [queryForFollowing whereKey:@"fromUser" equalTo:user];
-//    [queryForFollowers whereKey:@"type" equalTo:@"followed"];
-//    [queryForFollowers includeKey:@"toUser"];
-//    [queryForFollowers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (error)
-//        {
-//            NSLog(@"%@",[error userInfo]);
-//        }
-//        else
-//        {
-//            NSLog(@"Activity Loaded: %@",objects);
-//            for (PFObject *activity in objects)
-//            {
-//                PFUser *userFollowing = [activity objectForKey:@"toUser"];
-//                [singleUser.arrayOfFollowing addObject:userFollowing];
-//
-//            }
-//        }
-//    }];
-//
+
+
+
 }
 
 @end

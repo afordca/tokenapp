@@ -11,19 +11,23 @@
 
 @implementation FollowersTableViewCell
 
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [super initWithCoder:aDecoder]))
+    {
+
+        }
+    return self;
+}
+
 - (IBAction)buttonPressFollowFollowing:(id)sender
 {
-    if ([self.buttonFollowerFollowing.imageView.image isEqual:[UIImage imageNamed:@"Following"]])
-    {
-        self.stringStatus = @"Following";
-    }
-    else
-    {
-       self.stringStatus = @"Follower";
-    }
 
-
-    [self.delegate followerFollowingPressed:self.stringStatus];
+    [self.delegate followerFollowingPressed:self.userFollower row:self.row];
+    
 }
+
+
 
 @end

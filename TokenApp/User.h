@@ -12,6 +12,12 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseUI/ParseUI.h>
 
+// define the protocol for the delegate
+@protocol UserDelegate <NSObject>
+
+-(void)reloadTableAfterArrayUpdate:(NSInteger)row;
+
+@end
 
 @interface User : NSObject
 {
@@ -26,6 +32,7 @@
     NSMutableArray *arrayOfNotificationLikes;
     NSMutableArray *arrayOfNotificationTags;
     PFUser *user;
+    
 
 }
 
@@ -46,13 +53,26 @@
 // This is the method to access this Singleton class
 + (User *)sharedSingleton;
 
--(void)loadArrayOfFollowers;
--(void)loadArrayOfFollowing;
 
--(void)loadPhotos;
--(void)setUserProfile;
+// define delegate property
+@property id <UserDelegate>delegate;
+
+//Array Methods
+-(void)loadArrayOfFollowers;
+-(void)loadArrayOfFollowing:(BOOL)update row:(NSInteger)row;
+-(void)loadArrayOfPhotos;
+-(void)loadArrayOfNotifications;
 -(void)loadActivityToCurrentUser;
 -(void)loadActivityFromCurrentUser;
--(void)loadArrayOfNotificationsUsers;
+
+//Helper Methods
+-(void)setUserProfile;
+-(BOOL)isFollowingFollower:(PFUser*)follower;
+-(void)removeUserFromFollowing:(PFUser*)follower row:(NSInteger)row;
+-(void)addUserToFollowing:(PFUser*)follower row:(NSInteger)row;
+-(UIImage *)followerStatus:(PFUser *)follower;
+
+
+
 
 @end
