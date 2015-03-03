@@ -202,6 +202,8 @@
                     {
                         [self.arrayOfPhotos addObject:[UIImage imageWithData:data]];
                     }
+
+                    [self.delegate reloadCollectionAfterArrayUpdate];
                 }];
             }
         }
@@ -319,7 +321,7 @@
             [self loadArrayOfFollowing:YES row:row];
         }
 
-        [self.delegate reloadTableAfterArrayUpdate:row];
+     //   [self.delegate reloadTableAfterArrayUpdate:row];
         
 
     }];

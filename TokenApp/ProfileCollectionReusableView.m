@@ -43,6 +43,13 @@
 {
     [self.delegate presentFollowersView];
 }
+
+- (IBAction)buttonPressFollowing:(id)sender
+{
+    [self.delegate presentFollowingView];
+}
+
+
 - (IBAction)buttonPressNotifications:(id)sender
 {
     [self.delegate presentNotificationsView];

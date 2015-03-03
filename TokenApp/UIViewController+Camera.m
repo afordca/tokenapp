@@ -122,8 +122,6 @@
                                                           owner:self
                                                         options:nil] objectAtIndex:0];
 
-
-
         [self.visualEffectView addSubview:mainView];
         self.visualEffectView.alpha = 0.f;
         [self.view addSubview:self.visualEffectView];

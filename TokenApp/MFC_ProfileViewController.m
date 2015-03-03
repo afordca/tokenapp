@@ -30,7 +30,7 @@
 #define SCREEN_HEIGTH 568
 
 
-@interface MFC_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegateFlowLayout,CustomProfileDelegate>
+@interface MFC_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegateFlowLayout,CustomProfileDelegate,UserDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *labelUserName;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionViewProfile;
@@ -60,6 +60,8 @@
 @property (retain,nonatomic)NotificationViewController *nvc;
 @property PFUser *user;
 
+@property UIRefreshControl *mannyFresh;
+
 @end
 
 @implementation MFC_ProfileViewController
@@ -67,7 +69,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self addObserver];
+
+    self.mannyFresh = [[UIRefreshControl alloc] init];
+    self.mannyFresh.tintColor = [UIColor grayColor];
+    [self.mannyFresh addTarget:self action:@selector(refershControlAction) forControlEvents:UIControlEventValueChanged];
+    [self.collectionViewProfile addSubview:self.mannyFresh];
+    self.collectionViewProfile.alwaysBounceVertical = YES;
 
     [self.navigationController.navigationBar setHidden:YES];
     [self.buttonCancelView setHidden:YES];
@@ -84,18 +91,17 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+    [self.collectionViewProfile reloadData];
 
     self.labelUserName.text = currentUser.userName;
     [self addObserver];
-
-
 }
+
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:YES];
     NSLog(@"View Did Disappear");
-   // [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
     [[NSNotificationCenter defaultCenter ]removeObserver:self];
 
 }
@@ -234,6 +240,7 @@
 
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"FollowersActivity"];
+
     [self.mainView addSubview:self.pvc.view];
     self.mainView.alpha = 0;
 
@@ -264,6 +271,46 @@
         }];
     }];
 }
+
+-(void)presentFollowingView
+{
+    self.labelUserName.text = @"Following";
+    self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
+
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"FollowingActivity"];
+
+    [self.mainView addSubview:self.pvc.view];
+    self.mainView.alpha = 0;
+
+    [self.view addSubview:self.mainView];
+    [self.buttonCancelView setHidden:NO];
+
+    // Present ActivityView with animation left to right
+
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        self.self.mainView.alpha = 1;
+        self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
+        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+            self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+        } completion:^(BOOL finished) {
+            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+            } completion:^(BOOL finished) {
+                [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                    self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+                } completion:^(BOOL finished) {
+                    [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                        self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                    } completion:^(BOOL finished) {
+                    }];
+                }];
+            }];
+        }];
+    }];
+}
+
 
 -(void)presentNotificationsView
 {
@@ -325,7 +372,6 @@
             }
 
             [self pushSegueToDescriptionViewController];
-            //  [self performSegueWithIdentifier:@"pushToDescription" sender:self];
 
         }
         // Check if Video
@@ -377,20 +423,37 @@
             } else {
                 currentUser.profileImage = self.imageProfile;
 
-
+                [self.collectionViewProfile reloadData];
             }
         }];
         
-        [self dismissViewControllerAnimated:YES completion:^{
-
+        [self dismissViewControllerAnimated:YES completion:^
+        {
 
         }];
-
-
     }
-
 
 }
 
+#pragma mark User Delegate Methods
+
+-(void)reloadCollectionAfterArrayUpdate
+{
+
+
+    [self.collectionViewProfile reloadData];
+
+}
+
+#pragma mark - Helper Methods
+
+-(void)refershControlAction
+{
+    NSLog(@"Refresh");
+
+    [currentUser loadArrayOfPhotos];
+    [self.mannyFresh endRefreshing];
+
+}
 
 @end

@@ -16,6 +16,7 @@
 @protocol UserDelegate <NSObject>
 
 -(void)reloadTableAfterArrayUpdate:(NSInteger)row;
+-(void)reloadCollectionAfterArrayUpdate;
 
 @end
 
