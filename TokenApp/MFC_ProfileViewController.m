@@ -8,9 +8,17 @@
 
 #import "MFC_ProfileViewController.h"
 #import "TK_DescriptionViewController.h"
+#import "UIViewController+Camera.h"
 #import "TK_LinkViewController.h"
 #import "TK_PostViewController.h"
 #import "CamerOverlay.h"
+#import "ProfileCollectionViewCell.h"
+#import "UIViewController+Camera.h"
+#import "ProfileCollectionReusableView.h"
+#import "PersonalActivityViewController.h"
+#import "FollowersViewController.h"
+#import "NotificationViewController.h"
+#import <Parse/Parse.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -22,305 +30,430 @@
 #define SCREEN_HEIGTH 568
 
 
-@interface MFC_ProfileViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate>
+@interface MFC_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegateFlowLayout,CustomProfileDelegate,UserDelegate>
 
+@property (strong, nonatomic) IBOutlet UILabel *labelUserName;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionViewProfile;
+@property UIImage *imageProfile;
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
+
+@property (strong, nonatomic) IBOutlet UIButton *buttonCancelView;
+@property UIView *mainView;
+
+@property NSDictionary *dicViews;
+
+@property CGPoint location;
+
+// Create Main View
 @property UIVisualEffectView *visualEffectView;
-
 @property UIImagePickerController *imagePicker;
 @property UIImage *imageCreatePhoto;
 @property (strong, nonatomic) NSURL *videoURL;
-
 @property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
-
-
 @property BOOL isVideo;
+
+@property UIImagePickerController *imagePickerProfile;
+@property NSMutableArray *arrayOfFollowers;
+
+@property (retain,nonatomic)PersonalActivityViewController *pvc;
+@property (retain,nonatomic)FollowersViewController *fvc;
+@property (retain,nonatomic)NotificationViewController *nvc;
+@property PFUser *user;
+
+@property UIRefreshControl *mannyFresh;
 
 @end
 
 @implementation MFC_ProfileViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    [self addObserver];
 
+    self.mannyFresh = [[UIRefreshControl alloc] init];
+    self.mannyFresh.tintColor = [UIColor grayColor];
+    [self.mannyFresh addTarget:self action:@selector(refershControlAction) forControlEvents:UIControlEventValueChanged];
+    [self.collectionViewProfile addSubview:self.mannyFresh];
+    self.collectionViewProfile.alwaysBounceVertical = YES;
 
     [self.navigationController.navigationBar setHidden:YES];
+    [self.buttonCancelView setHidden:YES];
+    self.collectionViewProfile.delegate = self;
 
+    //Accessing User Singleton
+    currentUser = [User sharedSingleton];
+
+
+    self.user = [PFUser currentUser];
+
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    [self.collectionViewProfile reloadData];
+
+    self.labelUserName.text = currentUser.userName;
+    [self addObserver];
+}
+
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:YES];
+    NSLog(@"View Did Disappear");
+    [[NSNotificationCenter defaultCenter ]removeObserver:self];
+
+}
+
+#pragma mark - Button Press Methods
+
+- (IBAction)onButtonPressCancel:(id)sender
+{
+    self.labelUserName.text = currentUser.userName;
+
+    // Dismiss ActivityView with animation left to right
+
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        self.self.mainView.alpha = 1;
+        self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+            self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+        } completion:^(BOOL finished) {
+            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+            } completion:^(BOOL finished) {
+                [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                    self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+                } completion:^(BOOL finished) {
+                    [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                        self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
+                    } completion:^(BOOL finished) {
+
+                        [self.mainView removeFromSuperview];
+                        [self.buttonCancelView setHidden:YES];
+                    }];
+                }];
+            }];
+        }];
+    }];
 
 }
 
 
+#pragma mark - UICollectionView Methods
 
-#pragma mark - Helper Methods
-
--(void)addObserver
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    // Observer for when CREATE button is pressed. Presents Create Main View
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receivedNotification:)
-                                                 name:@"CreateMainView"
-                                               object:nil];
-    // Observer for when CANCEL button is pressed. Removes the CreateMainView from superview
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receivedNotification:)
-                                                 name:@"SendCancel"
-                                               object:nil];
-
-    // Observer for when TAKE PHOTO button is pressed. UIImagePickerController presented
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receivedNotification:)
-                                                 name:@"TakePhoto"
-                                               object:nil];
-
-    // Observer for when Post Note button is pressed.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receivedNotification:)
-                                                 name:@"PostNote"
-                                               object:nil];
-
-    // Observer for when Post Note button is pressed.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receivedNotification:)
-                                                 name:@"PostLink"
-                                               object:nil];
+    return currentUser.arrayOfPhotos.count;
 }
 
--(void)pushSegueToDescriptionViewController
+-(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    ProfileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProfile" forIndexPath:indexPath];
+
+    cell.imageViewProfileContent.image = currentUser.arrayOfPhotos[indexPath.row];
+
+
+
+    return cell;
+}
+
+- (UICollectionReusableView *)collectionView: (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    ProfileCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
+                                         UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeaderView" forIndexPath:indexPath];
+    headerView.delegate = self;
+    headerView.imageViewProfilePic.image = currentUser.profileImage;
+    headerView.labelFollowersCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowers.count];
+
+    return headerView;
+}
+
+#pragma mark - CustomProfileDelegate Methods
+
+-(void)tapOnCamera
+{
+    self.imagePickerProfile = [[UIImagePickerController alloc]init];
+    self.imagePickerProfile.delegate = self;
+    self.imagePickerProfile.allowsEditing = YES;
+    self.imagePickerProfile.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.imagePickerProfile.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+
+   [self presentViewController:self.imagePickerProfile animated:YES completion:nil];
+}
+
+-(void)tapOnLibrary
+{
+    self.imagePickerProfile = [[UIImagePickerController alloc]init];
+    self.imagePickerProfile.delegate = self;
+    self.imagePickerProfile.allowsEditing = YES;
+    self.imagePickerProfile.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    UIColor *backgroundColor = [UIColor colorWithRed:0.38 green:0.51 blue:0.85 alpha:1.0];
+    self.imagePickerProfile.navigationBar.barTintColor = backgroundColor;
+    self.imagePickerProfile.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:self.imagePickerProfile.sourceType];
+    [self presentViewController:self.imagePickerProfile animated:YES completion:nil];
+
+}
+
+-(void)presentActivityView
+{
+    self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
+
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    TK_DescriptionViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
-    vc.imagePhoto = self.imageCreatePhoto;
-    vc.urlVideo = self.videoURL;
-    vc.isVideo = self.isVideo;
-    [self.navigationController pushViewController: vc animated:YES];
+    self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"PersonalActivity"];
+    [self.mainView addSubview:self.pvc.view];
+    self.mainView.alpha = 0;
 
+    [self.view addSubview:self.mainView];
+    [self.buttonCancelView setHidden:NO];
+
+// Present ActivityView with animation left to right
+
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        self.self.mainView.alpha = 1;
+        self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
+        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+            self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+        } completion:^(BOOL finished) {
+            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+            } completion:^(BOOL finished) {
+                [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                    self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+                } completion:^(BOOL finished) {
+                    [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                        self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                    } completion:^(BOOL finished) {
+                    }];
+                }];
+            }];
+        }];
+    }];
 }
 
-#pragma mark - Notification Methods
-
-- (void)receivedNotification:(NSNotification *) notification {
-
-    if ([[notification name] isEqualToString:@"CreateMainView"])
-    {
-        //Create blurEffect and intialize visualEffect View
-
-        UIVisualEffect *blurEffect;
-        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-
-#warning Revisit these magic numbers!!! Add them to Constants Class
-
-        self.visualEffectView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 520);
-
-        UIView *mainView = [[[NSBundle mainBundle] loadNibNamed:@"CreateMainView"
-                                                          owner:self
-                                                        options:nil] objectAtIndex:0];
-
-        [self.visualEffectView addSubview:mainView];
-        [self.view addSubview:self.visualEffectView];
-        [self.view bringSubviewToFront:self.visualEffectView];
-
-    }
-
-    else if ([[notification name] isEqualToString:@"SendCancel"])
-    {
-        [self.visualEffectView removeFromSuperview];
-    }
-
-    else if ([[notification name] isEqualToString:@"TakePhoto"])
-    {
-        [self setUpCamera];
-
-        self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-        [self presentViewController:self.imagePicker animated:NO completion:nil];
-    }
-    else if ([[notification name] isEqualToString:@"PostNote"])
-    {
-        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Post"];
-        [self.navigationController pushViewController: vc animated:YES];
-
-    }
-    else if ([[notification name] isEqualToString:@"PostLink"])
-    {
-        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Link"];
-        [self.navigationController pushViewController: vc animated:YES];
-
-    }
-
-}
-
-#pragma mark - Camera Methods
-
--(void)setUpCamera
+-(void)presentFollowersView
 {
-    //UIImagePicker Setup
+    self.labelUserName.text = @"Followers";
+    self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
 
-    self.isVideo = NO;
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"FollowersActivity"];
 
-    //create an overlay view instance
-    CamerOverlay *overlay = [[CamerOverlay alloc]
-                             initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGTH)];
-    overlay.delegate = self;
+    [self.mainView addSubview:self.pvc.view];
+    self.mainView.alpha = 0;
 
-    self.imagePicker = [UIImagePickerController new];
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.delegate = self;
-    self.imagePicker.allowsEditing = YES;
+    [self.view addSubview:self.mainView];
+    [self.buttonCancelView setHidden:NO];
 
-    self.flashMode = UIImagePickerControllerCameraFlashModeAuto;
-    self.imagePicker.cameraFlashMode = self.flashMode;
+    // Present ActivityView with animation left to right
 
-    //hide all controls
-    self.imagePicker.showsCameraControls = NO;
-    self.imagePicker.navigationBarHidden = YES;
-    self.imagePicker.toolbarHidden = YES;
-
-    self.imagePicker.cameraViewTransform =
-    CGAffineTransformScale(self.imagePicker.cameraViewTransform,
-                           CAMERA_TRANSFORM_X,
-                           CAMERA_TRANSFORM_Y);
-
-    //set our custom overlay view
-    self.imagePicker.cameraOverlayView = overlay;
-
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        self.self.mainView.alpha = 1;
+        self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
+        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+            self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+        } completion:^(BOOL finished) {
+            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+            } completion:^(BOOL finished) {
+                [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                    self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+                } completion:^(BOOL finished) {
+                    [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                        self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                    } completion:^(BOOL finished) {
+                    }];
+                }];
+            }];
+        }];
+    }];
 }
 
-#pragma mark - CameraOverlay Delegate Methods
-
--(void)onClickCameraLibrary
+-(void)presentFollowingView
 {
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    self.imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:self.imagePicker.sourceType];
+    self.labelUserName.text = @"Following";
+    self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
 
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"FollowingActivity"];
+
+    [self.mainView addSubview:self.pvc.view];
+    self.mainView.alpha = 0;
+
+    [self.view addSubview:self.mainView];
+    [self.buttonCancelView setHidden:NO];
+
+    // Present ActivityView with animation left to right
+
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        self.self.mainView.alpha = 1;
+        self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
+        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+            self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+        } completion:^(BOOL finished) {
+            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+            } completion:^(BOOL finished) {
+                [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                    self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+                } completion:^(BOOL finished) {
+                    [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                        self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                    } completion:^(BOOL finished) {
+                    }];
+                }];
+            }];
+        }];
+    }];
 }
 
-//IBAction (for switching between front and rear camera).
--(void)onClickCameraReverse:(NSString *)customClass
+
+-(void)presentNotificationsView
 {
-    if(self.imagePicker.cameraDevice == UIImagePickerControllerCameraDeviceFront)
-    {
-        self.imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-    }
-    else
-    {
-        self.imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-    }
-}
+    self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
 
--(void)onClickCameraCapturePhoto
-{
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.nvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Notifications"];
+    [self.mainView addSubview:self.nvc.view];
+    self.mainView.alpha = 0;
 
-    if (self.isVideo)
-    {
-        [self.imagePicker startVideoCapture];
-    }
-    else
-    {
-        [self.imagePicker takePicture];
-    }
+    [self.view addSubview:self.mainView];
+    [self.buttonCancelView setHidden:NO];
 
-}
+    // Present ActivityView with animation left to right
 
--(void)onClickCancel
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-}
-
--(void)onClickFlashMode
-{
-    if (self.flashMode == UIImagePickerControllerCameraFlashModeAuto) {
-        //toggle your button to "on"
-        self.flashMode = UIImagePickerControllerCameraFlashModeOn;
-    }else if (self.flashMode == UIImagePickerControllerCameraFlashModeOn){
-        //toggle your button to "Off"
-        self.flashMode = UIImagePickerControllerCameraFlashModeOff;
-    }else if (self.flashMode == UIImagePickerControllerCameraFlashModeOff){
-        //toggle your button to "Auto"
-        self.flashMode = UIImagePickerControllerCameraFlashModeAuto;
-    }
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        self.self.mainView.alpha = 1;
+        self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
+        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+            self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+        } completion:^(BOOL finished) {
+            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+            } completion:^(BOOL finished) {
+                [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                    self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+                } completion:^(BOOL finished) {
+                    [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                        self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                    } completion:^(BOOL finished) {
+                    }];
+                }];
+            }];
+        }];
+    }];
 }
 
 #pragma mark - UIImagePicker Methods
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    if (picker == self.imagePicker) {
+        NSLog(@"TEST");
+        NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
 
-    // Check if photo
+        // Check if photo
 
-    if ([mediaType isEqualToString:(NSString *)kUTTypeImage])
-    {
-        self.imageCreatePhoto = [info objectForKey:UIImagePickerControllerOriginalImage];
-
-        // Pictures taken from camera shot are stored to device
-        if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
+        if ([mediaType isEqualToString:(NSString *)kUTTypeImage])
         {
-            //Save to Photos Album
-            UIImageWriteToSavedPhotosAlbum(self.imageCreatePhoto, nil, nil, nil);
+            self.imageCreatePhoto = [info objectForKey:UIImagePickerControllerOriginalImage];
 
-        }
+            // Pictures taken from camera shot are stored to device
+            if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
+            {
+                //Save to Photos Album
+                UIImageWriteToSavedPhotosAlbum(self.imageCreatePhoto, nil, nil, nil);
 
-        [self pushSegueToDescriptionViewController];
-        //  [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+            }
 
-
-
-
-    }
-    // Check if Video
-
-    else if ([mediaType isEqualToString:@"public.movie"])
-    {
-        self.videoURL = info[UIImagePickerControllerMediaURL];
-
-        if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
-        {
-            // Saving the video / // Get the new unique filename
-            NSString *sourcePath = [[info objectForKey:@"UIImagePickerControllerMediaURL"]relativePath];
-            UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);
-            // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
             [self pushSegueToDescriptionViewController];
 
-
         }
-    }
+        // Check if Video
 
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+        else if ([mediaType isEqualToString:@"public.movie"])
+        {
+            self.videoURL = info[UIImagePickerControllerMediaURL];
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self setUpCamera];
-    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self presentViewController:self.imagePicker animated:NO completion:nil];
-
-    }];
-}
-
-#pragma mark - Prepare Segue Methods
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-
-    NSLog(@"Prepare for segue");
-
-    if ([segue.identifier  isEqual: @"pushToDescription"])
-    {
-        TK_DescriptionViewController *tkDescriptionViewController = [segue destinationViewController];
-        tkDescriptionViewController.imagePhoto = self.imageCreatePhoto;
-        tkDescriptionViewController.urlVideo = self.videoURL;
-        tkDescriptionViewController.isVideo = self.isVideo;
+            if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
+            {
+                // Saving the video / // Get the new unique filename
+                NSString *sourcePath = [[info objectForKey:@"UIImagePickerControllerMediaURL"]relativePath];
+                UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);
+                // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+                [self pushSegueToDescriptionViewController];
+                
+            }
+        }
         
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
-    
-    
-    
-    
+    else
+    {
+        NSLog(@"TEST,Profile");
+//
+        PFUser *user = [PFUser currentUser];
+//        currentUser = [User sharedSingleton];
+
+        NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+
+        if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+            self.imageProfile = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+            if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
+            {
+                UIImageWriteToSavedPhotosAlbum(self.imageProfile, nil, nil, nil);
+            }
+        }
+
+        self.imageProfile = [self squareImageFromImage:self.imageProfile scaledToSize:200];
+
+        NSData *dataFromImage = UIImagePNGRepresentation(self.imageProfile);
+        PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataFromImage];
+        [user setObject:imageFile forKey:@"profileImage"];
+
+        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                NSLog(@"%@", [error userInfo]);
+            } else {
+                currentUser.profileImage = self.imageProfile;
+
+                [self.collectionViewProfile reloadData];
+            }
+        }];
+        
+        [self dismissViewControllerAnimated:YES completion:^
+        {
+
+        }];
+    }
+
+}
+
+#pragma mark User Delegate Methods
+
+-(void)reloadCollectionAfterArrayUpdate
+{
+
+
+    [self.collectionViewProfile reloadData];
+
+}
+
+#pragma mark - Helper Methods
+
+-(void)refershControlAction
+{
+    NSLog(@"Refresh");
+
+    [currentUser loadArrayOfPhotos];
+    [self.mannyFresh endRefreshing];
+
 }
 
 @end

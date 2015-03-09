@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Macros.h"
 #import "Constants.h"
+#import "User.h"
 
 @interface TK_DescriptionViewController : UIViewController
+{
+    User *currentUser;
+}
 
 @property UIImage *imagePhoto;
 @property NSURL *urlVideo;

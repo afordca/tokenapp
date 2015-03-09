@@ -25,8 +25,6 @@
 
 @interface AppDelegate ()
 
-
-
 @end
 
 @implementation AppDelegate
@@ -84,7 +82,7 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 
-    [self SetUser];
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -123,29 +121,45 @@
     [PFPush handlePush:userInfo];
 }
 
+
 -(void)SetUser
 {
-    PFUser *user = [PFUser currentUser];
-    PFFile *profileImageFile = [user objectForKey:@"profileImage"];
-    PFImageView *imageView = [PFImageView new];
-    imageView.file = profileImageFile;
-    [imageView loadInBackground:^(UIImage *image, NSError *error) {
-        singleUser = [User sharedSingleton];
-        singleUser.profileImage = image;
-        if ([user objectForKey:@"FirstName"]) {
-            singleUser.userName = [user objectForKey:@"FirstName"];
-        } else {
-            singleUser.userName = user.username;
-        }
-    }];
+    //Initialization
+    singleUser = [User sharedSingleton];
+    [singleUser setUserProfile];
+    [singleUser loadArrayOfPhotos];
+    [singleUser loadArrayOfFollowing:NO row:0];
+    [singleUser loadActivityToCurrentUser];
+    [singleUser loadActivityFromCurrentUser];
+    [singleUser loadArrayOfFollowers];
+
+
+
+//  Code to populate Relation fields
     
-    
+//    PFQuery *query = [PFUser query];
+//    [query whereKey:@"newuser" equalTo:[NSNumber numberWithBool:NO]];
+//   [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+//    {
+//        if (error)
+//        {
+//            NSLog(@"%@",[error userInfo]);
+//        }
+//        else
+//        {
+//             for (PFUser *userFollow in objects)
+//             {
+//                 PFUser *user = [PFUser currentUser];
+//                 PFRelation *relation = [user relationForKey:@"Following"];
+//                 [relation addObject:userFollow];
+//                 [user saveInBackground];
+//             }
+//        }
+//    }];
+
+
+
+
 }
-
-
-
-
-
-
 
 @end

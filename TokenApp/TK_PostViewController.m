@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setHidden:YES];
     self.textViewPost.delegate = self;
     [self.textViewPost becomeFirstResponder];
     self.isPost = YES;
