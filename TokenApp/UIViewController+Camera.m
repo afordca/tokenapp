@@ -9,6 +9,7 @@
 #import "UIViewController+Camera.h"
 #import "TK_DescriptionViewController.h"
 #import "CamerOverlay.h"
+#import "User.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -68,6 +69,7 @@
                                              selector:@selector(receivedNotification:)
                                                  name:@"CreateMainView"
                                                object:nil];
+  
     // Observer for when CANCEL button is pressed. Removes the CreateMainView from superview
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receivedNotification:)
@@ -120,21 +122,34 @@
                                                           owner:self
                                                         options:nil] objectAtIndex:0];
 
-
-
         [self.visualEffectView addSubview:mainView];
+        self.visualEffectView.alpha = 0.f;
         [self.view addSubview:self.visualEffectView];
         [self.view bringSubviewToFront:self.visualEffectView];
+
+        [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [self.visualEffectView setAlpha:1.f];
+        } completion:^(BOOL finished) {
+
+        }];
 
     }
 
     else if ([[notification name] isEqualToString:@"SendCancel"])
     {
-        [self.visualEffectView removeFromSuperview];
+        [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [self.visualEffectView setAlpha:0.f];
+        } completion:^(BOOL finished) {
+
+            [self.visualEffectView removeFromSuperview];
+
+        }];
+
     }
 
     else if ([[notification name] isEqualToString:@"TakePhoto"])
     {
+    
         [self setUpCamera];
 
         self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
@@ -226,6 +241,7 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
 
     // Check if photo
@@ -260,21 +276,60 @@
             // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
             [self pushSegueToDescriptionViewController];
 
-
         }
     }
 
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Crop image
+
+- (UIImage *)squareImageFromImage:(UIImage *)image scaledToSize:(CGFloat)newSize {
+
+    CGAffineTransform scaleTransform;
+    CGPoint origin;
+
+    if (image.size.width > image.size.height) {
+        CGFloat scaleRatio = newSize / image.size.height;
+        scaleTransform = CGAffineTransformMakeScale(scaleRatio, scaleRatio);
+
+        origin = CGPointMake(-(image.size.width - image.size.height) / 2.0f, 0);
+    } else {
+        CGFloat scaleRatio = newSize / image.size.width;
+        scaleTransform = CGAffineTransformMakeScale(scaleRatio, scaleRatio);
+
+        origin = CGPointMake(0, -(image.size.height - image.size.width) / 2.0f);
+    }
+
+    CGSize size = CGSizeMake(newSize, newSize);
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+    } else {
+        UIGraphicsBeginImageContext(size);
+    }
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextConcatCTM(context, scaleTransform);
+
+    [image drawAtPoint:origin];
+
+    image = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self setUpCamera];
+
     self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
     [self dismissViewControllerAnimated:YES completion:^{
         [self presentViewController:self.imagePicker animated:NO completion:nil];
         
     }];
+
 }
 
 @end

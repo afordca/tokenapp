@@ -46,6 +46,9 @@
 @property UIImage *imageCreatePhoto;
 @property (strong, nonatomic) NSURL *videoURL;
 
+@property PFUser *user;
+
+
 @property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
 
 
@@ -62,17 +65,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self SetUser];
+    [self.navigationController.navigationBar setHidden:YES];
+   
 
-    [self addObserver];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:YES];
     [self addObserver];
+
 }
-
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -82,11 +85,16 @@
         [self loadObjects];
     }
 
-   // Has to be unregistered always, otherwise nav controllers down the line will call this method
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:YES];
+    NSLog(@"View Did Disappear");
+    // [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
+    [[NSNotificationCenter defaultCenter ]removeObserver:self];
 
+}
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -252,69 +260,6 @@
 //        [self loadNextPage];
 //    }
 //}
-
--(void)SetUser
-{
-    PFUser *user = [PFUser currentUser];
-    singleUser = [User sharedSingleton];
-    singleUser.arrayOfPhotos = [NSMutableArray new];
-
-    //Loading Profile Image
-    PFFile *profileImageFile = [user objectForKey:@"profileImage"];
-    PFImageView *imageView = [PFImageView new];
-    imageView.file = profileImageFile;
-
-    [imageView loadInBackground:^(UIImage *image, NSError *error) {
-
-        //Setting image to singleton class USER
-
-        singleUser.profileImage = image;
-
-        //Setting Username to singleton class USER
-        if ([user objectForKey:@"username"]) {
-            singleUser.userName = [user objectForKey:@"username"];
-        } else {
-            singleUser.userName = user.username;
-
-        }
-
-    }];
-
-    //Loading Array of photos and setting it in singleton class USER
-
-    PFQuery *queryForUserContent = [PFQuery queryWithClassName:@"Photo"];
-    [queryForUserContent whereKey:@"userName" equalTo:user.objectId];
-    [queryForUserContent findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error) {
-            NSLog(@"%@",[error userInfo]);
-        }
-        else
-        {
-            for (PFObject *photo in objects)
-            {
-                PFFile *parseFileWithImage = [photo objectForKey:@"image"];
-                NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-                NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-                [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-
-                    if (connectionError)
-                    {
-                        NSLog(@"%@",[connectionError userInfo]);
-                    }
-                    else
-                    {
-                        [singleUser.arrayOfPhotos addObject:[UIImage imageWithData:data]];
-                    }
-                }];
-
-
-
-            }
-        }
-    }];
-}
-
-
 
 
 @end

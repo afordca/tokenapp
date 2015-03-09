@@ -165,6 +165,8 @@
         else
         {
             NSLog(@"Photo Saved");
+            [currentUser.arrayOfPhotos addObject:self.imagePhoto];
+
             [self.navigationController popViewControllerAnimated:YES];
         }
     }];

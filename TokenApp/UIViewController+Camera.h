@@ -23,7 +23,7 @@
 
 @property UIVisualEffectView *visualEffectView;
 
-@property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
+@property UIImage *imageProfile;
 
 @property UIImagePickerController *imagePicker;
 @property UIImagePickerController *imagePickerProfile;
@@ -39,5 +39,6 @@
 -(void)setUpCamera;
 -(void)pushSegueToDescriptionViewController;
 -(void)addObserver;
+- (UIImage *)squareImageFromImage:(UIImage *)image scaledToSize:(CGFloat)newSize;
 
 @end
