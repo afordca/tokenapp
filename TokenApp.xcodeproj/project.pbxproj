@@ -48,7 +48,6 @@
 		25ED67651A321337004CD269 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67641A321337004CD269 /* StoreKit.framework */; };
 		25ED67671A321345004CD269 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67661A321345004CD269 /* SystemConfiguration.framework */; };
 		25F621431A3219100069A742 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F621421A3219100069A742 /* ResetPasswordViewController.m */; };
-		25F621461A3219800069A742 /* ProfilePersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F621451A3219800069A742 /* ProfilePersonalViewController.m */; };
 		B906CE0B1A60D29400F1BFD2 /* TKSettingsActionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B906CE0A1A60D29400F1BFD2 /* TKSettingsActionDelegate.m */; };
 		B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B01A42C0410012CBF2 /* UIImage+AlphaAdditions.m */; };
 		B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B21A42C0410012CBF2 /* UIImage+ResizeAdditions.m */; };
@@ -180,8 +179,6 @@
 		25ED67661A321345004CD269 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		25F621411A3219100069A742 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		25F621421A3219100069A742 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
-		25F621441A3219800069A742 /* ProfilePersonalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfilePersonalViewController.h; sourceTree = "<group>"; };
-		25F621451A3219800069A742 /* ProfilePersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilePersonalViewController.m; sourceTree = "<group>"; };
 		3AC5C335474F0AB015BEB33A /* libPods-TokenApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TokenApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.release.xcconfig"; sourceTree = "<group>"; };
 		B906CE091A60D29400F1BFD2 /* TKSettingsActionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKSettingsActionDelegate.h; sourceTree = "<group>"; };
@@ -340,6 +337,10 @@
 		002E16361A94ED0B000AE37B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				002E162D1A93F6E4000AE37B /* ExploreViewController.h */,
+				002E162E1A93F6E4000AE37B /* ExploreViewController.m */,
+				B99CF19F1A97A1F1005CFBC7 /* TKFollowerProfileViewController.h */,
+				B99CF1A01A97A1F1005CFBC7 /* TKFollowerProfileViewController.m */,
 				00ED604F1A804B5D00ED1229 /* TKProfileViewController.h */,
 				00ED60501A804B5D00ED1229 /* TKProfileViewController.m */,
 				002E163B1A955973000AE37B /* ProfileCollectionViewCell.h */,
@@ -404,23 +405,14 @@
 			children = (
 				002E16381A94EFAF000AE37B /* UIViewController+Camera.h */,
 				002E16391A94EFAF000AE37B /* UIViewController+Camera.m */,
-				B98DBF8C1A9BDA630038AFE6 /* TKHomeHeaderView.h */,
-				B98DBF8D1A9BDA630038AFE6 /* TKHomeHeaderView.m */,
+				B96FB4EE1AAE535000072FBB /* DetailHeaderViews */,
 				002E16371A94EE6C000AE37B /* Singletons */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
 				B97F00F31A6EC2D100690309 /* Balance */,
 				B9E39CA11A68A4D10030D6CA /* TKBaseTextCell */,
-				B9D4AFB11A62376A0071CA52 /* TKProfileImageView.h */,
-				B9D4AFB21A62376A0071CA52 /* TKProfileImageView.m */,
-				B9D4AFB71A6241B70071CA52 /* TKLoadMoreCell.h */,
-				B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */,
 				B97F00F41A6EC2E400690309 /* Settings */,
 				002E16271A93E0C4000AE37B /* Main.storyboard */,
-				002E162D1A93F6E4000AE37B /* ExploreViewController.h */,
-				002E162E1A93F6E4000AE37B /* ExploreViewController.m */,
-				B99CF19F1A97A1F1005CFBC7 /* TKFollowerProfileViewController.h */,
-				B99CF1A01A97A1F1005CFBC7 /* TKFollowerProfileViewController.m */,
 				000FC6851A91142900A4F50F /* CreateMainView.xib */,
 				000FC6871A91194B00A4F50F /* CreateMainView.h */,
 				000FC6881A91194B00A4F50F /* CreateMainView.m */,
@@ -437,8 +429,6 @@
 				B9452B9C1A40F2DD007FE801 /* Helper Classes */,
 				B9452B981A40EFC1007FE801 /* Login */,
 				B9FD557C1A414DC4006AE066 /* Content */,
-				25F621441A3219800069A742 /* ProfilePersonalViewController.h */,
-				25F621451A3219800069A742 /* ProfilePersonalViewController.m */,
 				B9D1A6AE1A44A27700BA2874 /* SettingsButtonItem.h */,
 				B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */,
 				B9F236741A3A7CF700E485CE /* NavigationViewController.m */,
@@ -564,6 +554,19 @@
 			children = (
 			);
 			name = "Take Media";
+			sourceTree = "<group>";
+		};
+		B96FB4EE1AAE535000072FBB /* DetailHeaderViews */ = {
+			isa = PBXGroup;
+			children = (
+				B9D4AFB11A62376A0071CA52 /* TKProfileImageView.h */,
+				B9D4AFB21A62376A0071CA52 /* TKProfileImageView.m */,
+				B9D4AFB71A6241B70071CA52 /* TKLoadMoreCell.h */,
+				B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */,
+				B98DBF8C1A9BDA630038AFE6 /* TKHomeHeaderView.h */,
+				B98DBF8D1A9BDA630038AFE6 /* TKHomeHeaderView.m */,
+			);
+			name = DetailHeaderViews;
 			sourceTree = "<group>";
 		};
 		B97F00F31A6EC2D100690309 /* Balance */ = {
@@ -871,7 +874,6 @@
 				25ED67471A320DDF004CD269 /* LoginViewController.m in Sources */,
 				00ED603F1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m in Sources */,
 				B9A4D3931A49161F00EDD2C9 /* PopularResultsViewController.m in Sources */,
-				25F621461A3219800069A742 /* ProfilePersonalViewController.m in Sources */,
 				00ED60421A7FDE1800ED1229 /* MFC_SignupViewController.m in Sources */,
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
 				00D14FBE1A81BF9700271031 /* CamerOverlay.m in Sources */,

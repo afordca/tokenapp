@@ -39,6 +39,19 @@
     [Parse setApplicationId:@"dNPSXSwJgJXVxTxkbta8EmoFFouOI4TIXlO1kTiz"
                   clientKey:@"Dbxo2R7VxPwOv6ub5tQ9qK3sWwinkBCUQSqyUld3"];
 
+    [PFCloud callFunctionInBackground:@"hello"
+                       withParameters:@{}
+                                block:^(NSString *result, NSError *error) {
+                                    if (!error) {
+                                        NSLog(result);
+                                    }
+                                }];
+
+    [PFCloud callFunctionInBackground:@"userName" withParameters:@{@"username": @"Alex Ford-Carther"} block:^(NSString *result, NSError *error) {
+        if (!error){
+            NSLog(result);
+        }
+    }];
     
 
     //Twitter setup
