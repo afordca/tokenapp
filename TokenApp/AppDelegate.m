@@ -41,6 +41,9 @@
 
     
 
+    [PFCloud callFunctionInBackground:@"userName" withParameters:@{@"username": @"theusernameyouwanttolookup"} block:^(NSString *result, NSError *error) {
+
+
     //Twitter setup
     [PFTwitterUtils initializeWithConsumerKey:@"zZ6XjwBvVEKbin2fr69ocsUqv"
                             consumerSecret:@"MOOl0dai4uxW6mIpEOBH1ogweVa2XNmiCaJwtR2NDathdAs0mk"];

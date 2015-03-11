@@ -7,7 +7,7 @@
 //
 
 
-@implementation TKVideoCell
+//@implementation TKVideoCell
 
 
 /*
@@ -38,10 +38,10 @@
 //    return self;
 //}
 
--(void)layoutSubviews
-{
-    [super layoutSubviews];
-    self.movie.frame = CGRectMake(10, 0, self.bounds.size.width - 20, self.bounds.size.height);
-}
+//-(void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    self.movie.frame = CGRectMake(10, 0, self.bounds.size.width - 20, self.bounds.size.height);
+//}
 
-@end
+//@end
