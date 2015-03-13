@@ -41,7 +41,35 @@
 
     
 
-    [PFCloud callFunctionInBackground:@"userName" withParameters:@{@"username": @"theusernameyouwanttolookup"} block:^(NSString *result, NSError *error) {
+    [PFCloud callFunctionInBackground:@"hello"
+                       withParameters:@{}
+                                block:^(NSString *result, NSError *error) {
+                                    if (!error) {
+                                        NSLog(result);
+                                    }
+                                }];
+
+    [PFCloud callFunctionInBackground:@"userName" withParameters:@{@"username": @"Alex Ford-Carther"} block:^(NSString *result, NSError *error) {
+        if (!error){
+            NSLog(result);
+        }
+    }];
+
+    [PFCloud callFunctionInBackground:@"Activity" withParameters:@{@"fromUser": @"ctqzn4n1Dj"} block:^(NSArray *result, NSError *error) {
+        if (!error){
+            NSLog(@"%@", result);
+        }
+    }];
+
+ 
+
+//    PFRelation *relation = [[PFUser currentUser] objectForKey:@"Friendship"];
+//    [relation addObject:friendUser]; // friendUser is a PFUser that represents the friend
+//    [[PFUser currentUser] saveInBackground];
+
+
+
+    
 
 
     //Twitter setup

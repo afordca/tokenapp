@@ -65,6 +65,25 @@
     [self SetUser];
 
     [self addObserver];
+
+//    PFUser *friendUser = [[PFUser alloc]init];
+//    [friendUser setObjectId:@"ctqzn4n1Dj"];
+//    PFUser * currentUser = [PFUser currentUser];
+//    PFRelation *relation = [currentUser objectForKey:@"Following"];
+//    [relation addObject:friendUser];
+//
+//    //Create a user. Make sure your current user is following this newly created user.
+//
+//
+//    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        if (!error) {
+//            NSLog(@"Success");
+//        }
+//    }];
+
+    [PFCloud callFunctionInBackground:@"FollowingUsersActivities" withParameters:@{@"currentUserId": @"HbRbYM3Fms"} block:^(id object, NSError *error) {
+        NSLog(@"%@", object);
+    }];
 }
 
 -(void)viewDidAppear:(BOOL)animated
