@@ -62,33 +62,51 @@ Parse.Cloud.define("FollowingUsersActivities", function(request, response){
     queryUser.equalTo("objectId", request.params.currentUserId);
     var following = [];
     var followingUsersActivities = {};
+    var actproplist = [];
     queryUser.first({
         success: function(user){
             var relation = user.relation("Following");
             var query = relation.query();
             query.find({
                 success: function(followingResult){
+                    var queries = [];
                 //following = followingResult;
                  for (var x = 0; followingResult.length > x; x++){ 
                     var followingUser = followingResult[x];
                     //response.success(followingUser);
                     var queryActivity = new Parse.Query(Activity);
+                    var actprop = [];
+                    actprop.push(followingUser.get("Type"));
+                    actprop.push(followingUser.id);
+                    actproplist.push(actprop);
                     //var user = new User();
                     //user.id = followingUser.id; 
                     followingUsersActivities[followingUser.id] = []; 
                     queryActivity.equalTo("fromUser", followingUser);
-                        queryActivity.find({
+                    queries.push(queryActivity);
+                      //response.success(followingUsersActivities);
+                      //response.success(followingResult[0]);
+                  }
+                var totalLength = followingResult.length;
+                function makeQueries(queryActivity) {
+                    queryActivity.shift().find({
                             success: function(activities){
                                 //response.success(activities);
                                 followingUsersActivities[followingUser.id] = activities; 
+                                if(queryActivity.length){
+                                    makeQueries(queryActivity);
+                                } else {
+                                    response.success(followingUsersActivities);
+                                }
                             },
                             error: function(error) {
                                 response.error(error);
                             }
                         });
-                      }
-                      response.success(followingUsersActivities);
-                      //response.success(followingResult[0]);
+                      
+                }
+                makeQueries(queries);
+                //response.success(followingUsersActivities);
              },
              error: function(error) {
                 response.error(error);
