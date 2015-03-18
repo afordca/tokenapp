@@ -1,19 +1,47 @@
 
 Parse.Cloud.afterSave("Activity", function(request) {
 
-{
     //Problem: Notifications system
-    //Solution: Create notifications query then create notifications object  
+    //Solution: Create notifications then create notifications object  
     var Notifications = Parse.object.extend("Notifications");
+    var toUser = request.object.get("toUser'"); 
     var notifications = new NotificationsClass();
-    notifications.set("toUser").id; 
-    notifications.set("activity").id; 
-    notifications.set("set").id;
-    var query = new Parse.Query("Notifications");
-    request.object.id;
-    request.object.get("toUser'").id; 
+    notifications.set("toUser", toUser); 
+    notifications.set("activity", request.object); 
+    notifications.set("type", request.object.get("type"));
+    notifications.set("isDelivered", false);
 
-}
+    notifications.save();
+});
+
+//Need the notifications for the toUser. Request param is for the toUser 
+
+
+Parse.Cloud.define("UserNotification", function(request, response){
+    var Notifications = Parse.object.extend("Notifications");
+    var User = Parse.object.extend("User");
+    var user = new User();
+    user.id = request.params.toUser.id;
+    var queryNotification = new Parse.Query(Notifications);
+        queryNotification.equalTo("toUser", user);
+            queryNotification.equalTo("isDelivered", false);
+                queryNotification.find({
+                    success: function(notifications){
+                        for (var notification in notificatons){
+                            notification.set("isDelivered", true);
+                            notification.save();
+                        }
+                        response.success(notifications);
+                    },
+                    error: function(error){
+                        response.error(error);
+                    }
+                });
+});
+
+
+    //We want the from user 
+
 
 Parse.Cloud.define("hello", function(request, response) {
   response.success("Hello world!");
