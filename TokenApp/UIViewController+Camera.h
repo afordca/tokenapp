@@ -19,12 +19,9 @@
 @interface UIViewController (Camera)
 
 @property User *currentUser;
-
-
 @property UIVisualEffectView *visualEffectView;
 
 @property UIImage *imageProfile;
-
 @property UIImagePickerController *imagePicker;
 @property UIImagePickerController *imagePickerProfile;
 @property UIImage *imageCreatePhoto;

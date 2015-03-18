@@ -66,7 +66,15 @@
 {
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
-   
+
+    singleUser = [User sharedSingleton];
+    [singleUser setUserProfile];
+    [singleUser loadArrayOfPhotos];
+    [singleUser loadArrayOfFollowing:NO row:0];
+    [singleUser loadActivityToCurrentUser];
+    [singleUser loadActivityFromCurrentUser];
+    [singleUser loadArrayOfFollowers];
+
 
 }
 

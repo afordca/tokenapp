@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIViewController+Camera.h"
 
 // define the protocol for the delegate
 @protocol CustomTabBarDelegate <NSObject>

@@ -32,7 +32,11 @@
 @property (strong, nonatomic) NSURL *videoURL;
 
 @property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
+@property (strong, nonatomic) IBOutlet UIButton *buttonPopular;
 
+@property (strong, nonatomic) IBOutlet UIButton *buttonTrending;
+
+@property (strong, nonatomic) IBOutlet UIButton *buttonExplore;
 
 @property BOOL isVideo;
 
@@ -42,18 +46,38 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addObserver];
 
+    // Setup Button Appearance
+    CALayer *layerButtonPopular = self.buttonPopular.layer;
+    layerButtonPopular.backgroundColor = [[UIColor clearColor] CGColor];
+    layerButtonPopular.borderColor = [[UIColor whiteColor]CGColor];
+    layerButtonPopular.borderWidth = 1.5f;
+
+    CALayer *layerButtonTrending = self.buttonTrending.layer;
+    layerButtonTrending.backgroundColor = [[UIColor clearColor] CGColor];
+    layerButtonTrending.borderColor = [[UIColor whiteColor]CGColor];
+    layerButtonTrending.borderWidth = 1.5f;
+
+    CALayer *layerButtonExplore = self.buttonExplore.layer;
+    layerButtonExplore.backgroundColor = [[UIColor clearColor] CGColor];
+    layerButtonExplore.borderColor = [[UIColor whiteColor]CGColor];
+    layerButtonExplore.borderWidth = 1.5f;
 
     [self.navigationController.navigationBar setHidden:YES];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+
+    [self addObserver];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:YES];
     NSLog(@"View Did Disappear");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
-
+    [[NSNotificationCenter defaultCenter ]removeObserver:self];
 }
 
 

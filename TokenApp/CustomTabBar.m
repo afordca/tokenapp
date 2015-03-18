@@ -61,6 +61,8 @@
         [btnCreate setBackgroundColor:[UIColor clearColor]];
         [btnCreate setTintColor:[UIColor whiteColor]];
 
+        [btnCreate setEnabled:YES];
+
         //set the frame
         CGRect btnCreateFrame = CGRectMake(130, 5, 50, 40);
         btnCreate.frame = btnCreateFrame;
@@ -163,5 +165,6 @@
     [btnBalance setTintColor:[UIColor colorwithHexString:@"#72c74a" alpha:.9]];
     [self.delegate onClickBalance];
 }
+
 
 @end

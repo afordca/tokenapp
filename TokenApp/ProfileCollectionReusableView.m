@@ -7,6 +7,7 @@
 //
 
 #import "ProfileCollectionReusableView.h"
+#import "UIColor+HEX.h"
 
 @implementation ProfileCollectionReusableView
 
@@ -36,16 +37,21 @@
 
 - (IBAction)buttonPressActivity:(id)sender
 {
+
     [self.delegate presentActivityView];
 }
 
 - (IBAction)buttonPressFollowers:(id)sender
 {
+    [self buttonPressAnimation:sender];
+
     [self.delegate presentFollowersView];
 }
 
 - (IBAction)buttonPressFollowing:(id)sender
 {
+    [self buttonPressAnimation:sender];
+    
     [self.delegate presentFollowingView];
 }
 
@@ -71,6 +77,26 @@
         [self.delegate tapOnLibrary];
 
     }
+}
+
+#pragma mark Helper Methods
+
+-(void)buttonPressAnimation:(UIButton*)button
+{
+    [UIView animateWithDuration:0.1
+                          delay:0 options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         CGAffineTransform transform =
+                         CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
+                         button.transform = transform;
+                     }
+                     completion:^(BOOL finished)
+     {
+         CGAffineTransform transform =
+         CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+         button.transform = transform;
+
+     }];
 }
 
 @end

@@ -12,12 +12,14 @@
 		000F079C1A8D3CBF003E1596 /* TK_PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000F079B1A8D3CBF003E1596 /* TK_PostViewController.m */; };
 		000FC6861A91142900A4F50F /* CreateMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 000FC6851A91142900A4F50F /* CreateMainView.xib */; };
 		000FC6891A91194B00A4F50F /* CreateMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 000FC6881A91194B00A4F50F /* CreateMainView.m */; };
+		0018EA771AB2A9D2008B80FD /* Explore.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0018EA761AB2A9D2008B80FD /* Explore.xcassets */; };
 		00292EFC1A9850BB0086A219 /* ProfileCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00292EFB1A9850BB0086A219 /* ProfileCollectionReusableView.m */; };
 		002E16291A93E0C4000AE37B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 002E16271A93E0C4000AE37B /* Main.storyboard */; };
 		002E162C1A93E957000AE37B /* BalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E162B1A93E957000AE37B /* BalanceViewController.m */; };
 		002E162F1A93F6E4000AE37B /* ExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E162E1A93F6E4000AE37B /* ExploreViewController.m */; };
 		002E163A1A94EFAF000AE37B /* UIViewController+Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E16391A94EFAF000AE37B /* UIViewController+Camera.m */; };
 		002E163D1A955973000AE37B /* ProfileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */; };
+		009DE9571AA7BE8500429AC4 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009DE9561AA7BE8500429AC4 /* SettingsViewController.m */; };
 		009EE0CB1A9BC79B00BEA172 /* UserActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009EE0CA1A9BC79B00BEA172 /* UserActivityTableViewCell.m */; };
 		00A68E951A9D10C500AAB98F /* FollowersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A68E941A9D10C500AAB98F /* FollowersTableViewCell.m */; };
 		00A68E9B1A9D12C100AAB98F /* FollowersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A68E9A1A9D12C100AAB98F /* FollowersViewController.m */; };
@@ -124,6 +126,7 @@
 		000FC6851A91142900A4F50F /* CreateMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateMainView.xib; sourceTree = "<group>"; };
 		000FC6871A91194B00A4F50F /* CreateMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateMainView.h; sourceTree = "<group>"; };
 		000FC6881A91194B00A4F50F /* CreateMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateMainView.m; sourceTree = "<group>"; };
+		0018EA761AB2A9D2008B80FD /* Explore.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Explore.xcassets; path = ../Explore.xcassets; sourceTree = "<group>"; };
 		00292EFA1A9850BB0086A219 /* ProfileCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCollectionReusableView.h; sourceTree = "<group>"; };
 		00292EFB1A9850BB0086A219 /* ProfileCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCollectionReusableView.m; sourceTree = "<group>"; };
 		002E16281A93E0C4000AE37B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = TokenApp/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -135,6 +138,8 @@
 		002E16391A94EFAF000AE37B /* UIViewController+Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Camera.m"; sourceTree = "<group>"; };
 		002E163B1A955973000AE37B /* ProfileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCollectionViewCell.h; sourceTree = "<group>"; };
 		002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCollectionViewCell.m; sourceTree = "<group>"; };
+		009DE9551AA7BE8500429AC4 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		009DE9561AA7BE8500429AC4 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		009EE0C91A9BC79B00BEA172 /* UserActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserActivityTableViewCell.h; sourceTree = "<group>"; };
 		009EE0CA1A9BC79B00BEA172 /* UserActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserActivityTableViewCell.m; sourceTree = "<group>"; };
 		00A68E931A9D10C500AAB98F /* FollowersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowersTableViewCell.h; sourceTree = "<group>"; };
@@ -381,6 +386,8 @@
 				00A68E9A1A9D12C100AAB98F /* FollowersViewController.m */,
 				00A68E931A9D10C500AAB98F /* FollowersTableViewCell.h */,
 				00A68E941A9D10C500AAB98F /* FollowersTableViewCell.m */,
+				009DE9551AA7BE8500429AC4 /* SettingsViewController.h */,
+				009DE9561AA7BE8500429AC4 /* SettingsViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -446,11 +453,11 @@
 		25A72F2A1A319CF20076AE07 /* TokenApp */ = {
 			isa = PBXGroup;
 			children = (
+				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
+				25A72F301A319CF20076AE07 /* AppDelegate.m */,
 				002E16271A93E0C4000AE37B /* Main.storyboard */,
 				0004765E1A9AA02000247BF8 /* Categories */,
 				002E16371A94EE6C000AE37B /* Model */,
-				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
-				25A72F301A319CF20076AE07 /* AppDelegate.m */,
 				B97F00F41A6EC2E400690309 /* Settings */,
 				00E8ECC31A965B430088C6C0 /* Explore */,
 				000FC6841A91122700A4F50F /* LogIn */,
@@ -462,7 +469,8 @@
 				B9B61BC61A462E0F00A83987 /* Support */,
 				B90CB7B61A42C05F0012CBF2 /* UIImage Categories */,
 				B9452BA01A4149CB007FE801 /* Take Media */,
-				B9452B9C1A40F2DD007FE801 /* Helper Classes */,
+				B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */,
+				B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */,
 				B9452B981A40EFC1007FE801 /* Login */,
 				B9FD557C1A414DC4006AE066 /* Content */,
 				B97F00F31A6EC2D100690309 /* Balance */,
@@ -482,6 +490,7 @@
 				B94B62D91A5F94E800C42FAF /* TKActivityFeedViewController.h */,
 				B94B62DA1A5F94E800C42FAF /* TKActivityFeedViewController.m */,
 				B9F2366C1A3A468B00E485CE /* Login.xcassets */,
+				0018EA761AB2A9D2008B80FD /* Explore.xcassets */,
 				B9FD55851A415665006AE066 /* Content.xcassets */,
 				B9FD55891A4157EF006AE066 /* Create.xcassets */,
 				B9F2366E1A3A46D300E485CE /* Profile.xcassets */,
@@ -581,15 +590,6 @@
 				25F621421A3219100069A742 /* ResetPasswordViewController.m */,
 			);
 			name = Login;
-			sourceTree = "<group>";
-		};
-		B9452B9C1A40F2DD007FE801 /* Helper Classes */ = {
-			isa = PBXGroup;
-			children = (
-				B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */,
-				B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */,
-			);
-			name = "Helper Classes";
 			sourceTree = "<group>";
 		};
 		B9452BA01A4149CB007FE801 /* Take Media */ = {
@@ -798,6 +798,7 @@
 				B9FD55881A4157C4006AE066 /* NavBar.xcassets in Resources */,
 				B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */,
 				B9FD55861A415665006AE066 /* Content.xcassets in Resources */,
+				0018EA771AB2A9D2008B80FD /* Explore.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,6 +876,7 @@
 				B9A4D3961A49163F00EDD2C9 /* ExploreResultsViewController.m in Sources */,
 				B9A4D39A1A4920BB00EDD2C9 /* CategoriesViewController.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
+				009DE9571AA7BE8500429AC4 /* SettingsViewController.m in Sources */,
 				00ED604E1A800CFE00ED1229 /* MFC_HomeFeedViewController.m in Sources */,
 				B9F359D61A43B22A00476FF7 /* TKCache.m in Sources */,
 				B98946F41A60CE780011288F /* TKSettingsButtonItem.m in Sources */,

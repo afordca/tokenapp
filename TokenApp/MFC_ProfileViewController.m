@@ -14,6 +14,7 @@
 #import "CamerOverlay.h"
 #import "ProfileCollectionViewCell.h"
 #import "UIViewController+Camera.h"
+#import "UIColor+HEX.h"
 #import "ProfileCollectionReusableView.h"
 #import "PersonalActivityViewController.h"
 #import "FollowersViewController.h"
@@ -38,6 +39,9 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonCancelView;
+@property (strong, nonatomic) IBOutlet UIButton *buttonEditProfile;
+
+
 @property UIView *mainView;
 
 @property NSDictionary *dicViews;
@@ -59,6 +63,7 @@
 @property (retain,nonatomic)FollowersViewController *fvc;
 @property (retain,nonatomic)NotificationViewController *nvc;
 @property PFUser *user;
+@property (strong, nonatomic) IBOutlet UIButton *buttonSettings;
 
 @property UIRefreshControl *mannyFresh;
 
@@ -70,27 +75,42 @@
 {
     [super viewDidLoad];
 
+    //Refresh Control Setup
+
     self.mannyFresh = [[UIRefreshControl alloc] init];
-    self.mannyFresh.tintColor = [UIColor grayColor];
+    self.mannyFresh.tintColor = [UIColor colorwithHexString:@"#72c74a" alpha:.9];
     [self.mannyFresh addTarget:self action:@selector(refershControlAction) forControlEvents:UIControlEventValueChanged];
     [self.collectionViewProfile addSubview:self.mannyFresh];
     self.collectionViewProfile.alwaysBounceVertical = YES;
 
     [self.navigationController.navigationBar setHidden:YES];
     [self.buttonCancelView setHidden:YES];
+
     self.collectionViewProfile.delegate = self;
 
     //Accessing User Singleton
     currentUser = [User sharedSingleton];
-
-
     self.user = [PFUser currentUser];
 
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+//    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+//    rotationAnimation.toValue = @(M_PI * -1.0);
+//    rotationAnimation.duration = .4;
+//    //    rotationAnimation.autoreverses = YES;
+//    //    rotationAnimation.repeatCount = HUGE_VALF;
+//    rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//    [self.buttonSettings.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+    [self.buttonEditProfile setHidden:NO];
+
     [self.collectionViewProfile reloadData];
 
     self.labelUserName.text = currentUser.userName;
@@ -108,12 +128,25 @@
 
 #pragma mark - Button Press Methods
 
+
+- (IBAction)onButtonPressSettings:(id)sender
+{
+    //Settings Icon rotation
+//    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+//    rotationAnimation.toValue = @(M_PI * 2.0);
+//    rotationAnimation.duration = 1;
+//    rotationAnimation.autoreverses = YES;
+//    rotationAnimation.repeatCount = HUGE_VALF;
+//    rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//    [self.buttonSettings.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+}
+
+
 - (IBAction)onButtonPressCancel:(id)sender
 {
     self.labelUserName.text = currentUser.userName;
 
     // Dismiss ActivityView with animation left to right
-
     [UIView animateWithDuration:0.5 animations:^{
     } completion:^(BOOL finished) {
         self.self.mainView.alpha = 1;
@@ -133,6 +166,7 @@
 
                         [self.mainView removeFromSuperview];
                         [self.buttonCancelView setHidden:YES];
+                        [self.buttonEditProfile setHidden:NO];
                     }];
                 }];
             }];
@@ -166,6 +200,7 @@
     headerView.delegate = self;
     headerView.imageViewProfilePic.image = currentUser.profileImage;
     headerView.labelFollowersCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowers.count];
+    headerView.labelFollowingCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowing.count];
 
     return headerView;
 }
@@ -207,6 +242,7 @@
 
     [self.view addSubview:self.mainView];
     [self.buttonCancelView setHidden:NO];
+    [self.buttonEditProfile setHidden:YES];
 
 // Present ActivityView with animation left to right
 
@@ -246,6 +282,8 @@
 
     [self.view addSubview:self.mainView];
     [self.buttonCancelView setHidden:NO];
+    [self.buttonEditProfile setHidden:YES];
+
 
     // Present ActivityView with animation left to right
 
@@ -285,6 +323,8 @@
 
     [self.view addSubview:self.mainView];
     [self.buttonCancelView setHidden:NO];
+    [self.buttonEditProfile setHidden:YES];
+
 
     // Present ActivityView with animation left to right
 
@@ -323,6 +363,8 @@
 
     [self.view addSubview:self.mainView];
     [self.buttonCancelView setHidden:NO];
+    [self.buttonEditProfile setHidden:YES];
+
 
     // Present ActivityView with animation left to right
 
@@ -432,7 +474,31 @@
 
         }];
     }
+}
 
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+
+    if (picker != self.imagePicker)
+    {
+        self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+
+    }
+    else
+    {
+
+    [self setUpCamera];
+
+    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self presentViewController:self.imagePicker animated:NO completion:nil];
+
+    }];
+    }
+    
 }
 
 #pragma mark User Delegate Methods
@@ -450,6 +516,9 @@
 -(void)refershControlAction
 {
     NSLog(@"Refresh");
+
+    //Refresh HeaderView of CollectionView
+    [self.collectionViewProfile reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,1)]];
 
     [currentUser loadArrayOfPhotos];
     [self.mannyFresh endRefreshing];

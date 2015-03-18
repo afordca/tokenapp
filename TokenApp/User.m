@@ -30,6 +30,9 @@
 {
     static User *single = nil;
     {
+
+        //static dispatch_once onceToken;  * Look up
+
         if ( !single)
         {
             // allocate the shared instance, because it hasn't been done yet
@@ -237,6 +240,20 @@
 -(void)loadActivityFromCurrentUser
 {
 
+//        self.arrayOfFromUserActivity = [NSMutableArray new];
+//
+//    [PFCloud callFunctionInBackground:@"Activity" withParameters:@{@"fromUser": @"ctqzn4n1Dj"} block:^(NSArray *result, NSError *error) {
+//        if (error){
+//            NSLog(@"%@", [error userInfo]);
+//        }
+//        else{
+//
+//            for (PFObject *activity in result) {
+//                [self.arrayOfFromUserActivity addObject:activity];
+//            }
+//        }
+//        [self loadArrayOfFollowing:nil row:0];
+//    }];
 
     user = [PFUser currentUser];
     self.arrayOfFromUserActivity = [NSMutableArray new];

@@ -7,6 +7,7 @@
 //
 
 #import "LaunchPageViewController.h"
+#import "UIColor+HEX.h"
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <FacebookSDK/FacebookSDK.h>
@@ -35,8 +36,10 @@
     CALayer *layer = self.buttonLogin.layer;
     layer.backgroundColor = [[UIColor clearColor] CGColor];
    // UIColor *colorTokenGreen = [UIColor colorWithRed:119.0 green:181.0 blue:81.0 alpha:.85];
-    layer.borderColor = [[UIColor whiteColor]CGColor];
-    layer.borderWidth = 1.0f;
+   // layer.borderColor = [[UIColor whiteColor]CGColor];
+    layer.borderColor = [[UIColor colorwithHexString:@"#72c74a" alpha:.9]CGColor];
+
+    layer.borderWidth = 1.5f;
 
 }
 

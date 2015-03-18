@@ -137,6 +137,7 @@
 
     else if ([[notification name] isEqualToString:@"SendCancel"])
     {
+
         [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
             [self.visualEffectView setAlpha:0.f];
         } completion:^(BOOL finished) {

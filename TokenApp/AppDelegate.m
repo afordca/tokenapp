@@ -125,13 +125,13 @@
 -(void)SetUser
 {
     //Initialization
-    singleUser = [User sharedSingleton];
-    [singleUser setUserProfile];
-    [singleUser loadArrayOfPhotos];
-    [singleUser loadArrayOfFollowing:NO row:0];
-    [singleUser loadActivityToCurrentUser];
-    [singleUser loadActivityFromCurrentUser];
-    [singleUser loadArrayOfFollowers];
+//    singleUser = [User sharedSingleton];
+//    [singleUser setUserProfile];
+//    [singleUser loadArrayOfPhotos];
+//    [singleUser loadArrayOfFollowing:NO row:0];
+//    [singleUser loadActivityToCurrentUser];
+//    [singleUser loadActivityFromCurrentUser];
+//    [singleUser loadArrayOfFollowers];
 
 
 
