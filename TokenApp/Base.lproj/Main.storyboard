@@ -1167,6 +1167,30 @@
             </objects>
             <point key="canvasLocation" x="-932" y="-541"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="cCY-z0-obP">
+            <objects>
+                <viewController id="5Ps-L6-wJH" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rtJ-vD-mPF"/>
+                        <viewControllerLayoutGuide type="bottom" id="0X4-NI-9Si"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IWV-47-EYB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0nK-mG-JXl">
+                                <rect key="frame" x="-152" y="-98" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wDR-Hi-qFO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1279" y="-1331"/>
+        </scene>
         <!--Create View Controller-->
         <scene sceneID="24f-Oy-HUa">
             <objects>
@@ -1869,7 +1893,12 @@
         <image name="Trending" width="375" height="100"/>
         <image name="Video" width="50" height="50"/>
         <image name="Write" width="50" height="50"/>
+
+        <image name="leonidas" width="116" height="92"/>
+        <image name="person-icon.png" width="375" height="667"/>
+
         <image name="backarrow" width="22" height="22"/>
+
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
