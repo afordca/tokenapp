@@ -95,6 +95,8 @@ Parse.Cloud.define("Activity", function(request, response){
 //             });
 // });
 
+//
+
 
 //Get the users the client is following 
 //The users the cliesnt is following are stored in the user object in a PFrelation wtih their user object id
