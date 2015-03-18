@@ -1,3 +1,20 @@
+
+Parse.Cloud.afterSave("Activity", function(request) {
+
+{
+    //Problem: Notifications system
+    //Solution: Create notifications query then create notifications object  
+    var Notifications = Parse.object.extend("Notifications");
+    var notifications = new NotificationsClass();
+    notifications.set("toUser").id; 
+    notifications.set("activity").id; 
+    notifications.set("set").id;
+    var query = new Parse.Query("Notifications");
+    request.object.id;
+    request.object.get("toUser'").id; 
+
+}
+
 Parse.Cloud.define("hello", function(request, response) {
   response.success("Hello world!");
 });
@@ -81,7 +98,7 @@ Parse.Cloud.define("FollowingUsersActivities", function(request, response){
                     actproplist.push(actprop);
                     //var user = new User();
                     //user.id = followingUser.id; 
-                    followingUsersActivities[followingUser.id] = []; 
+                    //initializes the key value pail
                     queryActivity.equalTo("fromUser", followingUser);
                     queries.push(queryActivity);
                       //response.success(followingUsersActivities);
@@ -92,6 +109,7 @@ Parse.Cloud.define("FollowingUsersActivities", function(request, response){
                     queryActivity.shift().find({
                             success: function(activities){
                                 //response.success(activities);
+                                followingUsersActivities[followingUser.id] = []; 
                                 followingUsersActivities[followingUser.id] = activities; 
                                 if(queryActivity.length){
                                     makeQueries(queryActivity);
@@ -121,6 +139,7 @@ Parse.Cloud.define("FollowingUsersActivities", function(request, response){
     // This creates a new JSON object --> {}; 
 
 });
+
 
 
 
