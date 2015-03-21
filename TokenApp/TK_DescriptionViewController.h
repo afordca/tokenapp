@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Macros.h"
 #import "Constants.h"
-#import "User.h"
+#import "CurrentUser.h"
 
 @interface TK_DescriptionViewController : UIViewController
 {
-    User *currentUser;
+    CurrentUser *currentUser;
 }
 
 @property UIImage *imagePhoto;

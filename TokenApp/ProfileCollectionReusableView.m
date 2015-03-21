@@ -17,7 +17,7 @@
     if (self = [super initWithCoder:aDecoder])
     {
         //Accessing User Singleton
-        currentUser = [User sharedSingleton];
+        currentUser = [CurrentUser sharedSingleton];
 
     }
 

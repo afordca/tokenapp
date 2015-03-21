@@ -1,13 +1,13 @@
 //
-//  User.m
+//  Link.m
 //  TokenApp
 //
-//  Created by Emmanuel Masangcay on 3/21/15.
+//  Created by Emmanuel Masangcay on 3/20/15.
 //  Copyright (c) 2015 ABaselNotBasilProduction. All rights reserved.
 //
 
-#import "User.h"
+#import "Link.h"
 
-@implementation User
+@implementation Link
 
 @end

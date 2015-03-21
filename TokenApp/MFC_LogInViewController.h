@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
+#import "CurrentUser.h"
 
 @interface MFC_LogInViewController : UIViewController
 

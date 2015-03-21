@@ -41,7 +41,7 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
      self.currentUser = [PFUser currentUser];
-    User *user = [User sharedSingleton];
+    CurrentUser *user = [CurrentUser sharedSingleton];
 
 }
 

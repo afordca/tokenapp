@@ -8,7 +8,7 @@
 
 #import "NotificationViewController.h"
 #import "NotificationsTableViewCell.h"
-#import "Notifications.h"
+#import "Notification.h"
 
 @interface NotificationViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableViewNotifications;
@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
     self.tableViewNotifications.delegate = self;
-    user = [User sharedSingleton];
+    user = [CurrentUser sharedSingleton];
 }
 
 #pragma mark - UITableView Delegate Methods
@@ -68,7 +68,7 @@
 {
     NotificationsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellnotification"];
 
-    Notifications *notification = [Notifications new];
+    Notification *notification = [Notification new];
 
     //Comments
     if (indexPath.section == 0)

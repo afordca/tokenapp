@@ -89,7 +89,7 @@
     self.collectionViewProfile.delegate = self;
 
     //Accessing User Singleton
-    currentUser = [User sharedSingleton];
+    currentUser = [CurrentUser sharedSingleton];
     self.user = [PFUser currentUser];
 
 }

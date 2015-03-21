@@ -16,7 +16,7 @@
 #import "CamerOverlay.h"
 #import "TKUtility.h"
 #import "TKCache.h"
-#import "User.h"
+#import "CurrentUser.h"
 #import "AppDelegate.h"
 
 #import <Parse/Parse.h>
@@ -67,7 +67,7 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
 
-    singleUser = [User sharedSingleton];
+    singleUser = [CurrentUser sharedSingleton];
     [singleUser setUserProfile];
     [singleUser loadArrayOfPhotos];
     [singleUser loadArrayOfFollowing:NO row:0];

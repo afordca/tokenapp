@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "User.h"
+#import "CurrentUser.h"
 
 @protocol CustomProfileDelegate <NSObject>
 
@@ -25,7 +25,7 @@
 @interface ProfileCollectionReusableView : UICollectionReusableView <UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 {
-    User *currentUser;
+    CurrentUser *currentUser;
 }
 
 

@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 ABaselNotBasilProduction. All rights reserved.
 //
 
-#import "Notifications.h"
+#import "Notification.h"
 
-@implementation Notifications
+@implementation Notification
 
 -(NSString *)createNotification:(NSString *)username type:(NSString *)type mediatype:(NSString *)media
 {

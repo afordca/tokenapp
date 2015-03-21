@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
+#import "CurrentUser.h"
 
 //transform values for full screen support
 #define CAMERA_TRANSFORM_X 1
@@ -18,7 +18,7 @@
 
 @interface UIViewController (Camera)
 
-@property User *currentUser;
+@property CurrentUser *currentUser;
 @property UIVisualEffectView *visualEffectView;
 
 @property UIImage *imageProfile;

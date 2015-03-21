@@ -9,7 +9,7 @@
 #import "UIViewController+Camera.h"
 #import "TK_DescriptionViewController.h"
 #import "CamerOverlay.h"
-#import "User.h"
+#import "CurrentUser.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 

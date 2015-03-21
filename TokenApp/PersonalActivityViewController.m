@@ -28,7 +28,7 @@
     self.tableViewProfileActivity.delegate = self;
 
     //Accessing User Singleton
-    currentUser = [User sharedSingleton];
+    currentUser = [CurrentUser sharedSingleton];
 
     //User Activity Array
     self.arrayOfActivity = [NSArray new];

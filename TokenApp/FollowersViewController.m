@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    currentUser = [User sharedSingleton];
+    currentUser = [CurrentUser sharedSingleton];
     currentUser.delegate = self;
 }
 

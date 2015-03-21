@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "User.h"
 
-@interface Notifications : NSObject
+@interface Notification : NSObject
 
+@property User *user;
 @property UIImage *imageProfilePic;
 @property NSString *stringUsername;
 @property NSString *stringType;

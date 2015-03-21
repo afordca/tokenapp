@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
+#import "CurrentUser.h"
 
 @protocol FollowersTableViewCellDelegate <NSObject>;
 
@@ -17,7 +17,7 @@
 
 @interface FollowersTableViewCell : UITableViewCell
 {
-    User *user;
+    CurrentUser *user;
 }
 
 
