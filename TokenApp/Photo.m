@@ -10,4 +10,11 @@
 
 @implementation Photo
 
+-(id)initWithImage:(UIImage *)picture
+{
+    self.picture = picture;
+
+    return self;
+}
+
 @end

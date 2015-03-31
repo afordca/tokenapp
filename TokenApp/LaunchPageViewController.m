@@ -35,10 +35,7 @@
     // Setup LoginButton Appearance
     CALayer *layer = self.buttonLogin.layer;
     layer.backgroundColor = [[UIColor clearColor] CGColor];
-   // UIColor *colorTokenGreen = [UIColor colorWithRed:119.0 green:181.0 blue:81.0 alpha:.85];
-   // layer.borderColor = [[UIColor whiteColor]CGColor];
     layer.borderColor = [[UIColor colorwithHexString:@"#72c74a" alpha:.9]CGColor];
-
     layer.borderWidth = 1.5f;
 
 }

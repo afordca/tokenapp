@@ -203,7 +203,10 @@
                     }
                     else
                     {
-                        [self.arrayOfPhotos addObject:[UIImage imageWithData:data]];
+                        UIImage *photo = [UIImage imageWithData:data];
+                        Photo *newPhoto = [[Photo alloc]initWithImage:photo];
+                        [self.arrayOfPhotos addObject:newPhoto];
+                       // [self.arrayOfPhotos addObject:[UIImage imageWithData:data]];
                     }
 
                     [self.delegate reloadCollectionAfterArrayUpdate];
@@ -295,7 +298,7 @@
             //Setting image to singleton class USER
             self.profileImage = image;
     
-            //Settring Username to singleton class USER
+            //Setting Username to singleton class USER
             if ([user objectForKey:@"username"])
             {
                 self.userName = [user objectForKey:@"username"];

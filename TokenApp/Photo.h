@@ -18,4 +18,8 @@
 
 @property  NSInteger *numberOfLikes;
 
+#warning Still need to add description, hashtags, and comments
+
+-(id)initWithImage:(UIImage*)picture;
+
 @end

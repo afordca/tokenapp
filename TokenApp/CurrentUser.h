@@ -12,6 +12,8 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseUI/ParseUI.h>
 
+#import "Photo.h"
+
 // define the protocol for the delegate
 @protocol UserDelegate <NSObject>
 

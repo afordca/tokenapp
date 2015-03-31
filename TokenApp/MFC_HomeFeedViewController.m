@@ -16,6 +16,7 @@
 #import "CamerOverlay.h"
 #import "TKUtility.h"
 #import "TKCache.h"
+#import "TK_Manager.h"
 #import "CurrentUser.h"
 #import "AppDelegate.h"
 
@@ -47,6 +48,7 @@
 @property (strong, nonatomic) NSURL *videoURL;
 
 @property PFUser *user;
+@property User *userNew;
 
 
 @property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
@@ -65,15 +67,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    TK_Manager *manager = [TK_Manager new];
+    self.userNew = [User new];
+    self.userNew = [manager loadUser:@"hslU53YGTF"];
+
     [self.navigationController.navigationBar setHidden:YES];
 
     singleUser = [CurrentUser sharedSingleton];
     [singleUser setUserProfile];
+
+
+
     [singleUser loadArrayOfPhotos];
     [singleUser loadArrayOfFollowing:NO row:0];
     [singleUser loadActivityToCurrentUser];
     [singleUser loadActivityFromCurrentUser];
     [singleUser loadArrayOfFollowers];
+
 
 
 }

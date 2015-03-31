@@ -76,7 +76,6 @@
     [super viewDidLoad];
 
     //Refresh Control Setup
-
     self.mannyFresh = [[UIRefreshControl alloc] init];
     self.mannyFresh.tintColor = [UIColor colorwithHexString:@"#72c74a" alpha:.9];
     [self.mannyFresh addTarget:self action:@selector(refershControlAction) forControlEvents:UIControlEventValueChanged];
@@ -187,9 +186,9 @@
 {
     ProfileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProfile" forIndexPath:indexPath];
 
-    cell.imageViewProfileContent.image = currentUser.arrayOfPhotos[indexPath.row];
+    Photo *newPhoto = currentUser.arrayOfPhotos[indexPath.row];
 
-
+    cell.imageViewProfileContent.image = newPhoto.picture;
 
     return cell;
 }
@@ -505,10 +504,7 @@
 
 -(void)reloadCollectionAfterArrayUpdate
 {
-
-
     [self.collectionViewProfile reloadData];
-
 }
 
 #pragma mark - Helper Methods

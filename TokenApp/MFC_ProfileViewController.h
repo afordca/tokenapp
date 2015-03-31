@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CurrentUser.h"
+#import "Photo.h"
 
 @interface MFC_ProfileViewController : UIViewController
 {

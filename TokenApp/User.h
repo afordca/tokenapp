@@ -24,6 +24,6 @@
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationTags;
 
 
-@property PFUser *user;
+-(id)initWithUserName:(NSString*)username profileImage:(UIImage*)profileImage arrayOfFollowers:(NSMutableArray*)arrayOfFollowers;
 
 @end
