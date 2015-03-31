@@ -93,9 +93,7 @@ Parse.Cloud.define("Activity", function(request, response){
 //                           response.error(error);
 //                       }
 //             });
-// });
 
-//
 
 
 //Get the users the client is following 
