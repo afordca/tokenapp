@@ -23,21 +23,6 @@
 @end
 
 @interface CurrentUser : NSObject
-{
-    UIImage *profileImage;
-    NSString *userName;
-    NSMutableArray *arrayOfPhotos;
-    NSMutableArray *arrayOfUserActivity;
-    NSMutableArray *arrayOfFromUserActivity;
-    NSMutableArray *arrayOfFollowers;
-    NSMutableArray *arrayOfFollowing;
-    NSMutableArray *arrayOfNotificationComments;
-    NSMutableArray *arrayOfNotificationLikes;
-    NSMutableArray *arrayOfNotificationTags;
-    PFUser *user;
-    
-
-}
 
 @property (nonatomic, strong) UIImage *profileImage;
 @property (nonatomic,strong) NSString *userName;

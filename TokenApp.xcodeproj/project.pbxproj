@@ -366,6 +366,27 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		0009F6891ACB267700A40A75 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				00A68EAE1A9F9B2300AAB98F /* Notification.h */,
+				00A68EAF1A9F9B2300AAB98F /* Notification.m */,
+				00C6DE621ABE2CEB00CC410C /* Activity.h */,
+				00C6DE631ABE2CEB00CC410C /* Activity.m */,
+				00C6DE531ABCAE2400CC410C /* Photo.h */,
+				00C6DE541ABCAE2400CC410C /* Photo.m */,
+				00C6DE561ABCB51200CC410C /* Video.h */,
+				00C6DE571ABCB51200CC410C /* Video.m */,
+				00C6DE591ABCB73E00CC410C /* Post.h */,
+				00C6DE5A1ABCB73E00CC410C /* Post.m */,
+				00C6DE5C1ABCD1CD00CC410C /* Link.h */,
+				00C6DE5D1ABCD1CD00CC410C /* Link.m */,
+				00C6DE5F1ABE2B4F00CC410C /* Comment.h */,
+				00C6DE601ABE2B4F00CC410C /* Comment.m */,
+			);
+			name = Content;
+			sourceTree = "<group>";
+		};
 		000FC6831A9111FA00A4F50F /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,24 +443,11 @@
 		002E16371A94EE6C000AE37B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0009F6891ACB267700A40A75 /* Content */,
 				B996AD1E1A8163F300C3B98E /* CurrentUser.h */,
 				B996AD1F1A8163F300C3B98E /* CurrentUser.m */,
 				00C6DE651ABE2E8100CC410C /* User.h */,
 				00C6DE661ABE2E8100CC410C /* User.m */,
-				00A68EAE1A9F9B2300AAB98F /* Notification.h */,
-				00A68EAF1A9F9B2300AAB98F /* Notification.m */,
-				00C6DE621ABE2CEB00CC410C /* Activity.h */,
-				00C6DE631ABE2CEB00CC410C /* Activity.m */,
-				00C6DE531ABCAE2400CC410C /* Photo.h */,
-				00C6DE541ABCAE2400CC410C /* Photo.m */,
-				00C6DE561ABCB51200CC410C /* Video.h */,
-				00C6DE571ABCB51200CC410C /* Video.m */,
-				00C6DE591ABCB73E00CC410C /* Post.h */,
-				00C6DE5A1ABCB73E00CC410C /* Post.m */,
-				00C6DE5C1ABCD1CD00CC410C /* Link.h */,
-				00C6DE5D1ABCD1CD00CC410C /* Link.m */,
-				00C6DE5F1ABE2B4F00CC410C /* Comment.h */,
-				00C6DE601ABE2B4F00CC410C /* Comment.m */,
 				001781E51AC466A800A62CD5 /* TK_Manager.h */,
 				001781E61AC466A800A62CD5 /* TK_Manager.m */,
 			);

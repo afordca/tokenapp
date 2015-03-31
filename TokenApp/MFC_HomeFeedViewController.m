@@ -68,9 +68,8 @@
 {
     [super viewDidLoad];
 
-    TK_Manager *manager = [TK_Manager new];
-    self.userNew = [User new];
-    self.userNew = [manager loadUser:@"hslU53YGTF"];
+    self.userNew = [[User alloc]initWithUser:[PFUser currentUser]];
+
 
     [self.navigationController.navigationBar setHidden:YES];
 

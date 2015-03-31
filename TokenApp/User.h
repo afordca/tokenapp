@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseUI/ParseUI.h>
 
 @interface User : NSObject
 
@@ -23,7 +25,10 @@
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationLikes;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationTags;
 
+-(id)initWithUser:(PFUser*)userNew;
 
--(id)initWithUserName:(NSString*)username profileImage:(UIImage*)profileImage arrayOfFollowers:(NSMutableArray*)arrayOfFollowers;
+-(NSMutableArray*)loadFollowers:(PFUser*)user;
+-(NSMutableArray*)loadFollowing:(PFUser*)user;
+
 
 @end

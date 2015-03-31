@@ -30,7 +30,6 @@
 
 }
 
--(User*)loadUser:(NSString*)userID;
 
 
 @end

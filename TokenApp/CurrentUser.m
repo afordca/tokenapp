@@ -283,7 +283,6 @@
      }];
 }
 
-
 #pragma mark - User Helper Methods
 
 -(void)setUserProfile
