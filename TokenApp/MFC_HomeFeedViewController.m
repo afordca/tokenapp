@@ -262,7 +262,6 @@
     [super objectsDidLoad:error];
 
     // This method is called every time objects are loaded from Parse via the PFQuery
-}
 
 //- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //    return self.objects.count * 2 + (self.paginationEnabled ? 1 : 0);
@@ -279,6 +278,66 @@
 //        [self loadNextPage];
 //    }
 //}
+        [self pushSegueToDescriptionViewController];
+  //  [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+
+
+
+
+    // Check if Video
+
+    else if ([mediaType isEqualToString:@"public.movie"])
+    {
+        self.videoURL = info[UIImagePickerControllerMediaURL];
+
+        if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
+        {
+            // Saving the video / // Get the new unique filename
+            NSString *sourcePath = [[info objectForKey:@"UIImagePickerControllerMediaURL"]relativePath];
+            UISaveVideoAtPathToSavedPhotosAlbum(sourcePath,nil,nil,nil);
+            // [self performSegueWithIdentifier:@"pushToDescription" sender:self];
+            [self pushSegueToDescriptionViewController];
+
+
+        }
+    }
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self setUpCamera];
+    self.imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self presentViewController:self.imagePicker animated:NO completion:nil];
+
+    }];
+}
+
+#pragma mark - Prepare Segue Methods
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+
+    NSLog(@"Prepare for segue");
+
+    if ([segue.identifier  isEqual: @"pushToDescription"])
+    {
+        TK_DescriptionViewController *tkDescriptionViewController = [segue destinationViewController];
+        tkDescriptionViewController.imagePhoto = self.imageCreatePhoto;
+        tkDescriptionViewController.urlVideo = self.videoURL;
+        tkDescriptionViewController.isVideo = self.isVideo;
+        
+    }
+//- (void)userFollowingChanged:(NSNotification *)note {
+//    NSLog(@"User following changed.");
+//    self.shouldReloadOnAppear = YES;
+//
+//    UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 50.0f)];
+//
+//}
+}
 
 
 @end
