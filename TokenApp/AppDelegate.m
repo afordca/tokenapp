@@ -62,8 +62,6 @@
         [application registerForRemoteNotifications];
     }
 
-    [self SetUser];
-
     return YES;
 }
 
@@ -119,47 +117,6 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
-}
-
-
--(void)SetUser
-{
-    //Initialization
-//    singleUser = [User sharedSingleton];
-//    [singleUser setUserProfile];
-//    [singleUser loadArrayOfPhotos];
-//    [singleUser loadArrayOfFollowing:NO row:0];
-//    [singleUser loadActivityToCurrentUser];
-//    [singleUser loadActivityFromCurrentUser];
-//    [singleUser loadArrayOfFollowers];
-
-
-
-//  Code to populate Relation fields
-    
-//    PFQuery *query = [PFUser query];
-//    [query whereKey:@"newuser" equalTo:[NSNumber numberWithBool:NO]];
-//   [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-//    {
-//        if (error)
-//        {
-//            NSLog(@"%@",[error userInfo]);
-//        }
-//        else
-//        {
-//             for (PFUser *userFollow in objects)
-//             {
-//                 PFUser *user = [PFUser currentUser];
-//                 PFRelation *relation = [user relationForKey:@"Following"];
-//                 [relation addObject:userFollow];
-//                 [user saveInBackground];
-//             }
-//        }
-//    }];
-
-
-
-
 }
 
 @end

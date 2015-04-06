@@ -75,9 +75,6 @@
 
     singleUser = [CurrentUser sharedSingleton];
     [singleUser setUserProfile];
-
-
-
     [singleUser loadArrayOfPhotos];
     [singleUser loadArrayOfFollowing:NO row:0];
     [singleUser loadActivityToCurrentUser];

@@ -457,6 +457,9 @@
 		00BF7B951A8DCA720089194E /* Create */ = {
 			isa = PBXGroup;
 			children = (
+				000FC6851A91142900A4F50F /* CreateMainView.xib */,
+				000FC6871A91194B00A4F50F /* CreateMainView.h */,
+				000FC6881A91194B00A4F50F /* CreateMainView.m */,
 				00D71CC61A8D6B290022E856 /* TK_LinkViewController.h */,
 				00D71CC71A8D6B290022E856 /* TK_LinkViewController.m */,
 				000F079A1A8D3CBF003E1596 /* TK_PostViewController.h */,
@@ -509,9 +512,6 @@
 				002E162E1A93F6E4000AE37B /* ExploreViewController.m */,
 				B99CF19F1A97A1F1005CFBC7 /* TKFollowerProfileViewController.h */,
 				B99CF1A01A97A1F1005CFBC7 /* TKFollowerProfileViewController.m */,
-				000FC6851A91142900A4F50F /* CreateMainView.xib */,
-				000FC6871A91194B00A4F50F /* CreateMainView.h */,
-				000FC6881A91194B00A4F50F /* CreateMainView.m */,
 				00E8ECC31A965B430088C6C0 /* Explore */,
 				000FC6841A91122700A4F50F /* LogIn */,
 				000FC6831A9111FA00A4F50F /* TabBar */,
