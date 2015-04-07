@@ -1,4 +1,3 @@
-
 Parse.Cloud.afterSave("Activity", function(request) {
 
     //Problem: Notifications system
@@ -168,6 +167,199 @@ Parse.Cloud.define("FollowingUsersActivities", function(request, response){
 
 });
 
+Parse.Cloud.define("Followers", function(request, response){
+    var User = Parse.Object.extend("User");
+    var queryUser = new Parse.Query(User);
+    queryUser.equalTo("objectId", request.params.objectId);
+    var followersArray = []; 
+    var followersJSON = {};
+   queryUser.first({
+        success: function(user){
+            var relation = user.relation("Followers");
+            var query = relation.query();
+             query.find({
+             	success: function(followersResult){
+             		for(var x = 0; followersResult.length > x; x++){
+                 		var followers = followersResult[x];
+                 		followersArray.push(followers);
+                 	// console.log(followers);
+
+                 }
+                 	//followers = followersJSON;
+            		response.success(followersArray);
+             	}
+
+            });
+        	
+        },
+     	error: function(error){
+        	response.error(error);
+        }
+	});
+});
+
+Parse.Cloud.define("Following", function(request, response){
+	var User = Parse.Object.extend("User");
+    var queryUser = new Parse.Query(User);
+    queryUser.equalTo("objectId", request.params.objectId);
+    var followingArray = []; 
+    var followingJSON = {};
+    queryUser.first({
+        success: function(user){
+            var relation = user.relation("Following");
+            var query = relation.query();
+             query.find({
+             	success: function(followingResult){
+             		for(var x = 0; followingResult.length > x; x++){
+                 		var following = followingResult[x];
+                 		followingArray.push(following);
+                 	// console.log(followers);
+
+                 }
+                 	//followers = followersJSON;
+            		response.success(followingArray);
+             	}
+
+            });
+        	
+        },
+     	error: function(error){
+        	response.error(error);
+        }
+	});
+});
+
+Parse.Cloud.define("Photo", function(request, response)
+{
+	var Photo = Parse.Object.extend("Photo");
+	//var User = Parse.Object.extend("User");
+	var queryPhoto = new Parse.Query(Photo);
+	//Make a request using the user's objectID 
+	var photoArrayOfUser = []
+	queryPhoto.equalTo("userName", request.params.userName);
+		queryPhoto.find
+			({
+			success: function(photoResult)
+			{
+				for(var x = 0; photoResult.length > x; x++)
+				{
+	                 var photoUser = photoResult[x];
+	                 photoArrayOfUser.push(photoUser); 
+				}
+				response.success(photoArrayOfUser);
+	        },
+	     	error: function(error){
+	        	response.error(error);
+	        }
+
+	});
+});
+
+Parse.Cloud.define("Video", function(request, response)
+{
+  var Video = Parse.Object.extend("Video");
+  //var User = Parse.Object.extend("User");
+  var queryVideo = new Parse.Query(Video);
+  //Make a request using the user's objectID 
+  var videoArrayOfUser = []
+  queryVideo.equalTo("userName", request.params.userName);
+    queryVideo.find
+      ({
+      success: function(videoResult)
+      {
+        for(var x = 0; videoResult.length > x; x++)
+        {
+                   var videoUser = videoResult[x];
+                   videoArrayOfUser.push(videoUser); 
+        }
+        response.success(videoArrayOfUser);
+          },
+        error: function(error){
+            response.error(error);
+          }
+
+  });
+});
+
+Parse.Cloud.define("Note", function(request, response)
+{
+  var Note = Parse.Object.extend("Note");
+  //var User = Parse.Object.extend("User");
+  var queryNote = new Parse.Query(Note);
+  //Make a request using the user's objectID 
+  var noteArrayOfUser = []
+  queryNote.equalTo("userName", request.params.userName);
+    queryNote.find
+      ({
+      success: function(noteResult)
+      {
+        for(var x = 0; noteResult.length > x; x++)
+        {
+                   var noteUser = noteResult[x];
+                   noteArrayOfUser.push(noteUser); 
+        }
+        response.success(noteArrayOfUser);
+          },
+        error: function(error){
+            response.error(error);
+          }
+
+  });
+});
+
+Parse.Cloud.define("Link", function(request, response)
+{
+  var Link = Parse.Object.extend("Link");
+  //var User = Parse.Object.extend("User");
+  var queryLink = new Parse.Query("Link");
+  //Make a request using the user's objectID 
+  var linkArrayOfUser = []
+  queryLink.equalTo("userName", request.params.userName);
+    queryLink.find
+      ({
+      success: function(linkResult)
+      {
+        for(var x = 0; linkResult.length > x; x++)
+        {
+                   var linkUser = linkResult[x];
+                   linkArrayOfUser.push(linkUser); 
+        }
+        response.success(linkArrayOfUser);
+          },
+        error: function(error){
+            response.error(error);
+          }
+
+  });
+});
+
+// Parse.Cloud.define("Photo", 
+//   function(request,response)
+// {
+//     var Photo = Parse.Object.extend("Photo");
+//     var query = new Parse.query(Photo);
+//       query.equalTo("userName", request.params.userName);
+//       query.include("user");
+
+
+//         query.find
+//         ({
+//           success: function(photos) 
+//           {
+//             for (var x = 0; x < photos.length; x++)
+//             {
+//               var photo = photos[x];
+//               var user = photo.get("user");
+//               console.log(user.get("objectId"));
+//             }
+          
+//           response.success(user);
+//         },
+//         error: function(error) {
+//           alert(error);
+//         }
+//   });
+// });
 
 
 
