@@ -11,7 +11,4 @@
 @implementation TK_Manager
 
 
-
-
-
 @end

@@ -19,9 +19,10 @@
 
     self.profileImage = image;
     self.userName = [userNew objectForKey:@"username"];
+    self.objectID = userNew.objectId;
 
-    self.arrayOfFollowers = [self loadFollowers:userNew];
-    self.arrayOfFollowing = [self loadFollowing:userNew];
+    self.arrayOfFollowers = [self loadFollowers:userNew.objectId];
+    self.arrayOfFollowing = [self loadFollowing:userNew.objectId];
 
     }];
 
@@ -29,48 +30,70 @@
 }
 
 
--(NSMutableArray*)loadFollowers:(PFUser *)user
+-(NSMutableArray*)loadFollowers:(NSString *)userID
 {
     self.arrayOfFollowers = [NSMutableArray new];
-    PFRelation *userFollowerRelation = [user relationForKey:@"Followers" ];
-    PFQuery *queryForFollowers = userFollowerRelation.query;
-    [queryForFollowers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error)
-        {
-            NSLog(@"%@",[error userInfo]);
-        }
-        else
-        {
-            for (PFUser *userFollower in objects)
-            {
-                [self.arrayOfFollowers addObject:userFollower];
-            }
-        }
-    }];
+    [PFCloud callFunctionInBackground:@"Followers" withParameters:@{@"objectId": userID} block:^(NSArray *result, NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"%@", [error userInfo]);
+         }
+         else
+         {
+             for (PFUser *userFollower in result)
+             {
+
+                 [self.arrayOfFollowers addObject:userFollower];
+             }
+         }
+
+     }];
 
     return self.arrayOfFollowers;
 }
 
--(NSMutableArray*)loadFollowing:(PFUser *)user
+-(NSMutableArray*)loadFollowing:(NSString *)userID
 {
     self.arrayOfFollowing = [NSMutableArray new];
-    PFRelation *userFollowingRelation = [user relationForKey:@"Following"];
-    PFQuery *queryForFollowing = userFollowingRelation.query;
-    [queryForFollowing findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error)
-        {
-            NSLog(@"%@",[error userInfo]);
-        }
-        else
-        {
-            for (PFUser *userFollower in objects)
-            {
-                [self.arrayOfFollowing addObject:userFollower];
-            }
 
-        }
-    }];
+    [PFCloud callFunctionInBackground:@"Following" withParameters:@{@"objectId": userID} block:^(NSArray *result, NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"%@", [error userInfo]);
+         }
+         else
+         {
+             for (PFUser *userFollower in result)
+             {
+                 [self.arrayOfFollowing addObject:userFollower];
+             }
 
+         }
+
+     }];
+
+
+
+
+//    PFRelation *userFollowingRelation = [user relationForKey:@"Following"];
+//    PFQuery *queryForFollowing = userFollowingRelation.query;
+//    [queryForFollowing findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (error)
+//        {
+//            NSLog(@"%@",[error userInfo]);
+//        }
+//        else
+//        {
+//            for (PFUser *userFollower in objects)
+//            {
+//                [self.arrayOfFollowing addObject:userFollower];
+//            }
+//
+//        }
+//    }];
+//
     return self.arrayOfFollowing;
 }
 

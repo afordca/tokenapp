@@ -12,6 +12,7 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseUI/ParseUI.h>
 
+#import "User.h"
 #import "Photo.h"
 
 // define the protocol for the delegate
@@ -55,10 +56,18 @@
 
 //Helper Methods
 -(void)setUserProfile;
--(BOOL)isFollowingFollower:(PFUser*)follower;
--(void)removeUserFromFollowing:(PFUser*)follower row:(NSInteger)row;
--(void)addUserToFollowing:(PFUser*)follower row:(NSInteger)row;
--(UIImage *)followerStatus:(PFUser *)follower;
+
+//-(BOOL)isFollowingFollower:(PFUser*)follower;
+-(BOOL)isFollowingFollower:(NSString*)follower;
+
+//-(void)removeUserFromFollowing:(PFUser*)follower row:(NSInteger)row;
+-(void)removeUserFromFollowing:(User*)follower row:(NSInteger)row;
+
+//-(void)addUserToFollowing:(PFUser*)follower row:(NSInteger)row;
+-(void)addUserToFollowing:(User*)follower row:(NSInteger)row;
+
+//-(UIImage *)followerStatus:(PFUser *)follower;
+-(UIImage *)followerStatus:(NSString *)follower;
 
 
 

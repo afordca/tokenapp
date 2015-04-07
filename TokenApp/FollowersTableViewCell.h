@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "CurrentUser.h"
+#import "User.h"
 
 @protocol FollowersTableViewCellDelegate <NSObject>;
 
--(void)followerFollowingPressed:(PFUser*)user row:(NSInteger)row;
+//-(void)followerFollowingPressed:(PFUser*)user row:(NSInteger)row;
+
+-(void)followerFollowingPressed:(User*)user row:(NSInteger)row;
 
 @end
 
@@ -23,7 +26,8 @@
 
 @property id<FollowersTableViewCellDelegate>delegate;
 
-@property PFUser *userFollower;
+//@property PFUser *userFollower;
+@property User *userFollower;
 @property NSInteger row;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewFollowerProfilePic;
 @property (strong, nonatomic) IBOutlet UILabel *labelUsername;

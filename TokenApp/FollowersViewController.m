@@ -63,7 +63,7 @@
     //////////////// FOLLOWING /////////////////////////
         // User that is following Current User
         cellFollowers.userFollower = [currentUser.arrayOfFollowing objectAtIndex:indexPath.row];
-        cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowing objectAtIndex:indexPath.row]objectForKey:@"username"];
+        cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowing objectAtIndex:indexPath.row]userName];
 
         //Round Profile Pic
         cellFollowers.imageViewFollowerProfilePic.layer.cornerRadius = cellFollowers.imageViewFollowerProfilePic.frame.size.height /2;
@@ -71,23 +71,36 @@
         cellFollowers.imageViewFollowerProfilePic.layer.borderWidth = 0;
 
         //Follower Profile Pic
-        PFFile *parseFileWithImage = [[currentUser.arrayOfFollowing objectAtIndex:indexPath.row] objectForKey:@"profileImage"];
-        NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-        NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-        [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-         {
-             if (!data)
-             {   // Default Profile Pic
-                 cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
-             }
-             else
-             {   // Profile Pic
-                 cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageWithData:data];
-             }
-         }];
+        if (![[currentUser.arrayOfFollowing objectAtIndex:indexPath.row]profileImage])
+        {   // Default Profile Pic
+            cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
+        }
+        else
+        {   // Profile Pic
+            cellFollowers.imageViewFollowerProfilePic.image = [[currentUser.arrayOfFollowing objectAtIndex:indexPath.row]profileImage];
+        }
+
+
+//        PFFile *parseFileWithImage = [[currentUser.arrayOfFollowing objectAtIndex:indexPath.row] objectForKey:@"profileImage"];
+//        NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+//        NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+//        [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+//         {
+//             if (!data)
+//             {   // Default Profile Pic
+//                 cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
+//             }
+//             else
+//             {   // Profile Pic
+//                 cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageWithData:data];
+//             }
+//         }];
 
         //Set Follower / Following Status
-        cellFollowers.imageViewFollowStatus.image = [currentUser followerStatus:[currentUser.arrayOfFollowing objectAtIndex:indexPath.row]];
+
+         NSString *objectID = [[currentUser.arrayOfFollowing objectAtIndex:indexPath.row]objectID];
+
+        cellFollowers.imageViewFollowStatus.image = [currentUser followerStatus:objectID];
 
     }
     else
@@ -96,31 +109,45 @@
 
     // User that is following Current User
     cellFollowers.userFollower = [currentUser.arrayOfFollowers objectAtIndex:indexPath.row];
-    cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]objectForKey:@"username"];
+//    cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]objectForKey:@"username"];
+     cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]userName];
 
     //Round Profile Pic
     cellFollowers.imageViewFollowerProfilePic.layer.cornerRadius = cellFollowers.imageViewFollowerProfilePic.frame.size.height /2;
     cellFollowers.imageViewFollowerProfilePic.layer.masksToBounds = YES;
     cellFollowers.imageViewFollowerProfilePic.layer.borderWidth = 0;
 
+    if (![[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]profileImage])
+    {   // Default Profile Pic
+        cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
+    }
+    else
+    {   // Profile Pic
+        cellFollowers.imageViewFollowerProfilePic.image = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]profileImage];
+    }
+
     //Follower Profile Pic
-    PFFile *parseFileWithImage = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row] objectForKey:@"profileImage"];
-    NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-    NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-    {
-        if (!data)
-        {   // Default Profile Pic
-            cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
-        }
-        else
-        {   // Profile Pic
-            cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageWithData:data];
-        }
-    }];
+//    PFFile *parseFileWithImage = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row] objectForKey:@"profileImage"];
+//
+//    NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+//    NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+//    [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+//    {
+//        if (!data)
+//        {   // Default Profile Pic
+//            cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
+//        }
+//        else
+//        {   // Profile Pic
+//            cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageWithData:data];
+//        }
+//    }];
 
     //Set Follower / Following Status
-    cellFollowers.imageViewFollowStatus.image = [currentUser followerStatus:[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]];
+
+        NSString *objectID = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]objectID];
+
+    cellFollowers.imageViewFollowStatus.image = [currentUser followerStatus:objectID];
 
     }
 
@@ -130,10 +157,30 @@
 
 #pragma mark - FollowersTableViewCell Delegate Method
 
--(void)followerFollowingPressed:(PFUser *)user row:(NSInteger)row
+//-(void)followerFollowingPressed:(PFUser *)user row:(NSInteger)row
+//{
+//    NSLog(@"%@",user);
+//    BOOL isFollowingFollower = [currentUser isFollowingFollower:user.objectId];
+//
+//    if (isFollowingFollower)
+//    {
+//        //Unfollow this user
+//        [currentUser removeUserFromFollowing:user row:row];
+//
+//    }
+//    else
+//    {
+//        //Follow this user
+//        [currentUser addUserToFollowing:user row:row];
+//
+//
+//    }
+//}
+
+-(void)followerFollowingPressed:(User *)user row:(NSInteger)row
 {
     NSLog(@"%@",user);
-    BOOL isFollowingFollower = [currentUser isFollowingFollower:user];
+    BOOL isFollowingFollower = [currentUser isFollowingFollower:user.objectID];
 
     if (isFollowingFollower)
     {
@@ -145,8 +192,8 @@
     {
         //Follow this user
         [currentUser addUserToFollowing:user row:row];
-
-
+        
+        
     }
 }
 

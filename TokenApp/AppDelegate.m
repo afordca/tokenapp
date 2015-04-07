@@ -62,6 +62,7 @@
         [application registerForRemoteNotifications];
     }
 
+
     return YES;
 }
 
