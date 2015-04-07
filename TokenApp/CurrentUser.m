@@ -191,7 +191,7 @@
     self.arrayOfPhotos = [NSMutableArray new];
 
 
-    [PFCloud callFunctionInBackground:@"Photo" withParameters:@{@"userName": user.username} block:^(NSArray *result, NSError *error)
+    [PFCloud callFunctionInBackground:@"Photo" withParameters:@{@"userName": user.objectId} block:^(NSArray *result, NSError *error)
      {
          if (error)
          {
@@ -226,42 +226,65 @@
 }
 
 
+-(void)loadArrayOfVideos
+{
+    user = [PFUser currentUser];
+    self.arrayOfVideos = [NSMutableArray new];
 
-//    //Loading Array of photos and setting it in singleton class USER
-//    PFQuery *queryForUserContent = [PFQuery queryWithClassName:@"Photo"];
-//    [queryForUserContent whereKey:@"userName" equalTo:user.objectId];
-//    [queryForUserContent findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (error)
-//        {
-//            NSLog(@"%@",[error userInfo]);
-//        }
-//        else
-//        {
-//            for (PFObject *photo in objects)
-//            {
-//                PFFile *parseFileWithImage = [photo objectForKey:@"image"];
-//                NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-//                NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-//                [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//
-//                    if (connectionError)
-//                    {
-//                        NSLog(@"%@",[connectionError userInfo]);
-//                    }
-//                    else
-//                    {
-//                        UIImage *photo = [UIImage imageWithData:data];
-//                        Photo *newPhoto = [[Photo alloc]initWithImage:photo];
-//                        [self.arrayOfPhotos addObject:newPhoto];
-//                       // [self.arrayOfPhotos addObject:[UIImage imageWithData:data]];
-//                    }
-//
-//                    [self.delegate reloadCollectionAfterArrayUpdate];
-//                }];
-//            }
-//        }
-//    }];
-//}
+
+    [PFCloud callFunctionInBackground:@"Video" withParameters:@{@"userName": user.objectId} block:^(NSArray *result, NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"%@", [error userInfo]);
+         }
+         else
+         {
+             NSLog(@"Worked");
+         }
+     }];
+
+}
+
+-(void)loadArrayOfLinks
+{
+    user = [PFUser currentUser];
+    self.arrayOfLinks = [NSMutableArray new];
+
+
+    [PFCloud callFunctionInBackground:@"Link" withParameters:@{@"userName": user.objectId} block:^(NSArray *result, NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"%@", [error userInfo]);
+         }
+         else
+         {
+             NSLog(@"Worked");
+         }
+     }];
+    
+}
+
+-(void)loadArrayOfPosts
+{
+    user = [PFUser currentUser];
+    self.arrayOfPosts = [NSMutableArray new];
+
+
+    [PFCloud callFunctionInBackground:@"Note" withParameters:@{@"userName": user.objectId} block:^(NSArray *result, NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"%@", [error userInfo]);
+         }
+         else
+         {
+             NSLog(@"Worked");
+         }
+     }];
+    
+}
 
 -(void)loadActivityToCurrentUser
 {

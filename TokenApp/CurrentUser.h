@@ -28,6 +28,9 @@
 @property (nonatomic, strong) UIImage *profileImage;
 @property (nonatomic,strong) NSString *userName;
 @property (nonatomic,strong) NSMutableArray *arrayOfPhotos;
+@property (nonatomic,strong) NSMutableArray *arrayOfVideos;
+@property (nonatomic,strong) NSMutableArray *arrayOfLinks;
+@property (nonatomic,strong) NSMutableArray *arrayOfPosts;
 @property (nonatomic,strong) NSMutableArray *arrayOfUserActivity;
 @property (nonatomic,strong) NSMutableArray *arrayOfFromUserActivity;
 @property (nonatomic,strong) NSMutableArray *arrayOfFollowers;
@@ -50,6 +53,9 @@
 -(void)loadArrayOfFollowers;
 -(void)loadArrayOfFollowing:(BOOL)update row:(NSInteger)row;
 -(void)loadArrayOfPhotos;
+-(void)loadArrayOfVideos;
+-(void)loadArrayOfLinks;
+-(void)loadArrayOfPosts;
 -(void)loadArrayOfNotifications;
 -(void)loadActivityToCurrentUser;
 -(void)loadActivityFromCurrentUser;

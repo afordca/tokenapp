@@ -78,6 +78,9 @@
     [singleUser loadArrayOfFollowers];
     [singleUser setUserProfile];
     [singleUser loadArrayOfPhotos];
+    [singleUser loadArrayOfVideos];
+    [singleUser loadArrayOfLinks];
+    [singleUser loadArrayOfPosts];
     [singleUser loadArrayOfFollowing:NO row:0];
     [singleUser loadActivityToCurrentUser];
     [singleUser loadActivityFromCurrentUser];
