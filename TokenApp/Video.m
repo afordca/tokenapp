@@ -10,4 +10,11 @@
 
 @implementation Video
 
+-(id)initWithUrl:(NSURL *)URL
+{
+    self.videoURL = URL;
+
+    return self;
+}
+
 @end

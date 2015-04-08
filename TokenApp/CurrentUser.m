@@ -8,9 +8,13 @@
 
 #import "CurrentUser.h"
 #import "User.h"
+#import "Notification.h"
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
-#import "Notification.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AVFoundation/AVAsset.h>
+#import <MediaPlayer/MediaPlayer.h>
+
 
 @implementation CurrentUser
 {
@@ -231,6 +235,11 @@
     user = [PFUser currentUser];
     self.arrayOfVideos = [NSMutableArray new];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleThumbnailImageRequestFinishNotification:)
+                                                 name:MPMoviePlayerThumbnailImageRequestDidFinishNotification
+                                               object:nil];
+
 
     [PFCloud callFunctionInBackground:@"Video" withParameters:@{@"userName": user.objectId} block:^(NSArray *result, NSError *error)
      {
@@ -240,11 +249,24 @@
          }
          else
          {
-             NSLog(@"Worked");
+             NSLog(@"Worked Videos");
+
+             for (PFObject *video in result)
+             {
+              PFFile *parseFileWithImage = [video objectForKey:@"video"];
+                 NSString *stringURL = [NSString stringWithFormat:@"%@.mp4",parseFileWithImage.url];
+              NSURL *videoURL = [NSURL URLWithString:stringURL];
+
+                 Video *video = [[Video alloc]initWithUrl:videoURL];
+                 [self.arrayOfVideos addObject:video];
+             }
+
          }
      }];
 
+
 }
+
 
 -(void)loadArrayOfLinks
 {
@@ -260,7 +282,7 @@
          }
          else
          {
-             NSLog(@"Worked");
+             NSLog(@"Worked Links");
          }
      }];
     
@@ -280,7 +302,7 @@
          }
          else
          {
-             NSLog(@"Worked");
+             NSLog(@"Worked Posts");
          }
      }];
     
@@ -313,46 +335,46 @@
 -(void)loadActivityFromCurrentUser
 {
 
-//    self.arrayOfFromUserActivity = [NSMutableArray new];
-//
-//    [PFCloud callFunctionInBackground:@"Activity" withParameters:@{@"fromUser": @"ctqzn4n1Dj"} block:^(NSArray *result, NSError *error) {
-//        if (error){
-//            NSLog(@"%@", [error userInfo]);
-//        }
-//        else{
-//
-//            for (PFObject *activity in result) {
-//                [self.arrayOfFromUserActivity addObject:activity];
-//            }
-//        }
-//        [self loadArrayOfFollowing:nil row:0];
-//    }];
-
-
-
-    user = [PFUser currentUser];
     self.arrayOfFromUserActivity = [NSMutableArray new];
-    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-    [queryForActivity whereKey:@"fromUser" equalTo:user];
-    [queryForActivity includeKey:@"fromUser"];
-    [queryForActivity includeKey: @"toUser"];
-    [queryForActivity includeKey:@"photo"];
-    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
-         if (error)
-         {
-             NSLog(@"%@",[error userInfo]);
-         }
-         else{
 
-             for (PFObject *activity in objects)
-             {
-                 [self.arrayOfFromUserActivity addObject:activity];
+    [PFCloud callFunctionInBackground:@"Activity" withParameters:@{@"fromUser": @"ctqzn4n1Dj"} block:^(NSArray *result, NSError *error) {
+        if (error){
+            NSLog(@"%@", [error userInfo]);
+        }
+        else{
 
-             }
-         }
-         [self loadArrayOfFollowing:nil row:0];
-     }];
+            for (PFObject *activity in result) {
+                [self.arrayOfFromUserActivity addObject:activity];
+            }
+        }
+        [self loadArrayOfFollowing:nil row:0];
+    }];
+
+
+
+//    user = [PFUser currentUser];
+//    self.arrayOfFromUserActivity = [NSMutableArray new];
+//    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+//    [queryForActivity whereKey:@"fromUser" equalTo:user];
+//    [queryForActivity includeKey:@"fromUser"];
+//    [queryForActivity includeKey: @"toUser"];
+//    [queryForActivity includeKey:@"photo"];
+//    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+//     {
+//         if (error)
+//         {
+//             NSLog(@"%@",[error userInfo]);
+//         }
+//         else{
+//
+//             for (PFObject *activity in objects)
+//             {
+//                 [self.arrayOfFromUserActivity addObject:activity];
+//
+//             }
+//         }
+//         [self loadArrayOfFollowing:nil row:0];
+//     }];
 }
 
 #pragma mark - User Helper Methods
@@ -381,19 +403,6 @@
         }];
 }
 
-//-(BOOL)isFollowingFollower:(PFUser *)follower
-//{
-//        // Determine if Current User is following follower
-//        for (PFUser *userFollowed in self.arrayOfFollowing)
-//        {
-//            if ([follower.objectId isEqual:userFollowed.objectId])
-//            {
-//                return YES;
-//            }
-//        }
-//    return NO;
-//}
-
 -(BOOL)isFollowingFollower:(NSString *)follower
 {
     // Determine if Current User is following follower
@@ -406,31 +415,6 @@
     }
     return NO;
 }
-
-//-(void)removeUserFromFollowing:(PFUser *)follower row:(NSInteger)row
-//{
-//    // Remove follower from relation
-//    user = [PFUser currentUser];
-//    PFRelation *relation = [user relationForKey:@"Following"];
-//    PFObject *removedUser = follower;
-//    [relation removeObject:removedUser];
-//    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (error)
-//        {
-//            NSLog(@"%@",[error userInfo]);
-//        }
-//        else
-//        {
-//            NSLog(@"User has been removed from Following");
-//            [self loadArrayOfFollowing:YES row:row];
-//        }
-//
-//     //   [self.delegate reloadTableAfterArrayUpdate:row];
-//        
-//
-//    }];
-//
-//}
 
 -(void)removeUserFromFollowing:(User *)follower row:(NSInteger)row
 {
@@ -465,28 +449,6 @@
     
 }
 
-//-(void)addUserToFollowing:(PFUser *)follower row:(NSInteger)row
-//{
-//    // Add follower to relation
-//    user = [PFUser currentUser];
-//    PFRelation *relation = [user relationForKey:@"Following"];
-//    [relation addObject:follower];
-//    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (error)
-//        {
-//            NSLog(@"%@",[error userInfo]);
-//        }
-//        else
-//        {
-//            NSLog(@"User has been added to Following");
-//            [self loadArrayOfFollowing:YES row:row];
-//        }
-//
-//        [self.delegate reloadTableAfterArrayUpdate:row];
-//       
-//    }];
-//
-//}
 
 -(void)addUserToFollowing:(User *)follower row:(NSInteger)row
 {
@@ -517,20 +479,6 @@
     
 }
 
-//-(UIImage *)followerStatus:(PFUser *)follower
-//{
-//      BOOL isFollowingFollower = [self isFollowingFollower:follower];
-//
-//    if (isFollowingFollower)
-//    {
-//        return  [UIImage imageNamed:@"Following"];
-//    }
-//    else
-//    {
-//        return  [UIImage imageNamed:@"FollowAdd"];
-//
-//    }
-//}
 
 -(UIImage *)followerStatus:(NSString *)follower
 {
