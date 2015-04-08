@@ -257,6 +257,7 @@ Parse.Cloud.define("Photo", function(request, response)
 
 Parse.Cloud.define("Video", function(request, response)
 {
+  Parse.Cloud.useMasterKey();  
   var Video = Parse.Object.extend("Video");
   //var User = Parse.Object.extend("User");
   var queryVideo = new Parse.Query(Video);
