@@ -332,7 +332,7 @@
 
     self.arrayOfFromUserActivity = [NSMutableArray new];
 
-    [PFCloud callFunctionInBackground:@"Activity" withParameters:@{@"fromUser": @"ctqzn4n1Dj"} block:^(NSArray *result, NSError *error) {
+    [PFCloud callFunctionInBackground:@"PersonalActivity" withParameters:@{@"objectId": @"ctqzn4n1Dj"} block:^(NSArray *result, NSError *error) {
         if (error){
             NSLog(@"%@", [error userInfo]);
         }
