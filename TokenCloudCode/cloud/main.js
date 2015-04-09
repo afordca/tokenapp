@@ -334,6 +334,30 @@ Parse.Cloud.define("Link", function(request, response)
   });
 });
 
+Parse.Cloud.define("PersonalActivity", function(request, response)
+{
+  var queryUserActivity = new Parse.Query("Activity");
+  queryUserActivity.include("fromUser");
+  queryUserActivity.equalTo("objectId", request.params.objectId);
+  var userActivityArray = [];
+  queryUserActivity.find(
+  {
+      success: function(fromUserActivities)
+      {
+        for (var i = 0; i < fromUserActivity; i++)
+        {
+          var fromUserActivity = fromUserActivities[i];
+          userActivityArray = fromUserActivities.get("fromUser");
+           
+        }
+        response.success(activity);
+      },
+        error:function(error){
+            response.error(error);
+          }
+    });
+});
+
 // Parse.Cloud.define("Photo", 
 //   function(request,response)
 // {
