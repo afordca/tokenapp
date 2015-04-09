@@ -54,7 +54,7 @@
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     TK_DescriptionViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
     vc.imagePhoto = self.imageCreatePhoto;
-    vc.urlVideo = self.videoURL;
+    vc.stringVideoURL = self.stringVideoData;
     vc.isVideo = self.isVideo;
     [self.navigationController pushViewController: vc animated:YES];
 
@@ -267,7 +267,8 @@
 
     else if ([mediaType isEqualToString:@"public.movie"])
     {
-        self.videoURL = info[UIImagePickerControllerMediaURL];
+        NSURL *videoURL = info[UIImagePickerControllerMediaURL];
+        self.stringVideoData = [videoURL path];
 
         if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
         {

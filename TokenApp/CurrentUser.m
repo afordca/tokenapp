@@ -235,12 +235,6 @@
     user = [PFUser currentUser];
     self.arrayOfVideos = [NSMutableArray new];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleThumbnailImageRequestFinishNotification:)
-                                                 name:MPMoviePlayerThumbnailImageRequestDidFinishNotification
-                                               object:nil];
-
-
     [PFCloud callFunctionInBackground:@"Video" withParameters:@{@"userName": user.objectId} block:^(NSArray *result, NSError *error)
      {
          if (error)
@@ -254,11 +248,12 @@
              for (PFObject *video in result)
              {
               PFFile *parseFileWithImage = [video objectForKey:@"video"];
-                 NSString *stringURL = [NSString stringWithFormat:@"%@.mp4",parseFileWithImage.url];
-              NSURL *videoURL = [NSURL URLWithString:stringURL];
 
-                 Video *video = [[Video alloc]initWithUrl:videoURL];
-                 [self.arrayOfVideos addObject:video];
+                 NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+                 Video *video = [[Video alloc]initWithUrl:url];
+                  [self.arrayOfVideos addObject:video];
+
+
              }
 
          }

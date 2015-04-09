@@ -24,5 +24,6 @@
 
 @property NSString *stringPost;
 @property NSString *stringLink;
+@property NSString *stringVideoURL;
 
 @end

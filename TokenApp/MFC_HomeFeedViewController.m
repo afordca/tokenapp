@@ -46,6 +46,8 @@
 @property UIImagePickerController *imagePicker;
 @property UIImage *imageCreatePhoto;
 @property (strong, nonatomic) NSURL *videoURL;
+@property (strong, nonatomic) NSString *stringVideoData;
+
 
 @property PFUser *user;
 @property User *userNew;

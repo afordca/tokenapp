@@ -57,6 +57,7 @@
 @property (strong, nonatomic) NSURL *videoURL;
 @property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
 @property BOOL isVideo;
+@property (strong, nonatomic) NSString *stringVideoData;
 
 @property UIImagePickerController *imagePickerProfile;
 @property NSMutableArray *arrayOfFollowers;
@@ -68,8 +69,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *buttonSettings;
 
 @property UIRefreshControl *mannyFresh;
+@property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
 
-@property (nonatomic,strong) MPMoviePlayerController* mc;
+
 
 @end
 
@@ -95,58 +97,26 @@
     currentUser = [CurrentUser sharedSingleton];
     self.user = [PFUser currentUser];
 
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(handleThumbnailImageRequestFinishNotification:)
-//                                                 name:MPMoviePlayerThumbnailImageRequestDidFinishNotification
-//                                               object:nil];
+    self.moviePlayer = [[MPMoviePlayerController alloc]init];
+
+
+//     NSURL *videoURL = [[currentUser.arrayOfVideos objectAtIndex:1]videoURL];
 //
-//    NSURL *videoURL = [[currentUser.arrayOfVideos objectAtIndex:0]videoURL];
+//    // create a movie player view controller
+//    MPMoviePlayerViewController * controller = [[MPMoviePlayerViewController alloc]initWithContentURL:videoURL];
 //
-//    MPMoviePlayerController *mpController = [[MPMoviePlayerController alloc]initWithContentURL:videoURL];
+//    controller.moviePlayer.controlStyle = MPMovieSourceTypeStreaming;
+//    [controller.moviePlayer prepareToPlay];
+//    [controller.moviePlayer play];
 //
-//    [mpController play];
-//
-//    [mpController requestThumbnailImagesAtTimes:@[@1.f] timeOption:MPMovieTimeOptionNearestKeyFrame];
-
-//    UIImage *thumbnail = nil;
-//    NSURL *url = [[currentUser.arrayOfVideos objectAtIndex:0]videoURL];
-//    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
-//    AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-//    generator.appliesPreferredTrackTransform = YES;
-//    NSError *error = nil;
-//    CMTime time = CMTimeMake(3, 1); // 3/1 = 3 second(s)
-//    CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:nil error:&error];
-//    if (error != nil)
-//        NSLog(@"%@: %@", self, error);
-//    thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
-//    CGImageRelease(imgRef);
-
-     NSURL *videoURL = [[currentUser.arrayOfVideos objectAtIndex:1]videoURL];
-//    AVURLAsset *asset1 = [[AVURLAsset alloc] initWithURL:videoURL options:nil];
-//    AVAssetImageGenerator *generate1 = [[AVAssetImageGenerator alloc] initWithAsset:asset1];
-//    generate1.appliesPreferredTrackTransform = YES;
-//    NSError *err = NULL;
-//    CMTime time = CMTimeMake(1, 2);
-//    CGImageRef oneRef = [generate1 copyCGImageAtTime:time actualTime:NULL error:&err];
-//    UIImage *one = [[UIImage alloc] initWithCGImage:oneRef];
-
-  
-
-    
-    MPMoviePlayerController *controller = [[MPMoviePlayerController alloc]
-                                           initWithContentURL:videoURL];
-    controller.controlStyle=MPMovieControlStyleFullscreen;
-
-
-    self.mc = controller; //Super important
-    controller.view.frame = self.view.bounds; //Set the size
-    controller.movieSourceType = MPMovieSourceTypeFile;
-    [self.view addSubview:controller.view]; //Show the view
-
-    [controller play]; //Start playing
+//    // and present it
+//    [self presentMoviePlayerViewControllerAnimated:controller];
 
 
 }
+
+
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -246,7 +216,8 @@
 //
 //    cell.imageViewProfileContent.image = newPhoto.picture;
 
-//    Video *newVideo = currentUser.arrayOfVideos[indexPath.row];
+    Video *newVideo = currentUser.arrayOfVideos[indexPath.row];
+    cell.imageViewProfileContent.image = newVideo.videoThumbnail;
 //
 //    NSLog(@"%@",newVideo);
 //
@@ -271,11 +242,6 @@
     return headerView;
 }
 
-//-(void)handleThumbnailImageRequestFinishNotification:(NSNotification*)notification
-//{
-//    NSDictionary *userInfo = [notification userInfo];
-//    UIImage *image = [userInfo valueForKey:MPMoviePlayerThumbnailImageKey];
-//}
 
 #pragma mark - CustomProfileDelegate Methods
 

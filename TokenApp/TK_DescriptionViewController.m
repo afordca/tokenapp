@@ -80,9 +80,15 @@
    else if (self.isVideo)
     {
         // Setting Video for upload to Parse
+        NSData *fileData;
+        NSString *fileName;
+
+        fileData = [NSData dataWithContentsOfFile:self.stringVideoURL];
+        fileName = @"video.mov";
+
         self.video = [PFObject objectWithClassName:@"Video"];
-        NSData *dataVideo = [NSData dataWithContentsOfURL:self.urlVideo];
-        PFFile *videoFile = [PFFile fileWithName:@"video" data:dataVideo];
+        PFFile *videoFile = [PFFile fileWithName:fileName data:fileData];
+
 
         [self.video setObject:self.currentUser forKey:@"user"];
         [self.video setObject:self.currentUser.objectId forKey:@"userName"];
