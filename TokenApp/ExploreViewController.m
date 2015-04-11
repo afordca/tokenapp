@@ -7,7 +7,7 @@
 //
 
 #import "ExploreViewController.h"
-#import "MFC_ProfileViewController.h"
+#import "TK_ProfileViewController.h"
 #import "TK_DescriptionViewController.h"
 #import "UIViewController+Camera.h"
 #import "TK_LinkViewController.h"

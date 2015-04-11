@@ -21,7 +21,7 @@
     AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     generator.appliesPreferredTrackTransform = YES;
     NSError *error = nil;
-    CMTime time = CMTimeMake(3, 1); // 3/1 = 3 second(s)
+    CMTime time = CMTimeMake(0, 1); // 3/1 = 3 second(s)
     CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:nil error:&error];
     if (error != nil)
         NSLog(@"%@: %@", self, error);

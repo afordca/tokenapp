@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ABaselNotBasilProduction. All rights reserved.
 //
 
-#import "MFC_ProfileViewController.h"
+#import "TK_ProfileViewController.h"
 #import "TK_DescriptionViewController.h"
 #import "UIViewController+Camera.h"
 #import "TK_LinkViewController.h"
@@ -19,6 +19,7 @@
 #import "PersonalActivityViewController.h"
 #import "FollowersViewController.h"
 #import "NotificationViewController.h"
+#import "DetailedPhotoViewController.h"
 #import <Parse/Parse.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
@@ -33,7 +34,7 @@
 #define SCREEN_HEIGTH 568
 
 
-@interface MFC_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegateFlowLayout,CustomProfileDelegate,UserDelegate>
+@interface TK_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegateFlowLayout,CustomProfileDelegate,UserDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *labelUserName;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionViewProfile;
@@ -65,17 +66,19 @@
 @property (retain,nonatomic)PersonalActivityViewController *pvc;
 @property (retain,nonatomic)FollowersViewController *fvc;
 @property (retain,nonatomic)NotificationViewController *nvc;
+@property (retain,nonatomic)DetailedPhotoViewController *dvc;
 @property PFUser *user;
 @property (strong, nonatomic) IBOutlet UIButton *buttonSettings;
 
 @property UIRefreshControl *mannyFresh;
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
 
+@property (nonatomic,strong) NSArray *arrayOfContent;
 
 
 @end
 
-@implementation MFC_ProfileViewController
+@implementation TK_ProfileViewController
 
 - (void)viewDidLoad
 {
@@ -97,7 +100,10 @@
     currentUser = [CurrentUser sharedSingleton];
     self.user = [PFUser currentUser];
 
+    //Intialize Movie Player
     self.moviePlayer = [[MPMoviePlayerController alloc]init];
+
+    self.arrayOfContent = [self loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos];
 
 
 //     NSURL *videoURL = [[currentUser.arrayOfVideos objectAtIndex:1]videoURL];
@@ -205,30 +211,64 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 //    return currentUser.arrayOfPhotos.count;
-    return currentUser.arrayOfVideos.count;
+    return self.arrayOfContent.count;
 }
 
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ProfileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProfile" forIndexPath:indexPath];
 
-//    Photo *newPhoto = currentUser.arrayOfPhotos[indexPath.row];
-//
-//    cell.imageViewProfileContent.image = newPhoto.picture;
+    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Photo class]])
+    {
+        Photo *photo = [Photo new];
+        photo = [self.arrayOfContent objectAtIndex:indexPath.row];
+        cell.imageViewProfileContent.image = photo.picture;
+        cell.imageViewVideoIcon.alpha = 0;
+        return cell;
+    }
+    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Video class]])
+    {
+        Video *video = [Video new];
+        video = [self.arrayOfContent objectAtIndex:indexPath.row];
+        cell.imageViewProfileContent.image = video.videoThumbnail;
+        cell.imageViewVideoIcon.alpha = 1;
 
-    Video *newVideo = currentUser.arrayOfVideos[indexPath.row];
-    cell.imageViewProfileContent.image = newVideo.videoThumbnail;
-//
-//    NSLog(@"%@",newVideo);
-//
-//     MPMoviePlayerController *mpController = [[MPMoviePlayerController alloc]initWithContentURL:newVideo.videoURL];
-//    [mpController requestThumbnailImagesAtTimes:@[@1.f] timeOption:MPMovieTimeOptionNearestKeyFrame];
-//    [mpController play];
-//    [mpController stop];
+        return cell;
+        
+    }
 
+    return nil;
+}
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Photo class]])
+    {
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        self.dvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"DetailPhotoViewController"];
 
-    return cell;
+        Photo *photo = [Photo new];
+        photo = [self.arrayOfContent objectAtIndex:indexPath.row];
+        self.dvc.detailPhoto = photo.picture;
+
+        //Create blurEffect and intialize visualEffect View
+
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        self.visualEffectView.frame = CGRectMake(0, 68, self.view.bounds.size.width, 452);
+        [self.visualEffectView addSubview:self.dvc.view];
+        self.visualEffectView.alpha = 0.f;
+        [self.view addSubview:self.visualEffectView];
+        [self.view bringSubviewToFront:self.visualEffectView];
+
+        [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [self.visualEffectView setAlpha:1.f];
+        } completion:^(BOOL finished) {
+            
+        }];
+
+    }
 }
 
 - (UICollectionReusableView *)collectionView: (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -550,14 +590,28 @@
 
 -(void)refershControlAction
 {
-    NSLog(@"Refresh");
-
     //Refresh HeaderView of CollectionView
     [self.collectionViewProfile reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,1)]];
 
     [currentUser loadArrayOfPhotos];
     [self.mannyFresh endRefreshing];
-
 }
+
+-(NSArray*)loadArrayOfContent:(NSMutableArray*)arrayOfPhotos arrayOfVideos:(NSMutableArray*)arrayOfVideos
+{
+
+    NSArray *arrayOfContent = [NSMutableArray new];
+    arrayOfContent = [NSArray arrayWithArray:[arrayOfPhotos arrayByAddingObjectsFromArray:arrayOfVideos]];
+
+//    NSSortDescriptor *sortDescriptor;
+//    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
+//                                                 ascending:YES];
+//    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+//    NSArray *sortedArray;
+//    sortedArray = [arrayOfContent sortedArrayUsingDescriptors:sortDescriptors];
+
+    return arrayOfContent;
+}
+
 
 @end

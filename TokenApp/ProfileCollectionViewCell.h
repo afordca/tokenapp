@@ -11,5 +11,6 @@
 @interface ProfileCollectionViewCell : UICollectionViewCell
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewProfileContent;
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewVideoIcon;
 
 @end

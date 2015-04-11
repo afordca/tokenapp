@@ -8,7 +8,7 @@
 
 #import "BalanceViewController.h"
 
-#import "MFC_ProfileViewController.h"
+#import "TK_ProfileViewController.h"
 #import "TK_DescriptionViewController.h"
 #import "TK_LinkViewController.h"
 #import "TK_PostViewController.h"

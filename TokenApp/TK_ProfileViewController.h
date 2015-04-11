@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CurrentUser.h"
 #import "Photo.h"
+#import "Video.h"
 
-@interface MFC_ProfileViewController : UIViewController
+@interface TK_ProfileViewController : UIViewController
 {
     CurrentUser *currentUser;
 }
