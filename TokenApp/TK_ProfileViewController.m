@@ -19,7 +19,7 @@
 #import "PersonalActivityViewController.h"
 #import "FollowersViewController.h"
 #import "NotificationViewController.h"
-#import "DetailedPhotoViewController.h"
+#import "DetailedPhotoVideoViewController.h"
 #import <Parse/Parse.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
@@ -66,7 +66,7 @@
 @property (retain,nonatomic)PersonalActivityViewController *pvc;
 @property (retain,nonatomic)FollowersViewController *fvc;
 @property (retain,nonatomic)NotificationViewController *nvc;
-@property (retain,nonatomic)DetailedPhotoViewController *dvc;
+@property (retain,nonatomic)DetailedPhotoVideoViewController *dvc;
 @property PFUser *user;
 @property (strong, nonatomic) IBOutlet UIButton *buttonSettings;
 
@@ -105,24 +105,7 @@
 
     self.arrayOfContent = [self loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos];
 
-
-//     NSURL *videoURL = [[currentUser.arrayOfVideos objectAtIndex:1]videoURL];
-//
-//    // create a movie player view controller
-//    MPMoviePlayerViewController * controller = [[MPMoviePlayerViewController alloc]initWithContentURL:videoURL];
-//
-//    controller.moviePlayer.controlStyle = MPMovieSourceTypeStreaming;
-//    [controller.moviePlayer prepareToPlay];
-//    [controller.moviePlayer play];
-//
-//    // and present it
-//    [self presentMoviePlayerViewControllerAnimated:controller];
-
-
 }
-
-
-
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -175,6 +158,16 @@
 - (IBAction)onButtonPressCancel:(id)sender
 {
     self.labelUserName.text = currentUser.userName;
+
+    [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [self.visualEffectView setAlpha:0.f];
+    } completion:^(BOOL finished) {
+
+        [self.visualEffectView removeFromSuperview];
+        [self.buttonCancelView setHidden:YES];
+        [self.buttonEditProfile setHidden:NO];
+
+    }];
 
     // Dismiss ActivityView with animation left to right
     [UIView animateWithDuration:0.5 animations:^{
@@ -249,7 +242,7 @@
 
         Photo *photo = [Photo new];
         photo = [self.arrayOfContent objectAtIndex:indexPath.row];
-        self.dvc.detailPhoto = photo.picture;
+        self.dvc.detailPhoto = photo;
 
         //Create blurEffect and intialize visualEffect View
 
@@ -262,6 +255,11 @@
         [self.view addSubview:self.visualEffectView];
         [self.view bringSubviewToFront:self.visualEffectView];
 
+        [self.buttonCancelView setHidden:NO];
+        [self.buttonEditProfile setHidden:YES];
+
+        self.labelUserName.text = @"Photo";
+
         [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
             [self.visualEffectView setAlpha:1.f];
         } completion:^(BOOL finished) {
@@ -269,6 +267,42 @@
         }];
 
     }
+
+    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Video class]])
+    {
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        self.dvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"DetailPhotoViewController"];
+
+        Video *video = [Video new];
+        video = [self.arrayOfContent objectAtIndex:indexPath.row];
+        self.dvc.detailVideo = video;
+
+        //Create blurEffect and intialize visualEffect View
+
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        self.visualEffectView.frame = CGRectMake(0, 68, self.view.bounds.size.width, 452);
+        [self.visualEffectView addSubview:self.dvc.view];
+        self.visualEffectView.alpha = 0.f;
+        [self.view addSubview:self.visualEffectView];
+        [self.view bringSubviewToFront:self.visualEffectView];
+
+        [self.buttonCancelView setHidden:NO];
+        [self.buttonEditProfile setHidden:YES];
+
+        self.labelUserName.text = @"Video";
+
+        [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [self.visualEffectView setAlpha:1.f];
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+    }
+
+
+
 }
 
 - (UICollectionReusableView *)collectionView: (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {

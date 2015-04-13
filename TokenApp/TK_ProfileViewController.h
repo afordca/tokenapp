@@ -11,9 +11,11 @@
 #import "Photo.h"
 #import "Video.h"
 
+
 @interface TK_ProfileViewController : UIViewController
 {
     CurrentUser *currentUser;
 }
+
 
 @end

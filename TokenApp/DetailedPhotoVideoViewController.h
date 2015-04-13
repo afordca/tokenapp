@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Photo.h"
+#import "Video.h"
 
-@interface DetailedPhotoViewController : UIViewController
+@interface DetailedPhotoVideoViewController : UIViewController
 
-@property (nonatomic,strong)UIImage *detailPhoto;
+@property (nonatomic,strong)Photo *detailPhoto;
+@property (nonatomic,strong)Video *detailVideo;
 
 @end

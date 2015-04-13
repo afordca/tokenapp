@@ -253,7 +253,6 @@
                  Video *video = [[Video alloc]initWithUrl:url];
                   [self.arrayOfVideos addObject:video];
 
-
              }
 
          }
