@@ -15,6 +15,7 @@
 #import "User.h"
 #import "Photo.h"
 #import "Video.h"
+#import "Link.h"
 
 // define the protocol for the delegate
 @protocol UserDelegate <NSObject>

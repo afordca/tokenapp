@@ -277,6 +277,16 @@
          else
          {
              NSLog(@"Worked Links");
+             for (PFObject *link in result)
+             {
+                 NSString *linkURL = [link objectForKey:@"url"];
+                 Link *link = [[Link alloc]initWithUrl:linkURL];
+                 [self.arrayOfLinks addObject:link];
+
+             }
+
+
+             
          }
      }];
     
@@ -329,46 +339,46 @@
 -(void)loadActivityFromCurrentUser
 {
 
-    self.arrayOfFromUserActivity = [NSMutableArray new];
-
-    [PFCloud callFunctionInBackground:@"PersonalActivity" withParameters:@{@"objectId": user.objectId} block:^(NSArray *result, NSError *error) {
-        if (error){
-            NSLog(@"%@", [error userInfo]);
-        }
-        else{
-
-            for (PFObject *activity in result) {
-                [self.arrayOfFromUserActivity addObject:activity];
-            }
-        }
-        [self loadArrayOfFollowing:nil row:0];
-    }];
-
-
-
-//    user = [PFUser currentUser];
 //    self.arrayOfFromUserActivity = [NSMutableArray new];
-//    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-//    [queryForActivity whereKey:@"fromUser" equalTo:user];
-//    [queryForActivity includeKey:@"fromUser"];
-//    [queryForActivity includeKey: @"toUser"];
-//    [queryForActivity includeKey:@"photo"];
-//    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-//     {
-//         if (error)
-//         {
-//             NSLog(@"%@",[error userInfo]);
-//         }
-//         else{
 //
-//             for (PFObject *activity in objects)
-//             {
-//                 [self.arrayOfFromUserActivity addObject:activity];
+//    [PFCloud callFunctionInBackground:@"PersonalActivity" withParameters:@{@"objectId": user.objectId} block:^(NSArray *result, NSError *error) {
+//        if (error){
+//            NSLog(@"%@", [error userInfo]);
+//        }
+//        else{
 //
-//             }
-//         }
-//         [self loadArrayOfFollowing:nil row:0];
-//     }];
+//            for (PFObject *activity in result) {
+//                [self.arrayOfFromUserActivity addObject:activity];
+//            }
+//        }
+//        [self loadArrayOfFollowing:nil row:0];
+//    }];
+
+
+
+    user = [PFUser currentUser];
+    self.arrayOfFromUserActivity = [NSMutableArray new];
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+    [queryForActivity whereKey:@"fromUser" equalTo:user];
+    [queryForActivity includeKey:@"fromUser"];
+    [queryForActivity includeKey: @"toUser"];
+    [queryForActivity includeKey:@"photo"];
+    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"%@",[error userInfo]);
+         }
+         else{
+
+             for (PFObject *activity in objects)
+             {
+                 [self.arrayOfFromUserActivity addObject:activity];
+
+             }
+         }
+         [self loadArrayOfFollowing:nil row:0];
+     }];
 }
 
 #pragma mark - User Helper Methods

@@ -30,5 +30,6 @@
 
 }
 
+-(NSArray*)loadArrayOfContent:(NSMutableArray*)photos arrayOfVideos:(NSMutableArray*)videos arrayOfLinks:(NSMutableArray*)links;
 
 @end

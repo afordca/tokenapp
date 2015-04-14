@@ -19,7 +19,9 @@
 #import "PersonalActivityViewController.h"
 #import "FollowersViewController.h"
 #import "NotificationViewController.h"
-#import "DetailedPhotoVideoViewController.h"
+#import "DetailedContentViewController.h"
+#import "TK_Manager.h"
+
 #import <Parse/Parse.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
@@ -66,7 +68,7 @@
 @property (retain,nonatomic)PersonalActivityViewController *pvc;
 @property (retain,nonatomic)FollowersViewController *fvc;
 @property (retain,nonatomic)NotificationViewController *nvc;
-@property (retain,nonatomic)DetailedPhotoVideoViewController *dvc;
+@property (retain,nonatomic)DetailedContentViewController *dvc;
 @property PFUser *user;
 @property (strong, nonatomic) IBOutlet UIButton *buttonSettings;
 
@@ -103,7 +105,10 @@
     //Intialize Movie Player
     self.moviePlayer = [[MPMoviePlayerController alloc]init];
 
-    self.arrayOfContent = [self loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos];
+
+    //TK Manager - Helper Methods
+    TK_Manager *manager = [TK_Manager new];
+    self.arrayOfContent = [manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks];
 
 }
 
@@ -203,7 +208,6 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return currentUser.arrayOfPhotos.count;
     return self.arrayOfContent.count;
 }
 
@@ -217,6 +221,8 @@
         photo = [self.arrayOfContent objectAtIndex:indexPath.row];
         cell.imageViewProfileContent.image = photo.picture;
         cell.imageViewVideoIcon.alpha = 0;
+        cell.labelLinkURL.alpha = 0;
+        cell.imageViewLinkURL.alpha = 0;
         return cell;
     }
     if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Video class]])
@@ -225,9 +231,23 @@
         video = [self.arrayOfContent objectAtIndex:indexPath.row];
         cell.imageViewProfileContent.image = video.videoThumbnail;
         cell.imageViewVideoIcon.alpha = 1;
+        cell.labelLinkURL.alpha = 0;
+        cell.imageViewLinkURL.alpha = 0;
 
         return cell;
         
+    }
+    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Link class]])
+    {
+        Link *link = [Link new];
+        link = [self.arrayOfContent objectAtIndex:indexPath.row];
+        cell.imageViewProfileContent.alpha = 0;
+        cell.imageViewVideoIcon.alpha = 0;
+        cell.labelLinkURL.alpha = 1;
+        cell.imageViewLinkURL.alpha = 1;
+        cell.labelLinkURL.text = [link.urlLink absoluteString];
+
+        return cell;
     }
 
     return nil;
@@ -300,6 +320,39 @@
         }];
         
     }
+    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Link class]])
+    {
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        self.dvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"DetailPhotoViewController"];
+
+        Link *link = [Link new];
+        link = [self.arrayOfContent objectAtIndex:indexPath.row];
+        self.dvc.detailLink = link;
+
+        //Create blurEffect and intialize visualEffect View
+
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        self.visualEffectView.frame = CGRectMake(0, 68, self.view.bounds.size.width, 452);
+        [self.visualEffectView addSubview:self.dvc.view];
+        self.visualEffectView.alpha = 0.f;
+        [self.view addSubview:self.visualEffectView];
+        [self.view bringSubviewToFront:self.visualEffectView];
+
+        [self.buttonCancelView setHidden:NO];
+        [self.buttonEditProfile setHidden:YES];
+
+        self.labelUserName.text = @"Video";
+
+        [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [self.visualEffectView setAlpha:1.f];
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+    }
+
 
 
 
@@ -629,22 +682,6 @@
 
     [currentUser loadArrayOfPhotos];
     [self.mannyFresh endRefreshing];
-}
-
--(NSArray*)loadArrayOfContent:(NSMutableArray*)arrayOfPhotos arrayOfVideos:(NSMutableArray*)arrayOfVideos
-{
-
-    NSArray *arrayOfContent = [NSMutableArray new];
-    arrayOfContent = [NSArray arrayWithArray:[arrayOfPhotos arrayByAddingObjectsFromArray:arrayOfVideos]];
-
-//    NSSortDescriptor *sortDescriptor;
-//    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
-//                                                 ascending:YES];
-//    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-//    NSArray *sortedArray;
-//    sortedArray = [arrayOfContent sortedArrayUsingDescriptors:sortDescriptors];
-
-    return arrayOfContent;
 }
 
 

@@ -10,4 +10,13 @@
 
 @implementation Link
 
+-(id)initWithUrl:(NSString*)URL
+{
+    NSURL *url = [NSURL URLWithString:URL];
+
+    self.urlLink = url;
+
+    return self;
+}
+
 @end

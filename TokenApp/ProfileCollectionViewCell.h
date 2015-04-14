@@ -13,4 +13,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewProfileContent;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewVideoIcon;
 
+@property (strong, nonatomic) IBOutlet UILabel *labelLinkURL;
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewLinkURL;
+
 @end

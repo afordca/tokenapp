@@ -10,6 +10,7 @@
 #import "CurrentUser.h"
 #import "Photo.h"
 #import "Video.h"
+#import "Link.h"
 
 
 @interface TK_ProfileViewController : UIViewController

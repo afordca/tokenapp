@@ -16,4 +16,6 @@
 
 @property  NSInteger *numberOfLikes;
 
+-(id)initWithUrl:(NSString*)URL;
+
 @end

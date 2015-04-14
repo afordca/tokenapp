@@ -74,26 +74,6 @@
 
      }];
 
-
-
-
-//    PFRelation *userFollowingRelation = [user relationForKey:@"Following"];
-//    PFQuery *queryForFollowing = userFollowingRelation.query;
-//    [queryForFollowing findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (error)
-//        {
-//            NSLog(@"%@",[error userInfo]);
-//        }
-//        else
-//        {
-//            for (PFUser *userFollower in objects)
-//            {
-//                [self.arrayOfFollowing addObject:userFollower];
-//            }
-//
-//        }
-//    }];
-//
     return self.arrayOfFollowing;
 }
 

@@ -22,6 +22,9 @@
 #import "ProfilePersonalViewController.h"
 #import "CreateContentViewController.h"
 #import "BalanceTableViewController.h"
+#import <Fabric/Fabric.h>
+#import <TwitterKit/TwitterKit.h>
+
 
 @interface AppDelegate ()
 
@@ -39,9 +42,9 @@
 
     
 
-    //Twitter setup
-    [PFTwitterUtils initializeWithConsumerKey:@"zZ6XjwBvVEKbin2fr69ocsUqv"
-                            consumerSecret:@"MOOl0dai4uxW6mIpEOBH1ogweVa2XNmiCaJwtR2NDathdAs0mk"];
+//    //Twitter setup
+//    [PFTwitterUtils initializeWithConsumerKey:@"zZ6XjwBvVEKbin2fr69ocsUqv"
+//                            consumerSecret:@"MOOl0dai4uxW6mIpEOBH1ogweVa2XNmiCaJwtR2NDathdAs0mk"];
     //Facebook setup
     [PFFacebookUtils initializeFacebook];
 
@@ -62,6 +65,7 @@
         [application registerForRemoteNotifications];
     }
 
+    [Fabric with:@[TwitterKit]];
 
     return YES;
 }

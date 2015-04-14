@@ -20,6 +20,9 @@
 		002E162F1A93F6E4000AE37B /* ExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E162E1A93F6E4000AE37B /* ExploreViewController.m */; };
 		002E163A1A94EFAF000AE37B /* UIViewController+Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E16391A94EFAF000AE37B /* UIViewController+Camera.m */; };
 		002E163D1A955973000AE37B /* ProfileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */; };
+		008AB0DD1ADCCC630025647B /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 008AB0DA1ADCCC630025647B /* TwitterKit.framework */; };
+		008AB0DE1ADCCC630025647B /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 008AB0DB1ADCCC630025647B /* TwitterKitResources.bundle */; };
+		008AB0DF1ADCCC630025647B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 008AB0DC1ADCCC630025647B /* Fabric.framework */; };
 		009DE9571AA7BE8500429AC4 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009DE9561AA7BE8500429AC4 /* SettingsViewController.m */; };
 		009EE0CB1A9BC79B00BEA172 /* UserActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009EE0CA1A9BC79B00BEA172 /* UserActivityTableViewCell.m */; };
 		00A68E951A9D10C500AAB98F /* FollowersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A68E941A9D10C500AAB98F /* FollowersTableViewCell.m */; };
@@ -27,7 +30,7 @@
 		00A68EA71A9EDC1F00AAB98F /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A68EA61A9EDC1F00AAB98F /* NotificationViewController.m */; };
 		00A68EAD1A9EEE5F00AAB98F /* NotificationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A68EAC1A9EEE5F00AAB98F /* NotificationsTableViewCell.m */; };
 		00A68EB01A9F9B2300AAB98F /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A68EAF1A9F9B2300AAB98F /* Notification.m */; };
-		00A990FF1AD722C500A635D7 /* DetailedPhotoVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A990FE1AD722C500A635D7 /* DetailedPhotoVideoViewController.m */; };
+		00A990FF1AD722C500A635D7 /* DetailedContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A990FE1AD722C500A635D7 /* DetailedContentViewController.m */; };
 		00B204861A82B3F8006A259A /* TK_DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B204851A82B3F8006A259A /* TK_DescriptionViewController.m */; };
 		00BF7B911A8DB9440089194E /* TK_TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BF7B901A8DB9440089194E /* TK_TabBarViewController.m */; };
 		00BF7B941A8DBABD0089194E /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BF7B931A8DBABD0089194E /* CustomTabBar.m */; };
@@ -149,6 +152,9 @@
 		002E16391A94EFAF000AE37B /* UIViewController+Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Camera.m"; sourceTree = "<group>"; };
 		002E163B1A955973000AE37B /* ProfileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCollectionViewCell.h; sourceTree = "<group>"; };
 		002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCollectionViewCell.m; sourceTree = "<group>"; };
+		008AB0DA1ADCCC630025647B /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
+		008AB0DB1ADCCC630025647B /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
+		008AB0DC1ADCCC630025647B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		009DE9551AA7BE8500429AC4 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		009DE9561AA7BE8500429AC4 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		009EE0C91A9BC79B00BEA172 /* UserActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserActivityTableViewCell.h; sourceTree = "<group>"; };
@@ -163,8 +169,8 @@
 		00A68EAC1A9EEE5F00AAB98F /* NotificationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsTableViewCell.m; sourceTree = "<group>"; };
 		00A68EAE1A9F9B2300AAB98F /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notification.h; sourceTree = "<group>"; };
 		00A68EAF1A9F9B2300AAB98F /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notification.m; sourceTree = "<group>"; };
-		00A990FD1AD722C500A635D7 /* DetailedPhotoVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedPhotoVideoViewController.h; sourceTree = "<group>"; };
-		00A990FE1AD722C500A635D7 /* DetailedPhotoVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedPhotoVideoViewController.m; sourceTree = "<group>"; };
+		00A990FD1AD722C500A635D7 /* DetailedContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedContentViewController.h; sourceTree = "<group>"; };
+		00A990FE1AD722C500A635D7 /* DetailedContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedContentViewController.m; sourceTree = "<group>"; };
 		00B204841A82B3F8006A259A /* TK_DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_DescriptionViewController.h; sourceTree = "<group>"; };
 		00B204851A82B3F8006A259A /* TK_DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TK_DescriptionViewController.m; sourceTree = "<group>"; };
 		00BF7B8F1A8DB9440089194E /* TK_TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_TabBarViewController.h; sourceTree = "<group>"; };
@@ -331,6 +337,7 @@
 				25ED67631A32132D004CD269 /* Social.framework in Frameworks */,
 				25ED67511A3212CE004CD269 /* Accounts.framework in Frameworks */,
 				25ED67671A321345004CD269 /* SystemConfiguration.framework in Frameworks */,
+				008AB0DF1ADCCC630025647B /* Fabric.framework in Frameworks */,
 				25ED67651A321337004CD269 /* StoreKit.framework in Frameworks */,
 				25ED67611A321327004CD269 /* Security.framework in Frameworks */,
 				25ED675F1A321319004CD269 /* QuartzCore.framework in Frameworks */,
@@ -339,6 +346,7 @@
 				25ED67591A3212F9004CD269 /* CoreLocation.framework in Frameworks */,
 				25ED67571A3212EF004CD269 /* CoreGraphics.framework in Frameworks */,
 				00CBEFB31A84125E00A32D0D /* Parse.framework in Frameworks */,
+				008AB0DD1ADCCC630025647B /* TwitterKit.framework in Frameworks */,
 				25ED67551A3212E8004CD269 /* CFNetwork.framework in Frameworks */,
 				25ED67531A3212DD004CD269 /* AudioToolbox.framework in Frameworks */,
 				12C3ECEC58F2EFB60B8FCB19 /* libPods-TokenApp.a in Frameworks */,
@@ -392,8 +400,8 @@
 			children = (
 				00BF7B921A8DBABD0089194E /* CustomTabBar.h */,
 				00BF7B931A8DBABD0089194E /* CustomTabBar.m */,
-				00BF7B8F1A8DB9440089194E /* TK_TabBarViewController.h */,
 				00BF7B901A8DB9440089194E /* TK_TabBarViewController.m */,
+				00BF7B8F1A8DB9440089194E /* TK_TabBarViewController.h */,
 			);
 			name = TabBar;
 			sourceTree = "<group>";
@@ -436,8 +444,8 @@
 				00A68E941A9D10C500AAB98F /* FollowersTableViewCell.m */,
 				009DE9551AA7BE8500429AC4 /* SettingsViewController.h */,
 				009DE9561AA7BE8500429AC4 /* SettingsViewController.m */,
-				00A990FD1AD722C500A635D7 /* DetailedPhotoVideoViewController.h */,
-				00A990FE1AD722C500A635D7 /* DetailedPhotoVideoViewController.m */,
+				00A990FD1AD722C500A635D7 /* DetailedContentViewController.h */,
+				00A990FE1AD722C500A635D7 /* DetailedContentViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -484,6 +492,9 @@
 		25A72F1F1A319CF20076AE07 = {
 			isa = PBXGroup;
 			children = (
+				008AB0DA1ADCCC630025647B /* TwitterKit.framework */,
+				008AB0DB1ADCCC630025647B /* TwitterKitResources.bundle */,
+				008AB0DC1ADCCC630025647B /* Fabric.framework */,
 				25A72F2A1A319CF20076AE07 /* TokenApp */,
 				25A72F441A319CF30076AE07 /* TokenAppTests */,
 				25A72F291A319CF20076AE07 /* Products */,
@@ -768,6 +779,7 @@
 				25A72F251A319CF20076AE07 /* Frameworks */,
 				25A72F261A319CF20076AE07 /* Resources */,
 				4918ADB6E8CC7EB538B92960 /* Copy Pods Resources */,
+				008AB0D91ADCCBE50025647B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -842,6 +854,7 @@
 			files = (
 				B9C6EB211A523D42003975CF /* tokenapp-facebook-info.plist in Resources */,
 				000FC6861A91142900A4F50F /* CreateMainView.xib in Resources */,
+				008AB0DE1ADCCC630025647B /* TwitterKitResources.bundle in Resources */,
 				B991FD8F1A3E6C8B00BB902F /* Default@3x.png in Resources */,
 				B9FD558A1A4157EF006AE066 /* Create.xcassets in Resources */,
 				B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */,
@@ -865,6 +878,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		008AB0D91ADCCBE50025647B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 53afe955a40f541aae5a7b50c923ad7385a88d81 da0261b384af771d4781279fe82ae295ce945c034759094cbc1a5f1596867767";
+		};
 		29413F6686C7D0E5BB8B0C31 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -920,7 +946,7 @@
 				B94B62DB1A5F94E800C42FAF /* TKActivityFeedViewController.m in Sources */,
 				00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */,
 				00C6DE581ABCB51200CC410C /* Video.m in Sources */,
-				00A990FF1AD722C500A635D7 /* DetailedPhotoVideoViewController.m in Sources */,
+				00A990FF1AD722C500A635D7 /* DetailedContentViewController.m in Sources */,
 				B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */,
 				B9D3934C1A4BE20E00C7733A /* TrendingViewController.m in Sources */,
 				00A68E951A9D10C500AAB98F /* FollowersTableViewCell.m in Sources */,
