@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CurrentUser.h"
 
 @interface LaunchPageViewController : UIViewController
+{
+    CurrentUser *currentUser;
+}
 
 @end

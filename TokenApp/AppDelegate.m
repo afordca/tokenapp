@@ -42,9 +42,9 @@
 
     
 
-//    //Twitter setup
-//    [PFTwitterUtils initializeWithConsumerKey:@"zZ6XjwBvVEKbin2fr69ocsUqv"
-//                            consumerSecret:@"MOOl0dai4uxW6mIpEOBH1ogweVa2XNmiCaJwtR2NDathdAs0mk"];
+    //Twitter setup
+    [PFTwitterUtils initializeWithConsumerKey:@"0iXinrOkjqjj0EDhINm4o24CL"
+                            consumerSecret:@"eJQqXVs7KhykJ1ejGQ0rMShYmL5RHPizU29X7Y91rEnykuA5qm"];
     //Facebook setup
     [PFFacebookUtils initializeFacebook];
 

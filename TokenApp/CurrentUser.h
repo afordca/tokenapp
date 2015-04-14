@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseUI/ParseUI.h>
+#import <TwitterKit/TwitterKit.h>
 
 #import "User.h"
 #import "Photo.h"
@@ -43,6 +44,7 @@
 
 
 @property PFUser *user;
+
 
 // This is the method to access this Singleton class
 + (CurrentUser *)sharedSingleton;
