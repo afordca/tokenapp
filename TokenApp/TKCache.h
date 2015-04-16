@@ -18,6 +18,11 @@
 
 - (void)clear;
 - (void)setAttributesForPhoto:(PFObject *)photo likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser;
+-(void)setAttributesForVideo:(PFObject *)video likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser;
+
+
+#pragma Attributes for photo
+
 - (NSDictionary *)attributesForPhoto:(PFObject *)photo;
 - (NSNumber *)likeCountForPhoto:(PFObject *)photo;
 - (NSNumber *)commentCountForPhoto:(PFObject *)photo;
@@ -30,14 +35,44 @@
 - (void)incrementCommentCountForPhoto:(PFObject *)photo;
 - (void)decrementCommentCountForPhoto:(PFObject *)photo;
 
+#pragma Attributes for video
 
--(void)setAttributesForVideo:(PFObject *)video;
+-(NSDictionary *)attributesForVideo:(PFObject *)video;
+-(NSNumber *)likeCountForVideo:(PFObject *)video;
+- (NSNumber *)commentCountForVideo:(PFObject *)video;
+- (NSArray *)likersForVideo:(PFObject *)video;
+- (NSArray *)commentersForVideo:(PFObject *)video;
+- (void)setVideoIsLikedByCurrentUser:(PFObject *)video liked:(BOOL)liked;
+- (BOOL)isVideoLikedByCurrentUser:(PFObject *)video;
+- (void)incrementLikerCountForVideo:(PFObject *)video;
+- (void)decrementLikerCountForVideo:(PFObject *)video;
+- (void)incrementCommentCountForVideo:(PFObject *)video;
+- (void)decrementCommentCountForVideo:(PFObject *)video;
+
+#pragma Attributes for Post 
+
+//-(NSDictionary *)attributesForVideo:(PFObject *)video;
+//-(NSNumber *)likeCountForVideo:(PFObject *)video;
+//- (NSNumber *)commentCountForVideo:(PFObject *)video;
+//- (NSArray *)likersForVideo:(PFObject *)video;
+//- (NSArray *)commentersForVideo:(PFObject *)video;
+//- (void)setVideoIsLikedByCurrentUser:(PFObject *)video liked:(BOOL)liked;
+//- (BOOL)isVideoLikedByCurrentUser:(PFObject *)video;
+//- (void)incrementLikerCountForVideo:(PFObject *)video;
+//- (void)decrementLikerCountForVideo:(PFObject *)video;
+//- (void)incrementCommentCountForVideo:(PFObject *)video;
+//- (void)decrementCommentCountForVideo:(PFObject *)video;
+
+#pragma Attributes for Link
 
 
 - (NSDictionary *)attributesForUser:(PFUser *)user;
 - (NSNumber *)photoCountForUser:(PFUser *)user;
 - (BOOL)followStatusForUser:(PFUser *)user;
 - (void)setPhotoCount:(NSNumber *)count user:(PFUser *)user;
+- (void)setVideoCount:(NSNumber *)count user:(PFUser *)user;
+- (void)setNoteCount: (NSNumber *)count user:(PFUser *)user;
+- (void)setLinkCount: (NSNumber *)count user:(PFUser *)user;
 - (void)setFollowStatus:(BOOL)following user:(PFUser *)user;
 
 - (void)setFacebookFriends:(NSArray *)friends;

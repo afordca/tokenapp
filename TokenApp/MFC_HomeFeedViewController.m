@@ -88,8 +88,6 @@
     [singleUser loadActivityFromCurrentUser];
 
 
-
-
 }
 
 -(void)viewDidAppear:(BOOL)animated
