@@ -9,13 +9,13 @@
 #import "DetailedPhotoVideoViewController.h"
 #import "UIColor+HEX.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "TKContentDetailFooter.h"
 
-@interface DetailedPhotoVideoViewController  ()
-
+@interface DetailedPhotoVideoViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *buttonComment;
 @property (strong, nonatomic) IBOutlet UIButton *buttonLike;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewDetailPhoto;
-@property (strong,nonatomic) MPMoviePlayerController *videoController;
+@property (strong, nonatomic) MPMoviePlayerController *videoController;
 
 @end
 
@@ -24,6 +24,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    //self.likeUsers = nil;
+
 
     if (self.detailPhoto)
     {
@@ -44,9 +47,9 @@
                                                    object:self.videoController];
 
         [self.videoController play];
-
-
     }
+
+
 
     //Setup LoginButton Appearance
     CALayer *layerComment = self.buttonComment.layer;
@@ -59,6 +62,12 @@
     layerLike.borderColor = [[UIColor colorwithHexString:@"#72c74a" alpha:.9]CGColor];
     layerLike.borderWidth = 1.5f;
 
+    //Setup table header
+    TKContentDetailFooter *footerView = [[TKContentDetailFooter alloc]initWithFrame:[TKContentDetailFooter rectForView]];
+    self.tableView.tableFooterView = footerView;
+
+
+
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -69,14 +78,16 @@
 
     [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
 
-    // Stop the video player and remove it from view
+     //Stop the video player and remove it from view
     [self.videoController stop];
     [self.videoController.view removeFromSuperview];
     self.videoController = nil;
 }
 
 
-- (void)videoPlayBackDidFinish:(NSNotification *)notification {
+
+- (void)videoPlayBackDidFinish:(NSNotification *)notification
+{
 
     // Stop the video player
     [self.videoController stop];

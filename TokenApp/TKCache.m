@@ -58,19 +58,19 @@
     [self setAttributes:attributes forPhoto:photo];
 }
 
--(void)setAttributesForVideo:(PFObject *)video likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser {
-    NSDictionary *videoAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     [NSNumber numberWithBool:likedByCurrentUser],
-                                     kPTKVideoAttributesIsLikedByCurrentUserKey,
-                                     @([likers count]), kPTKVideoAttributesLikeCountKey,
-                                     likers, kPTKVideoAttributesLikeCountKey,
-                                     @([commenters count]), kPTKVideoAttributesLikeCountKey,
-                                     commenters, kPTKUserAttributesPhotoCountKey,
-                                     nil];
-    [self setAttributes:videoAttributes forVideo:photo];
-
-
-}
+//-(void)setAttributesForVideo:(PFObject *)video likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser {
+//    NSDictionary *videoAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                     [NSNumber numberWithBool:likedByCurrentUser],
+//                                     kPTKVideoAttributesIsLikedByCurrentUserKey,
+//                                     @([likers count]), kPTKVideoAttributesLikeCountKey,
+//                                     likers, kPTKVideoAttributesLikeCountKey,
+//                                     @([commenters count]), kPTKVideoAttributesLikeCountKey,
+//                                     commenters, kPTKUserAttributesPhotoCountKey,
+//                                     nil];
+//    [self setAttributes:videoAttributes forVideo:photo];
+//
+//
+//}
 
 - (NSDictionary *)attributesForPhoto:(PFObject *)photo {
     NSString *key = [self keyForPhoto:photo];
@@ -206,10 +206,10 @@
     [self setAttributes:attributes forUser:user];
 }
 
--(void)setVideoCount:(NSNumber *)count user:(PFUser *)user {
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForUser:user]];
-    [attributes setObject:count forKeyedSubscript:kPTKUserAttributesVideoCountKey];
-}
+//-(void)setVideoCount:(NSNumber *)count user:(PFUser *)user {
+//    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForUser:user]];
+//    [attributes setObject:count forKeyedSubscript:kPTKUserAttributesVideoCountKey];
+//}
 
 - (void)setFollowStatus:(BOOL)following user:(PFUser *)user {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForUser:user]];
@@ -252,10 +252,10 @@
     [self.cache setObject:attributes forKey:key];
 }
 
-- (void)setAttributes:(NSDictionary *)attributes forVideo:(PFObject *)video {
-    NSString *key = [self keyforVideo:video];
-    [self.cache setObject:attributes forKey:key];
-}
+//- (void)setAttributes:(NSDictionary *)attributes forVideo:(PFObject *)video {
+//    NSString *key = [self keyforVideo:video];
+//    [self.cache setObject:attributes forKey:key];
+//}
 
 
 - (NSString *)keyForPhoto:(PFObject *)photo {

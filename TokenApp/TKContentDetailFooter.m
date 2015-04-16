@@ -173,6 +173,10 @@
 
 }
 
++ (CGRect)rectForView {
+    return CGRectMake( 0.0f, 0.0f, [UIScreen mainScreen].bounds.size.width, 69.0f);
+}
+
 
 
 

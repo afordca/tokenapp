@@ -310,10 +310,10 @@
             </objects>
             <point key="canvasLocation" x="-387" y="-541"/>
         </scene>
-        <!--View Controller-->
+        <!--Detailed Photo Video View Controller-->
         <scene sceneID="y0e-L7-UcA">
             <objects>
-                <viewController id="gib-Oh-Ihe" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailedPhotoVideoViewController" id="gib-Oh-Ihe" customClass="DetailedPhotoVideoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AaU-iF-iOI"/>
                         <viewControllerLayoutGuide type="bottom" id="9Ro-Mm-PBS"/>
@@ -348,10 +348,10 @@
             </objects>
             <point key="canvasLocation" x="345" y="130"/>
         </scene>
-        <!--Detailed Photo Video View Controller-->
+        <!--View Controller-->
         <scene sceneID="aks-ao-JJI">
             <objects>
-                <viewController storyboardIdentifier="DetailPhotoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="17Y-Xt-N9l" customClass="DetailedPhotoVideoViewController" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="17Y-Xt-N9l" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a8N-0M-aNb"/>
                         <viewControllerLayoutGuide type="bottom" id="s6V-Xh-yMW"/>
@@ -1777,10 +1777,10 @@
                                     <action selector="onButtonPressSave:" destination="x0p-Dq-Fn0" eventType="touchUpInside" id="nAw-3j-5Xg"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dOU-bF-OGq">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dOU-bF-OGq">
                                 <rect key="frame" x="0.0" y="67" width="320" height="501"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cx5-hW-gTM" userLabel="ContentView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cx5-hW-gTM" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="2" width="320" height="807"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PUBLIC INFO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amk-Tp-X96">

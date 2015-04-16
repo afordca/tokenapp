@@ -14,5 +14,7 @@
 
 @property (nonatomic,strong)Photo *detailPhoto;
 @property (nonatomic,strong)Video *detailVideo;
+@property(nonatomic,retain) UITableView *tableView;
+
 
 @end
