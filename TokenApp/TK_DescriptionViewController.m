@@ -6,7 +6,9 @@
 //
 //
 
+#import "AppDelegate.h"
 #import "TK_DescriptionViewController.h"
+#import "MFC_HomeFeedViewController.h"
 #import "EditPhotoViewController.h"
 #import "UIImage+ResizeAdditions.h"
 #import "Macros.h"
@@ -15,6 +17,11 @@
 #import "PTKContentDetailTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
+#import <Social/Social.h>
+
 
 @interface TK_DescriptionViewController () <UITextFieldDelegate,UITextViewDelegate>
 
@@ -41,6 +48,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.currentUser = [PFUser currentUser];
     [self initialize];
     [self setUI];
 }
@@ -173,7 +181,12 @@
             NSLog(@"Photo Saved");
             [currentUser.arrayOfPhotos addObject:self.imagePhoto];
 
-            [self.navigationController popViewControllerAnimated:YES];
+            UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+
+            [self.navigationController pushViewController: hc animated:YES];
+
+//            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
 }
@@ -187,7 +200,12 @@
         else
         {
             NSLog(@"Video Saved");
-            [self.navigationController popViewControllerAnimated:YES];
+//            [self.navigationController popViewControllerAnimated:YES];
+
+            UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+
+            [self.navigationController pushViewController: hc animated:YES];
         }
     }];
 }
@@ -201,7 +219,12 @@
         else
         {
             NSLog(@"Note Saved");
-            [self.navigationController popToRootViewControllerAnimated:YES];
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+
+            UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+
+            [self.navigationController pushViewController: hc animated:YES];
         }
     }];
 }
@@ -215,7 +238,12 @@
         else
         {
             NSLog(@"Link Saved");
-            [self.navigationController popToRootViewControllerAnimated:YES];
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+
+            UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+
+            [self.navigationController pushViewController: hc animated:YES];
         }
     }];
 }
@@ -224,7 +252,98 @@
 
 - (IBAction)buttonPressFacebook:(id)sender
 {
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+    {
 
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+
+        if (self.isLink)
+        {
+            [controller setInitialText:self.textViewDescriptionHashtags.text];
+            NSURL *linkURL = [NSURL URLWithString:self.stringLink];
+            [controller addURL:linkURL];
+            [self presentViewController:controller animated:YES completion:nil];
+
+            [self.link setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self saveLinkToParse];
+        }
+
+        if (self.isPost)
+        {
+            [controller setInitialText:self.stringPost];
+            [self presentViewController:controller animated:YES completion:nil];
+
+            [self.note setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self saveNoteToParse];
+        }
+
+        else if (self.isVideo)
+        {
+
+
+
+        }
+
+
+        else
+        {
+            [controller setInitialText:self.textViewDescriptionHashtags.text];
+            [controller addImage:self.imagePhoto];
+            [self presentViewController:controller animated:YES completion:nil];
+
+            [self.photo setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self savePhotoToParse];
+        }
+        
+    }
+
+}
+
+- (IBAction)buttonPressTwitter:(id)sender
+{
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+    {
+        SLComposeViewController *tweetSheet = [SLComposeViewController
+                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
+
+        if (self.isLink)
+        {
+            [tweetSheet setInitialText:self.textViewDescriptionHashtags.text];
+            NSURL *linkURL = [NSURL URLWithString:self.stringLink];
+            [tweetSheet addURL:linkURL];
+            [self presentViewController:tweetSheet animated:YES completion:nil];
+
+            [self.link setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self saveLinkToParse];
+        }
+
+        if (self.isPost)
+        {
+            [tweetSheet setInitialText:self.stringPost];
+            [self presentViewController:tweetSheet animated:YES completion:nil];
+
+            [self.note setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self saveNoteToParse];
+        }
+
+
+        // CANT POST VIDEO
+        else if (self.isVideo)
+        {
+            [self.video setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self saveVideoToParse];
+        }
+        else
+        {
+            [tweetSheet setInitialText:self.textViewDescriptionHashtags.text];
+            [tweetSheet addImage:self.imagePhoto];
+            [self presentViewController:tweetSheet animated:YES completion:nil];
+
+            [self.photo setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self savePhotoToParse];
+        }
+
+    }
 }
 
 

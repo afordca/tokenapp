@@ -338,24 +338,6 @@
 
 -(void)loadActivityFromCurrentUser
 {
-
-//    self.arrayOfFromUserActivity = [NSMutableArray new];
-//
-//    [PFCloud callFunctionInBackground:@"PersonalActivity" withParameters:@{@"objectId": user.objectId} block:^(NSArray *result, NSError *error) {
-//        if (error){
-//            NSLog(@"%@", [error userInfo]);
-//        }
-//        else{
-//
-//            for (PFObject *activity in result) {
-//                [self.arrayOfFromUserActivity addObject:activity];
-//            }
-//        }
-//        [self loadArrayOfFollowing:nil row:0];
-//    }];
-
-
-
     user = [PFUser currentUser];
     self.arrayOfFromUserActivity = [NSMutableArray new];
     PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
@@ -369,15 +351,47 @@
          {
              NSLog(@"%@",[error userInfo]);
          }
-         else{
+         else
+         {
 
              for (PFObject *activity in objects)
              {
-                 [self.arrayOfFromUserActivity addObject:activity];
+
+                 //PHOTO ACTIVITY
+                 if ([[activity objectForKey:@"mediaType"]isEqualToString:@"photo"])
+                 {
+                 PFFile *parseFileWithImage = [[activity objectForKey:@"photo"]objectForKey:@"image"];
+                 NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+                 NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+                 [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+                 {
+
+                     if (connectionError)
+                     {
+                         NSLog(@"%@",[connectionError userInfo]);
+                     }
+                     else
+                     {
+                         UIImage *photo = [UIImage imageWithData:data];
+                         Photo *activityPhoto = [[Photo alloc]initWithImage:photo];
+                         NSString *typeOfActivity = [activity objectForKey:@"type"];
+                         NSString *mediaType = [activity objectForKey:@"mediaType"];
+
+                         User *fromUser = [[User alloc]initWithUser:[activity objectForKey:@"fromUser"]];
+                         User *toUser = [[User alloc]initWithUser:[activity objectForKey:@"toUser"]];
+
+                         Activity *activity = [[Activity alloc]initWithPhoto:fromUser toUser:toUser activity:typeOfActivity media:mediaType photo:activityPhoto];
+
+                         [self.arrayOfFromUserActivity addObject:activity];
+
+                     }
+
+                 }];
+
+                 }
 
              }
          }
-         [self loadArrayOfFollowing:nil row:0];
      }];
 }
 

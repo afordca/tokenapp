@@ -9,14 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseUI/ParseUI.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <TwitterKit/TwitterKit.h>
 
 #import "User.h"
 #import "Photo.h"
 #import "Video.h"
 #import "Link.h"
+#import "Post.h"
+#import "Activity.h"
 
 // define the protocol for the delegate
 @protocol UserDelegate <NSObject>

@@ -55,8 +55,12 @@
     TK_DescriptionViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
     vc.imagePhoto = self.imageCreatePhoto;
     vc.stringVideoURL = self.stringVideoData;
+    vc.urlVideo = self.videoURL;
     vc.isVideo = self.isVideo;
+    [self dismissViewControllerAnimated:YES completion:nil];
+
     [self.navigationController pushViewController: vc animated:YES];
+
 
 }
 
@@ -269,6 +273,7 @@
     {
         NSURL *videoURL = info[UIImagePickerControllerMediaURL];
         self.stringVideoData = [videoURL path];
+        self.videoURL = videoURL;
 
         if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
         {

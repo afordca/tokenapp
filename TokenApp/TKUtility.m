@@ -137,50 +137,50 @@
     }];  
 }
 
-#pragma mark Facebook
-
-+ (BOOL)userHasValidFacebookData:(PFUser *)user {
-    // Check that PFUser has valid fbid that matches current FBSessions userId
-    NSString *facebookId = [user objectForKey:kPTKUserFacebookIDKey];
-    return (facebookId && facebookId.length > 0 && [facebookId isEqualToString:[[[PFFacebookUtils session] accessTokenData] userID]]);
-}
-
-+ (void)processFacebookProfilePictureData:(NSData *)newProfilePictureData {
-    NSLog(@"Processing profile picture of size: %@", @(newProfilePictureData.length));
-    if (newProfilePictureData.length == 0) {
-        return;
-    }
-
-    UIImage *image = [UIImage imageWithData:newProfilePictureData];
-
-    //Using a JPEG for larger pictures
-    UIImage *mediumImage = [image thumbnailImage:280 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationHigh];
-    UIImage *smallRoundedImage = [image thumbnailImage:64 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationLow];
-
-    NSData *mediumImageData = UIImageJPEGRepresentation(mediumImage, 0.5); // using JPEG for larger pictures
-    NSData *smallRoundedImageData = UIImagePNGRepresentation(smallRoundedImage);
-
-    if (mediumImageData.length > 0) {
-        PFFile *fileMediumImage = [PFFile fileWithData:mediumImageData];
-        [fileMediumImage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [[PFUser currentUser] setObject:fileMediumImage forKey:kPTKUserProfilePicMediumKey];
-                [[PFUser currentUser] saveInBackground];
-            }
-        }];
-    }
-
-    if (smallRoundedImageData.length > 0) {
-        PFFile *fileSmallRoundedImage = [PFFile fileWithData:smallRoundedImageData];
-        [fileSmallRoundedImage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [[PFUser currentUser] setObject:fileSmallRoundedImage forKey:kPTKUserProfilePicMediumKey];
-                [[PFUser currentUser] saveInBackground];
-            }
-        }];
-    }
-    NSLog(@"Processed profile picture");
-}
+//#pragma mark Facebook
+//
+//+ (BOOL)userHasValidFacebookData:(PFUser *)user {
+//    // Check that PFUser has valid fbid that matches current FBSessions userId
+//    NSString *facebookId = [user objectForKey:kPTKUserFacebookIDKey];
+//    return (facebookId && facebookId.length > 0 && [facebookId isEqualToString:[[[PFFacebookUtils session] accessTokenData] userID]]);
+//}
+//
+//+ (void)processFacebookProfilePictureData:(NSData *)newProfilePictureData {
+//    NSLog(@"Processing profile picture of size: %@", @(newProfilePictureData.length));
+//    if (newProfilePictureData.length == 0) {
+//        return;
+//    }
+//
+//    UIImage *image = [UIImage imageWithData:newProfilePictureData];
+//
+//    //Using a JPEG for larger pictures
+//    UIImage *mediumImage = [image thumbnailImage:280 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationHigh];
+//    UIImage *smallRoundedImage = [image thumbnailImage:64 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationLow];
+//
+//    NSData *mediumImageData = UIImageJPEGRepresentation(mediumImage, 0.5); // using JPEG for larger pictures
+//    NSData *smallRoundedImageData = UIImagePNGRepresentation(smallRoundedImage);
+//
+//    if (mediumImageData.length > 0) {
+//        PFFile *fileMediumImage = [PFFile fileWithData:mediumImageData];
+//        [fileMediumImage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//            if (!error) {
+//                [[PFUser currentUser] setObject:fileMediumImage forKey:kPTKUserProfilePicMediumKey];
+//                [[PFUser currentUser] saveInBackground];
+//            }
+//        }];
+//    }
+//
+//    if (smallRoundedImageData.length > 0) {
+//        PFFile *fileSmallRoundedImage = [PFFile fileWithData:smallRoundedImageData];
+//        [fileSmallRoundedImage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//            if (!error) {
+//                [[PFUser currentUser] setObject:fileSmallRoundedImage forKey:kPTKUserProfilePicMediumKey];
+//                [[PFUser currentUser] saveInBackground];
+//            }
+//        }];
+//    }
+//    NSLog(@"Processed profile picture");
+//}
 
 +(BOOL)userHasProfilePictures:(PFUser *)user
 {

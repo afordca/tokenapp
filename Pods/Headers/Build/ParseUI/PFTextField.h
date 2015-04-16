@@ -1,1 +1,1 @@
-../../../ParseUI/ParseUI/Classes/Internal/Views/PFTextField.h
+../../../ParseUI/ParseUI/Classes/Views/PFTextField.h

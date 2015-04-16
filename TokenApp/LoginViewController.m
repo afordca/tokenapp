@@ -15,7 +15,7 @@
 #import "ProfilePersonalViewController.h"
 #import <MBProgressHUD.h>
 #import "AppDelegate.h"
-#import <ParseFacebookUtils/PFFacebookUtils.h> 
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "SignUpViewController.h"
 

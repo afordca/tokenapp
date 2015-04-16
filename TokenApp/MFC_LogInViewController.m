@@ -12,8 +12,7 @@
 #import "Reachability.h"
 #import "TKHomeViewController.h"
 #import "TKWelcomeViewController.h"
-#import <ParseFacebookUtils/PFFacebookUtils.h>
-#import "TKCache.h"
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import "Constants.h"
 #import "TKTabBarController.h"
 #import "TKActivityFeedViewController.h"

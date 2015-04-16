@@ -9,8 +9,11 @@
 #import "LaunchPageViewController.h"
 #import "UIColor+HEX.h"
 #import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
-#import <FacebookSDK/FacebookSDK.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
+
+
 #import <TwitterKit/TwitterKit.h>
 
 
@@ -160,62 +163,10 @@
                           
                       }
                   }
-
-            
-
-
-//             NSLog(@"Twitter signed in as -> name = %@ id = %@ ", [session userName],[session userID]);
-//
-//             /* Get user info */
-//             [[[Twitter sharedInstance] APIClient] loadUserWithID:[session userID]
-//                                                       completion:^(TWTRUser *user,
-//                                                                    NSError *error)
-//              {
-//                  // handle the response or error
-//                  if (![error isEqual:nil])
-//                  {
-//
-//                      
-//
-////                      NSLog(@"Twitter info   -> user = %@ ",user);
-////
-////                      self.twitterUser = [PFUser objectWithClassName:@"User"];
-////
-////                      NSURL *url = [NSURL URLWithString:user.profileImageURL];
-////                      NSData *dataForImage = [NSData dataWithContentsOfURL:url];
-////                      PFFile *imageFile = [PFFile fileWithName:@"image.png" data:dataForImage];
-////                      [self.twitterUser setObject:user.name forKey:@"username"];
-////                      [self.twitterUser setObject:imageFile forKey:@"profileImage"];
-////                      [self.twitterUser setObject:user.userID forKey:@"twitterID"];
-////                      [self.twitterUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-////                      {
-////                          if (error)
-////                          {
-////                              NSLog(@"Error: %@",[error userInfo]);
-////                          }
-////                          else
-////                          {
-////                          self.twitterUser = [PFUser currentUser];
-////                          [self performSegueWithIdentifier:@"pushToFeedFromFBTwitter" sender:self ];
-////                          }
-////                      }];
-//
-//
-//
-//                  }
-//                  else
-//                  {
-//                      NSLog(@"Twitter error getting profile : %@", [error localizedDescription]);
-//                  }
-//
-//
               }];
-//
-//
-//
+
          }
         }];
-//
     }
 }
 
@@ -228,71 +179,124 @@
         UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"Connection Error" message:@"Your network connection is weak, wait until you have a better internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
     } else {
-        [PFFacebookUtils logInWithPermissions:self.permissions block:^(PFUser *user, NSError *error) {
+
+
+        [PFFacebookUtils logInInBackgroundWithReadPermissions:self.permissions block:^(PFUser *user, NSError *error) {
             if (!user) {
                 NSLog(@"Uh oh. The user cancelled the Facebook login.");
             } else if (user.isNew) {
                 NSLog(@"User signed up and logged in through Facebook!");
                 // Here we'll create the user with all the stuff.
 
-                [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
+                [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                     if (!error) {
-                        // I save the ID because it's unique in terms of our app, if you save the name or last name, it's not.
+                        // result is a dictionary with the user's Facebook data
+                        NSDictionary *userData = (NSDictionary *)result;
 
-                        NSLog(@"%@",result);
-                        user.username = [result objectForKey:@"name"];
-                        user.email = [result objectForKey:@"email"];
+                        NSString *facebookID = userData[@"id"];
+                        NSString *name = userData[@"name"];
+//                        NSString *location = userData[@"location"][@"name"];
+//                        NSString *gender = userData[@"gender"];
+//                        NSString *birthday = userData[@"birthday"];
+//                        NSString *relationship = userData[@"relationship_status"];
+                        NSString *email = userData[@"email"];
 
+                        user.username = name;
+                        user.email = email;
+                        [user setObject:facebookID forKey:@"facebookID"];
 
                         PFInstallation *currentInstallation = [PFInstallation currentInstallation];
                         [currentInstallation setObject:user forKey:@"user"];
                         [currentInstallation saveInBackground];
 
-                        NSString *stringWithFacebookURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
-                        NSURL *url = [NSURL URLWithString:stringWithFacebookURL];
-                        NSData *dataForImage = [NSData dataWithContentsOfURL:url];
-                        PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataForImage];
-                        [user setObject:imageFile forKey:@"profileImage"];
+                        // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
+                        NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
 
-                        // We use save eventually because, if you don't have internet connection, it's going to save it later.
-                        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                            if (error) {
-                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oooops!" message:[NSString stringWithFormat:@"There's an error: %@", [error userInfo]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                [alertView show];
-                            } else {
-                                [self performSegueWithIdentifier:@"pushToFeedFromFBTwitter" sender:nil];
-                            }
-                        }];
+                        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+
+                        // Run network request asynchronously
+                        [NSURLConnection sendAsynchronousRequest:urlRequest
+                                                           queue:[NSOperationQueue mainQueue]
+                                               completionHandler:
+                         ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                             if (connectionError == nil && data != nil) {
+                                 // Set the image in the imageView
+                                 PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:data];
+                                 [user setObject:imageFile forKey:@"profileImage"];
+
+                                 // We use save eventually because, if you don't have internet connection, it's going to save it later.
+                                 [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                     if (error) {
+                                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oooops!" message:[NSString stringWithFormat:@"There's an error: %@", [error userInfo]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                         [alertView show];
+                                     } else {
+                                         [self performSegueWithIdentifier:@"pushToFeedFromFBTwitter" sender:nil];
+                                     }
+                                 }];
+                             }
+                         }];
+
+
+
                     }
                 }];
-            } else {
-                NSLog(@"User logged in through Facebook!");
-                [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+
+            } else
+            {
+                FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
+                [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                     if (!error) {
-                        // I save the ID because it's unique in terms of our app, if you save the name or last name, it's not.
+                        // result is a dictionary with the user's Facebook data
+                        NSDictionary *userData = (NSDictionary *)result;
 
-                        NSLog(@"%@",result);
-                        user.username = [result objectForKey:@"name"];
-                        user.email = [result objectForKey:@"email"];
+                        NSString *facebookID = userData[@"id"];
+                        NSString *name = userData[@"name"];
+                        //                        NSString *location = userData[@"location"][@"name"];
+                        //                        NSString *gender = userData[@"gender"];
+                        //                        NSString *birthday = userData[@"birthday"];
+                        //                        NSString *relationship = userData[@"relationship_status"];
+                        NSString *email = userData[@"email"];
 
-                        NSString *stringWithFacebookURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [result objectForKey:@"id"]];
-                        NSURL *url = [NSURL URLWithString:stringWithFacebookURL];
-                        NSData *dataForImage = [NSData dataWithContentsOfURL:url];
-                        PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:dataForImage];
-                        [user setObject:imageFile forKey:@"profileImage"];
+                        user.username = name;
+                        user.email = email;
+                        [user setObject:facebookID forKey:@"facebookID"];
 
-                        // We use save eventually because, if you don't have internet connection, it's going to save it later.
-                        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                            if (error) {
-                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oooops!" message:[NSString stringWithFormat:@"There's an error: %@", [error userInfo]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                [alertView show];
-                            } else {
-                                [self performSegueWithIdentifier:@"pushToFeedFromFBTwitter" sender:nil];
-                            }
-                        }];
+                        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                        [currentInstallation setObject:user forKey:@"user"];
+                        [currentInstallation saveInBackground];
+
+                        // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
+                        NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
+
+                        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+
+                        // Run network request asynchronously
+                        [NSURLConnection sendAsynchronousRequest:urlRequest
+                                                           queue:[NSOperationQueue mainQueue]
+                                               completionHandler:
+                         ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                             if (connectionError == nil && data != nil) {
+                                 // Set the image in the imageView
+                                 PFFile *imageFile = [PFFile fileWithName:@"profile.png" data:data];
+                                 [user setObject:imageFile forKey:@"profileImage"];
+
+                                 // We use save eventually because, if you don't have internet connection, it's going to save it later.
+                                 [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                     if (error) {
+                                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oooops!" message:[NSString stringWithFormat:@"There's an error: %@", [error userInfo]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                         [alertView show];
+                                     } else {
+                                         [self performSegueWithIdentifier:@"pushToFeedFromFBTwitter" sender:nil];
+                                     }
+                                 }];
+                             }
+                         }];
+                        
+                        
+                        
                     }
                 }];
-
             }
         }];
     }

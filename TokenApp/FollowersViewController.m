@@ -81,21 +81,6 @@
         }
 
 
-//        PFFile *parseFileWithImage = [[currentUser.arrayOfFollowing objectAtIndex:indexPath.row] objectForKey:@"profileImage"];
-//        NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-//        NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-//        [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-//         {
-//             if (!data)
-//             {   // Default Profile Pic
-//                 cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
-//             }
-//             else
-//             {   // Profile Pic
-//                 cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageWithData:data];
-//             }
-//         }];
-
         //Set Follower / Following Status
 
          NSString *objectID = [[currentUser.arrayOfFollowing objectAtIndex:indexPath.row]objectID];
@@ -109,8 +94,7 @@
 
     // User that is following Current User
     cellFollowers.userFollower = [currentUser.arrayOfFollowers objectAtIndex:indexPath.row];
-//    cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]objectForKey:@"username"];
-     cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]userName];
+    cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]userName];
 
     //Round Profile Pic
     cellFollowers.imageViewFollowerProfilePic.layer.cornerRadius = cellFollowers.imageViewFollowerProfilePic.frame.size.height /2;
@@ -126,23 +110,6 @@
         cellFollowers.imageViewFollowerProfilePic.image = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]profileImage];
     }
 
-    //Follower Profile Pic
-//    PFFile *parseFileWithImage = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row] objectForKey:@"profileImage"];
-//
-//    NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-//    NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-//    [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-//    {
-//        if (!data)
-//        {   // Default Profile Pic
-//            cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
-//        }
-//        else
-//        {   // Profile Pic
-//            cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageWithData:data];
-//        }
-//    }];
-
     //Set Follower / Following Status
 
         NSString *objectID = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]objectID];
@@ -156,26 +123,6 @@
 
 
 #pragma mark - FollowersTableViewCell Delegate Method
-
-//-(void)followerFollowingPressed:(PFUser *)user row:(NSInteger)row
-//{
-//    NSLog(@"%@",user);
-//    BOOL isFollowingFollower = [currentUser isFollowingFollower:user.objectId];
-//
-//    if (isFollowingFollower)
-//    {
-//        //Unfollow this user
-//        [currentUser removeUserFromFollowing:user row:row];
-//
-//    }
-//    else
-//    {
-//        //Follow this user
-//        [currentUser addUserToFollowing:user row:row];
-//
-//
-//    }
-//}
 
 -(void)followerFollowingPressed:(User *)user row:(NSInteger)row
 {

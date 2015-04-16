@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Macros.h"
 #import "Constants.h"
-#import <FacebookSDK.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
-
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 
 
 
