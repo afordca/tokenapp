@@ -42,6 +42,7 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonFollowers;
 @property (strong, nonatomic) IBOutlet UIButton *buttonFollowing;
+@property (strong, nonatomic) IBOutlet UITextView *textViewBiography;
 
 
 @end

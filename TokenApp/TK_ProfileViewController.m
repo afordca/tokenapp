@@ -45,6 +45,7 @@
 @property UIImage *imageProfile;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
 
+@property (strong, nonatomic) IBOutlet UITextView *textViewBiography;
 @property (strong, nonatomic) IBOutlet UIButton *buttonCancelView;
 @property (strong, nonatomic) IBOutlet UIButton *buttonEditProfile;
 
@@ -372,6 +373,7 @@
     headerView.imageViewProfilePic.image = currentUser.profileImage;
     headerView.labelFollowersCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowers.count];
     headerView.labelFollowingCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowing.count];
+    headerView.textViewBiography.text = currentUser.Biography;
 
     return headerView;
 }

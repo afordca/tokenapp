@@ -47,6 +47,13 @@
     [self loadUserInfo];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+
+    [self loadUserInfo];
+}
+
 -(void)loadUserInfo
 {
 
@@ -84,6 +91,8 @@
     [self.currentUserUpdate setObject:self.textFieldPhone.text forKey:@"Phone"];
     [self.currentUserUpdate setObject:self.textFieldBirthday.text forKey:@"Birthday"];
     [self.currentUserUpdate setObject:self.textFieldGender.text forKey:@"Gender"];
+    [self.currentUserUpdate setObject:[NSNumber numberWithBool:self.switchPostPrivate.on] forKey:@"PostPrivate"];
+    [self.currentUserUpdate setObject:[NSNumber numberWithBool:self.switchTokensPrivate.on] forKey:@"TokensPrivate"];
 
     [self.currentUserUpdate saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 
@@ -103,8 +112,8 @@
             currentUser.Gender = self.textFieldGender.text;
             currentUser.Birthday = self.textFieldBirthday.text;
 
-//            currentUser.switchPostPrivate;
-//            currentUser.switchTokensPrivate;
+            currentUser.switchPostPrivate = [NSNumber numberWithBool:self.switchPostPrivate.on];
+            currentUser.switchTokensPrivate = [NSNumber numberWithBool:self.switchTokensPrivate.on];
 
         [self dismissViewControllerAnimated:YES completion:nil];
         }

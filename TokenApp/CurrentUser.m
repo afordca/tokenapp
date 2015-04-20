@@ -450,6 +450,16 @@
             {
                 self.userName = user.username;
             }
+
+            self.Firstname = [user objectForKey:@"Firstname"];
+            self.Lastname = [user objectForKey:@"Lastname"];
+            self.Phone = [user objectForKey:@"Phone"];
+            self.Email = [user objectForKey:@"email"];
+            self.Biography = [user objectForKey:@"Biography"];
+            self.Birthday = [user objectForKey:@"Birthday"];
+            self.Gender = [user objectForKey: @"Gender"];
+            self.switchPostPrivate = [[user objectForKey:@"PostPrivate"]boolValue];
+            self.switchTokensPrivate = [[user objectForKey:@"TokensPrivate"]boolValue];
     
         }];
 }
