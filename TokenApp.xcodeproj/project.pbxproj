@@ -85,6 +85,7 @@
 		B9A4D3961A49163F00EDD2C9 /* ExploreResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3951A49163F00EDD2C9 /* ExploreResultsViewController.m */; };
 		B9A4D39A1A4920BB00EDD2C9 /* CategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3991A4920BB00EDD2C9 /* CategoriesViewController.m */; };
 		B9A4D39D1A49253400EDD2C9 /* CreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D39C1A49253400EDD2C9 /* CreatePostViewController.m */; };
+		B9BF770E1AE5A741002C4DCF /* TKContentDetailFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BF770D1AE5A741002C4DCF /* TKContentDetailFooter.m */; };
 		B9C6EB211A523D42003975CF /* tokenapp-facebook-info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9C6EB201A523D42003975CF /* tokenapp-facebook-info.plist */; };
 		B9D1A6AD1A44A23000BA2874 /* PTKContentDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D1A6AC1A44A23000BA2874 /* PTKContentDetailTableViewController.m */; };
 		B9D1A6B01A44A27700BA2874 /* SettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */; };
@@ -266,6 +267,8 @@
 		B9A4D3991A4920BB00EDD2C9 /* CategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesViewController.m; sourceTree = "<group>"; };
 		B9A4D39B1A49253400EDD2C9 /* CreatePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePostViewController.h; sourceTree = "<group>"; };
 		B9A4D39C1A49253400EDD2C9 /* CreatePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePostViewController.m; sourceTree = "<group>"; };
+		B9BF770C1AE5A741002C4DCF /* TKContentDetailFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKContentDetailFooter.h; sourceTree = "<group>"; };
+		B9BF770D1AE5A741002C4DCF /* TKContentDetailFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKContentDetailFooter.m; sourceTree = "<group>"; };
 		B9C6EB201A523D42003975CF /* tokenapp-facebook-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "tokenapp-facebook-info.plist"; sourceTree = "<group>"; };
 		B9D1A6AB1A44A23000BA2874 /* PTKContentDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PTKContentDetailTableViewController.h; path = ../PTKContentDetailTableViewController.h; sourceTree = "<group>"; };
 		B9D1A6AC1A44A23000BA2874 /* PTKContentDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PTKContentDetailTableViewController.m; path = ../PTKContentDetailTableViewController.m; sourceTree = "<group>"; };
@@ -433,6 +436,8 @@
 				009DE9551AA7BE8500429AC4 /* SettingsViewController.h */,
 				009DE9561AA7BE8500429AC4 /* SettingsViewController.m */,
 				00A990FD1AD722C500A635D7 /* DetailedContentViewController.h */,
+				B9BF770C1AE5A741002C4DCF /* TKContentDetailFooter.h */,
+				B9BF770D1AE5A741002C4DCF /* TKContentDetailFooter.m */,
 				00A990FE1AD722C500A635D7 /* DetailedContentViewController.m */,
 			);
 			name = Profile;
@@ -910,6 +915,7 @@
 				B9D1A6B01A44A27700BA2874 /* SettingsButtonItem.m in Sources */,
 				B9D393331A4BCC5D00C7733A /* TKHomeViewController.m in Sources */,
 				002E163D1A955973000AE37B /* ProfileCollectionViewCell.m in Sources */,
+				B9BF770E1AE5A741002C4DCF /* TKContentDetailFooter.m in Sources */,
 				00C6DE551ABCAE2400CC410C /* Photo.m in Sources */,
 				B9E39CA81A68A79E0030D6CA /* TKFindFriendsCell.m in Sources */,
 				B97F00FD1A6ECAD400690309 /* BalanceTableViewCell.m in Sources */,

@@ -9,6 +9,7 @@
 #import "DetailedContentViewController.h"
 #import "UIColor+HEX.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "TKContentDetailFooter.h"
 
 @interface DetailedContentViewController  ()
 
@@ -73,6 +74,11 @@
     layerLike.backgroundColor = [[UIColor clearColor] CGColor];
     layerLike.borderColor = [[UIColor colorwithHexString:@"#72c74a" alpha:.9]CGColor];
     layerLike.borderWidth = 1.5f;
+
+    //Setup table footer
+    TKContentDetailFooter *footerView = [[TKContentDetailFooter alloc]initWithFrame:[TKContentDetailFooter rectForView]];
+    self.tableView.tableFooterView = footerView;
+
 
 }
 
