@@ -10,16 +10,21 @@
 #import "UIColor+HEX.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "TKContentDetailFooter.h"
+#import "TKUtility.h"
+#import "TKCache.h"
 
-@interface DetailedPhotoVideoViewController ()
+@interface DetailedPhotoVideoViewController () <TKContentDetailFooterViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UIButton *buttonComment;
 @property (strong, nonatomic) IBOutlet UIButton *buttonLike;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewDetailPhoto;
 @property (strong, nonatomic) MPMoviePlayerController *videoController;
+@property (nonatomic, strong) UITextField *commentTextField;
+
 
 @end
 
 @implementation DetailedPhotoVideoViewController
+@synthesize commentTextField;
 
 - (void)viewDidLoad
 {
@@ -62,10 +67,9 @@
     layerLike.borderColor = [[UIColor colorwithHexString:@"#72c74a" alpha:.9]CGColor];
     layerLike.borderWidth = 1.5f;
 
-    //Setup table header
+    //Setup table footer
     TKContentDetailFooter *footerView = [[TKContentDetailFooter alloc]initWithFrame:[TKContentDetailFooter rectForView]];
     self.tableView.tableFooterView = footerView;
-
 
 
 }
@@ -82,6 +86,11 @@
     [self.videoController stop];
     [self.videoController.view removeFromSuperview];
     self.videoController = nil;
+
+    TKContentDetailFooter *footerView = [[TKContentDetailFooter alloc]initWithFrame:self.view.frame];
+    commentTextField = footerView.commentField;
+    commentTextField.delegate = self;
+    self.tableView.tableFooterView = footerView; 
 }
 
 
@@ -96,6 +105,7 @@
     [self.videoController play];
 
 }
+
 
 
 

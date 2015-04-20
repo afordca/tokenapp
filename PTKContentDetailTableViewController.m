@@ -14,6 +14,7 @@
 #import "ProfilePersonalViewController.h"
 #import "MBProgressHUD.h"
 #import "ParseUI.h"
+//#import "TKContentDetailFooter.h"
 //#import "PTKAcivityCell"
 
 enum ActionSheetTags {

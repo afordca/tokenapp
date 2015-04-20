@@ -88,6 +88,8 @@
         mainView.backgroundColor = [UIColor whiteColor];
         [self addSubview:mainView];
 
+        
+
     }
 
     return self;
@@ -177,7 +179,14 @@
     return CGRectMake( 0.0f, 0.0f, [UIScreen mainScreen].bounds.size.width, 69.0f);
 }
 
-
+- (void)setLikeButtonState:(BOOL)selected {
+    if (selected) {
+        [likeButton setTitleEdgeInsets:UIEdgeInsetsMake( -1.0f, 0.0f, 0.0f, 0.0f)];
+    } else {
+        [likeButton setTitleEdgeInsets:UIEdgeInsetsMake( 0.0f, 0.0f, 0.0f, 0.0f)];
+    }
+    [likeButton setSelected:selected];
+}
 
 
 

@@ -43,8 +43,8 @@
  */
 
 @protocol TKContentDetailFooterViewDelegate <NSObject>
-//@optional
+@optional
+-(void)didTapLikePhotoButtonAction:(UIButton *)button;
 //
 //
-//
-//@end
+@end

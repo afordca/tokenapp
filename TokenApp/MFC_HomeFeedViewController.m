@@ -262,6 +262,9 @@
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
 
+    //Hi there,
+    //My name is Basel. 
+
     // This method is called every time objects are loaded from Parse via the PFQuery
 }
 
