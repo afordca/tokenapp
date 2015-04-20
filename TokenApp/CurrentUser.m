@@ -25,7 +25,7 @@
 @synthesize profileImage;
 @synthesize userName;
 @synthesize arrayOfFollowers;
-@synthesize arrayOfUserActivity;
+@synthesize arrayOfNotifications;
 @synthesize arrayOfFollowing;
 @synthesize arrayOfPhotos;
 @synthesize user;
@@ -111,7 +111,7 @@
     self.arrayOfNotificationLikes = [NSMutableArray new];
     self.arrayOfNotificationTags = [NSMutableArray new];
 
-    for (PFObject *object in arrayOfUserActivity)
+    for (PFObject *object in arrayOfNotifications)
     {
         PFUser *toUser = [object objectForKey:@"toUser"];
         NSString *stringType = [object objectForKey:@"type"];
@@ -312,10 +312,11 @@
     
 }
 
+//Notifications
 -(void)loadActivityToCurrentUser
 {
     user = [PFUser currentUser];
-    self.arrayOfUserActivity = [NSMutableArray new];
+    self.arrayOfNotifications = [NSMutableArray new];
     PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
     [queryForActivity whereKey:@"toUser" equalTo:user];
     [queryForActivity includeKey:@"fromUser"];
@@ -329,13 +330,46 @@
 
             for (PFObject *activity in objects)
             {
-                [self.arrayOfUserActivity addObject:activity];
+                //PHOTO ACTIVITY
+                if ([[activity objectForKey:@"mediaType"]isEqualToString:@"photo"])
+                {
+                    PFFile *parseFileWithImage = [[activity objectForKey:@"photo"]objectForKey:@"image"];
+                    NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+                    NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+                    [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+                     {
+
+                         if (connectionError)
+                         {
+                             NSLog(@"%@",[connectionError userInfo]);
+                         }
+                         else
+                         {
+                             UIImage *photo = [UIImage imageWithData:data];
+                             Photo *activityPhoto = [[Photo alloc]initWithImage:photo];
+                             NSString *typeOfActivity = [activity objectForKey:@"type"];
+                             NSString *mediaType = [activity objectForKey:@"mediaType"];
+
+                             User *fromUser = [[User alloc]initWithUser:[activity objectForKey:@"fromUser"]];
+                             User *toUser = [[User alloc]initWithUser:[activity objectForKey:@"toUser"]];
+
+                             
+                             
+                             [self.arrayOfNotifications addObject:activity];
+                             
+                         }
+                         
+                     }];
+                    
+                }
+
             }
         }
         [self loadArrayOfNotifications];
     }];
 }
 
+//Personal Activity
 -(void)loadActivityFromCurrentUser
 {
     user = [PFUser currentUser];
@@ -353,10 +387,8 @@
          }
          else
          {
-
              for (PFObject *activity in objects)
              {
-
                  //PHOTO ACTIVITY
                  if ([[activity objectForKey:@"mediaType"]isEqualToString:@"photo"])
                  {
@@ -400,6 +432,7 @@
 -(void)setUserProfile
 {
         user = [PFUser currentUser];
+        self.userClicked = NO;
         //Loading Profile Image
         PFFile *profileImageFile = [user objectForKey:@"profileImage"];
         PFImageView *imageView = [PFImageView new];

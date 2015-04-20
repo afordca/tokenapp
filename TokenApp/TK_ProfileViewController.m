@@ -35,6 +35,8 @@
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGTH 568
 
+//When user is clicked, the Following Personal View behavior is triggered using this nib name
+#define FOLLOWINGVIEW_NIB_NAME "yYh-Bi-LcF-view-R8I-G1-Mba"
 
 @interface TK_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegateFlowLayout,CustomProfileDelegate,UserDelegate>
 
@@ -105,10 +107,11 @@
     //Intialize Movie Player
     self.moviePlayer = [[MPMoviePlayerController alloc]init];
 
-
     //TK Manager - Helper Methods
-    TK_Manager *manager = [TK_Manager new];
-    self.arrayOfContent = [manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks];
+
+        self.arrayOfContent = [TK_Manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks];
+
+
 
 }
 
@@ -127,12 +130,16 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    [self.buttonEditProfile setHidden:NO];
 
     [self.collectionViewProfile reloadData];
 
     self.labelUserName.text = currentUser.userName;
+    [self.collectionViewProfile reloadData];
+
+
     [self addObserver];
+
+
 }
 
 

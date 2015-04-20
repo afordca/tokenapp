@@ -150,6 +150,12 @@
 #define COCOAPODS_VERSION_MINOR_MBProgressHUD 9
 #define COCOAPODS_VERSION_PATCH_MBProgressHUD 1
 
+// NimbusKit-AttributedLabel
+#define COCOAPODS_POD_AVAILABLE_NimbusKit_AttributedLabel
+#define COCOAPODS_VERSION_MAJOR_NimbusKit_AttributedLabel 1
+#define COCOAPODS_VERSION_MINOR_NimbusKit_AttributedLabel 0
+#define COCOAPODS_VERSION_PATCH_NimbusKit_AttributedLabel 0
+
 // Parse
 #define COCOAPODS_POD_AVAILABLE_Parse
 #define COCOAPODS_VERSION_MAJOR_Parse 1

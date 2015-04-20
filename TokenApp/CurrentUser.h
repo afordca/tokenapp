@@ -19,6 +19,7 @@
 #import "Link.h"
 #import "Post.h"
 #import "Activity.h"
+#include "Notification.h"
 
 // define the protocol for the delegate
 @protocol UserDelegate <NSObject>
@@ -36,13 +37,29 @@
 @property (nonatomic,strong) NSMutableArray *arrayOfVideos;
 @property (nonatomic,strong) NSMutableArray *arrayOfLinks;
 @property (nonatomic,strong) NSMutableArray *arrayOfPosts;
-@property (nonatomic,strong) NSMutableArray *arrayOfUserActivity;
+@property (nonatomic,strong) NSMutableArray *arrayOfNotifications;
 @property (nonatomic,strong) NSMutableArray *arrayOfFromUserActivity;
 @property (nonatomic,strong) NSMutableArray *arrayOfFollowers;
 @property (nonatomic,strong) NSMutableArray *arrayOfFollowing;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationComments;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationLikes;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationTags;
+
+@property (strong, nonatomic)  NSString *Firstname;
+@property (strong, nonatomic)  NSString *Lastname;
+@property (strong, nonatomic)  NSString *Username;
+@property (strong, nonatomic)  NSString *Biography;
+
+@property (strong, nonatomic)  NSString *Email;
+@property (strong, nonatomic)  NSString *Phone;
+@property (strong, nonatomic)  NSString *Gender;
+@property (strong, nonatomic)  NSString *Birthday;
+
+@property BOOL switchPostPrivate;
+@property BOOL switchTokensPrivate;
+
+@property (nonatomic,weak) User *clickedUser;
+@property BOOL userClicked;
 
 
 @property PFUser *user;

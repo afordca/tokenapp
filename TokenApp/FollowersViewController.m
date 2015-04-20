@@ -9,12 +9,19 @@
 #import "FollowersViewController.h"
 #import "FollowersTableViewCell.h"
 #import <Parse/Parse.h>
+#import "NimbusKitAttributedLabel.h"
+#import "TK_ProfileViewController.h"
+
 
 #define FOLLOWING_NIB_NAME "oKx-ym-ZPg-view-6PJ-wm-kNy"
 
 @interface FollowersViewController ()<UITableViewDataSource, UITableViewDelegate,FollowersTableViewCellDelegate,UserDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableviewFollowers;
 @property (strong, nonatomic) IBOutlet UITableView *tableViewFollowing;
+
+@property UIView *mainView;
+@property (retain,nonatomic) TK_ProfileViewController *pvc;
+
 
 @end
 
@@ -94,6 +101,12 @@
 
     // User that is following Current User
     cellFollowers.userFollower = [currentUser.arrayOfFollowers objectAtIndex:indexPath.row];
+
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTapped:)];
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    [cellFollowers.labelUsername addGestureRecognizer:tapGestureRecognizer];
+    cellFollowers.labelUsername.userInteractionEnabled = YES;
+
     cellFollowers.labelUsername.text = [[currentUser.arrayOfFollowers objectAtIndex:indexPath.row]userName];
 
     //Round Profile Pic
@@ -121,6 +134,13 @@
     return cellFollowers;
 }
 
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%ld",(long)indexPath.row);
+
+
+}
 
 #pragma mark - FollowersTableViewCell Delegate Method
 
@@ -163,6 +183,40 @@
 
 }
 
+#pragma mark - UITapGesture Methods
+
+-(void)labelTapped:(UITapGestureRecognizer*)sender
+{
+    NSLog(@"Working");
+
+
+    UILabel *labelUsername = (UILabel *)sender.view;
+    NSString *stringUsername = labelUsername.text;
+
+    //Pulling the user object from Followers array
+    for (User *follower in currentUser.arrayOfFollowers)
+    {
+        if ([follower.userName isEqual:stringUsername])
+        {
+            currentUser.clickedUser = follower;
+            currentUser.userClicked = YES;
+
+        }
+    }
+//
+//    self.mainView = [[UIView alloc]initWithFrame:CGRectMake(0 , 0, 313, 445)];
+//
+//    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"PersonalView"];
+//    [self.mainView addSubview:self.pvc.view];
+//    self.mainView.alpha = 0;
+//
+//    [self.view addSubview:self.mainView];
+
+
+
+
+}
 
 
 @end

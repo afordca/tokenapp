@@ -57,6 +57,7 @@ PODS:
   - FormatterKit/UnitOfInformationFormatter (1.8.0)
   - FormatterKit/URLRequestFormatter (1.8.0)
   - MBProgressHUD (0.9.1)
+  - NimbusKit-AttributedLabel (1.0.0)
   - Parse (1.7.1):
     - Bolts (~> 1.1)
   - ParseFacebookUtilsV4 (1.7.1):
@@ -76,6 +77,7 @@ DEPENDENCIES:
   - Facebook-iOS-SDK (~> 4.0)
   - FormatterKit (~> 1.7)
   - MBProgressHUD (~> 0.8)
+  - NimbusKit-AttributedLabel (~> 1.0)
   - Parse (~> 1.6)
   - ParseFacebookUtilsV4 (~> 1.7)
   - ParseUI
@@ -89,6 +91,7 @@ SPEC CHECKSUMS:
   Facebook-iOS-SDK: 6d05532c97e9c542f8d87f94b7f6ee217493d00b
   FormatterKit: bddde83e054edf9d9ee14f9de3b3a5103db256f4
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  NimbusKit-AttributedLabel: b07b1f99ba46801a1c0d32c43a3a044fdda46c15
   Parse: fa8ec29de6d82035635986c11946299fb1b38316
   ParseFacebookUtilsV4: fc44a339e38513fb6fc0bafbef34f69df6559e06
   ParseUI: 1a68e9cebc3bd458eed9605ce7b33d7cc082f473

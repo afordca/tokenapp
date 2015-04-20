@@ -13,6 +13,7 @@ pod 'Reachability', '~> 3.2'
 pod 'FormatterKit', '~> 1.7'
 pod 'UIImageEffects', '~> 0.0'
 pod 'ParseFacebookUtilsV4', '~> 1.7'
+pod 'NimbusKit-AttributedLabel', '~> 1.0'
 end
 
 target 'TokenAppTests' do

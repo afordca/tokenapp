@@ -401,7 +401,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sod-I5-oEa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="129.5" y="947.5"/>
+            <point key="canvasLocation" x="124.5" y="824.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="dzq-KL-BvU">
@@ -530,18 +530,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="313" height="445"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowersActivity" id="vbD-eN-OdJ" customClass="FollowersTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FollowersActivity" id="vbD-eN-OdJ" customClass="FollowersTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="313" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vbD-eN-OdJ" id="B8Q-Wd-auc">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kDN-Z0-fzH">
-                                                    <rect key="frame" x="52" y="15" width="250" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ProfileDefault" translatesAutoresizingMaskIntoConstraints="NO" id="bcs-qH-LOv">
                                                     <rect key="frame" x="8" y="8" width="36" height="36"/>
                                                 </imageView>
@@ -558,13 +552,19 @@
                                                         <action selector="buttonPressFollowFollowing:" destination="vbD-eN-OdJ" eventType="touchUpInside" id="99t-L3-yyG"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaB-mR-mXb" customClass="NIAttributedLabel">
+                                                    <rect key="frame" x="52" y="21" width="206" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
                                         <connections>
                                             <outlet property="imageViewFollowStatus" destination="3vG-dq-nGW" id="w6v-sk-4L1"/>
                                             <outlet property="imageViewFollowerProfilePic" destination="bcs-qH-LOv" id="KdI-e9-YWw"/>
-                                            <outlet property="labelUsername" destination="kDN-Z0-fzH" id="5bG-le-Rzf"/>
+                                            <outlet property="labelUsername" destination="eaB-mR-mXb" id="RvQ-8k-cSp"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -586,6 +586,183 @@
             </objects>
             <point key="canvasLocation" x="135.5" y="2016.5"/>
         </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="EZw-fQ-MAo">
+            <objects>
+                <viewController storyboardIdentifier="PersonalView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yYh-Bi-LcF" customClass="TK_ProfileViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bAb-gs-Z8w"/>
+                        <viewControllerLayoutGuide type="bottom" id="PIB-IH-V18"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="R8I-G1-Mba">
+                        <rect key="frame" x="0.0" y="0.0" width="313" height="445"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Crz-5K-mHq">
+                                <rect key="frame" x="0.0" y="0.0" width="313" height="445"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="c3j-rE-E3W">
+                                    <size key="itemSize" width="156" height="126"/>
+                                    <size key="headerReferenceSize" width="310" height="200"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CellProfile" id="r1X-dh-n5c" customClass="ProfileCollectionViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="156" height="126"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qn1-iJ-WdI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="156" height="126"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Video" translatesAutoresizingMaskIntoConstraints="NO" id="EXv-ei-xCb">
+                                                    <rect key="frame" x="110" y="8" width="35" height="35"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rn9-5H-fj2">
+                                                    <rect key="frame" x="8" y="93" width="137" height="21"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                    <color key="textColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Link" translatesAutoresizingMaskIntoConstraints="NO" id="08S-aa-fsv">
+                                                    <rect key="frame" x="41" y="16" width="70" height="70"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="imageViewLinkURL" destination="08S-aa-fsv" id="ktW-e6-zot"/>
+                                            <outlet property="imageViewProfileContent" destination="Qn1-iJ-WdI" id="Inn-9D-367"/>
+                                            <outlet property="imageViewVideoIcon" destination="EXv-ei-xCb" id="fO8-41-1sr"/>
+                                            <outlet property="labelLinkURL" destination="rn9-5H-fj2" id="3c0-MM-gCg"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProfileHeaderView" id="s9S-gz-nkh" customClass="ProfileCollectionReusableView">
+                                    <rect key="frame" x="0.0" y="0.0" width="313" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zrr-Os-xpf">
+                                            <rect key="frame" x="0.0" y="1" width="313" height="200"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPJ-HW-QHg">
+                                                    <rect key="frame" x="155" y="157" width="2" height="30"/>
+                                                    <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="178,622" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSn-B0-fRU">
+                                                    <rect key="frame" x="129" y="108" width="62" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="636" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Poq-O1-gZY">
+                                                    <rect key="frame" x="33" y="108" width="29" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="178,622" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jI-Pp-7nL">
+                                                    <rect key="frame" x="234" y="108" width="62" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Posts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sru-Tx-W1Z">
+                                                    <rect key="frame" x="25" y="127" width="44" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDt-NB-Jru">
+                                                    <rect key="frame" x="120" y="123" width="80" height="30"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                                    <state key="normal" title="Followers">
+                                                        <color key="titleColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="buttonPressFollowers:" destination="s9S-gz-nkh" eventType="touchUpInside" id="Sjf-Hw-JDZ"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GjT-FS-Veg">
+                                                    <rect key="frame" x="225" y="123" width="80" height="30"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                                    <state key="normal" title="Following">
+                                                        <color key="titleColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="buttonPressFollowing:" destination="s9S-gz-nkh" eventType="touchUpInside" id="rPx-Pe-YB2"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gU-lI-yA7">
+                                            <rect key="frame" x="30" y="157" width="96" height="41"/>
+                                            <state key="normal" image="FollowUser">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lvd-6R-bTo">
+                                            <rect key="frame" x="191" y="157" width="96" height="41"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                            <state key="normal" title="#Tokens" image="Balance">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pb6-Wo-dtc">
+                                            <rect key="frame" x="10" y="10" width="2" height="75"/>
+                                            <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </view>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="&quot;Striving to live life bodly with excellence&quot; HEY" translatesAutoresizingMaskIntoConstraints="NO" id="Tee-yN-Ead">
+                                            <rect key="frame" x="105" y="10" width="205" height="57"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                        <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XoV-lz-Hmu">
+                                            <rect key="frame" x="22" y="10" width="75" height="75"/>
+                                            <gestureRecognizers/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NQ2-iS-iqX">
+                                            <rect key="frame" x="22" y="10" width="75" height="75"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <gestureRecognizers/>
+                                    <connections>
+                                        <outlet property="buttonFollowers" destination="iDt-NB-Jru" id="Tbc-pY-aS9"/>
+                                        <outlet property="buttonFollowing" destination="GjT-FS-Veg" id="waP-4I-sVM"/>
+                                        <outlet property="imageViewProfilePic" destination="XoV-lz-Hmu" id="KKi-cb-Oeh"/>
+                                        <outlet property="labelFollowersCount" destination="CSn-B0-fRU" id="EIu-Tb-YyK"/>
+                                        <outlet property="labelFollowingCount" destination="0jI-Pp-7nL" id="efD-rv-CLr"/>
+                                    </connections>
+                                </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="yYh-Bi-LcF" id="QVF-zq-v71"/>
+                                    <outlet property="delegate" destination="yYh-Bi-LcF" id="iuf-DO-OeR"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="313" height="445"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="02O-6X-7I5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="124.5" y="260.5"/>
+        </scene>
         <!--Followers View Controller-->
         <scene sceneID="mL4-N1-Yrq">
             <objects>
@@ -602,13 +779,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="313" height="445"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowersActivity" id="0tq-jB-mrA" customClass="FollowersTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FollowersActivity" id="0tq-jB-mrA" customClass="FollowersTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="313" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0tq-jB-mrA" id="dWx-ll-gV7">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDM-vo-K42">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDM-vo-K42" customClass="NIAttributedLabel">
                                                     <rect key="frame" x="52" y="15" width="250" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -636,7 +813,7 @@
                                         <connections>
                                             <outlet property="imageViewFollowStatus" destination="ITS-6x-iYD" id="aek-zB-bKa"/>
                                             <outlet property="imageViewFollowerProfilePic" destination="qqq-ag-IxG" id="C3q-C4-FSz"/>
-                                            <outlet property="labelUsername" destination="YDM-vo-K42" id="SS8-du-Rvm"/>
+                                            <outlet property="labelUsername" destination="YDM-vo-K42" id="Irl-1G-hzo"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1806,11 +1983,11 @@
                                     <action selector="onButtonPressSave:" destination="x0p-Dq-Fn0" eventType="touchUpInside" id="nAw-3j-5Xg"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dOU-bF-OGq">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="dOU-bF-OGq">
                                 <rect key="frame" x="0.0" y="67" width="320" height="501"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cx5-hW-gTM" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="2" width="320" height="807"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cx5-hW-gTM" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="-8" width="320" height="807"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PUBLIC INFO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amk-Tp-X96">
                                                 <rect key="frame" x="8" y="21" width="106" height="21"/>
@@ -1831,41 +2008,57 @@
                                                 <rect key="frame" x="20" y="157" width="245" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="x0p-Dq-Fn0" id="81X-5v-3gE"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="UserName" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7VL-3P-iOA">
                                                 <rect key="frame" x="20" y="194" width="245" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="x0p-Dq-Fn0" id="d0q-1h-c0S"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WD5-Eo-1cO">
                                                 <rect key="frame" x="20" y="309" width="245" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="x0p-Dq-Fn0" id="MhG-Bf-81p"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gLA-SL-UuM">
                                                 <rect key="frame" x="20" y="347" width="245" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="x0p-Dq-Fn0" id="mxe-nf-MK4"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Gender" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I5B-Sg-0Yg">
                                                 <rect key="frame" x="20" y="383" width="245" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Birthday" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c2q-cA-bfP">
-                                                <rect key="frame" x="20" y="421" width="245" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="x0p-Dq-Fn0" id="FKj-Wm-6Ju"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Firstname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eNP-15-ztH">
                                                 <rect key="frame" x="20" y="120" width="245" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="x0p-Dq-Fn0" id="gOg-jf-Odq"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Biography" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9T5-JL-0V8">
                                                 <rect key="frame" x="20" y="231" width="245" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="x0p-Dq-Fn0" id="lti-dj-P1w"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Make Posts Private" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3QW-So-g5M">
                                                 <rect key="frame" x="20" y="496" width="131" height="21"/>
@@ -1945,6 +2138,14 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Birthday" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c2q-cA-bfP">
+                                                <rect key="frame" x="20" y="421" width="245" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="x0p-Dq-Fn0" id="OqL-jG-Ply"/>
+                                                </connections>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1970,6 +2171,20 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="imageViewProfilePic" destination="lPe-JT-nCx" id="FGw-lZ-RpU"/>
+                        <outlet property="scrollViewUserInfo" destination="dOU-bF-OGq" id="okb-U4-pVL"/>
+                        <outlet property="switchPostPrivate" destination="eu8-c0-Mpg" id="B6Y-JT-DeT"/>
+                        <outlet property="switchTokensPrivate" destination="Rav-PP-SuH" id="YmG-g8-ILW"/>
+                        <outlet property="textFieldBiography" destination="9T5-JL-0V8" id="aa2-E2-ZLW"/>
+                        <outlet property="textFieldBirthday" destination="c2q-cA-bfP" id="4JA-4y-hb8"/>
+                        <outlet property="textFieldEmail" destination="WD5-Eo-1cO" id="otM-uS-Ocf"/>
+                        <outlet property="textFieldFirstname" destination="eNP-15-ztH" id="0vl-Sa-6id"/>
+                        <outlet property="textFieldGender" destination="I5B-Sg-0Yg" id="QRU-g9-Hyr"/>
+                        <outlet property="textFieldLastname" destination="4SD-eT-xEr" id="HC0-24-GJO"/>
+                        <outlet property="textFieldPhone" destination="gLA-SL-UuM" id="iaJ-LB-8h2"/>
+                        <outlet property="textFieldUsername" destination="7VL-3P-iOA" id="4Oc-tS-08u"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="35W-fT-l2q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1985,6 +2200,7 @@
         <image name="Discover" width="25" height="25"/>
         <image name="Explore" width="375" height="100"/>
         <image name="Feed" width="25" height="25"/>
+        <image name="FollowUser" width="22" height="22"/>
         <image name="Followers" width="22" height="22"/>
         <image name="Food" width="185" height="100"/>
         <image name="Health" width="185" height="100"/>
