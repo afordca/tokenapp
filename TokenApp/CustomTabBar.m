@@ -22,7 +22,7 @@
     if (self = [super initWithFrame:frame])
     {
 
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor blueColor];
 
         //Add Home Feed Button
 
@@ -38,6 +38,7 @@
            forControlEvents:UIControlEventTouchUpInside];
 
         [self addSubview:btnHomeFeed];
+
 
         //Add Discover Button
 
@@ -72,6 +73,7 @@
 
         [self addSubview:btnCreate];
 
+
         //Add Profile Button
 
         btnProfile = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -100,7 +102,12 @@
                        action:@selector(clickBalance)
              forControlEvents:UIControlEventTouchUpInside];
 
+
+
         [self addSubview:btnBalance];
+
+
+
 
     }
     return self;

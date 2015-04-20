@@ -24,7 +24,13 @@
     CustomTabBar *customTabBar = [[CustomTabBar alloc] initWithFrame:CGRectMake(0,self.view.bounds.size.height - 49, self.view.bounds.size.width, 49)];
 
     customTabBar.delegate = self;
+
+
     [self.view addSubview:customTabBar];
+
+      [self.view addConstraint:[NSLayoutConstraint constraintWithItem:customTabBar attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+
+    
 
     self.tabBarNavigation.hidden = NO;
 
