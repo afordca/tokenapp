@@ -31,7 +31,7 @@
 - (void)decrementCommentCountForPhoto:(PFObject *)photo;
 
 
--(void)setAttributesForVideo:(PFObject *)video;
+//-(void)setAttributesForVideo:(PFObject *)video;
 
 
 - (NSDictionary *)attributesForUser:(PFUser *)user;

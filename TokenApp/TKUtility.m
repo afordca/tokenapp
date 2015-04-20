@@ -300,11 +300,21 @@
 
 //#pragma mark Activities 
 //
-//+(PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy
-//{
-//    PFQuery *queryLikes = [PFQuery queryWithClassName:kPTKActivityClassKey];
-//    [queryLikes whereKey:kPTKActivityPhotoKey equalTo:photo];
-//    [queryLikes whereKey:kPTKActivityTypeKey equalTo:photo];
-//}
++ (PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy {
+    PFQuery *queryLikes = [PFQuery queryWithClassName:kPTKActivityClassKey];
+    [queryLikes whereKey:kPTKActivityPhotoKey equalTo:photo];
+    [queryLikes whereKey:kPTKActivityTypeKey equalTo:kPTKActivityTypeKey];
+
+    PFQuery *queryComments = [PFQuery queryWithClassName:kPTKActivityClassKey];
+    [queryComments whereKey:kPTKActivityPhotoKey equalTo:photo];
+    [queryComments whereKey:kPTKActivityTypeKey equalTo:kPTKActivityTypeComment];
+
+    PFQuery *query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:queryLikes,queryComments,nil]];
+    [query setCachePolicy:cachePolicy];
+    [query includeKey:kPTKActivityFromUserKey];
+    [query includeKey:kPTKActivityPhotoKey];
+
+    return query;
+}
 
 @end
