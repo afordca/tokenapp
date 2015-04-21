@@ -13,7 +13,17 @@
 
 @interface TKContentDetailFooter : UIView
 
+//The photo displayed in the view
 @property (nonatomic, strong, readonly) PFObject *photo;
+
+//The video displayed in the view
+@property (nonatomic, strong, readonly) PFObject *video;
+
+//The Link displayed in the view
+@property (nonatomic, strong, readonly) PFObject *link;
+
+//The Post displayed in the view
+@property (nonatomic, strong, readonly) PFObject *post;
 
 @property (nonatomic, strong) NSArray *likeUsers;
 

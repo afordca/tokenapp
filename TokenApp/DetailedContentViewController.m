@@ -11,7 +11,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "TKContentDetailFooter.h"
 
-@interface DetailedContentViewController  ()
+@interface DetailedContentViewController  () <TKContentDetailFooterViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonComment;
 @property (strong, nonatomic) IBOutlet UIButton *buttonLike;
@@ -20,6 +20,8 @@
 @property (strong, nonatomic) IBOutlet UIView *viewLinkURL;
 @property (strong, nonatomic) IBOutlet UILabel *labelLinkURL;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewLinkURL;
+@property (weak, nonatomic) IBOutlet UITableView *myTableView;
+
 
 @end
 
@@ -70,14 +72,14 @@
     layerComment.borderColor = [[UIColor colorwithHexString:@"#72c74a" alpha:.9]CGColor];
     layerComment.borderWidth = 1.5f;
 
-    CALayer *layerLike = self.buttonLike.layer;
-    layerLike.backgroundColor = [[UIColor clearColor] CGColor];
-    layerLike.borderColor = [[UIColor colorwithHexString:@"#72c74a" alpha:.9]CGColor];
-    layerLike.borderWidth = 1.5f;
+//    CALayer *layerLike = self.buttonLike.layer;
+//    layerLike.backgroundColor = [[UIColor clearColor] CGColor];
+//    layerLike.borderColor = [[UIColor colorwithHexString:@"#72c74a" alpha:.9]CGColor];
+//    layerLike.borderWidth = 1.5f;
 
     //Setup table footer
     TKContentDetailFooter *footerView = [[TKContentDetailFooter alloc]initWithFrame:[TKContentDetailFooter rectForView]];
-    self.tableView.tableFooterView = footerView;
+    //self.myTableView.tableFooterView = footerView;
 
 
 }

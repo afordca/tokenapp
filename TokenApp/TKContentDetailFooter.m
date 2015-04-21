@@ -88,7 +88,7 @@
         mainView.backgroundColor = [UIColor whiteColor];
         [self addSubview:mainView];
 
-
+        [self createView];
 
     }
 
@@ -155,6 +155,10 @@
     [self addSubview:likeBarView];
 
     // Create the heart-shaped like button
+    likeBarView = [[UIView alloc] initWithFrame:CGRectMake(likeBarX, likeBarY, likeBarWidth, likeBarHeight)];
+    [likeBarView setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:likeBarView];
+
     likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [likeButton setFrame:CGRectMake(likeButtonX, likeButtonY, likeButtonDim, likeButtonDim)];
     [likeButton setBackgroundColor:[UIColor clearColor]];
@@ -166,8 +170,10 @@
     [[likeButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
     [likeButton setAdjustsImageWhenDisabled:NO];
     [likeButton setAdjustsImageWhenHighlighted:NO];
-    [likeButton setBackgroundImage:[UIImage imageNamed:@"ButtonLike.png"] forState:UIControlStateNormal];
-    [likeButton setBackgroundImage:[UIImage imageNamed:@"ButtonLikeSelected.png"] forState:UIControlStateSelected];
+    [likeButton setBackgroundImage:[UIImage imageNamed:@"Like.png"] forState:UIControlStateNormal];
+    //    [likeButton setImage:[UIImage imageNamed:@"Like.png"] forState:UIControlStateNormal];
+    //    [likeButton setImage:[UIImage imageNamed:@"LikeFill.png"] forState:UIControlStateSelected];
+    [likeButton setBackgroundImage:[UIImage imageNamed:@"LikeFill.png"] forState:UIControlStateSelected];
     [likeButton addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [likeBarView addSubview:likeButton];
 

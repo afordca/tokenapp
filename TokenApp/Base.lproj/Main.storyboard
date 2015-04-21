@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="NOK-V3-1nH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="NOK-V3-1nH">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -351,9 +351,54 @@
             <point key="canvasLocation" x="-387" y="-541"/>
         </scene>
         <!--Detailed Content View Controller-->
+        <scene sceneID="t4Q-Wn-Wwo">
+            <objects>
+                <viewController storyboardIdentifier="DetailPhotoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Go2-2q-mqi" customClass="DetailedContentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vxN-wP-uyp"/>
+                        <viewControllerLayoutGuide type="bottom" id="myd-2s-fa8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8cF-mN-X56">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="272" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZVb-ec-ca9">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="272" id="tHq-1n-Ejz">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tHq-1n-Ejz" id="dfd-hS-tye">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gb7-kQ-3R8">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="239"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Go2-2q-mqi" id="qjJ-Ky-qqL"/>
+                                    <outlet property="delegate" destination="Go2-2q-mqi" id="swQ-rq-xR5"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="myTableView" destination="ZVb-ec-ca9" id="HgQ-vF-BPC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gLx-4z-Ohk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-52" y="786"/>
+        </scene>
+        <!--View Controller-->
         <scene sceneID="aks-ao-JJI">
             <objects>
-                <viewController storyboardIdentifier="DetailPhotoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="17Y-Xt-N9l" customClass="DetailedContentViewController" sceneMemberID="viewController">
+                <viewController id="17Y-Xt-N9l" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a8N-0M-aNb"/>
                         <viewControllerLayoutGuide type="bottom" id="s6V-Xh-yMW"/>
@@ -429,19 +474,10 @@
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="313" height="445"/>
-                    <connections>
-                        <outlet property="buttonComment" destination="Ej2-aK-x7t" id="lHW-W4-8Nf"/>
-                        <outlet property="buttonLike" destination="3rn-09-hXd" id="VCI-TL-igW"/>
-                        <outlet property="buttonlinkURL" destination="jcY-xT-sL2" id="S1W-Kl-EqZ"/>
-                        <outlet property="imageViewDetailPhoto" destination="Z2b-8H-GmL" id="7d9-vu-3bq"/>
-                        <outlet property="imageViewLinkURL" destination="R9s-6e-KAa" id="eaT-5D-opY"/>
-                        <outlet property="labelLinkURL" destination="7aL-c2-Ei6" id="qEB-gw-2IA"/>
-                        <outlet property="viewLinkURL" destination="hZ2-lu-vj6" id="e7w-80-9so"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sod-I5-oEa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="124.5" y="824.5"/>
+            <point key="canvasLocation" x="271.5" y="762.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="dzq-KL-BvU">
@@ -2202,10 +2238,10 @@
                                     <action selector="onButtonPressSave:" destination="x0p-Dq-Fn0" eventType="touchUpInside" id="nAw-3j-5Xg"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="dOU-bF-OGq">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="dOU-bF-OGq">
                                 <rect key="frame" x="0.0" y="67" width="320" height="501"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cx5-hW-gTM" userLabel="ContentView">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cx5-hW-gTM" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="-305" width="320" height="807"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PUBLIC INFO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amk-Tp-X96">
