@@ -29,6 +29,8 @@
 @synthesize arrayOfFollowing;
 @synthesize arrayOfPhotos;
 @synthesize user;
+@synthesize numberOfPhotoTokens;
+@synthesize arrayOfBalanceActivity;
 
 
 + (CurrentUser *)sharedSingleton
@@ -50,7 +52,7 @@
 
 #pragma mark - LOAD ARRAY METHODS
 
--(void)loadArrayOfFollowers
+-(void)loadArrayOfFollowers:(void (^)(BOOL))completionHandler
 {
     user = [PFUser currentUser];
     self.arrayOfFollowers = [NSMutableArray new];
@@ -69,13 +71,15 @@
 
                  [self.arrayOfFollowers addObject:follower];
              }
+
+             completionHandler(YES);
          }
 
      }];
 
 }
 
--(void)loadArrayOfFollowing:(BOOL)update row:(NSInteger)row
+-(void)loadArrayOfFollowing:(BOOL)update row:(NSInteger)row completion:(void (^)(BOOL))completionHandler
 {
     user = [PFUser currentUser];
     self.arrayOfFollowing = [NSMutableArray new];
@@ -95,13 +99,15 @@
 
                  [self.arrayOfFollowing addObject:follower];
              }
+
+             completionHandler(YES);
+
              if (update) {
                   [self.delegate reloadTableAfterArrayUpdate:row];
              }
          }
 
      }];
-
 
 }
 
@@ -186,10 +192,9 @@
 
     }
 
-
 }
 
--(void)loadArrayOfPhotos
+-(void)loadArrayOfPhotos:(void (^)(BOOL))completionHandler
 {
     user = [PFUser currentUser];
     self.arrayOfPhotos = [NSMutableArray new];
@@ -224,13 +229,15 @@
 
                      [self.delegate reloadCollectionAfterArrayUpdate];
                  }];
+
              }
+              completionHandler(YES);
          }
      }];
 }
 
 
--(void)loadArrayOfVideos
+-(void)loadArrayOfVideos:(void (^)(BOOL))completionHandler
 {
     user = [PFUser currentUser];
     self.arrayOfVideos = [NSMutableArray new];
@@ -255,14 +262,14 @@
 
              }
 
+             completionHandler(YES);
+
          }
      }];
 
-
 }
 
-
--(void)loadArrayOfLinks
+-(void)loadArrayOfLinks:(void (^)(BOOL))completionHandler
 {
     user = [PFUser currentUser];
     self.arrayOfLinks = [NSMutableArray new];
@@ -284,15 +291,13 @@
                  [self.arrayOfLinks addObject:link];
 
              }
-
-
-             
+             completionHandler(YES);
          }
      }];
     
 }
 
--(void)loadArrayOfPosts
+-(void)loadArrayOfPosts:(void (^)(BOOL))completionHandler
 {
     user = [PFUser currentUser];
     self.arrayOfPosts = [NSMutableArray new];
@@ -500,7 +505,10 @@
         else
         {
             NSLog(@"User has been removed from Following");
-            [self loadArrayOfFollowing:YES row:row];
+            [self loadArrayOfFollowing:YES row:row completion:^(BOOL result)
+            {
+
+            }];
         }
 
         //   [self.delegate reloadTableAfterArrayUpdate:row];
@@ -531,7 +539,10 @@
         else
         {
             NSLog(@"User has been added to Following");
-            [self loadArrayOfFollowing:YES row:row];
+            
+            [self loadArrayOfFollowing:YES row:row completion:^(BOOL result) {
+
+            }];
         }
 
         [self.delegate reloadTableAfterArrayUpdate:row];
@@ -554,6 +565,55 @@
         return  [UIImage imageNamed:@"FollowAdd"];
 
     }
+}
+
+
+#pragma mark - TOKEN METHODS
+
+-(NSNumber*)getNumberOfPhotoTokens
+{
+    numberOfPhotoTokens = [NSNumber numberWithInt:0];
+
+
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+    [queryForActivity whereKey:@"type" equalTo:@"viewed"];
+    [queryForActivity whereKey:@"mediaType" equalTo:@"photo"];
+    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        if (error)
+        {
+            NSLog(@"Error:%@",[error userInfo]);
+        }
+        else
+        {
+
+            for (PFObject *photo in objects)
+            {
+                int value = [numberOfPhotoTokens intValue];
+                numberOfPhotoTokens = [NSNumber numberWithInt:value + 1];
+            }
+
+        }
+        
+    }];
+
+    return numberOfPhotoTokens;
+
+}
+
+-(NSNumber *)getNumberOfVideoTokens
+{
+    return 0;
+}
+
+-(NSNumber *)getNumberOfLinkTokens
+{
+    return 0;
+}
+
+-(NSNumber *)getNumberOfPostTokens
+{
+    return 0;
 }
 
 

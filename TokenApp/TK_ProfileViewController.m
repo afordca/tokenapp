@@ -110,7 +110,7 @@
 
     //TK Manager - Helper Methods
 
-        self.arrayOfContent = [TK_Manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks];
+    self.arrayOfContent = [TK_Manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks];
 
 
 
@@ -449,9 +449,9 @@
     self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
 
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"FollowersActivity"];
+    self.fvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"FollowersActivity"];
 
-    [self.mainView addSubview:self.pvc.view];
+    [self.mainView addSubview:self.fvc.view];
     self.mainView.alpha = 0;
 
     [self.view addSubview:self.mainView];
@@ -689,7 +689,9 @@
     //Refresh HeaderView of CollectionView
     [self.collectionViewProfile reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,1)]];
 
-    [currentUser loadArrayOfPhotos];
+    [currentUser loadArrayOfPhotos:^(BOOL result) {
+
+    }];
     [self.mannyFresh endRefreshing];
 }
 

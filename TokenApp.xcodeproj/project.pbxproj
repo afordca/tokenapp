@@ -20,6 +20,7 @@
 		002E162F1A93F6E4000AE37B /* ExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E162E1A93F6E4000AE37B /* ExploreViewController.m */; };
 		002E163A1A94EFAF000AE37B /* UIViewController+Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E16391A94EFAF000AE37B /* UIViewController+Camera.m */; };
 		002E163D1A955973000AE37B /* ProfileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */; };
+		004153831AE6CD0F00A19E77 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004153821AE6CD0F00A19E77 /* ChangePasswordViewController.m */; };
 		008AB0DD1ADCCC630025647B /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 008AB0DA1ADCCC630025647B /* TwitterKit.framework */; };
 		008AB0DE1ADCCC630025647B /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 008AB0DB1ADCCC630025647B /* TwitterKitResources.bundle */; };
 		008AB0DF1ADCCC630025647B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 008AB0DC1ADCCC630025647B /* Fabric.framework */; };
@@ -43,12 +44,18 @@
 		00C6DE671ABE2E8100CC410C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C6DE661ABE2E8100CC410C /* User.m */; };
 		00CBEFB31A84125E00A32D0D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CBEFB21A84125E00A32D0D /* Parse.framework */; };
 		00D14FBE1A81BF9700271031 /* CamerOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D14FBD1A81BF9700271031 /* CamerOverlay.m */; };
+		00D24BB11AE6F9FB0072558F /* BalanceHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D24BB01AE6F9FB0072558F /* BalanceHeaderTableViewCell.m */; };
+		00D24BB31AE8009A0072558F /* Balance.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00D24BB21AE8009A0072558F /* Balance.xcassets */; };
+		00D24BB91AE82F440072558F /* BalanceActivtyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D24BB81AE82F440072558F /* BalanceActivtyTableViewCell.m */; };
+		00D24BBC1AE94D3F0072558F /* BalanceActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D24BBB1AE94D3F0072558F /* BalanceActivity.m */; };
+		00D24BBF1AEAF2AE0072558F /* BalanceTransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D24BBE1AEAF2AE0072558F /* BalanceTransactionViewController.m */; };
+		00D24BC51AEDB7600072558F /* HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D24BC41AEDB7600072558F /* HomeFeedViewController.m */; };
+		00D24BC81AEDB7850072558F /* HomeFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D24BC71AEDB7850072558F /* HomeFeedTableViewCell.m */; };
 		00D71CC81A8D6B290022E856 /* TK_LinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D71CC71A8D6B290022E856 /* TK_LinkViewController.m */; };
 		00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */; };
 		00ED60361A7F5BA300ED1229 /* MFC_LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60351A7F5BA300ED1229 /* MFC_LogInViewController.m */; };
 		00ED603F1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED603E1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m */; };
 		00ED60421A7FDE1800ED1229 /* MFC_SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60411A7FDE1800ED1229 /* MFC_SignupViewController.m */; };
-		00ED604E1A800CFE00ED1229 /* MFC_HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED604D1A800CFE00ED1229 /* MFC_HomeFeedViewController.m */; };
 		00ED60511A804B5D00ED1229 /* TK_ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60501A804B5D00ED1229 /* TK_ProfileViewController.m */; };
 		12C3ECEC58F2EFB60B8FCB19 /* libPods-TokenApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AC5C335474F0AB015BEB33A /* libPods-TokenApp.a */; };
 		25A72F2E1A319CF20076AE07 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A72F2D1A319CF20076AE07 /* main.m */; };
@@ -68,14 +75,10 @@
 		25ED67631A32132D004CD269 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67621A32132D004CD269 /* Social.framework */; };
 		25ED67651A321337004CD269 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67641A321337004CD269 /* StoreKit.framework */; };
 		25ED67671A321345004CD269 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67661A321345004CD269 /* SystemConfiguration.framework */; };
-		25F621461A3219800069A742 /* ProfilePersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F621451A3219800069A742 /* ProfilePersonalViewController.m */; };
 		B906CE0B1A60D29400F1BFD2 /* TKSettingsActionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B906CE0A1A60D29400F1BFD2 /* TKSettingsActionDelegate.m */; };
 		B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B01A42C0410012CBF2 /* UIImage+AlphaAdditions.m */; };
 		B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B21A42C0410012CBF2 /* UIImage+ResizeAdditions.m */; };
 		B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B91278C31A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m */; };
-		B94B62D51A5F82E200C42FAF /* TKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = B94B62D41A5F82E200C42FAF /* TKTabBarController.m */; };
-		B94B62DB1A5F94E800C42FAF /* TKActivityFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B94B62DA1A5F94E800C42FAF /* TKActivityFeedViewController.m */; };
-		B979B8591A927D1E00C0EEAA /* TKPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B979B8581A927D1E00C0EEAA /* TKPhotoCell.m */; };
 		B97F00FD1A6ECAD400690309 /* BalanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B97F00FC1A6ECAD400690309 /* BalanceTableViewCell.m */; };
 		B98946F41A60CE780011288F /* TKSettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B98946F31A60CE780011288F /* TKSettingsButtonItem.m */; };
 		B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */; };
@@ -84,31 +87,14 @@
 		B9A4D3931A49161F00EDD2C9 /* PopularResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3921A49161F00EDD2C9 /* PopularResultsViewController.m */; };
 		B9A4D3961A49163F00EDD2C9 /* ExploreResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3951A49163F00EDD2C9 /* ExploreResultsViewController.m */; };
 		B9A4D39A1A4920BB00EDD2C9 /* CategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D3991A4920BB00EDD2C9 /* CategoriesViewController.m */; };
-		B9A4D39D1A49253400EDD2C9 /* CreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4D39C1A49253400EDD2C9 /* CreatePostViewController.m */; };
 		B9C6EB211A523D42003975CF /* tokenapp-facebook-info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9C6EB201A523D42003975CF /* tokenapp-facebook-info.plist */; };
-		B9D1A6AD1A44A23000BA2874 /* PTKContentDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D1A6AC1A44A23000BA2874 /* PTKContentDetailTableViewController.m */; };
-		B9D1A6B01A44A27700BA2874 /* SettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */; };
 		B9D1A6B31A44A89B00BA2874 /* TKUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D1A6B21A44A89B00BA2874 /* TKUtility.m */; };
-		B9D393331A4BCC5D00C7733A /* TKHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D393321A4BCC5D00C7733A /* TKHomeViewController.m */; };
-		B9D393391A4BD5A100C7733A /* TKContentTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D393381A4BD5A100C7733A /* TKContentTimelineViewController.m */; };
-		B9D3933D1A4BD6D000C7733A /* TKAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D3933C1A4BD6D000C7733A /* TKAccountViewController.m */; };
-		B9D393401A4BDD0D00C7733A /* CreateVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D3933F1A4BDD0D00C7733A /* CreateVideoViewController.m */; };
-		B9D393431A4BDD6100C7733A /* EditVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D393421A4BDD6100C7733A /* EditVideoViewController.m */; };
-		B9D393461A4BE0B800C7733A /* EditPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D393451A4BE0B800C7733A /* EditPostViewController.m */; };
 		B9D393491A4BE1D000C7733A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D393481A4BE1D000C7733A /* SearchViewController.m */; };
 		B9D3934C1A4BE20E00C7733A /* TrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D3934B1A4BE20E00C7733A /* TrendingViewController.m */; };
-		B9D4AFAD1A6200580071CA52 /* TKBaseCellText.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D4AFAC1A6200580071CA52 /* TKBaseCellText.m */; };
-		B9D4AFB31A62376A0071CA52 /* TKProfileImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D4AFB21A62376A0071CA52 /* TKProfileImageView.m */; };
-		B9D4AFB51A623B8E0071CA52 /* TKActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D4AFB41A623B8E0071CA52 /* TKActivityCell.m */; };
-		B9D4AFB91A6241B70071CA52 /* TKLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */; };
-		B9E39CA81A68A79E0030D6CA /* TKFindFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E39CA71A68A79E0030D6CA /* TKFindFriendsCell.m */; };
 		B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366C1A3A468B00E485CE /* Login.xcassets */; };
 		B9F2366F1A3A46D300E485CE /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F2366E1A3A46D300E485CE /* Profile.xcassets */; };
-		B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F236741A3A7CF700E485CE /* NavigationViewController.m */; };
 		B9F359D31A43AEBF00476FF7 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F359D21A43AEBF00476FF7 /* Constants.m */; };
 		B9F359D61A43B22A00476FF7 /* TKCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F359D51A43B22A00476FF7 /* TKCache.m */; };
-		B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */; };
-		B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FD55811A415443006AE066 /* CreateContentViewController.m */; };
 		B9FD55861A415665006AE066 /* Content.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9FD55851A415665006AE066 /* Content.xcassets */; };
 		B9FD55881A4157C4006AE066 /* NavBar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9FD55871A4157C4006AE066 /* NavBar.xcassets */; };
 		B9FD558A1A4157EF006AE066 /* Create.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9FD55891A4157EF006AE066 /* Create.xcassets */; };
@@ -148,6 +134,8 @@
 		002E16391A94EFAF000AE37B /* UIViewController+Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Camera.m"; sourceTree = "<group>"; };
 		002E163B1A955973000AE37B /* ProfileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCollectionViewCell.h; sourceTree = "<group>"; };
 		002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCollectionViewCell.m; sourceTree = "<group>"; };
+		004153811AE6CD0F00A19E77 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		004153821AE6CD0F00A19E77 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		008AB0DA1ADCCC630025647B /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		008AB0DB1ADCCC630025647B /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
 		008AB0DC1ADCCC630025647B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -190,6 +178,19 @@
 		00CBEFB21A84125E00A32D0D /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		00D14FBC1A81BF9700271031 /* CamerOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamerOverlay.h; sourceTree = "<group>"; };
 		00D14FBD1A81BF9700271031 /* CamerOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamerOverlay.m; sourceTree = "<group>"; };
+		00D24BAF1AE6F9FB0072558F /* BalanceHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceHeaderTableViewCell.h; sourceTree = "<group>"; };
+		00D24BB01AE6F9FB0072558F /* BalanceHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceHeaderTableViewCell.m; sourceTree = "<group>"; };
+		00D24BB21AE8009A0072558F /* Balance.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Balance.xcassets; sourceTree = "<group>"; };
+		00D24BB71AE82F440072558F /* BalanceActivtyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceActivtyTableViewCell.h; sourceTree = "<group>"; };
+		00D24BB81AE82F440072558F /* BalanceActivtyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceActivtyTableViewCell.m; sourceTree = "<group>"; };
+		00D24BBA1AE94D3F0072558F /* BalanceActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceActivity.h; sourceTree = "<group>"; };
+		00D24BBB1AE94D3F0072558F /* BalanceActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceActivity.m; sourceTree = "<group>"; };
+		00D24BBD1AEAF2AE0072558F /* BalanceTransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceTransactionViewController.h; sourceTree = "<group>"; };
+		00D24BBE1AEAF2AE0072558F /* BalanceTransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceTransactionViewController.m; sourceTree = "<group>"; };
+		00D24BC31AEDB7600072558F /* HomeFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedViewController.h; sourceTree = "<group>"; };
+		00D24BC41AEDB7600072558F /* HomeFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedViewController.m; sourceTree = "<group>"; };
+		00D24BC61AEDB7850072558F /* HomeFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedTableViewCell.h; sourceTree = "<group>"; };
+		00D24BC71AEDB7850072558F /* HomeFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedTableViewCell.m; sourceTree = "<group>"; };
 		00D71CC61A8D6B290022E856 /* TK_LinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_LinkViewController.h; sourceTree = "<group>"; };
 		00D71CC71A8D6B290022E856 /* TK_LinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TK_LinkViewController.m; sourceTree = "<group>"; };
 		00ED602E1A7ED68500ED1229 /* LaunchPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchPageViewController.h; sourceTree = "<group>"; };
@@ -200,8 +201,6 @@
 		00ED603E1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		00ED60401A7FDE1800ED1229 /* MFC_SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_SignupViewController.h; sourceTree = "<group>"; };
 		00ED60411A7FDE1800ED1229 /* MFC_SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_SignupViewController.m; sourceTree = "<group>"; };
-		00ED604C1A800CFE00ED1229 /* MFC_HomeFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFC_HomeFeedViewController.h; sourceTree = "<group>"; };
-		00ED604D1A800CFE00ED1229 /* MFC_HomeFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFC_HomeFeedViewController.m; sourceTree = "<group>"; };
 		00ED604F1A804B5D00ED1229 /* TK_ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_ProfileViewController.h; sourceTree = "<group>"; };
 		00ED60501A804B5D00ED1229 /* TK_ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TK_ProfileViewController.m; sourceTree = "<group>"; };
 		25A72F281A319CF20076AE07 /* TokenApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TokenApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,8 +229,6 @@
 		25ED67621A32132D004CD269 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		25ED67641A321337004CD269 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		25ED67661A321345004CD269 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		25F621441A3219800069A742 /* ProfilePersonalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfilePersonalViewController.h; sourceTree = "<group>"; };
-		25F621451A3219800069A742 /* ProfilePersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilePersonalViewController.m; sourceTree = "<group>"; };
 		3AC5C335474F0AB015BEB33A /* libPods-TokenApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TokenApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.release.xcconfig"; sourceTree = "<group>"; };
 		B906CE091A60D29400F1BFD2 /* TKSettingsActionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKSettingsActionDelegate.h; sourceTree = "<group>"; };
@@ -243,12 +240,6 @@
 		B91278C21A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCornerAdditions.h"; sourceTree = "<group>"; };
 		B91278C31A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCornerAdditions.m"; sourceTree = "<group>"; };
 		B9145C901A3CFA4C00A88B94 /* Macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
-		B94B62D31A5F82E200C42FAF /* TKTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKTabBarController.h; sourceTree = "<group>"; };
-		B94B62D41A5F82E200C42FAF /* TKTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKTabBarController.m; sourceTree = "<group>"; };
-		B94B62D91A5F94E800C42FAF /* TKActivityFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKActivityFeedViewController.h; sourceTree = "<group>"; };
-		B94B62DA1A5F94E800C42FAF /* TKActivityFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKActivityFeedViewController.m; sourceTree = "<group>"; };
-		B979B8571A927D1E00C0EEAA /* TKPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKPhotoCell.h; sourceTree = "<group>"; };
-		B979B8581A927D1E00C0EEAA /* TKPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKPhotoCell.m; sourceTree = "<group>"; };
 		B97F00FB1A6ECAD400690309 /* BalanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceTableViewCell.h; sourceTree = "<group>"; };
 		B97F00FC1A6ECAD400690309 /* BalanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceTableViewCell.m; sourceTree = "<group>"; };
 		B98946F21A60CE780011288F /* TKSettingsButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKSettingsButtonItem.h; sourceTree = "<group>"; };
@@ -264,53 +255,19 @@
 		B9A4D3951A49163F00EDD2C9 /* ExploreResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExploreResultsViewController.m; sourceTree = "<group>"; };
 		B9A4D3981A4920BB00EDD2C9 /* CategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesViewController.h; sourceTree = "<group>"; };
 		B9A4D3991A4920BB00EDD2C9 /* CategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesViewController.m; sourceTree = "<group>"; };
-		B9A4D39B1A49253400EDD2C9 /* CreatePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePostViewController.h; sourceTree = "<group>"; };
-		B9A4D39C1A49253400EDD2C9 /* CreatePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePostViewController.m; sourceTree = "<group>"; };
 		B9C6EB201A523D42003975CF /* tokenapp-facebook-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "tokenapp-facebook-info.plist"; sourceTree = "<group>"; };
-		B9D1A6AB1A44A23000BA2874 /* PTKContentDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PTKContentDetailTableViewController.h; path = ../PTKContentDetailTableViewController.h; sourceTree = "<group>"; };
-		B9D1A6AC1A44A23000BA2874 /* PTKContentDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PTKContentDetailTableViewController.m; path = ../PTKContentDetailTableViewController.m; sourceTree = "<group>"; };
-		B9D1A6AE1A44A27700BA2874 /* SettingsButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsButtonItem.h; sourceTree = "<group>"; };
-		B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsButtonItem.m; sourceTree = "<group>"; };
 		B9D1A6B11A44A89B00BA2874 /* TKUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKUtility.h; sourceTree = "<group>"; };
 		B9D1A6B21A44A89B00BA2874 /* TKUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKUtility.m; sourceTree = "<group>"; };
-		B9D393311A4BCC5D00C7733A /* TKHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKHomeViewController.h; sourceTree = "<group>"; };
-		B9D393321A4BCC5D00C7733A /* TKHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKHomeViewController.m; sourceTree = "<group>"; };
-		B9D393371A4BD5A100C7733A /* TKContentTimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKContentTimelineViewController.h; path = ../TKContentTimelineViewController.h; sourceTree = "<group>"; };
-		B9D393381A4BD5A100C7733A /* TKContentTimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKContentTimelineViewController.m; path = ../TKContentTimelineViewController.m; sourceTree = "<group>"; };
-		B9D3933B1A4BD6D000C7733A /* TKAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKAccountViewController.h; sourceTree = "<group>"; };
-		B9D3933C1A4BD6D000C7733A /* TKAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKAccountViewController.m; sourceTree = "<group>"; };
-		B9D3933E1A4BDD0D00C7733A /* CreateVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateVideoViewController.h; sourceTree = "<group>"; };
-		B9D3933F1A4BDD0D00C7733A /* CreateVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateVideoViewController.m; sourceTree = "<group>"; };
-		B9D393411A4BDD6100C7733A /* EditVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditVideoViewController.h; sourceTree = "<group>"; };
-		B9D393421A4BDD6100C7733A /* EditVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditVideoViewController.m; sourceTree = "<group>"; };
-		B9D393441A4BE0B800C7733A /* EditPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPostViewController.h; sourceTree = "<group>"; };
-		B9D393451A4BE0B800C7733A /* EditPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPostViewController.m; sourceTree = "<group>"; };
 		B9D393471A4BE1D000C7733A /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		B9D393481A4BE1D000C7733A /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		B9D3934A1A4BE20E00C7733A /* TrendingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendingViewController.h; sourceTree = "<group>"; };
 		B9D3934B1A4BE20E00C7733A /* TrendingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendingViewController.m; sourceTree = "<group>"; };
-		B9D4AFAB1A6200580071CA52 /* TKBaseCellText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKBaseCellText.h; sourceTree = "<group>"; };
-		B9D4AFAC1A6200580071CA52 /* TKBaseCellText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKBaseCellText.m; sourceTree = "<group>"; };
-		B9D4AFB11A62376A0071CA52 /* TKProfileImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKProfileImageView.h; sourceTree = "<group>"; };
-		B9D4AFB21A62376A0071CA52 /* TKProfileImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKProfileImageView.m; sourceTree = "<group>"; };
-		B9D4AFB41A623B8E0071CA52 /* TKActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKActivityCell.m; sourceTree = "<group>"; };
-		B9D4AFB61A623C200071CA52 /* TKActivityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TKActivityCell.h; sourceTree = "<group>"; };
-		B9D4AFB71A6241B70071CA52 /* TKLoadMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKLoadMoreCell.h; sourceTree = "<group>"; };
-		B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKLoadMoreCell.m; sourceTree = "<group>"; };
-		B9E39CA61A68A79E0030D6CA /* TKFindFriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKFindFriendsCell.h; sourceTree = "<group>"; };
-		B9E39CA71A68A79E0030D6CA /* TKFindFriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKFindFriendsCell.m; sourceTree = "<group>"; };
 		B9F2366C1A3A468B00E485CE /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
 		B9F2366E1A3A46D300E485CE /* Profile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Profile.xcassets; sourceTree = "<group>"; };
-		B9F236731A3A7CF600E485CE /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
-		B9F236741A3A7CF700E485CE /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		B9F359D11A43AE7600476FF7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B9F359D21A43AEBF00476FF7 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		B9F359D41A43B22A00476FF7 /* TKCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKCache.h; sourceTree = "<group>"; };
 		B9F359D51A43B22A00476FF7 /* TKCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKCache.m; sourceTree = "<group>"; };
-		B9FD55791A414B10006AE066 /* EditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPhotoViewController.h; sourceTree = "<group>"; };
-		B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
-		B9FD55801A415443006AE066 /* CreateContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateContentViewController.h; sourceTree = "<group>"; };
-		B9FD55811A415443006AE066 /* CreateContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateContentViewController.m; sourceTree = "<group>"; };
 		B9FD55851A415665006AE066 /* Content.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Content.xcassets; sourceTree = "<group>"; };
 		B9FD55871A4157C4006AE066 /* NavBar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = NavBar.xcassets; sourceTree = "<group>"; };
 		B9FD55891A4157EF006AE066 /* Create.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Create.xcassets; sourceTree = "<group>"; };
@@ -369,6 +326,8 @@
 				00A68EAF1A9F9B2300AAB98F /* Notification.m */,
 				00C6DE621ABE2CEB00CC410C /* Activity.h */,
 				00C6DE631ABE2CEB00CC410C /* Activity.m */,
+				00D24BBA1AE94D3F0072558F /* BalanceActivity.h */,
+				00D24BBB1AE94D3F0072558F /* BalanceActivity.m */,
 				00C6DE531ABCAE2400CC410C /* Photo.h */,
 				00C6DE541ABCAE2400CC410C /* Photo.m */,
 				00C6DE561ABCB51200CC410C /* Video.h */,
@@ -434,6 +393,8 @@
 				009DE9561AA7BE8500429AC4 /* SettingsViewController.m */,
 				00A990FD1AD722C500A635D7 /* DetailedContentViewController.h */,
 				00A990FE1AD722C500A635D7 /* DetailedContentViewController.m */,
+				004153811AE6CD0F00A19E77 /* ChangePasswordViewController.h */,
+				004153821AE6CD0F00A19E77 /* ChangePasswordViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -470,13 +431,6 @@
 			name = Create;
 			sourceTree = "<group>";
 		};
-		00E8ECC31A965B430088C6C0 /* Explore */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Explore;
-			sourceTree = "<group>";
-		};
 		25A72F1F1A319CF20076AE07 = {
 			isa = PBXGroup;
 			children = (
@@ -508,37 +462,19 @@
 				002E16271A93E0C4000AE37B /* Main.storyboard */,
 				002E162D1A93F6E4000AE37B /* ExploreViewController.h */,
 				002E162E1A93F6E4000AE37B /* ExploreViewController.m */,
-				00E8ECC31A965B430088C6C0 /* Explore */,
 				000FC6841A91122700A4F50F /* LogIn */,
 				000FC6831A9111FA00A4F50F /* TabBar */,
 				00BF7B951A8DCA720089194E /* Create */,
 				002E16361A94ED0B000AE37B /* Profile */,
-				B9D3933A1A4BD5C400C7733A /* Home */,
 				B9A4D3971A491BEA00EDD2C9 /* Discover */,
 				B9B61BC61A462E0F00A83987 /* Support */,
 				B90CB7B61A42C05F0012CBF2 /* UIImage Categories */,
-				B9452BA01A4149CB007FE801 /* Take Media */,
 				B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */,
 				B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */,
-				B9FD557C1A414DC4006AE066 /* Content */,
 				B97F00F31A6EC2D100690309 /* Balance */,
-				B9E39CA11A68A4D10030D6CA /* TKBaseTextCell */,
-				B9D4AFB11A62376A0071CA52 /* TKProfileImageView.h */,
-				B9D4AFB21A62376A0071CA52 /* TKProfileImageView.m */,
-				B9D4AFB71A6241B70071CA52 /* TKLoadMoreCell.h */,
-				B9D4AFB81A6241B70071CA52 /* TKLoadMoreCell.m */,
-				25F621441A3219800069A742 /* ProfilePersonalViewController.h */,
-				25F621451A3219800069A742 /* ProfilePersonalViewController.m */,
-				B9D1A6AE1A44A27700BA2874 /* SettingsButtonItem.h */,
-				B9D1A6AF1A44A27700BA2874 /* SettingsButtonItem.m */,
-				B9F236741A3A7CF700E485CE /* NavigationViewController.m */,
-				B9F236731A3A7CF600E485CE /* NavigationViewController.h */,
-				B94B62D31A5F82E200C42FAF /* TKTabBarController.h */,
-				B94B62D41A5F82E200C42FAF /* TKTabBarController.m */,
-				B94B62D91A5F94E800C42FAF /* TKActivityFeedViewController.h */,
-				B94B62DA1A5F94E800C42FAF /* TKActivityFeedViewController.m */,
 				B9F2366C1A3A468B00E485CE /* Login.xcassets */,
 				0018EA761AB2A9D2008B80FD /* Explore.xcassets */,
+				00D24BB21AE8009A0072558F /* Balance.xcassets */,
 				B9FD55851A415665006AE066 /* Content.xcassets */,
 				B9FD55891A4157EF006AE066 /* Create.xcassets */,
 				B9F2366E1A3A46D300E485CE /* Profile.xcassets */,
@@ -547,6 +483,10 @@
 				B991FD8E1A3E6C8B00BB902F /* Default@3x.png */,
 				25A72F3A1A319CF30076AE07 /* LaunchScreen.xib */,
 				25A72F2B1A319CF20076AE07 /* Supporting Files */,
+				00D24BC31AEDB7600072558F /* HomeFeedViewController.h */,
+				00D24BC41AEDB7600072558F /* HomeFeedViewController.m */,
+				00D24BC61AEDB7850072558F /* HomeFeedTableViewCell.h */,
+				00D24BC71AEDB7850072558F /* HomeFeedTableViewCell.m */,
 			);
 			path = TokenApp;
 			sourceTree = "<group>";
@@ -628,13 +568,6 @@
 			name = "UIImage Categories";
 			sourceTree = "<group>";
 		};
-		B9452BA01A4149CB007FE801 /* Take Media */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Take Media";
-			sourceTree = "<group>";
-		};
 		B97F00F31A6EC2D100690309 /* Balance */ = {
 			isa = PBXGroup;
 			children = (
@@ -642,6 +575,12 @@
 				B97F00FC1A6ECAD400690309 /* BalanceTableViewCell.m */,
 				002E162A1A93E957000AE37B /* BalanceViewController.h */,
 				002E162B1A93E957000AE37B /* BalanceViewController.m */,
+				00D24BAF1AE6F9FB0072558F /* BalanceHeaderTableViewCell.h */,
+				00D24BB01AE6F9FB0072558F /* BalanceHeaderTableViewCell.m */,
+				00D24BBD1AEAF2AE0072558F /* BalanceTransactionViewController.h */,
+				00D24BBE1AEAF2AE0072558F /* BalanceTransactionViewController.m */,
+				00D24BB71AE82F440072558F /* BalanceActivtyTableViewCell.h */,
+				00D24BB81AE82F440072558F /* BalanceActivtyTableViewCell.m */,
 			);
 			name = Balance;
 			sourceTree = "<group>";
@@ -686,57 +625,6 @@
 				B9F359D21A43AEBF00476FF7 /* Constants.m */,
 			);
 			name = Support;
-			sourceTree = "<group>";
-		};
-		B9D3933A1A4BD5C400C7733A /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				00ED604C1A800CFE00ED1229 /* MFC_HomeFeedViewController.h */,
-				00ED604D1A800CFE00ED1229 /* MFC_HomeFeedViewController.m */,
-				B979B8571A927D1E00C0EEAA /* TKPhotoCell.h */,
-				B979B8581A927D1E00C0EEAA /* TKPhotoCell.m */,
-				B9D393371A4BD5A100C7733A /* TKContentTimelineViewController.h */,
-				B9D393381A4BD5A100C7733A /* TKContentTimelineViewController.m */,
-				B9D393311A4BCC5D00C7733A /* TKHomeViewController.h */,
-				B9D393321A4BCC5D00C7733A /* TKHomeViewController.m */,
-				B9D3933B1A4BD6D000C7733A /* TKAccountViewController.h */,
-				B9D3933C1A4BD6D000C7733A /* TKAccountViewController.m */,
-			);
-			name = Home;
-			sourceTree = "<group>";
-		};
-		B9E39CA11A68A4D10030D6CA /* TKBaseTextCell */ = {
-			isa = PBXGroup;
-			children = (
-				B9D4AFB61A623C200071CA52 /* TKActivityCell.h */,
-				B9D4AFB41A623B8E0071CA52 /* TKActivityCell.m */,
-				B9E39CA61A68A79E0030D6CA /* TKFindFriendsCell.h */,
-				B9E39CA71A68A79E0030D6CA /* TKFindFriendsCell.m */,
-				B9D4AFAB1A6200580071CA52 /* TKBaseCellText.h */,
-				B9D4AFAC1A6200580071CA52 /* TKBaseCellText.m */,
-			);
-			name = TKBaseTextCell;
-			sourceTree = "<group>";
-		};
-		B9FD557C1A414DC4006AE066 /* Content */ = {
-			isa = PBXGroup;
-			children = (
-				B9D1A6AB1A44A23000BA2874 /* PTKContentDetailTableViewController.h */,
-				B9D1A6AC1A44A23000BA2874 /* PTKContentDetailTableViewController.m */,
-				B9FD55801A415443006AE066 /* CreateContentViewController.h */,
-				B9FD55811A415443006AE066 /* CreateContentViewController.m */,
-				B9FD55791A414B10006AE066 /* EditPhotoViewController.h */,
-				B9FD557A1A414B10006AE066 /* EditPhotoViewController.m */,
-				B9D3933E1A4BDD0D00C7733A /* CreateVideoViewController.h */,
-				B9D3933F1A4BDD0D00C7733A /* CreateVideoViewController.m */,
-				B9D393411A4BDD6100C7733A /* EditVideoViewController.h */,
-				B9D393421A4BDD6100C7733A /* EditVideoViewController.m */,
-				B9A4D39B1A49253400EDD2C9 /* CreatePostViewController.h */,
-				B9A4D39C1A49253400EDD2C9 /* CreatePostViewController.m */,
-				B9D393441A4BE0B800C7733A /* EditPostViewController.h */,
-				B9D393451A4BE0B800C7733A /* EditPostViewController.m */,
-			);
-			name = Content;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -828,6 +716,7 @@
 				000FC6861A91142900A4F50F /* CreateMainView.xib in Resources */,
 				008AB0DE1ADCCC630025647B /* TwitterKitResources.bundle in Resources */,
 				B991FD8F1A3E6C8B00BB902F /* Default@3x.png in Resources */,
+				00D24BB31AE8009A0072558F /* Balance.xcassets in Resources */,
 				B9FD558A1A4157EF006AE066 /* Create.xcassets in Resources */,
 				B9F2366D1A3A468B00E485CE /* Login.xcassets in Resources */,
 				002E16291A93E0C4000AE37B /* Main.storyboard in Resources */,
@@ -900,20 +789,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9D393431A4BDD6100C7733A /* EditVideoViewController.m in Sources */,
 				000476611A9AB47B00247BF8 /* PersonalActivityViewController.m in Sources */,
 				00BF7B911A8DB9440089194E /* TK_TabBarViewController.m in Sources */,
-				B94B62D51A5F82E200C42FAF /* TKTabBarController.m in Sources */,
 				00ED60361A7F5BA300ED1229 /* MFC_LogInViewController.m in Sources */,
 				B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */,
-				B9D393401A4BDD0D00C7733A /* CreateVideoViewController.m in Sources */,
-				B9D1A6B01A44A27700BA2874 /* SettingsButtonItem.m in Sources */,
-				B9D393331A4BCC5D00C7733A /* TKHomeViewController.m in Sources */,
+				00D24BC51AEDB7600072558F /* HomeFeedViewController.m in Sources */,
 				002E163D1A955973000AE37B /* ProfileCollectionViewCell.m in Sources */,
 				00C6DE551ABCAE2400CC410C /* Photo.m in Sources */,
-				B9E39CA81A68A79E0030D6CA /* TKFindFriendsCell.m in Sources */,
 				B97F00FD1A6ECAD400690309 /* BalanceTableViewCell.m in Sources */,
-				B94B62DB1A5F94E800C42FAF /* TKActivityFeedViewController.m in Sources */,
 				00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */,
 				00C6DE581ABCB51200CC410C /* Video.m in Sources */,
 				00A990FF1AD722C500A635D7 /* DetailedContentViewController.m in Sources */,
@@ -921,58 +804,49 @@
 				B9D3934C1A4BE20E00C7733A /* TrendingViewController.m in Sources */,
 				00A68E951A9D10C500AAB98F /* FollowersTableViewCell.m in Sources */,
 				B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */,
-				B9D393391A4BD5A100C7733A /* TKContentTimelineViewController.m in Sources */,
-				B9D4AFB51A623B8E0071CA52 /* TKActivityCell.m in Sources */,
-				B9D1A6AD1A44A23000BA2874 /* PTKContentDetailTableViewController.m in Sources */,
 				00C6DE671ABE2E8100CC410C /* User.m in Sources */,
 				00C6DE641ABE2CEB00CC410C /* Activity.m in Sources */,
 				00ED60511A804B5D00ED1229 /* TK_ProfileViewController.m in Sources */,
 				B9A4D3961A49163F00EDD2C9 /* ExploreResultsViewController.m in Sources */,
 				B9A4D39A1A4920BB00EDD2C9 /* CategoriesViewController.m in Sources */,
+				00D24BB91AE82F440072558F /* BalanceActivtyTableViewCell.m in Sources */,
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
 				009DE9571AA7BE8500429AC4 /* SettingsViewController.m in Sources */,
-				00ED604E1A800CFE00ED1229 /* MFC_HomeFeedViewController.m in Sources */,
 				B9F359D61A43B22A00476FF7 /* TKCache.m in Sources */,
 				B98946F41A60CE780011288F /* TKSettingsButtonItem.m in Sources */,
-				B9F236751A3A7CF700E485CE /* NavigationViewController.m in Sources */,
 				00C6DE5B1ABCB73E00CC410C /* Post.m in Sources */,
 				002E162F1A93F6E4000AE37B /* ExploreViewController.m in Sources */,
 				000476641A9AE3DE00247BF8 /* UIColor+HEX.m in Sources */,
 				002E162C1A93E957000AE37B /* BalanceViewController.m in Sources */,
 				B906CE0B1A60D29400F1BFD2 /* TKSettingsActionDelegate.m in Sources */,
 				00C6DE5E1ABCD1CD00CC410C /* Link.m in Sources */,
+				004153831AE6CD0F00A19E77 /* ChangePasswordViewController.m in Sources */,
 				B9D393491A4BE1D000C7733A /* SearchViewController.m in Sources */,
-				B979B8591A927D1E00C0EEAA /* TKPhotoCell.m in Sources */,
+				00D24BB11AE6F9FB0072558F /* BalanceHeaderTableViewCell.m in Sources */,
 				001781E71AC466A800A62CD5 /* TK_Manager.m in Sources */,
-				B9D4AFAD1A6200580071CA52 /* TKBaseCellText.m in Sources */,
+				00D24BBC1AE94D3F0072558F /* BalanceActivity.m in Sources */,
 				009EE0CB1A9BC79B00BEA172 /* UserActivityTableViewCell.m in Sources */,
-				B9D4AFB91A6241B70071CA52 /* TKLoadMoreCell.m in Sources */,
 				00292EFC1A9850BB0086A219 /* ProfileCollectionReusableView.m in Sources */,
 				00D71CC81A8D6B290022E856 /* TK_LinkViewController.m in Sources */,
 				000FC6891A91194B00A4F50F /* CreateMainView.m in Sources */,
-				B9FD557B1A414B11006AE066 /* EditPhotoViewController.m in Sources */,
 				002E163A1A94EFAF000AE37B /* UIViewController+Camera.m in Sources */,
 				B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */,
-				B9A4D39D1A49253400EDD2C9 /* CreatePostViewController.m in Sources */,
 				00A68EA71A9EDC1F00AAB98F /* NotificationViewController.m in Sources */,
+				00D24BC81AEDB7850072558F /* HomeFeedTableViewCell.m in Sources */,
 				00A68EAD1A9EEE5F00AAB98F /* NotificationsTableViewCell.m in Sources */,
-				B9D4AFB31A62376A0071CA52 /* TKProfileImageView.m in Sources */,
 				B996AD201A8163F300C3B98E /* CurrentUser.m in Sources */,
 				00BF7B941A8DBABD0089194E /* CustomTabBar.m in Sources */,
-				B9D3933D1A4BD6D000C7733A /* TKAccountViewController.m in Sources */,
+				00D24BBF1AEAF2AE0072558F /* BalanceTransactionViewController.m in Sources */,
 				00ED603F1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m in Sources */,
 				B9A4D3931A49161F00EDD2C9 /* PopularResultsViewController.m in Sources */,
-				25F621461A3219800069A742 /* ProfilePersonalViewController.m in Sources */,
 				00ED60421A7FDE1800ED1229 /* MFC_SignupViewController.m in Sources */,
 				25A72F2E1A319CF20076AE07 /* main.m in Sources */,
 				00D14FBE1A81BF9700271031 /* CamerOverlay.m in Sources */,
 				00B204861A82B3F8006A259A /* TK_DescriptionViewController.m in Sources */,
 				00A68EB01A9F9B2300AAB98F /* Notification.m in Sources */,
-				B9FD55821A415443006AE066 /* CreateContentViewController.m in Sources */,
 				00A68E9B1A9D12C100AAB98F /* FollowersViewController.m in Sources */,
 				B9D1A6B31A44A89B00BA2874 /* TKUtility.m in Sources */,
 				000F079C1A8D3CBF003E1596 /* TK_PostViewController.m in Sources */,
-				B9D393461A4BE0B800C7733A /* EditPostViewController.m in Sources */,
 				B9F359D31A43AEBF00476FF7 /* Constants.m in Sources */,
 				00C6DE611ABE2B4F00CC410C /* Comment.m in Sources */,
 			);

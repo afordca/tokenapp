@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TKContentTimelineViewController.h"
 
 
-@interface TKHomeViewController : TKContentTimelineViewController
+@interface TKHomeViewController : TWTRTimelineViewController
 {
     UIImageView *profileImage01;
 

@@ -44,6 +44,7 @@
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationComments;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationLikes;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationTags;
+@property (nonatomic,strong) NSMutableArray *arrayOfBalanceActivity;
 
 @property (strong, nonatomic)  NSString *Firstname;
 @property (strong, nonatomic)  NSString *Lastname;
@@ -61,6 +62,16 @@
 @property (nonatomic,weak) User *clickedUser;
 @property BOOL userClicked;
 
+@property NSNumber *numberOfTotalTokens;
+@property NSNumber *numberOfPhotoTokens;
+@property NSNumber *numberOfVideoTokens;
+@property NSNumber *numberOfLinkTokens;
+@property NSNumber *numberOfBlogTokens;
+@property NSNumber *numberOfLoginBonusTokens;
+@property NSNumber *numberOfInviteBonusTokens;
+@property NSNumber *BalanceTransactionNumber;
+@property NSNumber *runningBalance;
+
 
 @property PFUser *user;
 
@@ -73,32 +84,28 @@
 @property id <UserDelegate>delegate;
 
 //Array Methods
--(void)loadArrayOfFollowers;
--(void)loadArrayOfFollowing:(BOOL)update row:(NSInteger)row;
--(void)loadArrayOfPhotos;
--(void)loadArrayOfVideos;
--(void)loadArrayOfLinks;
--(void)loadArrayOfPosts;
+-(void)loadArrayOfFollowers: (void (^)(BOOL result))completionHandler;
+-(void)loadArrayOfFollowing:(BOOL)update row:(NSInteger)row completion:(void (^)(BOOL result))completionHandler;
+-(void)loadArrayOfPhotos:(void (^)(BOOL result))completionHandler;
+-(void)loadArrayOfVideos:(void (^)(BOOL result))completionHandler;
+-(void)loadArrayOfLinks:(void (^)(BOOL result))completionHandler;
+-(void)loadArrayOfPosts:(void (^)(BOOL result))completionHandler;
 -(void)loadArrayOfNotifications;
 -(void)loadActivityToCurrentUser;
 -(void)loadActivityFromCurrentUser;
 
 //Helper Methods
 -(void)setUserProfile;
-
-//-(BOOL)isFollowingFollower:(PFUser*)follower;
 -(BOOL)isFollowingFollower:(NSString*)follower;
-
-//-(void)removeUserFromFollowing:(PFUser*)follower row:(NSInteger)row;
 -(void)removeUserFromFollowing:(User*)follower row:(NSInteger)row;
-
-//-(void)addUserToFollowing:(PFUser*)follower row:(NSInteger)row;
 -(void)addUserToFollowing:(User*)follower row:(NSInteger)row;
-
-//-(UIImage *)followerStatus:(PFUser *)follower;
 -(UIImage *)followerStatus:(NSString *)follower;
 
-
+//#ofViews/Tokens
+-(NSNumber*)getNumberOfPhotoTokens;
+-(NSNumber*)getNumberOfVideoTokens;
+-(NSNumber*)getNumberOfLinkTokens;
+-(NSNumber*)getNumberOfPostTokens;
 
 
 @end

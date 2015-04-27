@@ -28,12 +28,8 @@
 
     [self.view addSubview:customTabBar];
 
-      [self.view addConstraint:[NSLayoutConstraint constraintWithItem:customTabBar attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-
-    
 
     self.tabBarNavigation.hidden = NO;
-
 
 
 }
@@ -73,5 +69,7 @@
     NSLog(@"Balance");
     self.selectedIndex = 2;
 }
+
+
 
 @end

@@ -26,7 +26,6 @@
 @property PFUser *twitterUser;
 
 
-
 @end
 
 @implementation LaunchPageViewController

@@ -30,8 +30,8 @@
 
 -(id)initWithPhoto:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType photo:(Photo*)photo;
 -(id)initWithVideo:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType video:(Video*)video;
--(id)initWithPost:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType photo:(Post*)post;
--(id)initWithLink:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType photo:(Link*)link;
+-(id)initWithPost:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType post:(Post*)post;
+-(id)initWithLink:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType link:(Link*)link;
 
 
 @end

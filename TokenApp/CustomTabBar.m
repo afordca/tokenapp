@@ -22,7 +22,7 @@
     if (self = [super initWithFrame:frame])
     {
 
-        self.backgroundColor = [UIColor blueColor];
+        self.backgroundColor = [UIColor blackColor];
 
         //Add Home Feed Button
 
@@ -32,7 +32,11 @@
 
         //set the frame
         CGRect btnHomeFrame = CGRectMake(10, 5, 50, 40);
+
         btnHomeFeed.frame = btnHomeFrame;
+
+        btnHomeFeed.translatesAutoresizingMaskIntoConstraints = NO;
+
         [btnHomeFeed addTarget:self
                      action:@selector(clickHome)
            forControlEvents:UIControlEventTouchUpInside];
@@ -48,7 +52,11 @@
 
         //set the frame
         CGRect btnDiscoverFrame = CGRectMake(70, 5, 50, 40);
+
         btnDiscover.frame = btnDiscoverFrame;
+
+        btnDiscover.translatesAutoresizingMaskIntoConstraints = NO;
+
         [btnDiscover addTarget:self
                         action:@selector(clickDiscover)
               forControlEvents:UIControlEventTouchUpInside];
@@ -66,7 +74,11 @@
 
         //set the frame
         CGRect btnCreateFrame = CGRectMake(130, 5, 50, 40);
+
         btnCreate.frame = btnCreateFrame;
+
+        btnCreate.translatesAutoresizingMaskIntoConstraints = NO;
+
         [btnCreate addTarget:self
                         action:@selector(clickCreate)
               forControlEvents:UIControlEventTouchUpInside];
@@ -82,7 +94,11 @@
 
         //set the frame
         CGRect btnProfileFrame = CGRectMake(190, 5, 50, 40);
+
         btnProfile.frame = btnProfileFrame;
+
+        btnProfile.translatesAutoresizingMaskIntoConstraints = NO;
+
         [btnProfile addTarget:self
                       action:@selector(clickProfile)
             forControlEvents:UIControlEventTouchUpInside];
@@ -97,21 +113,23 @@
 
         //set the frame
         CGRect btnBalanceFrame = CGRectMake(250, 5, 50, 40);
+       
         btnBalance.frame = btnBalanceFrame;
+
+        btnBalance.translatesAutoresizingMaskIntoConstraints = NO;
+
         [btnBalance addTarget:self
                        action:@selector(clickBalance)
              forControlEvents:UIControlEventTouchUpInside];
 
-
-
         [self addSubview:btnBalance];
 
-
-
+        //[self layoutConstraints];
 
     }
     return self;
 }
+
 
 -(void)clickHome
 {
@@ -172,6 +190,66 @@
     [btnBalance setTintColor:[UIColor colorwithHexString:@"#72c74a" alpha:.9]];
     [self.delegate onClickBalance];
 }
+
+-(void)layoutConstraints
+
+{
+
+    [self removeConstraints:self.constraints];
+
+
+
+    UIButton *balance = btnBalance;
+    UIButton *profile = btnProfile;
+    UIButton *create = btnCreate;
+    UIButton *discover = btnDiscover;
+    UIButton *home = btnHomeFeed;
+
+    NSDictionary *views = NSDictionaryOfVariableBindings(balance,profile,create,discover,home);
+
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[home]-230-|" options:0 metrics:nil views:views];
+
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[home]-|" options:0 metrics:nil views:views]];
+
+//    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[discover]-|" options:0 metrics:nil views:views]];
+//
+//    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[create]-|" options:0 metrics:nil views:views]];
+
+
+    //
+
+    //    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-250-[balance]|" options:0 metrics:nil views:views]];
+
+    //
+
+    //    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[balance]-|" options:0 metrics:nil views:views]];
+
+    //
+
+    //    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[discover]-125-|" options:0 metrics:nil views:views]];
+
+    //
+
+    //    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[discover]-|" options:0 metrics:nil views:views]];
+
+    //
+
+    //    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[home]-250-|" options:0 metrics:nil views:views]];
+
+    //
+
+    //    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[home]-|" options:0 metrics:nil views:views]];
+    
+    
+    
+    
+    
+    [self addConstraints:constraints];
+    
+    
+    
+}
+
 
 
 @end

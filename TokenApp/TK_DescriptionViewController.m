@@ -14,7 +14,6 @@
 #import "Macros.h"
 #import "Constants.h"
 #import "TKCache.h"
-#import "PTKContentDetailTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>

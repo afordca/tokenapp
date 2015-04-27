@@ -38,7 +38,7 @@
     return self;
 }
 
--(id)initWithLink:(User *)fromUser toUser:(User *)toUser activity:(NSString *)activityType media:(NSString *)mediaType photo:(Link *)link
+-(id)initWithLink:(User *)fromUser toUser:(User *)toUser activity:(NSString *)activityType media:(NSString *)mediaType link:(Link *)link
 {
     self.fromUser = fromUser;
     self.toUser = toUser;
@@ -52,7 +52,7 @@
     return self;
 }
 
--(id)initWithPost:(User *)fromUser toUser:(User *)toUser activity:(NSString *)activityType media:(NSString *)mediaType photo:(Post *)post
+-(id)initWithPost:(User *)fromUser toUser:(User *)toUser activity:(NSString *)activityType media:(NSString *)mediaType post:(Post *)post
 {
     self.fromUser = fromUser;
     self.toUser = toUser;

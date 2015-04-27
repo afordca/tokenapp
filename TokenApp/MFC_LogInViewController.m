@@ -19,6 +19,7 @@
 #import "ProfilePersonalViewController.h"
 #import "CreateContentViewController.h"
 #import "BalanceTableViewController.h"
+#import "CurrentUser.h"
 
 #define VALIDURL (@"http://www.google.com")
 
@@ -28,8 +29,13 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldLogInPassword;
 
 @property PFUser *currentUser;
+@property CurrentUser *singleUser;
+
+@property (nonatomic, strong) void(^completionHandler)(BOOL loaded);
 
 
+
+-(void)loadArray:(void (^)(BOOL result))completionHandler;
 
 @end
 
@@ -40,7 +46,7 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
      self.currentUser = [PFUser currentUser];
-    CurrentUser *user = [CurrentUser sharedSingleton];
+    self.singleUser = [CurrentUser sharedSingleton];
 
 }
 
@@ -119,13 +125,27 @@
                     if (newUserBoolean)
                     {
                         //WE CAN ADD LOGIC HERE TO HANDLE NEW USERS
-                        
-                        [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
+
+                        [self loadArray:^(BOOL result) {
+                            if (result)
+                            {
+
+                                [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
+                            }
+                        }];
+
 
                     }
                     else
                     {
-                        [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
+                        [self loadArray:^(BOOL result) {
+                            if (result)
+                            {
+
+                                [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
+                            }
+                        }];
+
 
                     }
 
@@ -163,6 +183,34 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+-(void)loadArray:(void (^)(BOOL))completionHandler
+{
+    [self.singleUser loadArrayOfPhotos:^(BOOL result)
+    {
+        [self.singleUser loadArrayOfVideos:^(BOOL result)
+        {
 
+            [self.singleUser loadArrayOfLinks:^(BOOL result)
+            {
+
+                [self.singleUser loadArrayOfFollowers:^(BOOL result)
+                {
+
+                    [self.singleUser loadArrayOfFollowing:NO row:0 completion:^(BOOL result)
+                    {
+                        [self.singleUser setUserProfile];
+                        completionHandler(YES);
+                    }];
+
+                }];
+
+            }];
+
+        }];
+    }];
+  
+
+
+}
 
 @end
