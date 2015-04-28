@@ -35,13 +35,14 @@
 @property PFObject *video;
 @property PFObject *note;
 @property PFObject *link;
+@property PFObject *activity;
 @property PFFile *photoFile;
 
+-(void)loadArray:(void (^)(BOOL result))completionHandler;
 
 @end
 
 @implementation TK_DescriptionViewController
-
 
 
 - (void)viewDidLoad
@@ -65,7 +66,6 @@
 
     // Setting User
     self.currentUser = [PFUser currentUser];
-
 
     if (self.isLink) {
         self.link = [PFObject objectWithClassName:@"Link"];
@@ -100,6 +100,16 @@
         [self.video setObject:self.currentUser forKey:@"user"];
         [self.video setObject:self.currentUser.objectId forKey:@"userName"];
         [self.video setObject:videoFile forKey:@"video"];
+        [self.video setObject:self.currentUser.username forKey:@"UserName"];
+
+        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"video" forKey:@"mediaType"];
+        [self.activity setObject:self.currentUser forKey:@"fromUser"];
+        [self.activity setObject:self.photo forKey:@"photo"];
+        [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
+        [self.activity setValue:self.currentUser.username forKey:@"username"];
+
+
     }
     else
     // For Photo
@@ -108,12 +118,21 @@
         self.imagePhoto = [self resizeImage:self.imagePhoto scaledToSize:150];
         // Setting Photo for upload to Parse
         self.photo = [PFObject objectWithClassName:@"Photo"];
+        self.activity = [PFObject objectWithClassName:@"Activity"];
         NSData *dataPhoto = UIImagePNGRepresentation(self.imagePhoto);
         PFFile *imagePhotoFile = [PFFile fileWithName:@"photo.png" data:dataPhoto];
 
         [self.photo setObject:self.currentUser forKey:@"user"];
         [self.photo setObject:self.currentUser.objectId forKey:@"userName"];
+        [self.photo setObject:self.currentUser.username forKey:@"UserName"];
         [self.photo setObject:imagePhotoFile forKey:@"image"];
+
+        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"photo" forKey:@"mediaType"];
+        [self.activity setObject:self.currentUser forKey:@"fromUser"];
+        [self.activity setObject:self.photo forKey:@"photo"];
+        [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
+        [self.activity setValue:self.currentUser.username forKey:@"username"];
 
     }
 
@@ -177,15 +196,21 @@
         }
         else
         {
-            NSLog(@"Photo Saved");
-            [currentUser.arrayOfPhotos addObject:self.imagePhoto];
 
-            UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+            [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+            {
+                NSLog(@"Photo Saved");
+                [currentUser.arrayOfPhotos addObject:self.imagePhoto];
 
-            [self.navigationController pushViewController: hc animated:YES];
 
-//            [self.navigationController popViewControllerAnimated:YES];
+                        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                        MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+
+                        [self.navigationController pushViewController: hc animated:YES];
+
+
+            }];
+
         }
     }];
 }
@@ -198,13 +223,24 @@
         }
         else
         {
-            NSLog(@"Video Saved");
-//            [self.navigationController popViewControllerAnimated:YES];
+            [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
+                 NSLog(@"Video Saved");
 
-            UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+                 NSURL *url = [NSURL URLWithString:self.stringVideoURL];
+                 Video *video = [[Video alloc]initWithUrl:url];
 
-            [self.navigationController pushViewController: hc animated:YES];
+                 [currentUser.arrayOfVideos addObject:video];
+
+
+                 UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                 MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+
+                 [self.navigationController pushViewController: hc animated:YES];
+                 
+                 
+             }];
+
         }
     }];
 }

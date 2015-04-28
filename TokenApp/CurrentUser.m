@@ -9,6 +9,7 @@
 #import "CurrentUser.h"
 #import "User.h"
 #import "Notification.h"
+#import "HomeFeedPost.h"
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import <AVFoundation/AVFoundation.h>
@@ -221,8 +222,10 @@
                      }
                      else
                      {
-                         UIImage *photo = [UIImage imageWithData:data];
-                         Photo *newPhoto = [[Photo alloc]initWithImage:photo];
+                         UIImage *imagePhoto = [UIImage imageWithData:data];
+                         NSString *name= [photo objectForKey:@"userName"];
+                         // Add Time
+                         Photo *newPhoto = [[Photo alloc]initWithImage:imagePhoto name:name time:nil];
                          [self.arrayOfPhotos addObject:newPhoto];
                          // [self.arrayOfPhotos addObject:[UIImage imageWithData:data]];
                      }
@@ -351,7 +354,9 @@
                          else
                          {
                              UIImage *photo = [UIImage imageWithData:data];
-                             Photo *activityPhoto = [[Photo alloc]initWithImage:photo];
+                             NSString *name= [[activity objectForKey:@"toUser"]objectForKey:@"username"];
+
+                             Photo *activityPhoto = [[Photo alloc]initWithImage:photo name:name time:nil];
                              NSString *typeOfActivity = [activity objectForKey:@"type"];
                              NSString *mediaType = [activity objectForKey:@"mediaType"];
 
@@ -410,7 +415,8 @@
                      else
                      {
                          UIImage *photo = [UIImage imageWithData:data];
-                         Photo *activityPhoto = [[Photo alloc]initWithImage:photo];
+                        NSString *name= [[activity objectForKey:@"toUser"]objectForKey:@"username"];
+                         Photo *activityPhoto = [[Photo alloc]initWithImage:photo name:name time:nil];
                          NSString *typeOfActivity = [activity objectForKey:@"type"];
                          NSString *mediaType = [activity objectForKey:@"mediaType"];
 
@@ -430,6 +436,126 @@
              }
          }
      }];
+}
+
+-(void)loadHomeFeedContent:(void (^)(BOOL))completionHandler
+{
+    self.arrayOfHomeFeedContent = [NSMutableArray new];
+    
+
+    
+    for (PFObject *homeFeedActivity in self.arrayOfHomeFeedActivity)
+    {
+
+        // PHOTO
+        if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"photo"])
+        {
+            PFFile *parseFileWithImage = [[homeFeedActivity objectForKey:@"photo"]objectForKey:@"image"];
+            NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+            NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+            [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data1, NSError *connectionError)
+            {
+
+                if (connectionError)
+                {
+                    NSLog(@"%@",[connectionError userInfo]);
+                }
+                else
+                {
+
+                    PFFile *parseProfileImage = [[homeFeedActivity objectForKey:@"fromUser"]objectForKey:@"profileImage"];
+                    NSURL *urlProfile = [NSURL URLWithString:parseProfileImage.url];
+                    NSURLRequest *requestURLProfile = [NSURLRequest requestWithURL:urlProfile];
+                    [NSURLConnection sendAsynchronousRequest:requestURLProfile queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+                     {
+                         self.homeFeedContent = [UIImage imageWithData:data1];
+                         self.homeFeedProfilePic = [UIImage imageWithData:data];
+                         NSString *name= [homeFeedActivity objectForKey:@"username"];
+                         HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil contentImage:self.homeFeedContent postMessage:nil videoURL:nil linkURL:nil mediaType:@"photo"];
+
+                         [self.arrayOfHomeFeedContent addObject:homeFeedPost];
+
+                         if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
+                         {
+                             completionHandler(YES);
+                         }
+                         
+                         
+                     }];
+
+
+
+                }
+            }];
+
+    }
+
+        // Video
+        if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"video"])
+        {
+            PFFile *parseFileWithVideo = [[homeFeedActivity objectForKey:@"video"]objectForKey:@"video"];
+
+            NSURL *url = [NSURL URLWithString:parseFileWithVideo.url];
+            Video *video = [[Video alloc]initWithUrl:url];
+            [self.arrayOfVideos addObject:video];
+
+            if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
+            {
+                completionHandler(YES);
+            }
+        }
+
+    }
+
+
+}
+
+-(void)loadHomeFeedActivity:(void (^)(BOOL))completionHandler
+{
+    user = [PFUser currentUser];
+    self.arrayOfHomeFeedActivity = [NSMutableArray new];
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+    [queryForActivity orderByDescending:@"createdAt"];
+    [queryForActivity whereKey:@"type" equalTo:@"post"];
+
+
+    [queryForActivity includeKey:@"fromUser"];
+    [queryForActivity includeKey: @"toUser"];
+    [queryForActivity includeKey:@"photo"];
+    [queryForActivity includeKey:@"video"];
+    [queryForActivity includeKey:@"link"];
+    [queryForActivity includeKey:@"note"];
+
+    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        if (!error)
+        {   // Post Activties
+            for (PFObject *activity in objects)
+            {
+
+                //Post activity from current User
+                if ([[activity objectForKey:@"fromUserID"]isEqualToString:user.objectId])
+                {
+                    [self.arrayOfHomeFeedActivity addObject:activity];
+                }
+                else
+                {
+                    for (User *following in self.arrayOfFollowing)
+                    {
+                        if ([[activity objectForKey:@"fromUserID"] isEqualToString:following.objectID])
+                        {
+
+                            [self.arrayOfHomeFeedActivity addObject:activity];
+                        }
+
+                    }
+                }
+
+            }
+            completionHandler(YES);
+        }
+    }];
+
 }
 
 #pragma mark - User Helper Methods
@@ -615,6 +741,9 @@
 {
     return 0;
 }
+
+    
+    
 
 
 @end

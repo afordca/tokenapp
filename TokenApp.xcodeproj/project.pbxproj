@@ -21,6 +21,7 @@
 		002E163A1A94EFAF000AE37B /* UIViewController+Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E16391A94EFAF000AE37B /* UIViewController+Camera.m */; };
 		002E163D1A955973000AE37B /* ProfileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */; };
 		004153831AE6CD0F00A19E77 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004153821AE6CD0F00A19E77 /* ChangePasswordViewController.m */; };
+		004ED88E1AF002F100106071 /* HomeFeedPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 004ED88D1AF002F100106071 /* HomeFeedPost.m */; };
 		008AB0DD1ADCCC630025647B /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 008AB0DA1ADCCC630025647B /* TwitterKit.framework */; };
 		008AB0DE1ADCCC630025647B /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 008AB0DB1ADCCC630025647B /* TwitterKitResources.bundle */; };
 		008AB0DF1ADCCC630025647B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 008AB0DC1ADCCC630025647B /* Fabric.framework */; };
@@ -51,6 +52,7 @@
 		00D24BBF1AEAF2AE0072558F /* BalanceTransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D24BBE1AEAF2AE0072558F /* BalanceTransactionViewController.m */; };
 		00D24BC51AEDB7600072558F /* HomeFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D24BC41AEDB7600072558F /* HomeFeedViewController.m */; };
 		00D24BC81AEDB7850072558F /* HomeFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D24BC71AEDB7850072558F /* HomeFeedTableViewCell.m */; };
+		00D24BCA1AEFE0B30072558F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00D24BC91AEFE0B30072558F /* Crashlytics.framework */; };
 		00D71CC81A8D6B290022E856 /* TK_LinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D71CC71A8D6B290022E856 /* TK_LinkViewController.m */; };
 		00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED602F1A7ED68500ED1229 /* LaunchPageViewController.m */; };
 		00ED60361A7F5BA300ED1229 /* MFC_LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00ED60351A7F5BA300ED1229 /* MFC_LogInViewController.m */; };
@@ -136,6 +138,8 @@
 		002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCollectionViewCell.m; sourceTree = "<group>"; };
 		004153811AE6CD0F00A19E77 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		004153821AE6CD0F00A19E77 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		004ED88C1AF002F100106071 /* HomeFeedPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedPost.h; sourceTree = "<group>"; };
+		004ED88D1AF002F100106071 /* HomeFeedPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedPost.m; sourceTree = "<group>"; };
 		008AB0DA1ADCCC630025647B /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		008AB0DB1ADCCC630025647B /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
 		008AB0DC1ADCCC630025647B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 		00D24BC41AEDB7600072558F /* HomeFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedViewController.m; sourceTree = "<group>"; };
 		00D24BC61AEDB7850072558F /* HomeFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedTableViewCell.h; sourceTree = "<group>"; };
 		00D24BC71AEDB7850072558F /* HomeFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedTableViewCell.m; sourceTree = "<group>"; };
+		00D24BC91AEFE0B30072558F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		00D71CC61A8D6B290022E856 /* TK_LinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_LinkViewController.h; sourceTree = "<group>"; };
 		00D71CC71A8D6B290022E856 /* TK_LinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TK_LinkViewController.m; sourceTree = "<group>"; };
 		00ED602E1A7ED68500ED1229 /* LaunchPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchPageViewController.h; sourceTree = "<group>"; };
@@ -287,6 +292,7 @@
 				25ED67611A321327004CD269 /* Security.framework in Frameworks */,
 				25ED675F1A321319004CD269 /* QuartzCore.framework in Frameworks */,
 				25ED675D1A32130F004CD269 /* MobileCoreServices.framework in Frameworks */,
+				00D24BCA1AEFE0B30072558F /* Crashlytics.framework in Frameworks */,
 				25ED675B1A321305004CD269 /* libz.dylib in Frameworks */,
 				25ED67591A3212F9004CD269 /* CoreLocation.framework in Frameworks */,
 				25ED67571A3212EF004CD269 /* CoreGraphics.framework in Frameworks */,
@@ -338,6 +344,8 @@
 				00C6DE5D1ABCD1CD00CC410C /* Link.m */,
 				00C6DE5F1ABE2B4F00CC410C /* Comment.h */,
 				00C6DE601ABE2B4F00CC410C /* Comment.m */,
+				004ED88C1AF002F100106071 /* HomeFeedPost.h */,
+				004ED88D1AF002F100106071 /* HomeFeedPost.m */,
 			);
 			name = Content;
 			sourceTree = "<group>";
@@ -434,6 +442,7 @@
 		25A72F1F1A319CF20076AE07 = {
 			isa = PBXGroup;
 			children = (
+				00D24BC91AEFE0B30072558F /* Crashlytics.framework */,
 				25A72F2A1A319CF20076AE07 /* TokenApp */,
 				25A72F441A319CF30076AE07 /* TokenAppTests */,
 				25A72F291A319CF20076AE07 /* Products */,
@@ -679,7 +688,7 @@
 				TargetAttributes = {
 					25A72F271A319CF20076AE07 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = M937F246YV;
+						DevelopmentTeam = JDSBMDRW58;
 					};
 					25A72F401A319CF30076AE07 = {
 						CreatedOnToolsVersion = 6.1;
@@ -800,6 +809,7 @@
 				00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */,
 				00C6DE581ABCB51200CC410C /* Video.m in Sources */,
 				00A990FF1AD722C500A635D7 /* DetailedContentViewController.m in Sources */,
+				004ED88E1AF002F100106071 /* HomeFeedPost.m in Sources */,
 				B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */,
 				B9D3934C1A4BE20E00C7733A /* TrendingViewController.m in Sources */,
 				00A68E951A9D10C500AAB98F /* FollowersTableViewCell.m in Sources */,

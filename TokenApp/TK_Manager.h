@@ -43,7 +43,6 @@
 
 +(NSArray*)loadArrayOfContent:(NSMutableArray*)photos arrayOfVideos:(NSMutableArray*)videos arrayOfLinks:(NSMutableArray*)links;
 
-
 +(NSMutableArray*)loadFollowers:(NSString*)userID;
 +(NSMutableArray*)loadFollowing:(NSString*)userID;
 +(NSMutableArray*)loadArrayOfPhotos:(NSString*)userID;

@@ -10,9 +10,11 @@
 
 @implementation Photo
 
--(id)initWithImage:(UIImage *)picture
+-(id)initWithImage:(UIImage *)picture name:(NSString *)username time:(NSString *)time
 {
     self.picture = picture;
+    self.time = time;
+    self.userName = username;
 
     return self;
 }

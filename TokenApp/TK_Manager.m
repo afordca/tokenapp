@@ -99,8 +99,9 @@
                      }
                      else
                      {
-                         UIImage *photo = [UIImage imageWithData:data];
-                         Photo *newPhoto = [[Photo alloc]initWithImage:photo];
+                         UIImage *imagePhoto = [UIImage imageWithData:data];
+                         NSString *name = [photo objectForKey:@"userName"];
+                         Photo *newPhoto = [[Photo alloc]initWithImage:imagePhoto name:name time:nil];
                          [arrayOfPhotos addObject:newPhoto];
                      }
                  }];

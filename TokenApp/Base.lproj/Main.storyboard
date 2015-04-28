@@ -139,7 +139,7 @@
                     </tabBar>
                     <connections>
                         <outlet property="tabBarNavigation" destination="F4h-Jb-Ulx" id="Xda-PQ-m1k"/>
-                        <segue destination="czT-6l-ySU" kind="relationship" relationship="viewControllers" id="jHY-lx-eT9"/>
+                        <segue destination="hqk-Tg-Utf" kind="relationship" relationship="viewControllers" id="LqV-Hm-p26"/>
                         <segue destination="YzF-hF-Rrh" kind="relationship" relationship="viewControllers" id="Jcn-Dq-4uy"/>
                         <segue destination="XZo-jF-I7t" kind="relationship" relationship="viewControllers" id="kUI-VG-eS0"/>
                         <segue destination="KW8-sJ-PlE" kind="relationship" relationship="viewControllers" id="jtO-oZ-r61"/>
@@ -348,7 +348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yhG-o4-MHk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-387" y="-541"/>
+            <point key="canvasLocation" x="145" y="-541"/>
         </scene>
         <!--Detailed Content View Controller-->
         <scene sceneID="aks-ao-JJI">
@@ -1872,35 +1872,10 @@
             </objects>
             <point key="canvasLocation" x="-2539.5" y="1087.5"/>
         </scene>
-        <!--Home-->
-        <scene sceneID="J1R-an-VKb">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="czT-6l-ySU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="Feed" id="QXu-Jd-iQJ"/>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="kNg-Ge-TNZ"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gf9-jm-6FF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="23X-m1-NM2" kind="push" id="eHS-7Q-S40"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="inA-jf-7kJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-946" y="-1241"/>
-        </scene>
         <!--Home Feed View Controller-->
         <scene sceneID="nHh-Tn-ifk">
             <objects>
-                <viewController id="23X-m1-NM2" customClass="HomeFeedViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeFeed" useStoryboardIdentifierAsRestorationIdentifier="YES" id="23X-m1-NM2" customClass="HomeFeedViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IAW-Nr-rv1"/>
                         <viewControllerLayoutGuide type="bottom" id="hMx-Cl-rm3"/>
@@ -1919,8 +1894,25 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HrP-76-QmV" id="wrC-V3-FBD">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sUM-o3-s3r">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sUM-o3-s3r">
                                                     <rect key="frame" x="0.0" y="50" width="320" height="211"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Video" translatesAutoresizingMaskIntoConstraints="NO" id="bF2-Iq-dcj">
+                                                    <rect key="frame" x="263" y="60" width="49" height="49"/>
+                                                </imageView>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OeJ-6P-iBL">
+                                                    <rect key="frame" x="0.0" y="52" width="320" height="209"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ZH5-Oz-Hi7">
+                                                    <rect key="frame" x="0.0" y="199" width="320" height="21"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
+                                                    <color key="textColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Link" translatesAutoresizingMaskIntoConstraints="NO" id="x0y-Np-jOP">
+                                                    <rect key="frame" x="114" y="98" width="93" height="93"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fad-EG-RJA">
                                                     <rect key="frame" x="8" y="0.0" width="44" height="44"/>
@@ -1942,8 +1934,12 @@
                                         <connections>
                                             <outlet property="imageViewHomeFeedContent" destination="sUM-o3-s3r" id="1OD-BI-kIh"/>
                                             <outlet property="imageViewHomeFeedProfilePic" destination="Fad-EG-RJA" id="Pic-sk-8tH"/>
+                                            <outlet property="imageViewLinkURL" destination="x0y-Np-jOP" id="rdw-Oj-Ded"/>
+                                            <outlet property="imageViewVideoIcon" destination="bF2-Iq-dcj" id="JEk-Be-Ar0"/>
                                             <outlet property="labelHomeFeedTime" destination="W14-Zv-9fo" id="fvr-gV-wlV"/>
                                             <outlet property="labelHomeFeedUsername" destination="Opf-M3-J9o" id="SWa-8I-tcx"/>
+                                            <outlet property="labelLinkURL" destination="ZH5-Oz-Hi7" id="jOJ-qt-f58"/>
+                                            <outlet property="viewLinkBlackBackground" destination="OeJ-6P-iBL" id="bJb-gf-Yx7"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1961,7 +1957,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vqC-p0-eIu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-540" y="-1241"/>
+            <point key="canvasLocation" x="-221" y="-1327"/>
         </scene>
         <!--Explore-->
         <scene sceneID="It5-AK-DVh">
@@ -1985,7 +1981,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAU-7f-dAK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-932" y="-541"/>
+            <point key="canvasLocation" x="-932" y="-573"/>
         </scene>
         <!--Create View Controller-->
         <scene sceneID="24f-Oy-HUa">
@@ -2801,6 +2797,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="35W-fT-l2q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-377" y="1720"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="Fec-NO-9bD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hqk-Tg-Utf" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" image="Feed" id="cwY-Db-HTv"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="njC-tv-atJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="23X-m1-NM2" kind="relationship" relationship="rootViewController" id="kd2-tN-tMu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mtP-oT-HgN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-932" y="-1327"/>
         </scene>
     </scenes>
     <resources>

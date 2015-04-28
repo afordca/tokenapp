@@ -45,6 +45,8 @@
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationLikes;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationTags;
 @property (nonatomic,strong) NSMutableArray *arrayOfBalanceActivity;
+@property (nonatomic,strong) NSMutableArray *arrayOfHomeFeedActivity;
+@property (nonatomic,strong) NSMutableArray *arrayOfHomeFeedContent;
 
 @property (strong, nonatomic)  NSString *Firstname;
 @property (strong, nonatomic)  NSString *Lastname;
@@ -73,6 +75,9 @@
 @property NSNumber *runningBalance;
 
 
+@property UIImage *homeFeedProfilePic;
+@property UIImage *homeFeedContent;
+
 @property PFUser *user;
 
 
@@ -90,6 +95,11 @@
 -(void)loadArrayOfVideos:(void (^)(BOOL result))completionHandler;
 -(void)loadArrayOfLinks:(void (^)(BOOL result))completionHandler;
 -(void)loadArrayOfPosts:(void (^)(BOOL result))completionHandler;
+
+-(void)loadHomeFeedActivity:(void (^)(BOOL result))completionHandler;
+-(void)loadHomeFeedContent:(void (^)(BOOL result))completionHandler;
+
+
 -(void)loadArrayOfNotifications;
 -(void)loadActivityToCurrentUser;
 -(void)loadActivityFromCurrentUser;

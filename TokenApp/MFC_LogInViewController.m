@@ -134,18 +134,15 @@
                             }
                         }];
 
-
                     }
                     else
                     {
                         [self loadArray:^(BOOL result) {
                             if (result)
                             {
-
                                 [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
                             }
                         }];
-
 
                     }
 
@@ -198,8 +195,16 @@
 
                     [self.singleUser loadArrayOfFollowing:NO row:0 completion:^(BOOL result)
                     {
-                        [self.singleUser setUserProfile];
-                        completionHandler(YES);
+
+                        [self.singleUser loadHomeFeedActivity:^(BOOL result) {
+
+                            [self.singleUser loadHomeFeedContent:^(BOOL result) {
+                                [self.singleUser setUserProfile];
+                                completionHandler(YES);
+                            }];
+
+                        }];
+
                     }];
 
                 }];
@@ -208,8 +213,6 @@
 
         }];
     }];
-  
-
 
 }
 

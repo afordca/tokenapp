@@ -15,5 +15,11 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelHomeFeedTime;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewHomeFeedContent;
 
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewVideoIcon;
+
+@property (strong, nonatomic) IBOutlet UILabel *labelLinkURL;
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewLinkURL;
+
+@property (strong, nonatomic) IBOutlet UIView *viewLinkBlackBackground;
 
 @end

@@ -7,23 +7,26 @@
 //
 
 #import "HomeFeedViewController.h"
-
+#import "HomeFeedTableViewCell.h"
 #import "MFC_HomeFeedViewController.h"
 #import "TK_DescriptionViewController.h"
 #import "CreateMainView.h"
 #import "UIViewController+Camera.h"
 #import "MFC_CreateViewController.h"
-
 #import "CamerOverlay.h"
 #import "TK_Manager.h"
-
 #import "User.h"
 #import "CurrentUser.h"
+#import "Photo.h"
+#import "Video.h"
+#import "Link.h"
+#import "Post.h"
+#import "HomeFeedPost.h"
+
 #import "AppDelegate.h"
 
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
-
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -68,20 +71,6 @@
     currentUser = [CurrentUser sharedSingleton];
     [currentUser setUserProfile];
 
-    //TK Manager - Helper Methods
-
-    self.arrayOfContent = [TK_Manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks];
-
-//    [currentUser loadArrayOfFollowers];
-//    [currentUser setUserProfile];
-//    [currentUser loadArrayOfPhotos];
-//    [currentUser loadArrayOfVideos];
-//    [currentUser loadArrayOfLinks];
-//    [currentUser loadArrayOfPosts];
-//    [currentUser loadArrayOfFollowing:NO row:0];
-//    [currentUser loadActivityToCurrentUser];
-//    [currentUser loadActivityFromCurrentUser];
-
 }
 
 
@@ -106,12 +95,67 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return currentUser.arrayOfHomeFeedContent.count;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    HomeFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeFeedCell"];
+
+    cell.labelHomeFeedUsername.text = @"";
+    cell.imageViewHomeFeedContent.alpha = 1;
+    cell.imageViewVideoIcon.alpha = 0;
+    cell.labelLinkURL.alpha = 0;
+    cell.imageViewLinkURL.alpha = 0;
+    cell.viewLinkBlackBackground.alpha = 0;
+
+    HomeFeedPost *post = [currentUser.arrayOfHomeFeedContent objectAtIndex:indexPath.row];
+
+
+
+    if ([post.mediaType isEqualToString:@"photo"])
+    {
+
+        cell.labelHomeFeedUsername.text = post.userName;
+        cell.imageViewHomeFeedContent.image = post.contentImage;
+        cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
+        cell.imageViewVideoIcon.alpha = 0;
+        cell.labelLinkURL.alpha = 0;
+        cell.imageViewLinkURL.alpha = 0;
+        cell.viewLinkBlackBackground.alpha = 0;
+        return cell;
+    }
+//    if ([post.mediaType isEqualToString:@"video"])
+//    {
+//        Video *video = [Video new];
+//        video = [currentUser.arrayOfHomeFeedContent objectAtIndex:indexPath.row];
+//        cell.labelHomeFeedUsername.text = @"";
+//        cell.imageViewHomeFeedContent.image = video.videoThumbnail;
+//        cell.imageViewVideoIcon.alpha = 1;
+//        cell.labelLinkURL.alpha = 0;
+//        cell.imageViewLinkURL.alpha = 0;
+//        cell.viewLinkBlackBackground.alpha = 0;
+//
+//        return cell;
+//
+//    }
+//    if ([post.mediaType isEqualToString:@"link"])
+//    {
+//        Link *link = [Link new];
+//        link = [currentUser.arrayOfHomeFeedContent objectAtIndex:indexPath.row];
+//        cell.labelHomeFeedUsername.text = @"";
+//        cell.imageViewHomeFeedContent.alpha = 0;
+//        cell.imageViewVideoIcon.alpha = 0;
+//        cell.labelLinkURL.alpha = 1;
+//        cell.imageViewLinkURL.alpha = 1;
+//        cell.viewLinkBlackBackground.alpha = 1;
+//        cell.labelLinkURL.text = [link.urlLink absoluteString];
+//
+//        return cell;
+//    }
+
     return nil;
+
 }
 
 @end
