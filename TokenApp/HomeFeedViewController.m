@@ -55,6 +55,7 @@
 
 @property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
 
+@property (strong, nonatomic) IBOutlet UITableView *tableViewHomeFeed;
 
 @property BOOL isVideo;
 
@@ -79,6 +80,7 @@
     [super viewDidAppear:YES];
     [self addObserver];
 
+    [self.tableViewHomeFeed reloadData];
 }
 
 
@@ -111,8 +113,6 @@
 
     HomeFeedPost *post = [currentUser.arrayOfHomeFeedContent objectAtIndex:indexPath.row];
 
-
-
     if ([post.mediaType isEqualToString:@"photo"])
     {
 
@@ -125,20 +125,19 @@
         cell.viewLinkBlackBackground.alpha = 0;
         return cell;
     }
-//    if ([post.mediaType isEqualToString:@"video"])
-//    {
-//        Video *video = [Video new];
-//        video = [currentUser.arrayOfHomeFeedContent objectAtIndex:indexPath.row];
-//        cell.labelHomeFeedUsername.text = @"";
-//        cell.imageViewHomeFeedContent.image = video.videoThumbnail;
-//        cell.imageViewVideoIcon.alpha = 1;
-//        cell.labelLinkURL.alpha = 0;
-//        cell.imageViewLinkURL.alpha = 0;
-//        cell.viewLinkBlackBackground.alpha = 0;
-//
-//        return cell;
-//
-//    }
+    if ([post.mediaType isEqualToString:@"video"])
+    {
+        cell.labelHomeFeedUsername.text = post.userName;
+        cell.imageViewHomeFeedContent.image = post.contentImage;
+        cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
+        cell.imageViewVideoIcon.alpha = 1;
+        cell.labelLinkURL.alpha = 0;
+        cell.imageViewLinkURL.alpha = 0;
+        cell.viewLinkBlackBackground.alpha = 0;
+
+        return cell;
+
+    }
 //    if ([post.mediaType isEqualToString:@"link"])
 //    {
 //        Link *link = [Link new];

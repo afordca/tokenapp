@@ -441,9 +441,7 @@
 -(void)loadHomeFeedContent:(void (^)(BOOL))completionHandler
 {
     self.arrayOfHomeFeedContent = [NSMutableArray new];
-    
 
-    
     for (PFObject *homeFeedActivity in self.arrayOfHomeFeedActivity)
     {
 
@@ -479,12 +477,8 @@
                          {
                              completionHandler(YES);
                          }
-                         
-                         
+
                      }];
-
-
-
                 }
             }];
 
@@ -494,16 +488,92 @@
         if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"video"])
         {
             PFFile *parseFileWithVideo = [[homeFeedActivity objectForKey:@"video"]objectForKey:@"video"];
+            PFFile *parseProfileImage = [[homeFeedActivity objectForKey:@"fromUser"]objectForKey:@"profileImage"];
+            NSURL *urlProfile = [NSURL URLWithString:parseProfileImage.url];
+            NSURLRequest *requestURLProfile = [NSURLRequest requestWithURL:urlProfile];
+            [NSURLConnection sendAsynchronousRequest:requestURLProfile queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+             {
 
-            NSURL *url = [NSURL URLWithString:parseFileWithVideo.url];
-            Video *video = [[Video alloc]initWithUrl:url];
-            [self.arrayOfVideos addObject:video];
+                 if (connectionError)
+                 {
+                     NSLog(@"%@",[connectionError userInfo]);
+                 }
+                 else
+                 {
 
-            if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
-            {
-                completionHandler(YES);
-            }
+                     NSURL *url = [NSURL URLWithString:parseFileWithVideo.url];
+         
+                     UIImage *thumbnail = nil;
+         
+                     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
+                     AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                     generator.appliesPreferredTrackTransform = YES;
+                     NSError *error = nil;
+                     CMTime time = CMTimeMake(0, 1); // 3/1 = 3 second(s)
+                     CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:nil error:&error];
+                     if (error != nil)
+                         NSLog(@"%@: %@", self, error);
+                     thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
+         
+         //            self.videoThumbnail = thumbnail;
+                     CGImageRelease(imgRef);
+         
+                     NSString *name= [homeFeedActivity objectForKey:@"username"];
+                     self.homeFeedProfilePic = [UIImage imageWithData:data];
+                     self.homeFeedContent = thumbnail;
+         
+         
+                     HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil contentImage:self.homeFeedContent postMessage:nil videoURL:url linkURL:nil mediaType:@"video"];
+         
+                     [self.arrayOfHomeFeedContent addObject:homeFeedPost];
+         
+                     if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
+                     {
+                         completionHandler(YES);
+                     }
+
+
+                 }
+
+
+             }];
         }
+
+//        //LINK
+//        if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"link"])
+//        {
+//            PFFile *parseFileWithVideo = [[homeFeedActivity objectForKey:@"video"]objectForKey:@"video"];
+//            PFFile *parseProfileImage = [[homeFeedActivity objectForKey:@"fromUser"]objectForKey:@"profileImage"];
+//            NSURL *urlProfile = [NSURL URLWithString:parseProfileImage.url];
+//            NSURLRequest *requestURLProfile = [NSURLRequest requestWithURL:urlProfile];
+//            [NSURLConnection sendAsynchronousRequest:requestURLProfile queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+//             {
+//
+//
+//                 if (connectionError)
+//                 {
+//                     NSLog(@"@%",[connectionError userInfo]);
+//                 }
+//                 else
+//                 {
+//                     NSString *name= [homeFeedActivity objectForKey:@"username"];
+//                     self.homeFeedProfilePic = [UIImage imageWithData:data];
+//                     self.homeFeedContent = thumbnail;
+//
+//
+//
+//                     HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil contentImage:self.homeFeedContent postMessage:nil videoURL:nil linkURL:nil mediaType:@"video"];
+//
+//                     [self.arrayOfHomeFeedContent addObject:homeFeedPost];
+//
+//                     if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
+//                     {
+//                         completionHandler(YES);
+//                     }
+//                     
+//                 }
+//            }];
+//        }
 
     }
 
@@ -518,7 +588,6 @@
     [queryForActivity orderByDescending:@"createdAt"];
     [queryForActivity whereKey:@"type" equalTo:@"post"];
 
-
     [queryForActivity includeKey:@"fromUser"];
     [queryForActivity includeKey: @"toUser"];
     [queryForActivity includeKey:@"photo"];
@@ -532,7 +601,6 @@
         {   // Post Activties
             for (PFObject *activity in objects)
             {
-
                 //Post activity from current User
                 if ([[activity objectForKey:@"fromUserID"]isEqualToString:user.objectId])
                 {
@@ -639,7 +707,6 @@
 
         //   [self.delegate reloadTableAfterArrayUpdate:row];
 
-        
     }];
     
 }

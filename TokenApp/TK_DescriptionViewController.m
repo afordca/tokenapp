@@ -14,12 +14,16 @@
 #import "Macros.h"
 #import "Constants.h"
 #import "TKCache.h"
+#include "HomeFeedPost.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import <Social/Social.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AVFoundation/AVAsset.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 
 @interface TK_DescriptionViewController () <UITextFieldDelegate,UITextViewDelegate>
@@ -37,6 +41,7 @@
 @property PFObject *link;
 @property PFObject *activity;
 @property PFFile *photoFile;
+@property PFFile *videoFile;
 
 -(void)loadArray:(void (^)(BOOL result))completionHandler;
 
@@ -49,6 +54,7 @@
 {
     [super viewDidLoad];
     self.currentUser = [PFUser currentUser];
+    currentUser = [CurrentUser sharedSingleton];
     [self initialize];
     [self setUI];
 }
@@ -94,18 +100,18 @@
         fileName = @"video.mov";
 
         self.video = [PFObject objectWithClassName:@"Video"];
-        PFFile *videoFile = [PFFile fileWithName:fileName data:fileData];
-
+        self.activity = [PFObject objectWithClassName:@"Activity"];
+        self.videoFile = [PFFile fileWithName:fileName data:fileData];
 
         [self.video setObject:self.currentUser forKey:@"user"];
         [self.video setObject:self.currentUser.objectId forKey:@"userName"];
-        [self.video setObject:videoFile forKey:@"video"];
+        [self.video setObject:self.videoFile forKey:@"video"];
         [self.video setObject:self.currentUser.username forKey:@"UserName"];
 
         [self.activity setObject:@"post" forKey:@"type"];
         [self.activity setObject:@"video" forKey:@"mediaType"];
         [self.activity setObject:self.currentUser forKey:@"fromUser"];
-        [self.activity setObject:self.photo forKey:@"photo"];
+        [self.activity setObject:self.video forKey:@"video"];
         [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
         [self.activity setValue:self.currentUser.username forKey:@"username"];
 
@@ -200,14 +206,25 @@
             [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
             {
                 NSLog(@"Photo Saved");
+
+                //Save to Photo Array
                 [currentUser.arrayOfPhotos addObject:self.imagePhoto];
 
+                //Add to Activity Array
+                NSString *name = currentUser.userName;
+                UIImage *profilePic = currentUser.profileImage;
+                UIImage *contentImage = self.imagePhoto;
 
-                        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                        MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+                HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil contentImage:contentImage postMessage:nil videoURL:nil linkURL:nil mediaType:@"photo"];
 
-                        [self.navigationController pushViewController: hc animated:YES];
+                [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
+
+
+                UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+
+                [self.navigationController pushViewController: hc animated:YES];
 
             }];
 
@@ -227,18 +244,40 @@
              {
                  NSLog(@"Video Saved");
 
-                 NSURL *url = [NSURL URLWithString:self.stringVideoURL];
+                 //Add Video to Video Array
+                 NSURL *url = [NSURL URLWithString:self.videoFile.url];
                  Video *video = [[Video alloc]initWithUrl:url];
-
                  [currentUser.arrayOfVideos addObject:video];
 
+                 //Add to Activity Array
+                 NSString *name = currentUser.userName;
+                 UIImage *profilePic = currentUser.profileImage;
+                 UIImage *thumbnail = nil;
+                 UIImage *homeFeedContent = nil;
 
-                 UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                 MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+                 AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
+                 AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                 generator.appliesPreferredTrackTransform = YES;
+                 NSError *errorAsset = nil;
+                 CMTime time = CMTimeMake(0, 1); // 3/1 = 3 second(s)
+                 CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:nil error:&error];
+                 if (error != nil)
+                     NSLog(@"%@: %@", self, error);
+                 thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
 
-                 [self.navigationController pushViewController: hc animated:YES];
-                 
-                 
+                 CGImageRelease(imgRef);
+
+                 homeFeedContent = thumbnail;
+
+                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil contentImage:homeFeedContent postMessage:nil videoURL:url linkURL:nil mediaType:@"video"];
+
+                 [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
+
+                   UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                   MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+
+                   [self.navigationController pushViewController: hc animated:YES];
+
              }];
 
         }

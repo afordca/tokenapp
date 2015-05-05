@@ -45,7 +45,6 @@
                                                  selector:@selector(videoPlayBackDidFinish:)
                                                      name:MPMoviePlayerPlaybackDidFinishNotification
                                                    object:self.videoController];
-
         [self.videoController play];
 
     }
