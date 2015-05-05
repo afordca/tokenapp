@@ -223,6 +223,11 @@
 {
     ProfileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProfile" forIndexPath:indexPath];
 
+    cell.imageViewVideoIcon = 0;
+    cell.labelLinkURL.alpha = 0;
+    cell.imageViewLinkURL.alpha = 0;
+
+
     if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Photo class]])
     {
         Photo *photo = [Photo new];
@@ -360,9 +365,6 @@
         }];
         
     }
-
-
-
 
 }
 

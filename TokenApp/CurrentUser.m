@@ -539,41 +539,39 @@
              }];
         }
 
-//        //LINK
-//        if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"link"])
-//        {
-//            PFFile *parseFileWithVideo = [[homeFeedActivity objectForKey:@"video"]objectForKey:@"video"];
-//            PFFile *parseProfileImage = [[homeFeedActivity objectForKey:@"fromUser"]objectForKey:@"profileImage"];
-//            NSURL *urlProfile = [NSURL URLWithString:parseProfileImage.url];
-//            NSURLRequest *requestURLProfile = [NSURLRequest requestWithURL:urlProfile];
-//            [NSURLConnection sendAsynchronousRequest:requestURLProfile queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-//             {
-//
-//
-//                 if (connectionError)
-//                 {
-//                     NSLog(@"@%",[connectionError userInfo]);
-//                 }
-//                 else
-//                 {
-//                     NSString *name= [homeFeedActivity objectForKey:@"username"];
-//                     self.homeFeedProfilePic = [UIImage imageWithData:data];
-//                     self.homeFeedContent = thumbnail;
-//
-//
-//
-//                     HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil contentImage:self.homeFeedContent postMessage:nil videoURL:nil linkURL:nil mediaType:@"video"];
-//
-//                     [self.arrayOfHomeFeedContent addObject:homeFeedPost];
-//
-//                     if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
-//                     {
-//                         completionHandler(YES);
-//                     }
-//                     
-//                 }
-//            }];
-//        }
+        //LINK
+        if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"link"])
+        {
+            PFFile *parseProfileImage = [[homeFeedActivity objectForKey:@"fromUser"]objectForKey:@"profileImage"];
+            NSURL *urlProfile = [NSURL URLWithString:parseProfileImage.url];
+            NSURLRequest *requestURLProfile = [NSURLRequest requestWithURL:urlProfile];
+            [NSURLConnection sendAsynchronousRequest:requestURLProfile queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+             {
+                 if (connectionError)
+                 {
+                     NSLog(@"%@",[connectionError userInfo]);
+                 }
+                 else
+                 {
+                     NSString *name= [homeFeedActivity objectForKey:@"username"];
+                     self.homeFeedProfilePic = [UIImage imageWithData:data];
+
+
+                     NSString *linkURL = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"url"];
+
+                     HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil contentImage:nil postMessage:nil videoURL:nil linkURL:linkURL mediaType:@"link"];
+
+                     [self.arrayOfHomeFeedContent addObject:homeFeedPost];
+
+
+                             if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
+                             {
+                                 completionHandler(YES);
+                             }
+
+                 }
+            }];
+        }
 
     }
 

@@ -75,9 +75,19 @@
 
     if (self.isLink) {
         self.link = [PFObject objectWithClassName:@"Link"];
+        self.activity = [PFObject objectWithClassName:@"Activity"];
+
         [self.link setObject:self.stringLink forKey:@"url"];
         [self.link setObject:self.currentUser forKey:@"user"];
         [self.link setObject:self.currentUser.objectId forKey:@"userName"];
+
+
+        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"link" forKey:@"mediaType"];
+        [self.activity setObject:self.link forKey:@"link"];
+        [self.activity setObject:self.currentUser forKey:@"fromUser"];
+        [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
+        [self.activity setValue:self.currentUser.username forKey:@"username"];
     }
 
    else if (self.isPost)
@@ -86,6 +96,7 @@
         [self.note setObject:self.stringPost forKey:@"note"];
         [self.note setObject:self.currentUser forKey:@"user"];
         [self.note setObject:self.currentUser.objectId forKey:@"userName"];
+
     }
 
 
@@ -311,13 +322,30 @@
         }
         else
         {
+            [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
+
             NSLog(@"Link Saved");
-//            [self.navigationController popToRootViewControllerAnimated:YES];
+
+             //Add to Activity Array
+             NSString *name = currentUser.userName;
+             UIImage *profilePic = currentUser.profileImage;
+
+                 NSString *linkURL = self.stringLink;
+                 Link *link = [[Link alloc]initWithUrl:self.stringLink];
+
+                 [currentUser.arrayOfLinks addObject:link];
+
+            HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil contentImage:nil postMessage:nil videoURL:nil linkURL:linkURL mediaType:@"link"];
+
+                  [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
             UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
 
             [self.navigationController pushViewController: hc animated:YES];
+
+             }];
         }
     }];
 }

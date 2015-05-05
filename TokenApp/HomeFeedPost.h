@@ -18,8 +18,8 @@
 @property (nonatomic,strong) UIImage *contentImage;
 @property (nonatomic,strong) NSString *postMessage;
 @property (nonatomic,strong) NSURL *videoURL;
-@property (nonatomic,strong) NSURL *linkURL;
+@property (nonatomic,strong) NSString *linkURL;
 
--(id)initWithUsername:(NSString*)name profilePic:(UIImage*)profilepic timePosted:(NSString*)time contentImage:(UIImage*)contentImage postMessage:(NSString*)message videoURL:(NSURL*)video linkURL:(NSURL*)link mediaType:(NSString*)mediatype;
+-(id)initWithUsername:(NSString*)name profilePic:(UIImage*)profilepic timePosted:(NSString*)time contentImage:(UIImage*)contentImage postMessage:(NSString*)message videoURL:(NSURL*)video linkURL:(NSString*)link mediaType:(NSString*)mediatype;
 
 @end

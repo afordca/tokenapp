@@ -10,7 +10,7 @@
 
 @implementation HomeFeedPost
 
--(id)initWithUsername:(NSString *)name profilePic:(UIImage *)profilepic timePosted:(NSString *)time contentImage:(UIImage *)contentImage postMessage:(NSString *)message videoURL:(NSURL *)video linkURL:(NSURL *)link mediaType:(NSString *)mediatype
+-(id)initWithUsername:(NSString *)name profilePic:(UIImage *)profilepic timePosted:(NSString *)time contentImage:(UIImage *)contentImage postMessage:(NSString *)message videoURL:(NSURL *)video linkURL:(NSString *)link mediaType:(NSString *)mediatype
 {
     self.userName = name;
     self.userProfilePic = profilepic;

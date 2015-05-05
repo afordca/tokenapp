@@ -138,20 +138,19 @@
         return cell;
 
     }
-//    if ([post.mediaType isEqualToString:@"link"])
-//    {
-//        Link *link = [Link new];
-//        link = [currentUser.arrayOfHomeFeedContent objectAtIndex:indexPath.row];
-//        cell.labelHomeFeedUsername.text = @"";
-//        cell.imageViewHomeFeedContent.alpha = 0;
-//        cell.imageViewVideoIcon.alpha = 0;
-//        cell.labelLinkURL.alpha = 1;
-//        cell.imageViewLinkURL.alpha = 1;
-//        cell.viewLinkBlackBackground.alpha = 1;
-//        cell.labelLinkURL.text = [link.urlLink absoluteString];
-//
-//        return cell;
-//    }
+    if ([post.mediaType isEqualToString:@"link"])
+    {
+        cell.labelHomeFeedUsername.text = post.userName;
+        cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
+        cell.imageViewHomeFeedContent.alpha = 0;
+        cell.imageViewVideoIcon.alpha = 0;
+        cell.labelLinkURL.alpha = 1;
+        cell.imageViewLinkURL.alpha = 1;
+        cell.viewLinkBlackBackground.alpha = 1;
+        cell.labelLinkURL.text = post.linkURL;
+
+        return cell;
+    }
 
     return nil;
 
