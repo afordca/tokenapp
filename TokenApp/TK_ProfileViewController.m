@@ -109,8 +109,7 @@
     self.moviePlayer = [[MPMoviePlayerController alloc]init];
 
     //TK Manager - Helper Methods
-
-    self.arrayOfContent = [TK_Manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks];
+    self.arrayOfContent = [TK_Manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks arrayOfPosts:currentUser.arrayOfPosts];
 
 }
 
@@ -232,6 +231,8 @@
         Photo *photo = [Photo new];
         photo = [self.arrayOfContent objectAtIndex:indexPath.row];
         cell.imageViewProfileContent.image = photo.picture;
+        cell.labelNoteMessage.alpha = 0;
+        cell.labelNoteHeader.alpha = 0;
         cell.imageViewVideoIcon.alpha = 0;
         cell.labelLinkURL.alpha = 0;
         cell.imageViewLinkURL.alpha = 0;
@@ -243,6 +244,8 @@
         video = [self.arrayOfContent objectAtIndex:indexPath.row];
         cell.imageViewProfileContent.image = video.videoThumbnail;
         cell.imageViewVideoIcon.alpha = 1;
+        cell.labelNoteMessage.alpha = 0;
+        cell.labelNoteHeader.alpha = 0;
         cell.labelLinkURL.alpha = 0;
         cell.imageViewLinkURL.alpha = 0;
 
@@ -255,9 +258,28 @@
         link = [self.arrayOfContent objectAtIndex:indexPath.row];
         cell.imageViewProfileContent.alpha = 0;
         cell.imageViewVideoIcon.alpha = 0;
+        cell.labelNoteMessage.alpha = 0;
+        cell.labelNoteHeader.alpha = 0;
         cell.labelLinkURL.alpha = 1;
         cell.imageViewLinkURL.alpha = 1;
         cell.labelLinkURL.text = [link.urlLink absoluteString];
+
+        return cell;
+    }
+
+    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Post class]])
+    {
+        Post *post = [Post new];
+        post = [self.arrayOfContent objectAtIndex:indexPath.row];
+        cell.imageViewProfileContent.alpha = 0;
+        cell.imageViewVideoIcon.alpha = 0;
+        cell.labelLinkURL.alpha = 0;
+        cell.imageViewLinkURL.alpha = 0;
+        cell.labelNoteMessage.alpha = 1;
+        cell.labelNoteHeader.alpha = 1;
+        cell.labelNoteMessage.text = post.postMessage;
+        cell.labelNoteHeader.text = post.postHeader;
+        
 
         return cell;
     }

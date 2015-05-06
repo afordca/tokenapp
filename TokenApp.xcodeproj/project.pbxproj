@@ -77,12 +77,10 @@
 		25ED67631A32132D004CD269 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67621A32132D004CD269 /* Social.framework */; };
 		25ED67651A321337004CD269 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67641A321337004CD269 /* StoreKit.framework */; };
 		25ED67671A321345004CD269 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67661A321345004CD269 /* SystemConfiguration.framework */; };
-		B906CE0B1A60D29400F1BFD2 /* TKSettingsActionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B906CE0A1A60D29400F1BFD2 /* TKSettingsActionDelegate.m */; };
 		B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B01A42C0410012CBF2 /* UIImage+AlphaAdditions.m */; };
 		B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B21A42C0410012CBF2 /* UIImage+ResizeAdditions.m */; };
 		B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B91278C31A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m */; };
 		B97F00FD1A6ECAD400690309 /* BalanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B97F00FC1A6ECAD400690309 /* BalanceTableViewCell.m */; };
-		B98946F41A60CE780011288F /* TKSettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B98946F31A60CE780011288F /* TKSettingsButtonItem.m */; };
 		B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */; };
 		B991FD8F1A3E6C8B00BB902F /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B991FD8E1A3E6C8B00BB902F /* Default@3x.png */; };
 		B996AD201A8163F300C3B98E /* CurrentUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B996AD1F1A8163F300C3B98E /* CurrentUser.m */; };
@@ -236,8 +234,6 @@
 		25ED67661A321345004CD269 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3AC5C335474F0AB015BEB33A /* libPods-TokenApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TokenApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.release.xcconfig"; sourceTree = "<group>"; };
-		B906CE091A60D29400F1BFD2 /* TKSettingsActionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKSettingsActionDelegate.h; sourceTree = "<group>"; };
-		B906CE0A1A60D29400F1BFD2 /* TKSettingsActionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKSettingsActionDelegate.m; sourceTree = "<group>"; };
 		B90CB7AF1A42C0410012CBF2 /* UIImage+AlphaAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AlphaAdditions.h"; sourceTree = "<group>"; };
 		B90CB7B01A42C0410012CBF2 /* UIImage+AlphaAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AlphaAdditions.m"; sourceTree = "<group>"; };
 		B90CB7B11A42C0410012CBF2 /* UIImage+ResizeAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResizeAdditions.h"; sourceTree = "<group>"; };
@@ -247,8 +243,6 @@
 		B9145C901A3CFA4C00A88B94 /* Macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		B97F00FB1A6ECAD400690309 /* BalanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceTableViewCell.h; sourceTree = "<group>"; };
 		B97F00FC1A6ECAD400690309 /* BalanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceTableViewCell.m; sourceTree = "<group>"; };
-		B98946F21A60CE780011288F /* TKSettingsButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKSettingsButtonItem.h; sourceTree = "<group>"; };
-		B98946F31A60CE780011288F /* TKSettingsButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKSettingsButtonItem.m; sourceTree = "<group>"; };
 		B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomActivityTableViewCell.h; sourceTree = "<group>"; };
 		B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomActivityTableViewCell.m; sourceTree = "<group>"; };
 		B991FD8E1A3E6C8B00BB902F /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@3x.png"; sourceTree = "<group>"; };
@@ -376,6 +370,17 @@
 			name = LogIn;
 			sourceTree = "<group>";
 		};
+		001ECB951AFAA59600536961 /* HomeFeed */ = {
+			isa = PBXGroup;
+			children = (
+				00D24BC31AEDB7600072558F /* HomeFeedViewController.h */,
+				00D24BC41AEDB7600072558F /* HomeFeedViewController.m */,
+				00D24BC61AEDB7850072558F /* HomeFeedTableViewCell.h */,
+				00D24BC71AEDB7850072558F /* HomeFeedTableViewCell.m */,
+			);
+			name = HomeFeed;
+			sourceTree = "<group>";
+		};
 		002E16361A94ED0B000AE37B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,17 +468,17 @@
 		25A72F2A1A319CF20076AE07 /* TokenApp */ = {
 			isa = PBXGroup;
 			children = (
+				002E16271A93E0C4000AE37B /* Main.storyboard */,
 				25A72F2F1A319CF20076AE07 /* AppDelegate.h */,
 				25A72F301A319CF20076AE07 /* AppDelegate.m */,
 				0004765E1A9AA02000247BF8 /* Categories */,
 				002E16371A94EE6C000AE37B /* Model */,
-				B97F00F41A6EC2E400690309 /* Settings */,
-				002E16271A93E0C4000AE37B /* Main.storyboard */,
 				002E162D1A93F6E4000AE37B /* ExploreViewController.h */,
 				002E162E1A93F6E4000AE37B /* ExploreViewController.m */,
 				000FC6841A91122700A4F50F /* LogIn */,
 				000FC6831A9111FA00A4F50F /* TabBar */,
 				00BF7B951A8DCA720089194E /* Create */,
+				001ECB951AFAA59600536961 /* HomeFeed */,
 				002E16361A94ED0B000AE37B /* Profile */,
 				B9A4D3971A491BEA00EDD2C9 /* Discover */,
 				B9B61BC61A462E0F00A83987 /* Support */,
@@ -492,10 +497,6 @@
 				B991FD8E1A3E6C8B00BB902F /* Default@3x.png */,
 				25A72F3A1A319CF30076AE07 /* LaunchScreen.xib */,
 				25A72F2B1A319CF20076AE07 /* Supporting Files */,
-				00D24BC31AEDB7600072558F /* HomeFeedViewController.h */,
-				00D24BC41AEDB7600072558F /* HomeFeedViewController.m */,
-				00D24BC61AEDB7850072558F /* HomeFeedTableViewCell.h */,
-				00D24BC71AEDB7850072558F /* HomeFeedTableViewCell.m */,
 			);
 			path = TokenApp;
 			sourceTree = "<group>";
@@ -592,17 +593,6 @@
 				00D24BB81AE82F440072558F /* BalanceActivtyTableViewCell.m */,
 			);
 			name = Balance;
-			sourceTree = "<group>";
-		};
-		B97F00F41A6EC2E400690309 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				B98946F21A60CE780011288F /* TKSettingsButtonItem.h */,
-				B98946F31A60CE780011288F /* TKSettingsButtonItem.m */,
-				B906CE091A60D29400F1BFD2 /* TKSettingsActionDelegate.h */,
-				B906CE0A1A60D29400F1BFD2 /* TKSettingsActionDelegate.m */,
-			);
-			name = Settings;
 			sourceTree = "<group>";
 		};
 		B9A4D3971A491BEA00EDD2C9 /* Discover */ = {
@@ -823,12 +813,10 @@
 				25A72F311A319CF20076AE07 /* AppDelegate.m in Sources */,
 				009DE9571AA7BE8500429AC4 /* SettingsViewController.m in Sources */,
 				B9F359D61A43B22A00476FF7 /* TKCache.m in Sources */,
-				B98946F41A60CE780011288F /* TKSettingsButtonItem.m in Sources */,
 				00C6DE5B1ABCB73E00CC410C /* Post.m in Sources */,
 				002E162F1A93F6E4000AE37B /* ExploreViewController.m in Sources */,
 				000476641A9AE3DE00247BF8 /* UIColor+HEX.m in Sources */,
 				002E162C1A93E957000AE37B /* BalanceViewController.m in Sources */,
-				B906CE0B1A60D29400F1BFD2 /* TKSettingsActionDelegate.m in Sources */,
 				00C6DE5E1ABCD1CD00CC410C /* Link.m in Sources */,
 				004153831AE6CD0F00A19E77 /* ChangePasswordViewController.m in Sources */,
 				B9D393491A4BE1D000C7733A /* SearchViewController.m in Sources */,

@@ -315,6 +315,15 @@
          else
          {
              NSLog(@"Worked Posts");
+             for (PFObject *post in result)
+             {
+                 NSString *postMessage = [post objectForKey:@"note"];
+                 NSString *postHeader = [post objectForKey:@"description"];
+
+                 Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
+                 [self.arrayOfPosts addObject:post];
+             }
+              completionHandler(YES);
          }
      }];
     

@@ -10,11 +10,12 @@
 
 @implementation TK_Manager
 
-+(NSArray *)loadArrayOfContent:(NSMutableArray *)photos arrayOfVideos:(NSMutableArray *)videos arrayOfLinks:(NSMutableArray *)links
++(NSArray *)loadArrayOfContent:(NSMutableArray *)photos arrayOfVideos:(NSMutableArray *)videos arrayOfLinks:(NSMutableArray *)links arrayOfPosts:(NSMutableArray *)posts
 {
     NSArray *arrayOfContent = [NSMutableArray new];
     arrayOfContent = [NSArray arrayWithArray:[photos arrayByAddingObjectsFromArray:videos]];
     arrayOfContent = [arrayOfContent arrayByAddingObjectsFromArray:links];
+    arrayOfContent = [arrayOfContent arrayByAddingObjectsFromArray:posts];
 
     //    NSSortDescriptor *sortDescriptor;
     //    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
@@ -156,6 +157,15 @@
          else
          {
              NSLog(@"Worked Posts");
+             for (PFObject *post in result)
+             {
+                 NSString *postMessage = [post objectForKey:@"note"];
+                 NSString *postHeader = [post objectForKey:@"description"];
+
+                 Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
+                 [arrayOfPosts addObject:post];
+             }
+
          }
      }];
 

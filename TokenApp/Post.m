@@ -10,4 +10,12 @@
 
 @implementation Post
 
+-(id)initWithDescription:(NSString *)note header:(NSString *)header
+{
+    self.postMessage = note;
+    self.postHeader = header;
+
+    return self;
+}
+
 @end

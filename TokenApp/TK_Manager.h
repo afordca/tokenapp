@@ -41,7 +41,7 @@
 // define delegate property
 @property id <ManagerDelegate>delegate;
 
-+(NSArray*)loadArrayOfContent:(NSMutableArray*)photos arrayOfVideos:(NSMutableArray*)videos arrayOfLinks:(NSMutableArray*)links;
++(NSArray*)loadArrayOfContent:(NSMutableArray*)photos arrayOfVideos:(NSMutableArray*)videos arrayOfLinks:(NSMutableArray*)links arrayOfPosts:(NSMutableArray*)posts;
 
 +(NSMutableArray*)loadFollowers:(NSString*)userID;
 +(NSMutableArray*)loadFollowing:(NSString*)userID;

@@ -53,7 +53,7 @@
 @property PFUser *user;
 @property User *userNew;
 
-
+@property CGFloat currentPosition;
 
 
 
@@ -226,6 +226,55 @@
         }
     }
 }
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+
+
+    //Top Scroll
+    if (scrollView.contentOffset.y < self.currentPosition)
+    {
+        NSLog(@"Scroll up");
+
+        //Show Tab Bar
+
+    }
+    //Bottom Scroll
+    else if (scrollView.contentOffset.y > self.currentPosition)
+    {
+        NSLog(@"Scroll down");
+
+        //Hide Tab Bar
+
+        
+
+//        [UIView animateWithDuration:0.5 animations:^{
+//        } completion:^(BOOL finished) {
+//            self.self.mainView.alpha = 1;
+//            self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
+//            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+//                self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+//            } completion:^(BOOL finished) {
+//                [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+//                    self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+//                } completion:^(BOOL finished) {
+//                    [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+//                        self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+//                    } completion:^(BOOL finished) {
+//                        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+//                            self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+//                        } completion:^(BOOL finished) {
+//                        }];
+//                    }];
+//                }];
+//            }];
+//        }];
+
+    }
+    //Setting the current position of the WebView scroll
+    self.currentPosition = scrollView.contentOffset.y;
+
+}
+
 
 #pragma UserDefined Method for generating data which are show in Table :::
 -(void)loadDataDelayed
