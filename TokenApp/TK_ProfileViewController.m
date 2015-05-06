@@ -112,8 +112,6 @@
 
     self.arrayOfContent = [TK_Manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks];
 
-
-
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -223,9 +221,10 @@
 {
     ProfileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProfile" forIndexPath:indexPath];
 
-    cell.imageViewVideoIcon = 0;
+    cell.imageViewVideoIcon.alpha = 0;
     cell.labelLinkURL.alpha = 0;
     cell.imageViewLinkURL.alpha = 0;
+    cell.imageViewProfileContent.alpha = 1;
 
 
     if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Photo class]])

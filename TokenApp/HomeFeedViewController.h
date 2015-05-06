@@ -13,6 +13,8 @@
 
 {
     CurrentUser *currentUser;
+    UIActivityIndicatorView *spinner;
 }
+
 
 @end

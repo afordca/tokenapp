@@ -568,7 +568,6 @@
                              {
                                  completionHandler(YES);
                              }
-
                  }
             }];
         }
