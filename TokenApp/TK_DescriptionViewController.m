@@ -93,9 +93,18 @@
    else if (self.isPost)
     {
         self.note = [PFObject objectWithClassName:@"Note"];
+        self.activity = [PFObject objectWithClassName:@"Activity"];
+
         [self.note setObject:self.stringPost forKey:@"note"];
         [self.note setObject:self.currentUser forKey:@"user"];
         [self.note setObject:self.currentUser.objectId forKey:@"userName"];
+
+        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"note" forKey:@"mediaType"];
+        [self.activity setObject:self.currentUser forKey:@"fromUser"];
+        [self.activity setObject:self.note forKey:@"note"];
+        [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
+        [self.activity setValue:self.currentUser.username forKey:@"username"];
 
     }
 
@@ -303,13 +312,32 @@
         }
         else
         {
-            NSLog(@"Note Saved");
-//            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
 
-            UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+                 NSLog(@"Note Saved");
 
-            [self.navigationController pushViewController: hc animated:YES];
+                 //Add to Activity Array
+                 NSString *name = currentUser.userName;
+                 UIImage *profilePic = currentUser.profileImage;
+
+                 NSString *postMessage = self.stringPost;
+                 NSString *postHeader = self.description;
+                 Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
+
+                 [currentUser.arrayOfPosts addObject:post];
+
+                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil contentImage:nil postMessage:postMessage videoURL:nil linkURL:nil mediaType:@"post"];
+
+                 [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
+
+                 UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                 MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+                 
+                 [self.navigationController pushViewController: hc animated:YES];
+                 
+             }];
+
         }
     }];
 }

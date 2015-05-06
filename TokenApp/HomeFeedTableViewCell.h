@@ -21,5 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewLinkURL;
 
 @property (strong, nonatomic) IBOutlet UIView *viewLinkBlackBackground;
+@property (strong, nonatomic) IBOutlet UILabel *labelNoteHeader;
+@property (strong, nonatomic) IBOutlet UILabel *lableNoteMessage;
 
 @end

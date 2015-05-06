@@ -130,6 +130,8 @@
     cell.labelLinkURL.alpha = 0;
     cell.imageViewLinkURL.alpha = 0;
     cell.viewLinkBlackBackground.alpha = 0;
+    cell.labelNoteHeader.alpha = 0;
+    cell.lableNoteMessage.alpha = 1;
 
     if (self.arrayOfContent.count !=0)
     {
@@ -145,6 +147,8 @@
             cell.labelLinkURL.alpha = 0;
             cell.imageViewLinkURL.alpha = 0;
             cell.viewLinkBlackBackground.alpha = 0;
+            cell.labelNoteHeader.alpha = 0;
+            cell.lableNoteMessage.alpha = 0;
             return cell;
         }
         if ([post.mediaType isEqualToString:@"video"])
@@ -156,6 +160,8 @@
             cell.labelLinkURL.alpha = 0;
             cell.imageViewLinkURL.alpha = 0;
             cell.viewLinkBlackBackground.alpha = 0;
+            cell.labelNoteHeader.alpha = 0;
+            cell.lableNoteMessage.alpha = 0;
 
             return cell;
 
@@ -166,11 +172,30 @@
             cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
             cell.imageViewHomeFeedContent.alpha = 0;
             cell.imageViewVideoIcon.alpha = 0;
+            cell.labelNoteHeader.alpha = 0;
+            cell.lableNoteMessage.alpha = 0;
             cell.labelLinkURL.alpha = 1;
             cell.imageViewLinkURL.alpha = 1;
             cell.viewLinkBlackBackground.alpha = 1;
             cell.labelLinkURL.text = post.linkURL;
             
+            return cell;
+        }
+
+        if ([post.mediaType isEqualToString:@"note"])
+        {
+            cell.labelHomeFeedUsername.text = post.userName;
+            cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
+            cell.imageViewHomeFeedContent.alpha = 0;
+            cell.imageViewVideoIcon.alpha = 0;
+            cell.labelLinkURL.alpha = 0;
+            cell.imageViewLinkURL.alpha = 0;
+            cell.viewLinkBlackBackground.alpha = 1;
+            cell.labelNoteHeader.alpha = 0;
+            cell.lableNoteMessage.alpha = 1;
+            cell.lableNoteMessage.text = post.postMessage;
+        
+
             return cell;
         }
 

@@ -1917,6 +1917,20 @@
                                                 </imageView>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OeJ-6P-iBL">
                                                     <rect key="frame" x="0.0" y="52" width="320" height="209"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uva-Ap-S47">
+                                                            <rect key="frame" x="8" y="8" width="157" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="N17-0w-Nm3">
+                                                            <rect key="frame" x="8" y="37" width="304" height="164"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ZH5-Oz-Hi7">
@@ -1957,6 +1971,8 @@
                                             <outlet property="labelHomeFeedTime" destination="W14-Zv-9fo" id="fvr-gV-wlV"/>
                                             <outlet property="labelHomeFeedUsername" destination="Opf-M3-J9o" id="SWa-8I-tcx"/>
                                             <outlet property="labelLinkURL" destination="ZH5-Oz-Hi7" id="jOJ-qt-f58"/>
+                                            <outlet property="labelNoteHeader" destination="uva-Ap-S47" id="dn7-Dv-dqV"/>
+                                            <outlet property="lableNoteMessage" destination="N17-0w-Nm3" id="tyG-uO-Ia8"/>
                                             <outlet property="viewLinkBlackBackground" destination="OeJ-6P-iBL" id="bJb-gf-Yx7"/>
                                         </connections>
                                     </tableViewCell>
@@ -2606,10 +2622,10 @@
                                     <action selector="onButtonPressSave:" destination="x0p-Dq-Fn0" eventType="touchUpInside" id="nAw-3j-5Xg"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="dOU-bF-OGq">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="dOU-bF-OGq">
                                 <rect key="frame" x="0.0" y="67" width="320" height="501"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cx5-hW-gTM" userLabel="ContentView">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cx5-hW-gTM" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="-305" width="320" height="807"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PUBLIC INFO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amk-Tp-X96">

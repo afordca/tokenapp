@@ -581,6 +581,40 @@
             }];
         }
 
+        //POST
+        if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"note"])
+        {
+            PFFile *parseProfileImage = [[homeFeedActivity objectForKey:@"fromUser"]objectForKey:@"profileImage"];
+            NSURL *urlProfile = [NSURL URLWithString:parseProfileImage.url];
+            NSURLRequest *requestURLProfile = [NSURLRequest requestWithURL:urlProfile];
+            [NSURLConnection sendAsynchronousRequest:requestURLProfile queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+             {
+                 if (connectionError)
+                 {
+                     NSLog(@"%@",[connectionError userInfo]);
+                 }
+                 else
+                 {
+                     NSString *name= [homeFeedActivity objectForKey:@"username"];
+                     self.homeFeedProfilePic = [UIImage imageWithData:data];
+
+
+                     NSString *postMessage = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"note"];
+
+                     HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil contentImage:nil postMessage:postMessage videoURL:nil linkURL:nil mediaType:@"note"];
+
+                     [self.arrayOfHomeFeedContent addObject:homeFeedPost];
+
+
+                     if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
+                     {
+                         completionHandler(YES);
+                     }
+                 }
+             }];
+        }
+
+
     }
 
 
