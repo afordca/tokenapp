@@ -106,18 +106,42 @@
 
 #pragma mark - UITableView Delegate Methods
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 50;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.arrayOfContent.count;
+}
+
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    HomeFeedPost *post = [self.arrayOfContent objectAtIndex:section];
+
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(2, 6, 3, 38)];
+    UIImageView *profilePic = [[UIImageView alloc]initWithFrame:CGRectMake(8, 6, 38, 38)];
+    profilePic.image = post.userProfilePic;
+    UILabel *labelUsername = [[UILabel alloc]initWithFrame:CGRectMake(54, 11, 147, 21)];
+    labelUsername.text = post.userName;
+
+    [headerView addSubview:lineView];
+    [headerView addSubview:profilePic];
+    [headerView addSubview:labelUsername];
+
+    return headerView;
+}
+
+
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return currentUser.arrayOfHomeFeedContent.count;
 
-    if ([self.arrayOfContent count] == 0)
-    {
-        return 0;
-    }
-    else
-    {
-        return  self.arrayOfContent.count;
-    }
+    return 1;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -135,7 +159,7 @@
 
     if (self.arrayOfContent.count !=0)
     {
-        HomeFeedPost *post = [self.arrayOfContent objectAtIndex:indexPath.row];
+        HomeFeedPost *post = [self.arrayOfContent objectAtIndex:indexPath.section];
 
         if ([post.mediaType isEqualToString:@"photo"])
         {

@@ -1909,14 +1909,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sUM-o3-s3r">
-                                                    <rect key="frame" x="0.0" y="50" width="320" height="211"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="261"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Video" translatesAutoresizingMaskIntoConstraints="NO" id="bF2-Iq-dcj">
-                                                    <rect key="frame" x="263" y="60" width="49" height="49"/>
+                                                    <rect key="frame" x="263" y="11" width="49" height="49"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OeJ-6P-iBL">
-                                                    <rect key="frame" x="0.0" y="52" width="320" height="209"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="261"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uva-Ap-S47">
                                                             <rect key="frame" x="8" y="8" width="157" height="21"/>
@@ -1925,7 +1925,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="N17-0w-Nm3">
-                                                            <rect key="frame" x="8" y="37" width="304" height="164"/>
+                                                            <rect key="frame" x="8" y="0.0" width="304" height="253"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -1934,42 +1934,20 @@
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ZH5-Oz-Hi7">
-                                                    <rect key="frame" x="0.0" y="199" width="320" height="21"/>
+                                                    <rect key="frame" x="0.0" y="171" width="320" height="21"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
                                                     <color key="textColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Link" translatesAutoresizingMaskIntoConstraints="NO" id="x0y-Np-jOP">
-                                                    <rect key="frame" x="114" y="98" width="93" height="93"/>
+                                                    <rect key="frame" x="114" y="70" width="93" height="93"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fad-EG-RJA">
-                                                    <rect key="frame" x="8" y="6" width="38" height="38"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Opf-M3-J9o">
-                                                    <rect key="frame" x="57" y="11" width="147" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W14-Zv-9fo">
-                                                    <rect key="frame" x="237" y="11" width="75" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dBG-wR-BQr">
-                                                    <rect key="frame" x="2" y="6" width="3" height="38"/>
-                                                    <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="imageViewHomeFeedContent" destination="sUM-o3-s3r" id="1OD-BI-kIh"/>
-                                            <outlet property="imageViewHomeFeedProfilePic" destination="Fad-EG-RJA" id="Pic-sk-8tH"/>
                                             <outlet property="imageViewLinkURL" destination="x0y-Np-jOP" id="rdw-Oj-Ded"/>
                                             <outlet property="imageViewVideoIcon" destination="bF2-Iq-dcj" id="JEk-Be-Ar0"/>
-                                            <outlet property="labelHomeFeedTime" destination="W14-Zv-9fo" id="fvr-gV-wlV"/>
-                                            <outlet property="labelHomeFeedUsername" destination="Opf-M3-J9o" id="SWa-8I-tcx"/>
                                             <outlet property="labelLinkURL" destination="ZH5-Oz-Hi7" id="jOJ-qt-f58"/>
                                             <outlet property="labelNoteHeader" destination="uva-Ap-S47" id="dn7-Dv-dqV"/>
                                             <outlet property="lableNoteMessage" destination="N17-0w-Nm3" id="tyG-uO-Ia8"/>
@@ -1982,11 +1960,16 @@
                                     <outlet property="delegate" destination="23X-m1-NM2" id="Kqv-fF-fhn"/>
                                 </connections>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MarkNav" translatesAutoresizingMaskIntoConstraints="NO" id="zwS-gb-1Dn">
-                                <rect key="frame" x="142" y="3" width="37" height="38"/>
-                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pTA-Eb-hKo">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MarkNav" translatesAutoresizingMaskIntoConstraints="NO" id="zwS-gb-1Dn">
+                                        <rect key="frame" x="142" y="3" width="37" height="38"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.46666666670000001" green="0.70980392160000005" blue="0.31764705879999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="wI9-Rs-dSM"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1997,7 +1980,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vqC-p0-eIu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-221" y="-1327"/>
+            <point key="canvasLocation" x="-350" y="-1327"/>
         </scene>
         <!--Explore-->
         <scene sceneID="It5-AK-DVh">
