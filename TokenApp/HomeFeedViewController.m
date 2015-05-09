@@ -123,9 +123,12 @@
 
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
     headerView.backgroundColor = [UIColor whiteColor];
+
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(2, 6, 3, 38)];
+
     UIImageView *profilePic = [[UIImageView alloc]initWithFrame:CGRectMake(8, 6, 38, 38)];
     profilePic.image = post.userProfilePic;
+
     UILabel *labelUsername = [[UILabel alloc]initWithFrame:CGRectMake(54, 11, 147, 21)];
     labelUsername.text = post.userName;
 
@@ -163,9 +166,10 @@
 
         if ([post.mediaType isEqualToString:@"photo"])
         {
+            Photo *photo = post.photoPost;
 
             cell.labelHomeFeedUsername.text = post.userName;
-            cell.imageViewHomeFeedContent.image = post.contentImage;
+            cell.imageViewHomeFeedContent.image = photo.picture;
             cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
             cell.imageViewVideoIcon.alpha = 0;
             cell.labelLinkURL.alpha = 0;
@@ -177,8 +181,10 @@
         }
         if ([post.mediaType isEqualToString:@"video"])
         {
+            Video *video = post.videoPost;
+
             cell.labelHomeFeedUsername.text = post.userName;
-            cell.imageViewHomeFeedContent.image = post.contentImage;
+            cell.imageViewHomeFeedContent.image = video.videoThumbnail;
             cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
             cell.imageViewVideoIcon.alpha = 1;
             cell.labelLinkURL.alpha = 0;
@@ -192,6 +198,8 @@
         }
         if ([post.mediaType isEqualToString:@"link"])
         {
+            Link *link = post.linkPost;
+
             cell.labelHomeFeedUsername.text = post.userName;
             cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
             cell.imageViewHomeFeedContent.alpha = 0;
@@ -201,13 +209,15 @@
             cell.labelLinkURL.alpha = 1;
             cell.imageViewLinkURL.alpha = 1;
             cell.viewLinkBlackBackground.alpha = 1;
-            cell.labelLinkURL.text = post.linkURL;
+            cell.labelLinkURL.text = [link.urlLink absoluteString];
             
             return cell;
         }
 
-        if ([post.mediaType isEqualToString:@"note"])
+        if ([post.mediaType isEqualToString:@"post"])
         {
+            Post *note = post.messagePost;
+
             cell.labelHomeFeedUsername.text = post.userName;
             cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
             cell.imageViewHomeFeedContent.alpha = 0;
@@ -215,9 +225,10 @@
             cell.labelLinkURL.alpha = 0;
             cell.imageViewLinkURL.alpha = 0;
             cell.viewLinkBlackBackground.alpha = 1;
-            cell.labelNoteHeader.alpha = 0;
+            cell.labelNoteHeader.alpha = 1;
             cell.lableNoteMessage.alpha = 1;
-            cell.lableNoteMessage.text = post.postMessage;
+            cell.lableNoteMessage.text = note.postMessage;
+            cell.labelNoteHeader.text = note.postHeader;
         
 
             return cell;

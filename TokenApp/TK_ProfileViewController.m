@@ -108,8 +108,8 @@
     //Intialize Movie Player
     self.moviePlayer = [[MPMoviePlayerController alloc]init];
 
-    //TK Manager - Helper Methods
-    self.arrayOfContent = [TK_Manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks arrayOfPosts:currentUser.arrayOfPosts];
+//    //TK Manager - Helper Methods
+//    self.arrayOfContent = [TK_Manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks arrayOfPosts:currentUser.arrayOfPosts];
 
 }
 
@@ -129,7 +129,7 @@
 {
     [super viewDidAppear:YES];
 
-    [self.collectionViewProfile reloadData];
+   self.arrayOfContent = [TK_Manager loadArrayOfContent];
 
     self.labelUserName.text = currentUser.userName;
     [self.collectionViewProfile reloadData];
@@ -226,10 +226,12 @@
     cell.imageViewProfileContent.alpha = 1;
 
 
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Photo class]])
+    HomeFeedPost *post = [self.arrayOfContent objectAtIndex:indexPath.row];
+
+    if ([post.mediaType isEqualToString:@"photo"])
     {
         Photo *photo = [Photo new];
-        photo = [self.arrayOfContent objectAtIndex:indexPath.row];
+        photo = post.photoPost;
         cell.imageViewProfileContent.image = photo.picture;
         cell.labelNoteMessage.alpha = 0;
         cell.labelNoteHeader.alpha = 0;
@@ -238,10 +240,10 @@
         cell.imageViewLinkURL.alpha = 0;
         return cell;
     }
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Video class]])
+    if ([post.mediaType isEqualToString:@"video"])
     {
         Video *video = [Video new];
-        video = [self.arrayOfContent objectAtIndex:indexPath.row];
+        video = post.videoPost;
         cell.imageViewProfileContent.image = video.videoThumbnail;
         cell.imageViewVideoIcon.alpha = 1;
         cell.labelNoteMessage.alpha = 0;
@@ -252,10 +254,10 @@
         return cell;
         
     }
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Link class]])
+    if ([post.mediaType isEqualToString:@"link"])
     {
         Link *link = [Link new];
-        link = [self.arrayOfContent objectAtIndex:indexPath.row];
+        link = post.linkPost;
         cell.imageViewProfileContent.alpha = 0;
         cell.imageViewVideoIcon.alpha = 0;
         cell.labelNoteMessage.alpha = 0;
@@ -267,18 +269,18 @@
         return cell;
     }
 
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Post class]])
+    if ([post.mediaType isEqualToString:@"post"])
     {
-        Post *post = [Post new];
-        post = [self.arrayOfContent objectAtIndex:indexPath.row];
+        Post *note = [Post new];
+        note = post.messagePost;
         cell.imageViewProfileContent.alpha = 0;
         cell.imageViewVideoIcon.alpha = 0;
         cell.labelLinkURL.alpha = 0;
         cell.imageViewLinkURL.alpha = 0;
         cell.labelNoteMessage.alpha = 1;
         cell.labelNoteHeader.alpha = 1;
-        cell.labelNoteMessage.text = post.postMessage;
-        cell.labelNoteHeader.text = post.postHeader;
+        cell.labelNoteMessage.text = note.postMessage;
+        cell.labelNoteHeader.text = note.postHeader;
         
 
         return cell;
@@ -289,13 +291,15 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Photo class]])
+    HomeFeedPost *content = [self.arrayOfContent objectAtIndex:indexPath.row];
+
+    if ([content.mediaType isEqualToString:@"photo"])
     {
         UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.dvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"DetailPhotoViewController"];
 
         Photo *photo = [Photo new];
-        photo = [self.arrayOfContent objectAtIndex:indexPath.row];
+        photo = content.photoPost;
         self.dvc.detailPhoto = photo;
 
         //Create blurEffect and intialize visualEffect View
@@ -322,13 +326,13 @@
 
     }
 
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Video class]])
+    if ([content.mediaType isEqualToString:@"video"])
     {
         UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.dvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"DetailPhotoViewController"];
 
         Video *video = [Video new];
-        video = [self.arrayOfContent objectAtIndex:indexPath.row];
+        video = content.videoPost;
         self.dvc.detailVideo = video;
 
         //Create blurEffect and intialize visualEffect View
@@ -354,13 +358,13 @@
         }];
         
     }
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Link class]])
+    if ([content.mediaType isEqualToString:@"link"])
     {
         UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.dvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"DetailPhotoViewController"];
 
         Link *link = [Link new];
-        link = [self.arrayOfContent objectAtIndex:indexPath.row];
+        link = content.linkPost;
         self.dvc.detailLink = link;
 
         //Create blurEffect and intialize visualEffect View
@@ -377,7 +381,40 @@
         [self.buttonCancelView setHidden:NO];
         [self.buttonEditProfile setHidden:YES];
 
-        self.labelUserName.text = @"Video";
+        self.labelUserName.text = @"Link";
+
+        [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [self.visualEffectView setAlpha:1.f];
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+    }
+
+    if ([content.mediaType isEqualToString:@"post"])
+    {
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        self.dvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"DetailPhotoViewController"];
+
+        Post *note = [Post new];
+        note = content.messagePost;
+        self.dvc.detailPost = note;
+
+        //Create blurEffect and intialize visualEffect View
+
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        self.visualEffectView.frame = CGRectMake(0, 68, self.view.bounds.size.width, 452);
+        [self.visualEffectView addSubview:self.dvc.view];
+        self.visualEffectView.alpha = 0.f;
+        [self.view addSubview:self.visualEffectView];
+        [self.view bringSubviewToFront:self.visualEffectView];
+
+        [self.buttonCancelView setHidden:NO];
+        [self.buttonEditProfile setHidden:YES];
+
+        self.labelUserName.text = @"Post";
 
         [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
             [self.visualEffectView setAlpha:1.f];

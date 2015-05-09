@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "User.h"
+@class User;
 #import "Photo.h"
 #import "Video.h"
 #import "Post.h"

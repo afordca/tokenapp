@@ -33,6 +33,7 @@
 
 @property (nonatomic, strong) UIImage *profileImage;
 @property (nonatomic,strong) NSString *userName;
+@property (nonatomic,strong) NSString *userID;
 @property (nonatomic,strong) NSMutableArray *arrayOfPhotos;
 @property (nonatomic,strong) NSMutableArray *arrayOfVideos;
 @property (nonatomic,strong) NSMutableArray *arrayOfLinks;

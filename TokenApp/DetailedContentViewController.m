@@ -20,6 +20,10 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelLinkURL;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewLinkURL;
 
+@property (strong, nonatomic) IBOutlet UILabel *labelHeaderPost;
+@property (strong, nonatomic) IBOutlet UILabel *labelMessagePost;
+
+
 @end
 
 @implementation DetailedContentViewController
@@ -48,9 +52,11 @@
         [self.videoController play];
 
     }
-    else
+    else if(self.detailLink)
     {
         self.imageViewDetailPhoto.alpha = 0;
+        self.labelHeaderPost.alpha = 0;
+        self.labelMessagePost.alpha = 0;
         self.viewLinkURL.alpha = 1;
         //self.labelLinkURL.alpha = 0;
         self.imageViewLinkURL.alpha = 1;
@@ -60,6 +66,13 @@
         NSString *stringURL = [self.detailLink.urlLink absoluteString];
 
         [self.buttonlinkURL setTitle:stringURL forState:UIControlStateNormal];
+    }
+
+    else
+    {
+        self.viewLinkURL.alpha = 1;
+        self.labelHeaderPost.text = self.detailPost.postHeader;
+        self.labelMessagePost.text = self.detailPost.postMessage;
     }
 
     //Setup LoginButton Appearance

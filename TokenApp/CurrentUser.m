@@ -478,8 +478,11 @@
                          self.homeFeedContent = [UIImage imageWithData:data1];
                          self.homeFeedProfilePic = [UIImage imageWithData:data];
                          NSString *name= [homeFeedActivity objectForKey:@"username"];
-                         HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil contentImage:self.homeFeedContent postMessage:nil videoURL:nil linkURL:nil mediaType:@"photo"];
+                         NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
 
+                         Photo *photo = [[Photo alloc]initWithImage:self.homeFeedContent name:name time:nil];
+
+                         HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:photo post:nil video:nil link:nil mediaType:@"photo" userID:userID];
                          [self.arrayOfHomeFeedContent addObject:homeFeedPost];
 
                          if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
@@ -512,28 +515,30 @@
 
                      NSURL *url = [NSURL URLWithString:parseFileWithVideo.url];
          
-                     UIImage *thumbnail = nil;
-         
-                     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
-                     AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-                     generator.appliesPreferredTrackTransform = YES;
-                     NSError *error = nil;
-                     CMTime time = CMTimeMake(0, 1); // 3/1 = 3 second(s)
-                     CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:nil error:&error];
-                     if (error != nil)
-                         NSLog(@"%@: %@", self, error);
-                     thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
-         
-         //            self.videoThumbnail = thumbnail;
-                     CGImageRelease(imgRef);
-         
+//                     UIImage *thumbnail = nil;
+//         
+//                     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
+//                     AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+//                     generator.appliesPreferredTrackTransform = YES;
+//                     NSError *error = nil;
+//                     CMTime time = CMTimeMake(0, 1); // 3/1 = 3 second(s)
+//                     CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:nil error:&error];
+//                     if (error != nil)
+//                         NSLog(@"%@: %@", self, error);
+//                     thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
+//         
+//         //            self.videoThumbnail = thumbnail;
+//                     CGImageRelease(imgRef);
+
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
+                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
                      self.homeFeedProfilePic = [UIImage imageWithData:data];
-                     self.homeFeedContent = thumbnail;
+//                     self.homeFeedContent = thumbnail;
+
+                     Video *video = [[Video alloc]initWithUrl:url];
          
-         
-                     HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil contentImage:self.homeFeedContent postMessage:nil videoURL:url linkURL:nil mediaType:@"video"];
-         
+                     HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:nil video:video link:nil mediaType:@"video" userID:userID];
+
                      [self.arrayOfHomeFeedContent addObject:homeFeedPost];
          
                      if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
@@ -563,12 +568,15 @@
                  else
                  {
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
+                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
                      self.homeFeedProfilePic = [UIImage imageWithData:data];
 
 
                      NSString *linkURL = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"url"];
 
-                     HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil contentImage:nil postMessage:nil videoURL:nil linkURL:linkURL mediaType:@"link"];
+                     Link *link = [[Link alloc]initWithUrl:linkURL];
+
+                     HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID];
 
                      [self.arrayOfHomeFeedContent addObject:homeFeedPost];
 
@@ -596,13 +604,17 @@
                  else
                  {
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
+                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
                      self.homeFeedProfilePic = [UIImage imageWithData:data];
 
 
                      NSString *postMessage = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"note"];
+                     NSString *postHeader = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"description"];
 
-                     HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil contentImage:nil postMessage:postMessage videoURL:nil linkURL:nil mediaType:@"note"];
+                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
 
+                     HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID];
+                     
                      [self.arrayOfHomeFeedContent addObject:homeFeedPost];
 
 
@@ -689,7 +701,7 @@
             {
                 self.userName = user.username;
             }
-
+            self.userID = user.objectId;
             self.Firstname = [user objectForKey:@"Firstname"];
             self.Lastname = [user objectForKey:@"Lastname"];
             self.Phone = [user objectForKey:@"Phone"];

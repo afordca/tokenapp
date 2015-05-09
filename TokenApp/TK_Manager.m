@@ -10,19 +10,34 @@
 
 @implementation TK_Manager
 
-+(NSArray *)loadArrayOfContent:(NSMutableArray *)photos arrayOfVideos:(NSMutableArray *)videos arrayOfLinks:(NSMutableArray *)links arrayOfPosts:(NSMutableArray *)posts
-{
-    NSArray *arrayOfContent = [NSMutableArray new];
-    arrayOfContent = [NSArray arrayWithArray:[photos arrayByAddingObjectsFromArray:videos]];
-    arrayOfContent = [arrayOfContent arrayByAddingObjectsFromArray:links];
-    arrayOfContent = [arrayOfContent arrayByAddingObjectsFromArray:posts];
+//+(NSArray *)loadArrayOfContent:(NSMutableArray *)photos arrayOfVideos:(NSMutableArray *)videos arrayOfLinks:(NSMutableArray *)links arrayOfPosts:(NSMutableArray *)posts
+//{
+//    NSArray *arrayOfContent = [NSMutableArray new];
+//    arrayOfContent = [NSArray arrayWithArray:[photos arrayByAddingObjectsFromArray:videos]];
+//    arrayOfContent = [arrayOfContent arrayByAddingObjectsFromArray:links];
+//    arrayOfContent = [arrayOfContent arrayByAddingObjectsFromArray:posts];
+//
+//    //    NSSortDescriptor *sortDescriptor;
+//    //    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
+//    //                                                 ascending:YES];
+//    //    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+//    //    NSArray *sortedArray;
+//    //    sortedArray = [arrayOfContent sortedArrayUsingDescriptors:sortDescriptors];
+//
+//    return arrayOfContent;
+//}
 
-    //    NSSortDescriptor *sortDescriptor;
-    //    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
-    //                                                 ascending:YES];
-    //    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    //    NSArray *sortedArray;
-    //    sortedArray = [arrayOfContent sortedArrayUsingDescriptors:sortDescriptors];
++(NSMutableArray *)loadArrayOfContent
+{
+    CurrentUser *user = [CurrentUser sharedSingleton];
+    NSMutableArray * arrayOfContent = [NSMutableArray new];
+    for (HomeFeedPost *post in user.arrayOfHomeFeedContent)
+    {
+        if ([post.userID isEqualToString:user.userID])
+        {
+            [arrayOfContent addObject:post];
+        }
+    }
 
     return arrayOfContent;
 }

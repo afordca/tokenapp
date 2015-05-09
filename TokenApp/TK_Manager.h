@@ -12,6 +12,8 @@
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <ParseUI/ParseUI.h>
 #import "User.h"
+#import "CurrentUser.h"
+#import "HomeFeedPost.h"
 
 // define the protocol for the delegate
 @protocol ManagerDelegate <NSObject>
@@ -40,8 +42,10 @@
 
 // define delegate property
 @property id <ManagerDelegate>delegate;
+//
+//+(NSArray*)loadArrayOfContent:(NSMutableArray*)photos arrayOfVideos:(NSMutableArray*)videos arrayOfLinks:(NSMutableArray*)links arrayOfPosts:(NSMutableArray*)posts;
 
-+(NSArray*)loadArrayOfContent:(NSMutableArray*)photos arrayOfVideos:(NSMutableArray*)videos arrayOfLinks:(NSMutableArray*)links arrayOfPosts:(NSMutableArray*)posts;
++(NSMutableArray*)loadArrayOfContent;
 
 +(NSMutableArray*)loadFollowers:(NSString*)userID;
 +(NSMutableArray*)loadFollowing:(NSString*)userID;

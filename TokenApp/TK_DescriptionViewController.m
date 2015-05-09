@@ -227,15 +227,16 @@
             {
                 NSLog(@"Photo Saved");
 
-                //Save to Photo Array
-                [currentUser.arrayOfPhotos addObject:self.imagePhoto];
-
                 //Add to Activity Array
                 NSString *name = currentUser.userName;
+                NSString *userID = currentUser.userID;
                 UIImage *profilePic = currentUser.profileImage;
                 UIImage *contentImage = self.imagePhoto;
 
-                HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil contentImage:contentImage postMessage:nil videoURL:nil linkURL:nil mediaType:@"photo"];
+                Photo *photo = [[Photo alloc]initWithImage:contentImage name:name time:nil];
+                [currentUser.arrayOfPhotos addObject:photo];
+
+                HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:photo post:nil video:nil link:nil mediaType:@"photo" userID:userID];
 
                 [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
@@ -266,30 +267,32 @@
 
                  //Add Video to Video Array
                  NSURL *url = [NSURL URLWithString:self.videoFile.url];
-                 Video *video = [[Video alloc]initWithUrl:url];
-                 [currentUser.arrayOfVideos addObject:video];
 
                  //Add to Activity Array
                  NSString *name = currentUser.userName;
+                  NSString *userID = currentUser.userID;
                  UIImage *profilePic = currentUser.profileImage;
-                 UIImage *thumbnail = nil;
-                 UIImage *homeFeedContent = nil;
+//                 UIImage *thumbnail = nil;
+//                 UIImage *homeFeedContent = nil;
+//
+//                 AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
+//                 AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+//                 generator.appliesPreferredTrackTransform = YES;
+//                 NSError *errorAsset = nil;
+//                 CMTime time = CMTimeMake(0, 1); // 3/1 = 3 second(s)
+//                 CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:nil error:&error];
+//                 if (error != nil)
+//                     NSLog(@"%@: %@", self, error);
+//                 thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
+//
+//                 CGImageRelease(imgRef);
+//
+//                 homeFeedContent = thumbnail;
 
-                 AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
-                 AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-                 generator.appliesPreferredTrackTransform = YES;
-                 NSError *errorAsset = nil;
-                 CMTime time = CMTimeMake(0, 1); // 3/1 = 3 second(s)
-                 CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:nil error:&error];
-                 if (error != nil)
-                     NSLog(@"%@: %@", self, error);
-                 thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
+                  Video *video = [[Video alloc]initWithUrl:url];
+                    [currentUser.arrayOfVideos addObject:video];
 
-                 CGImageRelease(imgRef);
-
-                 homeFeedContent = thumbnail;
-
-                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil contentImage:homeFeedContent postMessage:nil videoURL:url linkURL:nil mediaType:@"video"];
+                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:nil video:video link:nil mediaType:@"video" userID:userID];
 
                  [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
@@ -319,6 +322,7 @@
 
                  //Add to Activity Array
                  NSString *name = currentUser.userName;
+                  NSString *userID = currentUser.userID;
                  UIImage *profilePic = currentUser.profileImage;
 
                  NSString *postMessage = self.stringPost;
@@ -327,7 +331,7 @@
 
                  [currentUser.arrayOfPosts addObject:post];
 
-                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil contentImage:nil postMessage:postMessage videoURL:nil linkURL:nil mediaType:@"post"];
+                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID];
 
                  [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
@@ -357,6 +361,7 @@
 
              //Add to Activity Array
              NSString *name = currentUser.userName;
+            NSString *userID = currentUser.userID;
              UIImage *profilePic = currentUser.profileImage;
 
                  NSString *linkURL = self.stringLink;
@@ -364,7 +369,7 @@
 
                  [currentUser.arrayOfLinks addObject:link];
 
-            HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil contentImage:nil postMessage:nil videoURL:nil linkURL:linkURL mediaType:@"link"];
+                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID];
 
                   [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
