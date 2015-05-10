@@ -77,12 +77,31 @@
     currentUser = [CurrentUser sharedSingleton];
     [currentUser setUserProfile];
 
+    if (currentUser.arrayOfHomeFeedContent.count < 10)
+    {
+        self.arrayOfContent = currentUser.arrayOfHomeFeedContent;
+    }
+    else
+    {
+
     self.noMoreResultsAvail = NO;
     self.arrayOfContent = [NSMutableArray new];
     for (int i = 0; i<10; i++)
     {
         [self.arrayOfContent addObject:currentUser.arrayOfHomeFeedContent[i]];
     }
+
+}
+    PFUser *user = [PFUser currentUser];
+    if ([user objectForKey:@"newuser"])
+    {
+        [user setObject:[NSNumber numberWithBool:NO] forKey:@"newuser"];
+        [user saveInBackground];
+    }
+
+
+
+
 }
 
 
@@ -99,7 +118,6 @@
 {
     [super viewDidDisappear:YES];
     NSLog(@"View Did Disappear");
-    // [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
     [[NSNotificationCenter defaultCenter ]removeObserver:self];
     
 }

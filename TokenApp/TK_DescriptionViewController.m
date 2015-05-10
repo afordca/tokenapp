@@ -14,7 +14,8 @@
 #import "Macros.h"
 #import "Constants.h"
 #import "TKCache.h"
-#include "HomeFeedPost.h"
+#import "HomeFeedPost.h"
+
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
@@ -59,7 +60,12 @@
     [self setUI];
 }
 
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    NSLog(@"view disappear");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 #pragma mark - Helper Methods
 
@@ -68,6 +74,7 @@
     //Setting delegates
     self.textViewDescriptionHashtags.delegate = self;
     self.textFieldTagPeople.delegate = self;
+    
 
 
     // Setting User
@@ -239,13 +246,14 @@
                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:photo post:nil video:nil link:nil mediaType:@"photo" userID:userID];
 
                 [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
+                currentUser.justPosted = YES;
 
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
 
-
-                UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
-
-                [self.navigationController pushViewController: hc animated:YES];
+//                UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//                MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+//
+//                [self.navigationController pushViewController: hc animated:YES];
 
             }];
 
@@ -561,5 +569,6 @@
 {
     [self.view endEditing:YES];
 }
+
 
 @end

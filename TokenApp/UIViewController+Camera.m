@@ -103,6 +103,7 @@
                                              selector:@selector(receivedNotification:)
                                                  name:@"PostLink"
                                                object:nil];
+    
 }
 
 #pragma mark - Notification Methods

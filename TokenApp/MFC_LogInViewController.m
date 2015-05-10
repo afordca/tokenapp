@@ -126,13 +126,13 @@
                     {
                         //WE CAN ADD LOGIC HERE TO HANDLE NEW USERS
 
-                        [self loadArray:^(BOOL result) {
-                            if (result)
-                            {
+//                        [self loadArray:^(BOOL result) {
+//                            if (result)
+                         //   {
 
                                 [self performSegueWithIdentifier:@"pushToFeed" sender:nil];
-                            }
-                        }];
+                           // }
+//                        }];
 
                     }
                     else

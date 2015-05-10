@@ -9,6 +9,7 @@
 #import "CustomTabBar.h"
 #import "UIColor+HEX.h"
 
+
 @implementation CustomTabBar
 
 @synthesize btnHomeFeed;
@@ -21,6 +22,12 @@
 {
     if (self = [super initWithFrame:frame])
     {
+
+        // Observer for when Post Note button is pressed.
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receivedNotification:)
+                                                     name:@"tabNav"
+                                                   object:nil];
 
         self.backgroundColor = [UIColor blackColor];
 
@@ -240,16 +247,18 @@
 
     //    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[home]-|" options:0 metrics:nil views:views]];
     
-    
-    
-    
-    
+
     [self addConstraints:constraints];
-    
-    
+
     
 }
 
+- (void)receivedNotification:(NSNotification *) notification {
 
+    if ([[notification name] isEqualToString:@"tabNav"])
+    {
+        [self clickHome];
+    }
+}
 
 @end

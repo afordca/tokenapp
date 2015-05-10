@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UIViewController+Camera.h"
+#import "TK_DescriptionViewController.h"
 
 // define the protocol for the delegate
 @protocol CustomTabBarDelegate <NSObject>
@@ -21,13 +22,14 @@
 
 @end
 
-@interface CustomTabBar : UIView
+@interface CustomTabBar : UIView 
 
 @property UIButton *btnHomeFeed;
 @property UIButton *btnDiscover;
 @property UIButton *btnCreate;
 @property UIButton *btnProfile;
 @property UIButton *btnBalance;
+@property TK_DescriptionViewController *descriptionVC;
 
 // define delegate property
 @property id <CustomTabBarDelegate> delegate;

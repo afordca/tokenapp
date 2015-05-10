@@ -116,6 +116,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+
+
+    if (currentUser.justPosted)
+    {
+        [self.visualEffectView removeFromSuperview];
+        [self.buttonCancelView setHidden:YES];
+        [self.buttonEditProfile setHidden:NO];
+
+    }
+
 //    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
 //    rotationAnimation.toValue = @(M_PI * -1.0);
 //    rotationAnimation.duration = .4;
@@ -133,6 +143,7 @@
 
     self.labelUserName.text = currentUser.userName;
     [self.collectionViewProfile reloadData];
+
 
 
     [self addObserver];
@@ -430,7 +441,18 @@
     ProfileCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                          UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeaderView" forIndexPath:indexPath];
     headerView.delegate = self;
-    headerView.imageViewProfilePic.image = currentUser.profileImage;
+
+    if (currentUser.profileImage)
+    {
+        headerView.imageViewProfilePic.image = currentUser.profileImage;
+
+    }
+    else
+    {
+        headerView.imageViewProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
+
+    }
+
     headerView.labelFollowersCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowers.count];
     headerView.labelFollowingCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowing.count];
     headerView.textViewBiography.text = currentUser.Biography;

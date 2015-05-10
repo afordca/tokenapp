@@ -61,9 +61,11 @@
 
 @property BOOL switchPostPrivate;
 @property BOOL switchTokensPrivate;
+@property BOOL userClicked;
+@property BOOL justPosted;
 
 @property (nonatomic,weak) User *clickedUser;
-@property BOOL userClicked;
+
 
 @property NSNumber *numberOfTotalTokens;
 @property NSNumber *numberOfPhotoTokens;

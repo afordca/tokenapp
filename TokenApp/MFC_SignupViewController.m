@@ -99,6 +99,10 @@
     {
 
             NSString *userName  = [self.textFieldUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+        NSString *firstName  = [self.textFieldFirstname.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+        NSString *lastName  = [self.textFieldLastname.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             NSString *password = [self.textFieldPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             NSString *email = [self.textFieldEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
@@ -111,6 +115,8 @@
         newUser.password = password;
         newUser.email = email;
         [newUser setObject:[NSNumber numberWithBool:YES] forKey:@"newuser"];
+        [newUser setObject: firstName forKey:@"Firstname"];
+        [newUser setObject:lastName forKey:@"Lastname"];
 
         //Setting Singleton User
         singleUser.userName = userName;
