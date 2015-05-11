@@ -7,6 +7,7 @@
 //
 
 #import "PreviewViewController.h"
+#import "TK_DescriptionViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 
@@ -47,10 +48,22 @@
     }
 }
 
-- (IBAction)onButtonPressCancel:(id)sender {
+- (IBAction)onButtonPressCancel:(id)sender
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (IBAction)onButtonPressNext:(id)sender {
+- (IBAction)onButtonPressNext:(id)sender
+{
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    TK_DescriptionViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
+
+        vc.imagePhoto = self.imagePhotoPreview;
+        vc.stringVideoURL = self.stringVideoURLPreview;
+        vc.urlVideo = self.urlVideoPreview;
+        vc.isVideo = self.isVideoPreview;
+
+    [self.navigationController pushViewController: vc animated:YES];
 }
 
 - (void)videoPlayBackDidFinish:(NSNotification *)notification {
