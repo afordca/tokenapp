@@ -61,6 +61,13 @@
     [self.delegate presentNotificationsView];
 }
 
+- (IBAction)buttonPressFollow:(id)sender
+{
+
+}
+
+
+
 #pragma mark UIAction Sheet Methods
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

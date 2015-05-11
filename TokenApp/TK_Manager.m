@@ -10,22 +10,6 @@
 
 @implementation TK_Manager
 
-//+(NSArray *)loadArrayOfContent:(NSMutableArray *)photos arrayOfVideos:(NSMutableArray *)videos arrayOfLinks:(NSMutableArray *)links arrayOfPosts:(NSMutableArray *)posts
-//{
-//    NSArray *arrayOfContent = [NSMutableArray new];
-//    arrayOfContent = [NSArray arrayWithArray:[photos arrayByAddingObjectsFromArray:videos]];
-//    arrayOfContent = [arrayOfContent arrayByAddingObjectsFromArray:links];
-//    arrayOfContent = [arrayOfContent arrayByAddingObjectsFromArray:posts];
-//
-//    //    NSSortDescriptor *sortDescriptor;
-//    //    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
-//    //                                                 ascending:YES];
-//    //    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-//    //    NSArray *sortedArray;
-//    //    sortedArray = [arrayOfContent sortedArrayUsingDescriptors:sortDescriptors];
-//
-//    return arrayOfContent;
-//}
 
 +(NSMutableArray *)loadArrayOfContent
 {
@@ -40,6 +24,47 @@
     }
 
     return arrayOfContent;
+}
+
+//+(NSMutableArray *)loadArrayOfOtherUserContent:(User *)user
+//{
+//
+//
+//    
+//}
+
++(NSMutableArray *)loadarrayOfActivity:(User *)user
+{
+    NSMutableArray *arrayOfActivity = [NSMutableArray new];
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+
+    [queryForActivity orderByDescending:@"createdAt"];
+    [queryForActivity whereKey:@"type" equalTo:@"post"];
+    [queryForActivity includeKey:@"fromUser"];
+    [queryForActivity includeKey:@"photo"];
+    [queryForActivity includeKey:@"video"];
+    [queryForActivity includeKey:@"link"];
+    [queryForActivity includeKey:@"note"];
+
+    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         if (!error)
+         {   // Post Activties
+             for (PFObject *activity in objects)
+             {
+                 //Post activity from current User
+                 if ([[activity objectForKey:@"fromUserID"]isEqualToString:user.objectID])
+                 {
+                     [arrayOfActivity addObject:activity];
+                 }
+
+             }
+
+         }
+
+     }];
+
+    return arrayOfActivity;
 }
 
 +(NSMutableArray*)loadFollowers:(NSString *)userID

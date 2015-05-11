@@ -11,6 +11,7 @@
 #import "MFC_HomeFeedViewController.h"
 #import "TK_DescriptionViewController.h"
 #import "TK_ProfileViewController.h"
+#import "OthersProfileViewController.h"
 #import "CreateMainView.h"
 #import "UIViewController+Camera.h"
 #import "UIColor+HEX.h"
@@ -132,6 +133,11 @@
 
     [self.tableViewHomeFeed reloadData];
     
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - UITableView Delegate Methods
@@ -405,6 +411,15 @@
         TK_ProfileViewController *pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Profile"];
 
         [self.navigationController pushViewController:pvc animated:YES];
+    }
+    else
+    {
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        OthersProfileViewController *opvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"OtherProfile"];
+        opvc.otherUser = user;
+
+        [self.navigationController pushViewController:opvc animated:YES];
+        
     }
 }
 

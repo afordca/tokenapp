@@ -39,6 +39,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelFollowersCount;
 
 @property (strong, nonatomic) IBOutlet UILabel *labelFollowingCount;
+@property (strong, nonatomic) IBOutlet UILabel *labelPostsCount;
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonFollowers;
 @property (strong, nonatomic) IBOutlet UIButton *buttonFollowing;

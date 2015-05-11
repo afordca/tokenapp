@@ -24,6 +24,7 @@
 		0041C6081B006C3F00EDA4FF /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041C6071B006C3F00EDA4FF /* PreviewViewController.m */; };
 		0041C60B1B0115D300EDA4FF /* ContentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041C60A1B0115D300EDA4FF /* ContentDetailViewController.m */; };
 		0041C60E1B01165C00EDA4FF /* ContentDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041C60D1B01165C00EDA4FF /* ContentDetailTableViewCell.m */; };
+		0041C6111B014ED500EDA4FF /* OthersProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041C6101B014ED500EDA4FF /* OthersProfileViewController.m */; };
 		004ED88E1AF002F100106071 /* HomeFeedPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 004ED88D1AF002F100106071 /* HomeFeedPost.m */; };
 		008AB0DD1ADCCC630025647B /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 008AB0DA1ADCCC630025647B /* TwitterKit.framework */; };
 		008AB0DE1ADCCC630025647B /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 008AB0DB1ADCCC630025647B /* TwitterKitResources.bundle */; };
@@ -145,6 +146,8 @@
 		0041C60A1B0115D300EDA4FF /* ContentDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentDetailViewController.m; sourceTree = "<group>"; };
 		0041C60C1B01165C00EDA4FF /* ContentDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentDetailTableViewCell.h; sourceTree = "<group>"; };
 		0041C60D1B01165C00EDA4FF /* ContentDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentDetailTableViewCell.m; sourceTree = "<group>"; };
+		0041C60F1B014ED500EDA4FF /* OthersProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OthersProfileViewController.h; sourceTree = "<group>"; };
+		0041C6101B014ED500EDA4FF /* OthersProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OthersProfileViewController.m; sourceTree = "<group>"; };
 		004ED88C1AF002F100106071 /* HomeFeedPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedPost.h; sourceTree = "<group>"; };
 		004ED88D1AF002F100106071 /* HomeFeedPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedPost.m; sourceTree = "<group>"; };
 		008AB0DA1ADCCC630025647B /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
@@ -401,6 +404,8 @@
 				00292EFB1A9850BB0086A219 /* ProfileCollectionReusableView.m */,
 				00ED604F1A804B5D00ED1229 /* TK_ProfileViewController.h */,
 				00ED60501A804B5D00ED1229 /* TK_ProfileViewController.m */,
+				0041C60F1B014ED500EDA4FF /* OthersProfileViewController.h */,
+				0041C6101B014ED500EDA4FF /* OthersProfileViewController.m */,
 				00A68EA51A9EDC1F00AAB98F /* NotificationViewController.h */,
 				00A68EA61A9EDC1F00AAB98F /* NotificationViewController.m */,
 				00A68EAB1A9EEE5F00AAB98F /* NotificationsTableViewCell.h */,
@@ -815,6 +820,7 @@
 				00C6DE581ABCB51200CC410C /* Video.m in Sources */,
 				00A990FF1AD722C500A635D7 /* DetailedContentViewController.m in Sources */,
 				004ED88E1AF002F100106071 /* HomeFeedPost.m in Sources */,
+				0041C6111B014ED500EDA4FF /* OthersProfileViewController.m in Sources */,
 				0041C60E1B01165C00EDA4FF /* ContentDetailTableViewCell.m in Sources */,
 				B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */,
 				0041C60B1B0115D300EDA4FF /* ContentDetailViewController.m in Sources */,

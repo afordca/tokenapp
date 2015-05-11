@@ -24,10 +24,6 @@
 @property (nonatomic, strong) UIImage *profileImage;
 @property (nonatomic,strong) NSString *userName;
 @property (nonatomic,strong) NSString *objectID;
-@property (nonatomic,strong) NSMutableArray *arrayOfPhotos;
-@property (nonatomic,strong) NSMutableArray *arrayOfVideos;
-@property (nonatomic,strong) NSMutableArray *arrayOfPosts;
-@property (nonatomic,strong) NSMutableArray *arrayOfLinks;
 @property (nonatomic,strong) NSArray *arrayOfContent;
 @property (nonatomic,strong) NSMutableArray *arrayOfUserActivity;
 @property (nonatomic,strong) NSMutableArray *arrayOfFromUserActivity;
@@ -39,12 +35,6 @@
 
 -(id)initWithUser:(PFUser*)userNew;
 
-//-(NSMutableArray*)loadFollowers:(NSString*)userID;
-//-(NSMutableArray*)loadFollowing:(NSString*)userID;
-//-(NSMutableArray*)loadArrayOfPhotos:(NSString*)userID;
-//-(NSMutableArray*)loadArrayOfVideos:(NSString*)userID;
-//-(NSMutableArray*)loadArrayOfLinks:(NSString*)userID;
-//-(NSMutableArray*)loadArrayOfPosts:(NSString*)userID;
 
 
 @end
