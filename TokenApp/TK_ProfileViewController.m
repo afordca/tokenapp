@@ -35,6 +35,8 @@
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGTH 568
 
+//When user is clicked, the Following Personal View behavior is triggered using this nib name
+#define FOLLOWINGVIEW_NIB_NAME "yYh-Bi-LcF-view-R8I-G1-Mba"
 
 @interface TK_ProfileViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegateFlowLayout,CustomProfileDelegate,UserDelegate>
 
@@ -43,6 +45,7 @@
 @property UIImage *imageProfile;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
 
+@property (strong, nonatomic) IBOutlet UITextView *textViewBiography;
 @property (strong, nonatomic) IBOutlet UIButton *buttonCancelView;
 @property (strong, nonatomic) IBOutlet UIButton *buttonEditProfile;
 
@@ -106,15 +109,28 @@
     self.moviePlayer = [[MPMoviePlayerController alloc]init];
 
 
-    //TK Manager - Helper Methods
-    TK_Manager *manager = [TK_Manager new];
-    self.arrayOfContent = [manager loadArrayOfContent:currentUser.arrayOfPhotos arrayOfVideos:currentUser.arrayOfVideos arrayOfLinks:currentUser.arrayOfLinks];
+    // Viewing Profile from a different tab
+    if (self.tabBarController.selectedIndex != 3)
+    {
+        [self.buttonCancelView setHidden:NO];
+        [self.buttonEditProfile setHidden:YES];
+    }
 
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+
+
+    if (currentUser.justPosted)
+    {
+        [self.visualEffectView removeFromSuperview];
+        [self.buttonCancelView setHidden:YES];
+        [self.buttonEditProfile setHidden:NO];
+
+    }
+
 //    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
 //    rotationAnimation.toValue = @(M_PI * -1.0);
 //    rotationAnimation.duration = .4;
@@ -127,12 +143,17 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    [self.buttonEditProfile setHidden:NO];
 
-    [self.collectionViewProfile reloadData];
+   self.arrayOfContent = [TK_Manager loadArrayOfContent];
 
     self.labelUserName.text = currentUser.userName;
+    [self.collectionViewProfile reloadData];
+
+
+
     [self addObserver];
+
+
 }
 
 
@@ -162,6 +183,16 @@
 
 - (IBAction)onButtonPressCancel:(id)sender
 {
+
+    // Dismissing ProfileView from a different tab
+    if (self.tabBarController.selectedIndex != 3)
+    {
+        [self.buttonCancelView setHidden:YES];
+        [self.buttonEditProfile setHidden:NO];
+
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+
     self.labelUserName.text = currentUser.userName;
 
     [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -215,37 +246,68 @@
 {
     ProfileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProfile" forIndexPath:indexPath];
 
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Photo class]])
+    cell.imageViewVideoIcon.alpha = 0;
+    cell.labelLinkURL.alpha = 0;
+    cell.imageViewLinkURL.alpha = 0;
+    cell.imageViewProfileContent.alpha = 1;
+
+
+    HomeFeedPost *post = [self.arrayOfContent objectAtIndex:indexPath.row];
+
+    if ([post.mediaType isEqualToString:@"photo"])
     {
         Photo *photo = [Photo new];
-        photo = [self.arrayOfContent objectAtIndex:indexPath.row];
+        photo = post.photoPost;
         cell.imageViewProfileContent.image = photo.picture;
+        cell.labelNoteMessage.alpha = 0;
+        cell.labelNoteHeader.alpha = 0;
         cell.imageViewVideoIcon.alpha = 0;
         cell.labelLinkURL.alpha = 0;
         cell.imageViewLinkURL.alpha = 0;
         return cell;
     }
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Video class]])
+    if ([post.mediaType isEqualToString:@"video"])
     {
         Video *video = [Video new];
-        video = [self.arrayOfContent objectAtIndex:indexPath.row];
+        video = post.videoPost;
         cell.imageViewProfileContent.image = video.videoThumbnail;
         cell.imageViewVideoIcon.alpha = 1;
+        cell.labelNoteMessage.alpha = 0;
+        cell.labelNoteHeader.alpha = 0;
         cell.labelLinkURL.alpha = 0;
         cell.imageViewLinkURL.alpha = 0;
 
         return cell;
         
     }
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Link class]])
+    if ([post.mediaType isEqualToString:@"link"])
     {
         Link *link = [Link new];
-        link = [self.arrayOfContent objectAtIndex:indexPath.row];
+        link = post.linkPost;
         cell.imageViewProfileContent.alpha = 0;
         cell.imageViewVideoIcon.alpha = 0;
+        cell.labelNoteMessage.alpha = 0;
+        cell.labelNoteHeader.alpha = 0;
         cell.labelLinkURL.alpha = 1;
         cell.imageViewLinkURL.alpha = 1;
         cell.labelLinkURL.text = [link.urlLink absoluteString];
+
+        return cell;
+    }
+
+    if ([post.mediaType isEqualToString:@"post"])
+    {
+        Post *note = [Post new];
+        note = post.messagePost;
+        cell.imageViewProfileContent.alpha = 0;
+        cell.imageViewVideoIcon.alpha = 0;
+        cell.labelLinkURL.alpha = 0;
+        cell.imageViewLinkURL.alpha = 0;
+        cell.labelNoteMessage.alpha = 1;
+        cell.labelNoteHeader.alpha = 1;
+        cell.labelNoteMessage.text = note.postMessage;
+        cell.labelNoteHeader.text = note.postHeader;
+        
 
         return cell;
     }
@@ -255,13 +317,15 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Photo class]])
+    HomeFeedPost *content = [self.arrayOfContent objectAtIndex:indexPath.row];
+
+    if ([content.mediaType isEqualToString:@"photo"])
     {
         UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.dvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"DetailPhotoViewController"];
 
         Photo *photo = [Photo new];
-        photo = [self.arrayOfContent objectAtIndex:indexPath.row];
+        photo = content.photoPost;
         self.dvc.detailPhoto = photo;
 
         //Create blurEffect and intialize visualEffect View
@@ -288,13 +352,13 @@
 
     }
 
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Video class]])
+    if ([content.mediaType isEqualToString:@"video"])
     {
         UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.dvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"DetailPhotoViewController"];
 
         Video *video = [Video new];
-        video = [self.arrayOfContent objectAtIndex:indexPath.row];
+        video = content.videoPost;
         self.dvc.detailVideo = video;
 
         //Create blurEffect and intialize visualEffect View
@@ -320,13 +384,13 @@
         }];
         
     }
-    if ([[self.arrayOfContent objectAtIndex:indexPath.row] isKindOfClass:[Link class]])
+    if ([content.mediaType isEqualToString:@"link"])
     {
         UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.dvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"DetailPhotoViewController"];
 
         Link *link = [Link new];
-        link = [self.arrayOfContent objectAtIndex:indexPath.row];
+        link = content.linkPost;
         self.dvc.detailLink = link;
 
         //Create blurEffect and intialize visualEffect View
@@ -343,7 +407,7 @@
         [self.buttonCancelView setHidden:NO];
         [self.buttonEditProfile setHidden:YES];
 
-        self.labelUserName.text = @"Video";
+        self.labelUserName.text = @"Link";
 
         [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
             [self.visualEffectView setAlpha:1.f];
@@ -353,8 +417,38 @@
         
     }
 
+    if ([content.mediaType isEqualToString:@"post"])
+    {
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        self.dvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"DetailPhotoViewController"];
 
+        Post *note = [Post new];
+        note = content.messagePost;
+        self.dvc.detailPost = note;
 
+        //Create blurEffect and intialize visualEffect View
+
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        self.visualEffectView.frame = CGRectMake(0, 68, self.view.bounds.size.width, 452);
+        [self.visualEffectView addSubview:self.dvc.view];
+        self.visualEffectView.alpha = 0.f;
+        [self.view addSubview:self.visualEffectView];
+        [self.view bringSubviewToFront:self.visualEffectView];
+
+        [self.buttonCancelView setHidden:NO];
+        [self.buttonEditProfile setHidden:YES];
+
+        self.labelUserName.text = @"Post";
+
+        [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [self.visualEffectView setAlpha:1.f];
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+    }
 
 }
 
@@ -362,9 +456,21 @@
     ProfileCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                          UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeaderView" forIndexPath:indexPath];
     headerView.delegate = self;
-    headerView.imageViewProfilePic.image = currentUser.profileImage;
+
+    if (currentUser.profileImage)
+    {
+        headerView.imageViewProfilePic.image = currentUser.profileImage;
+
+    }
+    else
+    {
+        headerView.imageViewProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
+
+    }
+
     headerView.labelFollowersCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowers.count];
     headerView.labelFollowingCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowing.count];
+    headerView.textViewBiography.text = currentUser.Biography;
 
     return headerView;
 }
@@ -440,9 +546,9 @@
     self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
 
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"FollowersActivity"];
+    self.fvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"FollowersActivity"];
 
-    [self.mainView addSubview:self.pvc.view];
+    [self.mainView addSubview:self.fvc.view];
     self.mainView.alpha = 0;
 
     [self.view addSubview:self.mainView];
@@ -680,7 +786,9 @@
     //Refresh HeaderView of CollectionView
     [self.collectionViewProfile reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,1)]];
 
-    [currentUser loadArrayOfPhotos];
+    [currentUser loadArrayOfPhotos:^(BOOL result) {
+
+    }];
     [self.mannyFresh endRefreshing];
 }
 

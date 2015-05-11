@@ -16,8 +16,10 @@
 {
     if ((self = [super initWithCoder:aDecoder]))
     {
+        self.labelUsername = [[NIAttributedLabel alloc] initWithFrame:CGRectZero];
+        [self addSubview:self.labelUsername];
 
-        }
+    }
     return self;
 }
 

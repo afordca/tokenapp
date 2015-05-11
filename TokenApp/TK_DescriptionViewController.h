@@ -11,7 +11,9 @@
 #import "Constants.h"
 #import "CurrentUser.h"
 
+
 @interface TK_DescriptionViewController : UIViewController
+
 {
     CurrentUser *currentUser;
 }

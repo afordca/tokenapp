@@ -97,6 +97,11 @@
         }
     }
 }
+- (IBAction)buttonCancel:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+
+}
 
 #pragma mark - UIAlertView delegate methods
 

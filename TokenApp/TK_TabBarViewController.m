@@ -13,6 +13,7 @@
 @interface TK_TabBarViewController ()<CustomTabBarDelegate>
 @property (strong, nonatomic) IBOutlet UITabBar *tabBarNavigation;
 
+
 @end
 
 @implementation TK_TabBarViewController
@@ -21,13 +22,14 @@
     [super viewDidLoad];
 
     //add the custom tabbarcontroller
-    CustomTabBar *customTabBar = [[CustomTabBar alloc] initWithFrame:CGRectMake(0,self.view.bounds.size.height - 49, self.view.bounds.size.width, 49)];
+    customTabBar = [[CustomTabBar alloc] initWithFrame:CGRectMake(0,self.view.bounds.size.height - 49, self.view.bounds.size.width, 49)];
 
     customTabBar.delegate = self;
+
+
     [self.view addSubview:customTabBar];
 
-    self.tabBarNavigation.hidden = NO;
-
+    self.tabBarNavigation.hidden = YES;
 
 
 }
@@ -67,5 +69,8 @@
     NSLog(@"Balance");
     self.selectedIndex = 2;
 }
+
+
+
 
 @end

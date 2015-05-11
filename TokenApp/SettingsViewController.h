@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CurrentUser.h"
+#import <Parse/Parse.h>
+
 
 @interface SettingsViewController : UIViewController
+
+{
+    CurrentUser *currentUser;
+}
+
 
 @end

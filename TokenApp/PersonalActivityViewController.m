@@ -47,11 +47,8 @@
 {
     UserActivityTableViewCell *cellActivity = [tableView dequeueReusableCellWithIdentifier:@"UserActivity"];
 
-    NSString *type = [[self.arrayOfActivity objectAtIndex:indexPath.row]objectForKey:@"type"];
-    PFUser *user = [[self.arrayOfActivity objectAtIndex:indexPath.row]objectForKey:@"toUser"];
-    NSString *stringMediaType = [[self.arrayOfActivity objectAtIndex:indexPath.row]objectForKey:@"mediaType"];
-    PFObject *photo = [[self.arrayOfActivity objectAtIndex:indexPath.row]objectForKey:@"photo"];
-
+    Activity *activity = [Activity new];
+    activity = [currentUser.arrayOfFromUserActivity objectAtIndex:indexPath.row];
 
     //Set and Round Profile Pic
     cellActivity.imageViewProfilePic.image = currentUser.profileImage;
@@ -60,35 +57,26 @@
     cellActivity.imageViewProfilePic.layer.borderWidth = 0;
 
     //User Activity Description
-    if (!stringMediaType)
+    if (!activity.typeOfMedia)
     {
         //Follow activity
-        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ %@",currentUser.userName, type,user.username];
+        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ %@",activity.fromUser.userName, activity.activityType,activity.toUser.userName];
 
-        PFFile *parseFileWithImage = [user objectForKey:@"profileImage"];
-        NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-        NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-        [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-            cellActivity.imageViewPhoto.image = [UIImage imageWithData:data];
+            cellActivity.imageViewPhoto.image = activity.fromUser.profileImage;
             //Set and Round Profile Pic
             cellActivity.imageViewPhoto.layer.cornerRadius = cellActivity.imageViewPhoto.frame.size.height /2;
             cellActivity.imageViewPhoto.layer.masksToBounds = YES;
             cellActivity.imageViewPhoto.layer.borderWidth = 0;
-        }];
     }
-    else
+
     {
         //Media activity
-        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ a %@",currentUser.userName, type,stringMediaType];
+        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ a %@",activity.fromUser.userName, activity.activityType,activity.typeOfMedia];
 
-
-        PFFile *parseFileWithImage = [photo objectForKey:@"image"];
-        NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-        NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-        [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-            cellActivity.imageViewPhoto.image = [UIImage imageWithData:data];
-        }];
-
+        if (activity.photo)
+        {
+            cellActivity.imageViewPhoto.image = activity.photo.picture;
+        }
 
     }
 return cellActivity;

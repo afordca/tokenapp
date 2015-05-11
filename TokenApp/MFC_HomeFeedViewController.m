@@ -70,7 +70,7 @@
 {
     [super viewDidLoad];
 
-    self.userNew = [[User alloc]initWithUser:[PFUser currentUser]];
+//    self.userNew = [[User alloc]initWithUser:[PFUser currentUser]];
 
 
     [self.navigationController.navigationBar setHidden:YES];

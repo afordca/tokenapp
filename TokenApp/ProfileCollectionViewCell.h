@@ -15,5 +15,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *labelLinkURL;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewLinkURL;
+@property (strong, nonatomic) IBOutlet UILabel *labelNoteMessage;
+@property (strong, nonatomic) IBOutlet UILabel *labelNoteHeader;
 
 @end

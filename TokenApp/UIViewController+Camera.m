@@ -8,6 +8,7 @@
 
 #import "UIViewController+Camera.h"
 #import "TK_DescriptionViewController.h"
+#import "PreviewViewController.h"
 #import "CamerOverlay.h"
 #import "CurrentUser.h"
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -52,11 +53,23 @@
 -(void)pushSegueToDescriptionViewController
 {
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    TK_DescriptionViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
-    vc.imagePhoto = self.imageCreatePhoto;
-    vc.stringVideoURL = self.stringVideoData;
-    vc.isVideo = self.isVideo;
-    [self.navigationController pushViewController: vc animated:YES];
+//    TK_DescriptionViewController *vc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Description"];
+    PreviewViewController *pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"Preview"];
+//    vc.imagePhoto = self.imageCreatePhoto;
+//    vc.stringVideoURL = self.stringVideoData;
+//    vc.urlVideo = self.videoURL;
+//    vc.isVideo = self.isVideo;
+
+    pvc.imagePhotoPreview = self.imageCreatePhoto;
+    pvc.stringVideoURLPreview = self.stringVideoData;
+    pvc.urlVideoPreview = self.videoURL;
+    pvc.isVideoPreview = self.isVideo;
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+//    [self.navigationController pushViewController: vc animated:YES];
+    [self.navigationController pushViewController: pvc animated:YES];
+
 
 }
 
@@ -143,6 +156,7 @@
         } completion:^(BOOL finished) {
 
             [self.visualEffectView removeFromSuperview];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
 
         }];
 
@@ -269,6 +283,7 @@
     {
         NSURL *videoURL = info[UIImagePickerControllerMediaURL];
         self.stringVideoData = [videoURL path];
+        self.videoURL = videoURL;
 
         if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
         {

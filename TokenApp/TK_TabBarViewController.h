@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomTabBar.h"
+
 
 @interface TK_TabBarViewController : UITabBarController
+
+{
+     CustomTabBar *customTabBar;
+}
+
+
 
 @end

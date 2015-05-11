@@ -21,60 +21,9 @@
     self.userName = [userNew objectForKey:@"username"];
     self.objectID = userNew.objectId;
 
-    self.arrayOfFollowers = [self loadFollowers:userNew.objectId];
-    self.arrayOfFollowing = [self loadFollowing:userNew.objectId];
-
     }];
 
      return self;
-}
-
-
--(NSMutableArray*)loadFollowers:(NSString *)userID
-{
-    self.arrayOfFollowers = [NSMutableArray new];
-    [PFCloud callFunctionInBackground:@"Followers" withParameters:@{@"objectId": userID} block:^(NSArray *result, NSError *error)
-     {
-         if (error)
-         {
-             NSLog(@"%@", [error userInfo]);
-         }
-         else
-         {
-             for (PFUser *userFollower in result)
-             {
-
-                 [self.arrayOfFollowers addObject:userFollower];
-             }
-         }
-
-     }];
-
-    return self.arrayOfFollowers;
-}
-
--(NSMutableArray*)loadFollowing:(NSString *)userID
-{
-    self.arrayOfFollowing = [NSMutableArray new];
-
-    [PFCloud callFunctionInBackground:@"Following" withParameters:@{@"objectId": userID} block:^(NSArray *result, NSError *error)
-     {
-         if (error)
-         {
-             NSLog(@"%@", [error userInfo]);
-         }
-         else
-         {
-             for (PFUser *userFollower in result)
-             {
-                 [self.arrayOfFollowing addObject:userFollower];
-             }
-
-         }
-
-     }];
-
-    return self.arrayOfFollowing;
 }
 
 @end

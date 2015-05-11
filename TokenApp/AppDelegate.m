@@ -14,7 +14,9 @@
 #import "Reachability.h"
 #import "TKHomeViewController.h"
 #import "TKWelcomeViewController.h"
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 #import "TKCache.h"
 #import "Constants.h"
 #import "TKTabBarController.h"
@@ -24,6 +26,9 @@
 #import "BalanceTableViewController.h"
 #import <Fabric/Fabric.h>
 #import <TwitterKit/TwitterKit.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 
 @interface AppDelegate ()
@@ -42,11 +47,11 @@
 
     
 
-//    //Twitter setup
-//    [PFTwitterUtils initializeWithConsumerKey:@"zZ6XjwBvVEKbin2fr69ocsUqv"
-//                            consumerSecret:@"MOOl0dai4uxW6mIpEOBH1ogweVa2XNmiCaJwtR2NDathdAs0mk"];
+    //Twitter setup
+    [PFTwitterUtils initializeWithConsumerKey:@"0iXinrOkjqjj0EDhINm4o24CL"
+                            consumerSecret:@"eJQqXVs7KhykJ1ejGQ0rMShYmL5RHPizU29X7Y91rEnykuA5qm"];
     //Facebook setup
-    [PFFacebookUtils initializeFacebook];
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
 
     ///Parse analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -65,7 +70,11 @@
         [application registerForRemoteNotifications];
     }
 
-    [Fabric with:@[TwitterKit]];
+
+    [Fabric with:@[TwitterKit, CrashlyticsKit]];
+
+ 
+
 
     return YES;
 }
@@ -97,16 +106,15 @@
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    return [FBAppCall handleOpenURL:url
-                  sourceApplication:sourceApplication
-                        withSession:[PFFacebookUtils session]];
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
-
+    [FBSDKAppEvents activateApp];
 }
-
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.

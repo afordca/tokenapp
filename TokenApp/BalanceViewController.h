@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CurrentUser.h"
 
 @interface BalanceViewController : UIViewController
+
+{
+    CurrentUser *currentUser;
+}
 
 @end

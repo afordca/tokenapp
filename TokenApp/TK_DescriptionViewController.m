@@ -6,15 +6,25 @@
 //
 //
 
+#import "AppDelegate.h"
 #import "TK_DescriptionViewController.h"
+#import "MFC_HomeFeedViewController.h"
 #import "EditPhotoViewController.h"
 #import "UIImage+ResizeAdditions.h"
 #import "Macros.h"
 #import "Constants.h"
 #import "TKCache.h"
-#import "PTKContentDetailTableViewController.h"
+#import "HomeFeedPost.h"
+
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
+#import <Social/Social.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AVFoundation/AVAsset.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface TK_DescriptionViewController () <UITextFieldDelegate,UITextViewDelegate>
 
@@ -29,23 +39,32 @@
 @property PFObject *video;
 @property PFObject *note;
 @property PFObject *link;
+@property PFObject *activity;
 @property PFFile *photoFile;
+@property PFFile *videoFile;
 
+-(void)loadArray:(void (^)(BOOL result))completionHandler;
 
 @end
 
 @implementation TK_DescriptionViewController
 
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.currentUser = [PFUser currentUser];
+    currentUser = [CurrentUser sharedSingleton];
     [self initialize];
     [self setUI];
 }
 
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    NSLog(@"view disappear");
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
+}
 
 #pragma mark - Helper Methods
 
@@ -55,27 +74,41 @@
     self.textViewDescriptionHashtags.delegate = self;
     self.textFieldTagPeople.delegate = self;
 
-
     // Setting User
     self.currentUser = [PFUser currentUser];
 
-
     if (self.isLink) {
         self.link = [PFObject objectWithClassName:@"Link"];
+        self.activity = [PFObject objectWithClassName:@"Activity"];
+
         [self.link setObject:self.stringLink forKey:@"url"];
         [self.link setObject:self.currentUser forKey:@"user"];
         [self.link setObject:self.currentUser.objectId forKey:@"userName"];
-    }
 
+
+        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"link" forKey:@"mediaType"];
+        [self.activity setObject:self.link forKey:@"link"];
+        [self.activity setObject:self.currentUser forKey:@"fromUser"];
+        [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
+        [self.activity setValue:self.currentUser.username forKey:@"username"];
+    }
    else if (self.isPost)
     {
         self.note = [PFObject objectWithClassName:@"Note"];
+        self.activity = [PFObject objectWithClassName:@"Activity"];
+
         [self.note setObject:self.stringPost forKey:@"note"];
         [self.note setObject:self.currentUser forKey:@"user"];
         [self.note setObject:self.currentUser.objectId forKey:@"userName"];
+
+        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"note" forKey:@"mediaType"];
+        [self.activity setObject:self.currentUser forKey:@"fromUser"];
+        [self.activity setObject:self.note forKey:@"note"];
+        [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
+        [self.activity setValue:self.currentUser.username forKey:@"username"];
     }
-
-
     //For Video
    else if (self.isVideo)
     {
@@ -87,12 +120,20 @@
         fileName = @"video.mov";
 
         self.video = [PFObject objectWithClassName:@"Video"];
-        PFFile *videoFile = [PFFile fileWithName:fileName data:fileData];
-
+        self.activity = [PFObject objectWithClassName:@"Activity"];
+        self.videoFile = [PFFile fileWithName:fileName data:fileData];
 
         [self.video setObject:self.currentUser forKey:@"user"];
         [self.video setObject:self.currentUser.objectId forKey:@"userName"];
-        [self.video setObject:videoFile forKey:@"video"];
+        [self.video setObject:self.videoFile forKey:@"video"];
+        [self.video setObject:self.currentUser.username forKey:@"UserName"];
+
+        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"video" forKey:@"mediaType"];
+        [self.activity setObject:self.currentUser forKey:@"fromUser"];
+        [self.activity setObject:self.video forKey:@"video"];
+        [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
+        [self.activity setValue:self.currentUser.username forKey:@"username"];
     }
     else
     // For Photo
@@ -101,15 +142,22 @@
         self.imagePhoto = [self resizeImage:self.imagePhoto scaledToSize:150];
         // Setting Photo for upload to Parse
         self.photo = [PFObject objectWithClassName:@"Photo"];
+        self.activity = [PFObject objectWithClassName:@"Activity"];
         NSData *dataPhoto = UIImagePNGRepresentation(self.imagePhoto);
         PFFile *imagePhotoFile = [PFFile fileWithName:@"photo.png" data:dataPhoto];
 
         [self.photo setObject:self.currentUser forKey:@"user"];
         [self.photo setObject:self.currentUser.objectId forKey:@"userName"];
+        [self.photo setObject:self.currentUser.username forKey:@"UserName"];
         [self.photo setObject:imagePhotoFile forKey:@"image"];
 
+        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"photo" forKey:@"mediaType"];
+        [self.activity setObject:self.currentUser forKey:@"fromUser"];
+        [self.activity setObject:self.photo forKey:@"photo"];
+        [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
+        [self.activity setValue:self.currentUser.username forKey:@"username"];
     }
-
 }
 
 -(void)setUI
@@ -170,12 +218,42 @@
         }
         else
         {
-            NSLog(@"Photo Saved");
-            [currentUser.arrayOfPhotos addObject:self.imagePhoto];
 
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+            {
+                NSLog(@"Photo Saved");
+                //Add to Activity Array
+                NSString *name = currentUser.userName;
+                NSString *userID = currentUser.userID;
+                UIImage *profilePic = currentUser.profileImage;
+                UIImage *contentImage = self.imagePhoto;
+
+                Photo *photo = [[Photo alloc]initWithImage:contentImage name:name time:nil];
+                [currentUser.arrayOfPhotos addObject:photo];
+
+                HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:photo post:nil video:nil link:nil mediaType:@"photo" userID:userID user:self.currentUser];
+
+                [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
+                currentUser.justPosted = YES;
+
+                if (self.tabBarController.selectedIndex != 0)
+                {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
+
+                }
+
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+
+                [self performSelector:@selector(sendNotify) withObject:nil afterDelay:0.6];
+            }];
         }
     }];
+}
+
+-(void)sendNotify
+{
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"SendCancel" object:self];
 }
 
 -(void)saveVideoToParse
@@ -186,8 +264,37 @@
         }
         else
         {
-            NSLog(@"Video Saved");
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
+                 NSLog(@"Video Saved");
+                 //Add Video to Video Array
+                 NSURL *url = [NSURL URLWithString:self.videoFile.url];
+
+                 //Add to Activity Array
+                 NSString *name = currentUser.userName;
+                  NSString *userID = currentUser.userID;
+                 UIImage *profilePic = currentUser.profileImage;
+
+                  Video *video = [[Video alloc]initWithUrl:url];
+                    [currentUser.arrayOfVideos addObject:video];
+
+                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:nil video:video link:nil mediaType:@"video" userID:userID user:self.currentUser];
+
+                 [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
+
+                 currentUser.justPosted = YES;
+
+                 if (self.tabBarController.selectedIndex != 0)
+                 {
+                     [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
+
+                 }
+
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+                 [self.navigationController popToRootViewControllerAnimated:YES];
+
+                 [self performSelector:@selector(sendNotify) withObject:nil afterDelay:0.6];
+             }];
         }
     }];
 }
@@ -200,8 +307,38 @@
         }
         else
         {
-            NSLog(@"Note Saved");
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
+                 NSLog(@"Note Saved");
+                 //Add to Activity Array
+                 NSString *name = currentUser.userName;
+                  NSString *userID = currentUser.userID;
+                 UIImage *profilePic = currentUser.profileImage;
+
+                 NSString *postMessage = self.stringPost;
+                 NSString *postHeader = [self.note objectForKey:@"description"];
+
+                 Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
+
+                 [currentUser.arrayOfPosts addObject:post];
+
+                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID user:self.currentUser];
+
+                 [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
+
+                 currentUser.justPosted = YES;
+
+                 if (self.tabBarController.selectedIndex != 0)
+                 {
+                     [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
+
+                 }
+
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+                 [self.navigationController popToRootViewControllerAnimated:YES];
+
+                 [self performSelector:@selector(sendNotify) withObject:nil afterDelay:0.6];
+             }];
         }
     }];
 }
@@ -214,8 +351,34 @@
         }
         else
         {
+            [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
             NSLog(@"Link Saved");
-            [self.navigationController popToRootViewControllerAnimated:YES];
+             //Add to Activity Array
+             NSString *name = currentUser.userName;
+            NSString *userID = currentUser.userID;
+             UIImage *profilePic = currentUser.profileImage;
+
+                 NSString *linkURL = self.stringLink;
+                 Link *link = [[Link alloc]initWithUrl:linkURL];
+
+                 [currentUser.arrayOfLinks addObject:link];
+
+                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID user:self.currentUser];
+
+                  [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
+
+                 currentUser.justPosted = YES;
+
+                 if (self.tabBarController.selectedIndex != 0)
+                 {
+                     [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
+                 }
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+                 [self.navigationController popToRootViewControllerAnimated:YES];
+
+                 [self performSelector:@selector(sendNotify) withObject:nil afterDelay:0.6];
+             }];
         }
     }];
 }
@@ -224,7 +387,78 @@
 
 - (IBAction)buttonPressFacebook:(id)sender
 {
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+    {
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
 
+        if (self.isLink)
+        {
+            [controller setInitialText:self.textViewDescriptionHashtags.text];
+            NSURL *linkURL = [NSURL URLWithString:self.stringLink];
+            [controller addURL:linkURL];
+            [self presentViewController:controller animated:YES completion:nil];
+
+            [self.link setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self saveLinkToParse];
+        }
+
+        if (self.isPost)
+        {
+            [controller setInitialText:self.stringPost];
+            [self presentViewController:controller animated:YES completion:nil];
+
+            [self.note setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self saveNoteToParse];
+        }
+
+        else
+        {
+            [controller setInitialText:self.textViewDescriptionHashtags.text];
+            [controller addImage:self.imagePhoto];
+            [self presentViewController:controller animated:YES completion:nil];
+
+            [self.photo setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self savePhotoToParse];
+        }
+    }
+}
+
+- (IBAction)buttonPressTwitter:(id)sender
+{
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+    {
+        SLComposeViewController *tweetSheet = [SLComposeViewController
+                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
+        if (self.isLink)
+        {
+            [tweetSheet setInitialText:self.textViewDescriptionHashtags.text];
+            NSURL *linkURL = [NSURL URLWithString:self.stringLink];
+            [tweetSheet addURL:linkURL];
+            [self presentViewController:tweetSheet animated:YES completion:nil];
+
+            [self.link setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self saveLinkToParse];
+        }
+
+        if (self.isPost)
+        {
+            [tweetSheet setInitialText:self.stringPost];
+            [self presentViewController:tweetSheet animated:YES completion:nil];
+
+            [self.note setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self saveNoteToParse];
+        }
+
+        else
+        {
+            [tweetSheet setInitialText:self.textViewDescriptionHashtags.text];
+            [tweetSheet addImage:self.imagePhoto];
+            [self presentViewController:tweetSheet animated:YES completion:nil];
+
+            [self.photo setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
+            [self savePhotoToParse];
+        }
+    }
 }
 
 
@@ -252,9 +486,7 @@
         [self.photo setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
         [self savePhotoToParse];
     }
-
 }
-
 
 - (IBAction)onButtonCancel:(id)sender
 {
@@ -307,5 +539,6 @@
 {
     [self.view endEditing:YES];
 }
+
 
 @end

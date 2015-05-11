@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CurrentUser.h"
+#import "NimbusKitAttributedLabel.h"
+
 #import "User.h"
 
 @protocol FollowersTableViewCellDelegate <NSObject>;
@@ -30,9 +32,11 @@
 @property User *userFollower;
 @property NSInteger row;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewFollowerProfilePic;
-@property (strong, nonatomic) IBOutlet UILabel *labelUsername;
+
 @property NSString *stringStatus;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewFollowStatus;
+
+@property (strong, nonatomic) IBOutlet NIAttributedLabel *labelUsername;
 
 
 @end

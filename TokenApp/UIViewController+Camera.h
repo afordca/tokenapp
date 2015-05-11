@@ -26,6 +26,7 @@
 @property UIImagePickerController *imagePickerProfile;
 @property UIImage *imageCreatePhoto;
 @property (strong, nonatomic) NSString *stringVideoData;
+@property (strong, nonatomic) NSURL *videoURL;
 
 @property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
 

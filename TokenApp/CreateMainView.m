@@ -22,7 +22,6 @@
 }
 
 
-
 - (IBAction)onbuttonPhoto:(id)sender
 {
     [[NSNotificationCenter defaultCenter]postNotificationName:@"TakePhoto" object:self];
