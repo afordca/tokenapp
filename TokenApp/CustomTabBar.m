@@ -7,20 +7,28 @@
 //
 
 #import "CustomTabBar.h"
+#import "UIColor+HEX.h"
 
 @implementation CustomTabBar
 
+@synthesize btnHomeFeed;
+@synthesize btnProfile;
+@synthesize btnDiscover;
+@synthesize btnBalance;
+@synthesize btnCreate;
+
 - (id)initWithFrame:(CGRect)frame
 {
-    if (self = [super initWithFrame:frame]) {
+    if (self = [super initWithFrame:frame])
+    {
 
         self.backgroundColor = [UIColor blackColor];
 
         //Add Home Feed Button
 
-        UIButton *btnHomeFeed = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        btnHomeFeed = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btnHomeFeed setImage:[UIImage imageNamed:@"Feed"] forState:UIControlStateNormal];
-        [btnHomeFeed setTintColor:[UIColor whiteColor]];
+        [btnHomeFeed setTintColor:[UIColor colorwithHexString:@"#72c74a" alpha:.9]];
 
         //set the frame
         CGRect btnHomeFrame = CGRectMake(10, 5, 50, 40);
@@ -33,7 +41,7 @@
 
         //Add Discover Button
 
-        UIButton *btnDiscover = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        btnDiscover = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btnDiscover setImage:[UIImage imageNamed:@"Discover"] forState:UIControlStateNormal];
         [btnDiscover setTintColor:[UIColor whiteColor]];
 
@@ -48,9 +56,12 @@
 
         //Add Create Button
 
-        UIButton *btnCreate = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        btnCreate = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btnCreate setImage:[UIImage imageNamed:@"Upload"] forState:UIControlStateNormal];
+        [btnCreate setBackgroundColor:[UIColor clearColor]];
         [btnCreate setTintColor:[UIColor whiteColor]];
+
+        [btnCreate setEnabled:YES];
 
         //set the frame
         CGRect btnCreateFrame = CGRectMake(130, 5, 50, 40);
@@ -63,7 +74,7 @@
 
         //Add Profile Button
 
-        UIButton *btnProfile = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        btnProfile = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btnProfile setImage:[UIImage imageNamed:@"Profile"] forState:UIControlStateNormal];
         [btnProfile setTintColor:[UIColor whiteColor]];
 
@@ -78,7 +89,7 @@
 
         //Add Balance Button
 
-        UIButton *btnBalance = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        btnBalance = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btnBalance setImage:[UIImage imageNamed:@"Balance"] forState:UIControlStateNormal];
         [btnBalance setTintColor:[UIColor whiteColor]];
 
@@ -98,31 +109,62 @@
 -(void)clickHome
 {
     NSLog(@"Click Home");
+    [btnDiscover setTintColor:[UIColor whiteColor]];
+    [btnBalance setTintColor:[UIColor whiteColor]];
+    [btnCreate setTintColor: [UIColor whiteColor]];
+    [btnProfile setTintColor:[UIColor whiteColor]];
+
+    [btnHomeFeed setTintColor:[UIColor colorwithHexString:@"#72c74a" alpha:.9]];
     [self.delegate onClickHomeFeed];
 }
 
 -(void)clickDiscover
 {
     NSLog(@"Click Discover");
+    [btnHomeFeed setTintColor:[UIColor whiteColor]];
+    [btnBalance setTintColor:[UIColor whiteColor]];
+    [btnCreate setTintColor: [UIColor whiteColor]];
+    [btnProfile setTintColor:[UIColor whiteColor]];
+
+    [btnDiscover setTintColor:[UIColor colorwithHexString:@"#72c74a" alpha:.9]];
     [self.delegate onClickDiscover];
 }
 
 -(void)clickCreate
 {
     NSLog(@"Click Create");
+//    [btnDiscover setTintColor:[UIColor whiteColor]];
+//    [btnBalance setTintColor:[UIColor whiteColor]];
+//    [btnHomeFeed setTintColor: [UIColor whiteColor]];
+//    [btnProfile setTintColor:[UIColor whiteColor]];
+
+//    [btnCreate setTintColor:[UIColor colorwithHexString:@"#72c74a" alpha:.9]];
     [self.delegate onClickCreate];
 }
 
 -(void)clickProfile
 {
     NSLog(@"Click Profile");
+    [btnDiscover setTintColor:[UIColor whiteColor]];
+    [btnBalance setTintColor:[UIColor whiteColor]];
+    [btnCreate setTintColor: [UIColor whiteColor]];
+    [btnHomeFeed setTintColor:[UIColor whiteColor]];
+
+    [btnProfile setTintColor:[UIColor colorwithHexString:@"#72c74a" alpha:.9]];
     [self.delegate onClickProfile];
 }
 
 -(void)clickBalance
 {
     NSLog(@"Click Balance");
+    [btnDiscover setTintColor:[UIColor whiteColor]];
+    [btnHomeFeed setTintColor:[UIColor whiteColor]];
+    [btnCreate setTintColor: [UIColor whiteColor]];
+    [btnProfile setTintColor:[UIColor whiteColor]];
+
+    [btnBalance setTintColor:[UIColor colorwithHexString:@"#72c74a" alpha:.9]];
     [self.delegate onClickBalance];
 }
+
 
 @end

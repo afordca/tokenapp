@@ -40,12 +40,13 @@
         [viewTopNavBar addSubview:btnCancel];
 
         UIButton *btnFlash = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [btnFlash setTitle:@"FLASH" forState:UIControlStateNormal];
+        //[btnFlash setTitle:@"FLASH" forState:UIControlStateNormal];
+        [btnFlash setBackgroundImage:[UIImage imageNamed:@"Flash"] forState:UIControlStateNormal];
 
         btnFlash.tintColor = [UIColor greenColor];
 
         //set the frame
-        CGRect btnFlashFrame = CGRectMake(110, 0, 100, 40);
+        CGRect btnFlashFrame = CGRectMake(150, 10, 30, 30);
         btnFlash.frame = btnFlashFrame;
         [btnFlash addTarget:self
                       action:@selector(cameraFlash)
@@ -60,10 +61,17 @@
         //add Camera Capture Photo to the overlay view.
 
         UIButton *btnCamCapturePhoto = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [btnCamCapturePhoto setTitle:@"Take Photo" forState:UIControlStateNormal];
+       // [btnCamCapturePhoto setTitle:@"Take Photo" forState:UIControlStateNormal];
+
+
+        [btnCamCapturePhoto setBackgroundImage :[UIImage imageNamed: @"Camera"] forState:UIControlStateNormal];
+
+
         //set the frame
-        CGRect btnCamCapturePhotoFrame = CGRectMake(110, 500, 100, 40);
+        CGRect btnCamCapturePhotoFrame = CGRectMake(130, 480, 60, 60);
         btnCamCapturePhoto.frame = btnCamCapturePhotoFrame;
+        btnCamCapturePhoto.imageView.contentMode = UIViewContentModeScaleAspectFit;
+
 
         [btnCamCapturePhoto addTarget:self
                           action:@selector(cameraCapture)
@@ -74,9 +82,10 @@
         //add Camera Reverse button to the overlay view.
 
         UIButton *btnCamReverse = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [btnCamReverse setTitle:@"Reverse" forState:UIControlStateNormal];
+        //[btnCamReverse setTitle:@"Reverse" forState:UIControlStateNormal];
+        [btnCamReverse setBackgroundImage:[UIImage imageNamed:@"CameraFlip"] forState:UIControlStateNormal];
         //set the frame
-        CGRect btnCamReverseFrame = CGRectMake(225, 500, 100, 40);
+        CGRect btnCamReverseFrame = CGRectMake(260, 495, 40, 40);
         btnCamReverse.frame = btnCamReverseFrame;
 
         [btnCamReverse addTarget:self
@@ -88,6 +97,7 @@
 
         UIButton *btnCamLibrary = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btnCamLibrary setTitle:@"Library" forState:UIControlStateNormal];
+       // [btnCamLibrary setBackgroundImage:[UIImage imageNamed:@"Photo"] forState:UIControlStateNormal];
         //set the frame
         CGRect btnCamLibraryFrame = CGRectMake(0, 500, 100, 40);
         btnCamLibrary.frame = btnCamLibraryFrame;
@@ -96,10 +106,6 @@
                           action:@selector(cameraLibrary)
                 forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnCamLibrary];
-
-
-
-
 
     }
     return self;

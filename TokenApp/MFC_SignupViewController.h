@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
+#import "CurrentUser.h"
 
 @interface MFC_SignupViewController : UIViewController <UINavigationControllerDelegate,UITextFieldDelegate,UIAlertViewDelegate>
 
 
 {
-    User *singleUser;
+    CurrentUser *singleUser;
 }
 
 

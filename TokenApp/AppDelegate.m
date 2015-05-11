@@ -22,10 +22,11 @@
 #import "ProfilePersonalViewController.h"
 #import "CreateContentViewController.h"
 #import "BalanceTableViewController.h"
+#import <Fabric/Fabric.h>
+#import <TwitterKit/TwitterKit.h>
+
 
 @interface AppDelegate ()
-
-
 
 @end
 
@@ -41,9 +42,9 @@
 
     
 
-    //Twitter setup
-    [PFTwitterUtils initializeWithConsumerKey:@"zZ6XjwBvVEKbin2fr69ocsUqv"
-                            consumerSecret:@"MOOl0dai4uxW6mIpEOBH1ogweVa2XNmiCaJwtR2NDathdAs0mk"];
+//    //Twitter setup
+//    [PFTwitterUtils initializeWithConsumerKey:@"zZ6XjwBvVEKbin2fr69ocsUqv"
+//                            consumerSecret:@"MOOl0dai4uxW6mIpEOBH1ogweVa2XNmiCaJwtR2NDathdAs0mk"];
     //Facebook setup
     [PFFacebookUtils initializeFacebook];
 
@@ -64,7 +65,7 @@
         [application registerForRemoteNotifications];
     }
 
-    [self SetUser];
+    [Fabric with:@[TwitterKit]];
 
     return YES;
 }
@@ -84,7 +85,7 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 
-    [self SetUser];
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -122,30 +123,5 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
 }
-
--(void)SetUser
-{
-    PFUser *user = [PFUser currentUser];
-    PFFile *profileImageFile = [user objectForKey:@"profileImage"];
-    PFImageView *imageView = [PFImageView new];
-    imageView.file = profileImageFile;
-    [imageView loadInBackground:^(UIImage *image, NSError *error) {
-        singleUser = [User sharedSingleton];
-        singleUser.profileImage = image;
-        if ([user objectForKey:@"FirstName"]) {
-            singleUser.userName = [user objectForKey:@"FirstName"];
-        } else {
-            singleUser.userName = user.username;
-        }
-    }];
-    
-    
-}
-
-
-
-
-
-
 
 @end

@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
+#import "CurrentUser.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 {
-    User *singleUser;
+    CurrentUser *singleUser;
 
 }
 

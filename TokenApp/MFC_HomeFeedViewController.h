@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "PFQueryTableViewController.h"
+#import "CurrentUser.h"
 
 
 @interface MFC_HomeFeedViewController : PFQueryTableViewController
+
+
+{
+    CurrentUser *singleUser;
+}
+
 
 @end
