@@ -77,21 +77,7 @@
     currentUser = [CurrentUser sharedSingleton];
     [currentUser setUserProfile];
 
-    if (currentUser.arrayOfHomeFeedContent.count < 10)
-    {
-        self.arrayOfContent = currentUser.arrayOfHomeFeedContent;
-    }
-    else
-    {
 
-    self.noMoreResultsAvail = NO;
-    self.arrayOfContent = [NSMutableArray new];
-    for (int i = 0; i<10; i++)
-    {
-        [self.arrayOfContent addObject:currentUser.arrayOfHomeFeedContent[i]];
-    }
-
-}
     PFUser *user = [PFUser currentUser];
     if ([user objectForKey:@"newuser"])
     {
@@ -99,16 +85,36 @@
         [user saveInBackground];
     }
 
-
-
-
 }
 
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+
     [self addObserver];
+
+
+    if (currentUser.arrayOfHomeFeedContent.count < 10)
+    {
+        self.arrayOfContent = [NSMutableArray new];
+        for (HomeFeedPost * post in currentUser.arrayOfHomeFeedContent)
+        {
+            [self.arrayOfContent addObject:post];
+        }
+
+    }
+    else
+    {
+
+        self.noMoreResultsAvail = NO;
+        self.arrayOfContent = [NSMutableArray new];
+        for (int i = 0; i<10; i++)
+        {
+            [self.arrayOfContent addObject:currentUser.arrayOfHomeFeedContent[i]];
+        }
+        
+    }
 
     [self.tableViewHomeFeed reloadData];
 }
@@ -117,8 +123,12 @@
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:YES];
-    NSLog(@"View Did Disappear");
+    NSLog(@"HomeFeed View Did Disappear");
     [[NSNotificationCenter defaultCenter ]removeObserver:self];
+
+    [self.arrayOfContent removeAllObjects];
+
+    [self.tableViewHomeFeed reloadData];
     
 }
 
@@ -378,5 +388,7 @@
 
 
 }
+
+
 
 @end

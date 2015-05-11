@@ -451,6 +451,12 @@
 {
     self.arrayOfHomeFeedContent = [NSMutableArray new];
 
+    if (!self.arrayOfHomeFeedActivity.count)
+    {
+        completionHandler(YES);
+
+    }
+
     for (PFObject *homeFeedActivity in self.arrayOfHomeFeedActivity)
     {
 

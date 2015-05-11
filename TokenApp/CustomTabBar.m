@@ -29,6 +29,12 @@
                                                      name:@"tabNav"
                                                    object:nil];
 
+        // Observer for when Post Note button is pressed.
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receivedNotification:)
+                                                     name:@"Cancel"
+                                                   object:nil];
+
         self.backgroundColor = [UIColor blackColor];
 
         //Add Home Feed Button
@@ -76,8 +82,6 @@
         [btnCreate setImage:[UIImage imageNamed:@"Upload"] forState:UIControlStateNormal];
         [btnCreate setBackgroundColor:[UIColor clearColor]];
         [btnCreate setTintColor:[UIColor whiteColor]];
-
-        [btnCreate setEnabled:YES];
 
         //set the frame
         CGRect btnCreateFrame = CGRectMake(130, 5, 50, 40);
@@ -171,6 +175,7 @@
 //    [btnProfile setTintColor:[UIColor whiteColor]];
 
 //    [btnCreate setTintColor:[UIColor colorwithHexString:@"#72c74a" alpha:.9]];
+    [btnCreate setEnabled:NO];
     [self.delegate onClickCreate];
 }
 
@@ -259,6 +264,13 @@
     {
         [self clickHome];
     }
+    else if([[notification name] isEqualToString:@"Cancel"])
+    {
+        [btnCreate setEnabled:YES];
+    }
+    
 }
+
+
 
 @end

@@ -112,8 +112,11 @@
     currentUser.numberOfLoginBonusTokens = [NSNumber numberWithInt:0];
     currentUser.numberOfInviteBonusTokens = [NSNumber numberWithInt:0];
 
+    PFUser *user = [PFUser currentUser];
+
     PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
     [queryForActivity whereKey:@"type" equalTo:@"viewed"];
+
     [queryForActivity includeKey:@"link"];
     [queryForActivity includeKey:@"note"];
     [queryForActivity includeKey:@"photo"];
@@ -129,59 +132,65 @@
          {
              for (PFObject *activity in objects)
              {
-                 //Total Tokens
-                 int value = [currentUser.numberOfTotalTokens intValue];
-                 currentUser.numberOfTotalTokens = [NSNumber numberWithInt:value + 1];
 
-                 //Photo Tokens
-                 if ([[activity objectForKey:@"mediaType"]isEqualToString:@"photo"])
+                 if ([[[activity objectForKey:@"toUser"]objectId] isEqualToString:currentUser.userID])
                  {
-                     int value = [currentUser.numberOfPhotoTokens intValue];
-                     currentUser.numberOfPhotoTokens = [NSNumber numberWithInt:value + 1];
+                     //Total Tokens
+                     int value = [currentUser.numberOfTotalTokens intValue];
+                     currentUser.numberOfTotalTokens = [NSNumber numberWithInt:value + 1];
+
+                     //Photo Tokens
+                     if ([[activity objectForKey:@"mediaType"]isEqualToString:@"photo"])
+                     {
+                         int value = [currentUser.numberOfPhotoTokens intValue];
+                         currentUser.numberOfPhotoTokens = [NSNumber numberWithInt:value + 1];
+                     }
+
+                     //Video Tokens
+                     if ([[activity objectForKey:@"mediaType"]isEqualToString:@"video"])
+                     {
+                         int value = [currentUser.numberOfVideoTokens intValue];
+                         currentUser.numberOfVideoTokens = [NSNumber numberWithInt:value + 1];
+                     }
+
+                     //Blog Tokens
+                     if ([[activity objectForKey:@"mediaType"]isEqualToString:@"note"])
+                     {
+                         int value = [currentUser.numberOfBlogTokens intValue];
+                         currentUser.numberOfBlogTokens = [NSNumber numberWithInt:value + 1];
+                     }
+
+                     //Link Tokens
+                     if ([[activity objectForKey:@"mediaType"]isEqualToString:@"link"])
+                     {
+                         int value = [currentUser.numberOfLinkTokens intValue];
+                         currentUser.numberOfLinkTokens = [NSNumber numberWithInt:value + 1];
+                     }
+
+                     //Balance Activity Date
+                     NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                     [df setDateFormat:@"MMM dd, yyyy"];
+                     NSString *dateActivity = [df stringFromDate:activity.createdAt];
+
+
+                     //Balance Activity Description
+
+                     NSString *activityDescription = @"Added Tokens";
+
+
+                     //Balance Transaction * ADD random Generated Number to prefix this count
+                     int transaction = [currentUser.BalanceTransactionNumber intValue];
+                     currentUser.BalanceTransactionNumber = [NSNumber numberWithInt:transaction + 1];
+
+                     int balance = [currentUser.runningBalance intValue];
+                     currentUser.runningBalance = [NSNumber numberWithInt:balance +1];
+                     
+                     BalanceActivity *balanceActivity = [[BalanceActivity alloc]initWithBalanceDescription:activityDescription balanceDate:dateActivity transactionNumber:currentUser.BalanceTransactionNumber runningBalance:currentUser.runningBalance];
+                     
+                     [currentUser.arrayOfBalanceActivity addObject:balanceActivity];
                  }
 
-                 //Video Tokens
-                 if ([[activity objectForKey:@"mediaType"]isEqualToString:@"video"])
-                 {
-                     int value = [currentUser.numberOfVideoTokens intValue];
-                     currentUser.numberOfVideoTokens = [NSNumber numberWithInt:value + 1];
-                 }
 
-                 //Blog Tokens
-                 if ([[activity objectForKey:@"mediaType"]isEqualToString:@"note"])
-                 {
-                     int value = [currentUser.numberOfBlogTokens intValue];
-                     currentUser.numberOfBlogTokens = [NSNumber numberWithInt:value + 1];
-                 }
-
-                 //Link Tokens
-                 if ([[activity objectForKey:@"mediaType"]isEqualToString:@"link"])
-                 {
-                     int value = [currentUser.numberOfLinkTokens intValue];
-                     currentUser.numberOfLinkTokens = [NSNumber numberWithInt:value + 1];
-                 }
-
-                 //Balance Activity Date
-                 NSDateFormatter *df = [[NSDateFormatter alloc] init];
-                 [df setDateFormat:@"MMM dd, yyyy"];
-                 NSString *dateActivity = [df stringFromDate:activity.createdAt];
-
-
-                 //Balance Activity Description
-
-                NSString *activityDescription = @"Added Tokens";
-
-
-                 //Balance Transaction * ADD random Generated Number to prefix this count
-                 int transaction = [currentUser.BalanceTransactionNumber intValue];
-                 currentUser.BalanceTransactionNumber = [NSNumber numberWithInt:transaction + 1];
-
-                 int balance = [currentUser.runningBalance intValue];
-                 currentUser.runningBalance = [NSNumber numberWithInt:balance +1];
-
-                 BalanceActivity *balanceActivity = [[BalanceActivity alloc]initWithBalanceDescription:activityDescription balanceDate:dateActivity transactionNumber:currentUser.BalanceTransactionNumber runningBalance:currentUser.runningBalance];
-
-                 [currentUser.arrayOfBalanceActivity addObject:balanceActivity];
 
              }
 

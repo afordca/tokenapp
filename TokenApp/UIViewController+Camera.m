@@ -103,7 +103,6 @@
                                              selector:@selector(receivedNotification:)
                                                  name:@"PostLink"
                                                object:nil];
-    
 }
 
 #pragma mark - Notification Methods
@@ -148,6 +147,7 @@
         } completion:^(BOOL finished) {
 
             [self.visualEffectView removeFromSuperview];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
 
         }];
 

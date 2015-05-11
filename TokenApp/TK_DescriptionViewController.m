@@ -63,8 +63,9 @@
 -(void)viewDidDisappear:(BOOL)animated
 {
     NSLog(@"view disappear");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
     [self.navigationController popToRootViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
+
 }
 
 #pragma mark - Helper Methods
@@ -248,17 +249,28 @@
                 [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
                 currentUser.justPosted = YES;
 
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
+                if (self.tabBarController.selectedIndex != 0)
+                {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
 
-//                UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//                MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
-//
-//                [self.navigationController pushViewController: hc animated:YES];
+                }
+
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+
+                [self performSelector:@selector(sendNotify) withObject:nil afterDelay:0.6];
+
 
             }];
 
         }
     }];
+}
+
+-(void)sendNotify
+{
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"SendCancel" object:self];
+
 }
 
 -(void)saveVideoToParse
@@ -304,10 +316,11 @@
 
                  [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
-                   UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                   MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+                 currentUser.justPosted = YES;
 
-                   [self.navigationController pushViewController: hc animated:YES];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+
+                 [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
 
              }];
 
@@ -334,7 +347,8 @@
                  UIImage *profilePic = currentUser.profileImage;
 
                  NSString *postMessage = self.stringPost;
-                 NSString *postHeader = self.description;
+                 NSString *postHeader = [self.note objectForKey:@"description"];
+
                  Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
 
                  [currentUser.arrayOfPosts addObject:post];
@@ -343,10 +357,11 @@
 
                  [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
-                 UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                 MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
-                 
-                 [self.navigationController pushViewController: hc animated:YES];
+                 currentUser.justPosted = YES;
+
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+
+                 [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
                  
              }];
 
@@ -373,7 +388,7 @@
              UIImage *profilePic = currentUser.profileImage;
 
                  NSString *linkURL = self.stringLink;
-                 Link *link = [[Link alloc]initWithUrl:self.stringLink];
+                 Link *link = [[Link alloc]initWithUrl:linkURL];
 
                  [currentUser.arrayOfLinks addObject:link];
 
@@ -381,10 +396,11 @@
 
                   [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
-            UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            MFC_HomeFeedViewController *hc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"HomeFeed"];
+                 currentUser.justPosted = YES;
 
-            [self.navigationController pushViewController: hc animated:YES];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+
+                 [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
 
              }];
         }
