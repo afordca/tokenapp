@@ -21,6 +21,7 @@
 		002E163A1A94EFAF000AE37B /* UIViewController+Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E16391A94EFAF000AE37B /* UIViewController+Camera.m */; };
 		002E163D1A955973000AE37B /* ProfileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */; };
 		004153831AE6CD0F00A19E77 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004153821AE6CD0F00A19E77 /* ChangePasswordViewController.m */; };
+		0041C6081B006C3F00EDA4FF /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041C6071B006C3F00EDA4FF /* PreviewViewController.m */; };
 		004ED88E1AF002F100106071 /* HomeFeedPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 004ED88D1AF002F100106071 /* HomeFeedPost.m */; };
 		008AB0DD1ADCCC630025647B /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 008AB0DA1ADCCC630025647B /* TwitterKit.framework */; };
 		008AB0DE1ADCCC630025647B /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 008AB0DB1ADCCC630025647B /* TwitterKitResources.bundle */; };
@@ -136,6 +137,8 @@
 		002E163C1A955973000AE37B /* ProfileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCollectionViewCell.m; sourceTree = "<group>"; };
 		004153811AE6CD0F00A19E77 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		004153821AE6CD0F00A19E77 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		0041C6061B006C3F00EDA4FF /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		0041C6071B006C3F00EDA4FF /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
 		004ED88C1AF002F100106071 /* HomeFeedPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedPost.h; sourceTree = "<group>"; };
 		004ED88D1AF002F100106071 /* HomeFeedPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedPost.m; sourceTree = "<group>"; };
 		008AB0DA1ADCCC630025647B /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
@@ -440,6 +443,8 @@
 				00B204851A82B3F8006A259A /* TK_DescriptionViewController.m */,
 				00D14FBC1A81BF9700271031 /* CamerOverlay.h */,
 				00D14FBD1A81BF9700271031 /* CamerOverlay.m */,
+				0041C6061B006C3F00EDA4FF /* PreviewViewController.h */,
+				0041C6071B006C3F00EDA4FF /* PreviewViewController.m */,
 			);
 			name = Create;
 			sourceTree = "<group>";
@@ -835,6 +840,7 @@
 				B996AD201A8163F300C3B98E /* CurrentUser.m in Sources */,
 				00BF7B941A8DBABD0089194E /* CustomTabBar.m in Sources */,
 				00D24BBF1AEAF2AE0072558F /* BalanceTransactionViewController.m in Sources */,
+				0041C6081B006C3F00EDA4FF /* PreviewViewController.m in Sources */,
 				00ED603F1A7F689B00ED1229 /* MFC_ForgotPasswordViewController.m in Sources */,
 				B9A4D3931A49161F00EDD2C9 /* PopularResultsViewController.m in Sources */,
 				00ED60421A7FDE1800ED1229 /* MFC_SignupViewController.m in Sources */,

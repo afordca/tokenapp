@@ -348,7 +348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yhG-o4-MHk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-221" y="-573"/>
+            <point key="canvasLocation" x="-350" y="-567"/>
         </scene>
         <!--Detailed Content View Controller-->
         <scene sceneID="aks-ao-JJI">
@@ -2309,6 +2309,52 @@
             </objects>
             <point key="canvasLocation" x="498.5" y="1505.5"/>
         </scene>
+        <!--Preview View Controller-->
+        <scene sceneID="tjg-Q2-1RA">
+            <objects>
+                <viewController storyboardIdentifier="Preview" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TpX-U3-a3S" customClass="PreviewViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1CQ-t3-ytP"/>
+                        <viewControllerLayoutGuide type="bottom" id="mf2-QX-lVt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vR2-ki-hbs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4QL-jf-bxX">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="334"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nis-9F-dr0">
+                                <rect key="frame" x="265" y="351" width="39" height="30"/>
+                                <state key="normal" title="NEXT">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onButtonPressNext:" destination="TpX-U3-a3S" eventType="touchUpInside" id="S40-AG-eKx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKI-Ws-69e">
+                                <rect key="frame" x="16" y="351" width="61" height="30"/>
+                                <state key="normal" title="CANCEL">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onButtonPressCancel:" destination="TpX-U3-a3S" eventType="touchUpInside" id="vZF-JX-X83"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonCancel" destination="PKI-Ws-69e" id="vp0-eo-HNo"/>
+                        <outlet property="buttonNext" destination="Nis-9F-dr0" id="DVE-HJ-yTy"/>
+                        <outlet property="imageViewPreview" destination="4QL-jf-bxX" id="WwE-vw-Vlg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l2d-Na-QjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1979" y="-1500"/>
+        </scene>
         <!--Description View Controller-->
         <scene sceneID="9Aw-wR-vaE">
             <objects>
@@ -2614,10 +2660,10 @@
                                     <action selector="onButtonPressSave:" destination="x0p-Dq-Fn0" eventType="touchUpInside" id="nAw-3j-5Xg"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="dOU-bF-OGq">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="dOU-bF-OGq">
                                 <rect key="frame" x="0.0" y="67" width="320" height="501"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cx5-hW-gTM" userLabel="ContentView">
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cx5-hW-gTM" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="-306" width="320" height="807"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PUBLIC INFO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amk-Tp-X96">

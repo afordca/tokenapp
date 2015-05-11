@@ -26,7 +26,6 @@
 #import <AVFoundation/AVAsset.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-
 @interface TK_DescriptionViewController () <UITextFieldDelegate,UITextViewDelegate>
 
 //Outlets
@@ -65,7 +64,6 @@
     NSLog(@"view disappear");
     [self.navigationController popToRootViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SendCancel" object:self];
-
 }
 
 #pragma mark - Helper Methods
@@ -75,8 +73,6 @@
     //Setting delegates
     self.textViewDescriptionHashtags.delegate = self;
     self.textFieldTagPeople.delegate = self;
-    
-
 
     // Setting User
     self.currentUser = [PFUser currentUser];
@@ -97,7 +93,6 @@
         [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
         [self.activity setValue:self.currentUser.username forKey:@"username"];
     }
-
    else if (self.isPost)
     {
         self.note = [PFObject objectWithClassName:@"Note"];
@@ -113,10 +108,7 @@
         [self.activity setObject:self.note forKey:@"note"];
         [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
         [self.activity setValue:self.currentUser.username forKey:@"username"];
-
     }
-
-
     //For Video
    else if (self.isVideo)
     {
@@ -142,8 +134,6 @@
         [self.activity setObject:self.video forKey:@"video"];
         [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
         [self.activity setValue:self.currentUser.username forKey:@"username"];
-
-
     }
     else
     // For Photo
@@ -167,9 +157,7 @@
         [self.activity setObject:self.photo forKey:@"photo"];
         [self.activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
         [self.activity setValue:self.currentUser.username forKey:@"username"];
-
     }
-
 }
 
 -(void)setUI
@@ -234,7 +222,6 @@
             [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
             {
                 NSLog(@"Photo Saved");
-
                 //Add to Activity Array
                 NSString *name = currentUser.userName;
                 NSString *userID = currentUser.userID;
@@ -259,10 +246,7 @@
                 [self.navigationController popToRootViewControllerAnimated:YES];
 
                 [self performSelector:@selector(sendNotify) withObject:nil afterDelay:0.6];
-
-
             }];
-
         }
     }];
 }
@@ -270,7 +254,6 @@
 -(void)sendNotify
 {
     [[NSNotificationCenter defaultCenter]postNotificationName:@"SendCancel" object:self];
-
 }
 
 -(void)saveVideoToParse
@@ -284,7 +267,6 @@
             [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
              {
                  NSLog(@"Video Saved");
-
                  //Add Video to Video Array
                  NSURL *url = [NSURL URLWithString:self.videoFile.url];
 
@@ -292,22 +274,6 @@
                  NSString *name = currentUser.userName;
                   NSString *userID = currentUser.userID;
                  UIImage *profilePic = currentUser.profileImage;
-//                 UIImage *thumbnail = nil;
-//                 UIImage *homeFeedContent = nil;
-//
-//                 AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
-//                 AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-//                 generator.appliesPreferredTrackTransform = YES;
-//                 NSError *errorAsset = nil;
-//                 CMTime time = CMTimeMake(0, 1); // 3/1 = 3 second(s)
-//                 CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:nil error:&error];
-//                 if (error != nil)
-//                     NSLog(@"%@: %@", self, error);
-//                 thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
-//
-//                 CGImageRelease(imgRef);
-//
-//                 homeFeedContent = thumbnail;
 
                   Video *video = [[Video alloc]initWithUrl:url];
                     [currentUser.arrayOfVideos addObject:video];
@@ -318,12 +284,17 @@
 
                  currentUser.justPosted = YES;
 
+                 if (self.tabBarController.selectedIndex != 0)
+                 {
+                     [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
+
+                 }
+
                  [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+                 [self.navigationController popToRootViewControllerAnimated:YES];
 
-                 [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
-
+                 [self performSelector:@selector(sendNotify) withObject:nil afterDelay:0.6];
              }];
-
         }
     }];
 }
@@ -338,9 +309,7 @@
         {
             [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
              {
-
                  NSLog(@"Note Saved");
-
                  //Add to Activity Array
                  NSString *name = currentUser.userName;
                   NSString *userID = currentUser.userID;
@@ -359,12 +328,17 @@
 
                  currentUser.justPosted = YES;
 
+                 if (self.tabBarController.selectedIndex != 0)
+                 {
+                     [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
+
+                 }
+
                  [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+                 [self.navigationController popToRootViewControllerAnimated:YES];
 
-                 [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
-                 
+                 [self performSelector:@selector(sendNotify) withObject:nil afterDelay:0.6];
              }];
-
         }
     }];
 }
@@ -379,9 +353,7 @@
         {
             [self.activity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
              {
-
             NSLog(@"Link Saved");
-
              //Add to Activity Array
              NSString *name = currentUser.userName;
             NSString *userID = currentUser.userID;
@@ -398,10 +370,14 @@
 
                  currentUser.justPosted = YES;
 
+                 if (self.tabBarController.selectedIndex != 0)
+                 {
+                     [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
+                 }
                  [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+                 [self.navigationController popToRootViewControllerAnimated:YES];
 
-                 [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
-
+                 [self performSelector:@selector(sendNotify) withObject:nil afterDelay:0.6];
              }];
         }
     }];
@@ -413,7 +389,6 @@
 {
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
     {
-
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
 
         if (self.isLink)
@@ -436,14 +411,6 @@
             [self saveNoteToParse];
         }
 
-        else if (self.isVideo)
-        {
-
-
-
-        }
-
-
         else
         {
             [controller setInitialText:self.textViewDescriptionHashtags.text];
@@ -453,9 +420,7 @@
             [self.photo setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
             [self savePhotoToParse];
         }
-        
     }
-
 }
 
 - (IBAction)buttonPressTwitter:(id)sender
@@ -464,7 +429,6 @@
     {
         SLComposeViewController *tweetSheet = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
-
         if (self.isLink)
         {
             [tweetSheet setInitialText:self.textViewDescriptionHashtags.text];
@@ -485,13 +449,6 @@
             [self saveNoteToParse];
         }
 
-
-        // CANT POST VIDEO
-        else if (self.isVideo)
-        {
-            [self.video setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
-            [self saveVideoToParse];
-        }
         else
         {
             [tweetSheet setInitialText:self.textViewDescriptionHashtags.text];
@@ -501,7 +458,6 @@
             [self.photo setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
             [self savePhotoToParse];
         }
-
     }
 }
 
@@ -530,9 +486,7 @@
         [self.photo setObject:self.textViewDescriptionHashtags.text forKey:@"description"];
         [self savePhotoToParse];
     }
-
 }
-
 
 - (IBAction)onButtonCancel:(id)sender
 {
