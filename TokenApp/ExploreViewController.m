@@ -23,7 +23,7 @@
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGTH 568
 
-@interface ExploreViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate>
+@interface ExploreViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate,UITableViewDataSource,UITabBarDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property UIVisualEffectView *visualEffectView;
 
@@ -31,16 +31,14 @@
 @property UIImage *imageCreatePhoto;
 @property (strong, nonatomic) NSURL *videoURL;
 @property (strong, nonatomic) NSString *stringVideoData;
-
-
 @property (nonatomic) UIImagePickerControllerCameraFlashMode flashMode;
-@property (strong, nonatomic) IBOutlet UIButton *buttonPopular;
-
-@property (strong, nonatomic) IBOutlet UIButton *buttonTrending;
-
-@property (strong, nonatomic) IBOutlet UIButton *buttonExplore;
-
 @property BOOL isVideo;
+
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentControlDiscover;
+
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionViewDiscoverContent;
+
+@property (strong, nonatomic) IBOutlet UITableView *tableViewDiscoverUser;
 
 @end
 
@@ -48,22 +46,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    // Setup Button Appearance
-    CALayer *layerButtonPopular = self.buttonPopular.layer;
-    layerButtonPopular.backgroundColor = [[UIColor clearColor] CGColor];
-    layerButtonPopular.borderColor = [[UIColor whiteColor]CGColor];
-    layerButtonPopular.borderWidth = 1.5f;
-
-    CALayer *layerButtonTrending = self.buttonTrending.layer;
-    layerButtonTrending.backgroundColor = [[UIColor clearColor] CGColor];
-    layerButtonTrending.borderColor = [[UIColor whiteColor]CGColor];
-    layerButtonTrending.borderWidth = 1.5f;
-
-    CALayer *layerButtonExplore = self.buttonExplore.layer;
-    layerButtonExplore.backgroundColor = [[UIColor clearColor] CGColor];
-    layerButtonExplore.borderColor = [[UIColor whiteColor]CGColor];
-    layerButtonExplore.borderWidth = 1.5f;
 
     [self.navigationController.navigationBar setHidden:YES];
 }
@@ -83,6 +65,30 @@
 }
 
 
+#pragma mark - UICollectionView Delegate Methods
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 0;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
+}
+
+
+#pragma mark - UITableView Delegate Methods
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 0;
+}
+
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
+}
 
 
 @end

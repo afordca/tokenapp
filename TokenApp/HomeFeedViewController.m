@@ -418,7 +418,19 @@
         OthersProfileViewController *opvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"OtherProfile"];
         opvc.otherUser = user;
 
-        [self.navigationController pushViewController:opvc animated:YES];
+
+        TK_Manager *manager = [TK_Manager new];
+        [manager loadarrayOfActivity:user completion:^(BOOL result)
+         {
+             [manager loadArrayOfOtherUserContent:manager.arrayOfActivity completion:^(BOOL result)
+              {
+                  opvc.arrayOfContent = manager.arrayOfUserContent;
+
+                  [self.navigationController pushViewController:opvc animated:YES];
+              }];
+         }];
+
+
         
     }
 }

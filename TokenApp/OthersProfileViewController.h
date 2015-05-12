@@ -12,5 +12,6 @@
 @interface OthersProfileViewController : UIViewController
 
 @property User *otherUser;
+@property NSMutableArray *arrayOfContent;
 
 @end

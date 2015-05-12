@@ -77,9 +77,6 @@
 @property UIRefreshControl *mannyFresh;
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
 
-@property (nonatomic,strong) NSArray *arrayOfContent;
-
-
 
 @end
 
@@ -105,8 +102,6 @@
 
     self.labelUserName.text = self.otherUser.userName;
 
-//    self.arrayOfContent = [TK_Manager loadarrayOfActivity:self.otherUser];
-//
 //    self.labelUserName.text = currentUser.userName;
 //    [self.collectionViewProfile reloadData];
     [self addObserver];

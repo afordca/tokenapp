@@ -24,36 +24,20 @@
 
 @interface TK_Manager : NSObject
 
-{
-    UIImage *profileImage;
-    NSString *userName;
-    NSMutableArray *arrayOfPhotos;
-    NSMutableArray *arrayOfUserActivity;
-    NSMutableArray *arrayOfFromUserActivity;
-    NSMutableArray *arrayOfFollowers;
-    NSMutableArray *arrayOfFollowing;
-    NSMutableArray *arrayOfNotificationComments;
-    NSMutableArray *arrayOfNotificationLikes;
-    NSMutableArray *arrayOfNotificationTags;
-
-
-}
-
 
 // define delegate property
 @property id <ManagerDelegate>delegate;
 
+@property NSMutableArray *arrayOfActivity;
+@property NSMutableArray *arrayOfUserContent;
 
 +(NSMutableArray*)loadArrayOfContent;
-+(NSMutableArray*)loadarrayOfActivity:(User*)user;
 
-+(NSMutableArray*)loadArrayOfOtherUserContent:(User*)user;
+-(void)loadarrayOfActivity:(User*)user completion:(void (^)(BOOL result))completionHandler;
+-(void)loadArrayOfOtherUserContent:(NSMutableArray*)activity completion:(void (^)(BOOL result))completionHandler; ;
 
 +(NSMutableArray*)loadFollowers:(NSString*)userID;
 +(NSMutableArray*)loadFollowing:(NSString*)userID;
-+(NSMutableArray*)loadArrayOfPhotos:(NSString*)userID;
-+(NSMutableArray*)loadArrayOfVideos:(NSString*)userID;
-+(NSMutableArray*)loadArrayOfLinks:(NSString*)userID;
-+(NSMutableArray*)loadArrayOfPosts:(NSString*)userID;
+
 
 @end
