@@ -82,9 +82,6 @@
 		25ED67631A32132D004CD269 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67621A32132D004CD269 /* Social.framework */; };
 		25ED67651A321337004CD269 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67641A321337004CD269 /* StoreKit.framework */; };
 		25ED67671A321345004CD269 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25ED67661A321345004CD269 /* SystemConfiguration.framework */; };
-		B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B01A42C0410012CBF2 /* UIImage+AlphaAdditions.m */; };
-		B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB7B21A42C0410012CBF2 /* UIImage+ResizeAdditions.m */; };
-		B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B91278C31A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m */; };
 		B97F00FD1A6ECAD400690309 /* BalanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B97F00FC1A6ECAD400690309 /* BalanceTableViewCell.m */; };
 		B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */; };
 		B991FD8F1A3E6C8B00BB902F /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B991FD8E1A3E6C8B00BB902F /* Default@3x.png */; };
@@ -244,12 +241,6 @@
 		25ED67661A321345004CD269 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3AC5C335474F0AB015BEB33A /* libPods-TokenApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TokenApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TokenApp/Pods-TokenApp.release.xcconfig"; sourceTree = "<group>"; };
-		B90CB7AF1A42C0410012CBF2 /* UIImage+AlphaAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AlphaAdditions.h"; sourceTree = "<group>"; };
-		B90CB7B01A42C0410012CBF2 /* UIImage+AlphaAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AlphaAdditions.m"; sourceTree = "<group>"; };
-		B90CB7B11A42C0410012CBF2 /* UIImage+ResizeAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResizeAdditions.h"; sourceTree = "<group>"; };
-		B90CB7B21A42C0410012CBF2 /* UIImage+ResizeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResizeAdditions.m"; sourceTree = "<group>"; };
-		B91278C21A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCornerAdditions.h"; sourceTree = "<group>"; };
-		B91278C31A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCornerAdditions.m"; sourceTree = "<group>"; };
 		B9145C901A3CFA4C00A88B94 /* Macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		B97F00FB1A6ECAD400690309 /* BalanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceTableViewCell.h; sourceTree = "<group>"; };
 		B97F00FC1A6ECAD400690309 /* BalanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceTableViewCell.m; sourceTree = "<group>"; };
@@ -488,7 +479,6 @@
 				002E16361A94ED0B000AE37B /* Profile */,
 				B9A4D3971A491BEA00EDD2C9 /* Discover */,
 				B9B61BC61A462E0F00A83987 /* Support */,
-				B90CB7B61A42C05F0012CBF2 /* UIImage Categories */,
 				B991FD8B1A3E62E700BB902F /* CustomActivityTableViewCell.h */,
 				B991FD8C1A3E62E700BB902F /* CustomActivityTableViewCell.m */,
 				B97F00F31A6EC2D100690309 /* Balance */,
@@ -569,19 +559,6 @@
 				63ACCE5B0EFB743C7B10E7DA /* Pods-TokenApp.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		B90CB7B61A42C05F0012CBF2 /* UIImage Categories */ = {
-			isa = PBXGroup;
-			children = (
-				B91278C21A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.h */,
-				B91278C31A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m */,
-				B90CB7AF1A42C0410012CBF2 /* UIImage+AlphaAdditions.h */,
-				B90CB7B01A42C0410012CBF2 /* UIImage+AlphaAdditions.m */,
-				B90CB7B11A42C0410012CBF2 /* UIImage+ResizeAdditions.h */,
-				B90CB7B21A42C0410012CBF2 /* UIImage+ResizeAdditions.m */,
-			);
-			name = "UIImage Categories";
 			sourceTree = "<group>";
 		};
 		B97F00F31A6EC2D100690309 /* Balance */ = {
@@ -791,7 +768,6 @@
 				000476611A9AB47B00247BF8 /* PersonalActivityViewController.m in Sources */,
 				00BF7B911A8DB9440089194E /* TK_TabBarViewController.m in Sources */,
 				00ED60361A7F5BA300ED1229 /* MFC_LogInViewController.m in Sources */,
-				B90CB7B41A42C0410012CBF2 /* UIImage+ResizeAdditions.m in Sources */,
 				00D24BC51AEDB7600072558F /* HomeFeedViewController.m in Sources */,
 				002E163D1A955973000AE37B /* ProfileCollectionViewCell.m in Sources */,
 				00C6DE551ABCAE2400CC410C /* Photo.m in Sources */,
@@ -802,7 +778,6 @@
 				004ED88E1AF002F100106071 /* HomeFeedPost.m in Sources */,
 				0041C6111B014ED500EDA4FF /* OthersProfileViewController.m in Sources */,
 				0041C60E1B01165C00EDA4FF /* ContentDetailTableViewCell.m in Sources */,
-				B91278C41A42C87300AE5E5E /* UIImage+RoundedCornerAdditions.m in Sources */,
 				0041C60B1B0115D300EDA4FF /* ContentDetailViewController.m in Sources */,
 				00A68E951A9D10C500AAB98F /* FollowersTableViewCell.m in Sources */,
 				B991FD8D1A3E62E700BB902F /* CustomActivityTableViewCell.m in Sources */,
@@ -828,7 +803,6 @@
 				00D71CC81A8D6B290022E856 /* TK_LinkViewController.m in Sources */,
 				000FC6891A91194B00A4F50F /* CreateMainView.m in Sources */,
 				002E163A1A94EFAF000AE37B /* UIViewController+Camera.m in Sources */,
-				B90CB7B31A42C0410012CBF2 /* UIImage+AlphaAdditions.m in Sources */,
 				00A68EA71A9EDC1F00AAB98F /* NotificationViewController.m in Sources */,
 				00D24BC81AEDB7850072558F /* HomeFeedTableViewCell.m in Sources */,
 				00A68EAD1A9EEE5F00AAB98F /* NotificationsTableViewCell.m in Sources */,

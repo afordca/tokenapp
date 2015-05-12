@@ -63,7 +63,7 @@
 
 - (IBAction)buttonPressFollow:(id)sender
 {
-
+    [self.delegate followUser];
 }
 
 

@@ -19,6 +19,7 @@
 -(void)presentFollowersView;
 -(void)presentFollowingView;
 -(void)presentNotificationsView;
+-(void)followUser;
 
 @end
 

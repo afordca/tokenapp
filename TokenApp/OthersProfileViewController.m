@@ -45,10 +45,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelUserName;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionViewProfile;
 @property UIImage *imageProfile;
-@property (strong, nonatomic) IBOutlet UIImageView *imageViewProfilePic;
-
-@property (strong, nonatomic) IBOutlet UITextView *textViewBiography;
-
 
 @property UIView *mainView;
 
@@ -93,6 +89,8 @@
 
     //Intialize Movie Player
     self.moviePlayer = [[MPMoviePlayerController alloc]init];
+
+    currentUser = [CurrentUser sharedSingleton];
 
 }
 
@@ -357,7 +355,12 @@
     return headerView;
 }
 
+#pragma mark - CustomProfile Delegate
 
+-(void)followUser
+{
+    [currentUser addUserToFollowing:self.otherUser row:0];
+}
 
 
 @end

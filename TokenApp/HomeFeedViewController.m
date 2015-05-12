@@ -66,7 +66,6 @@
 @property BOOL noMoreResultsAvail;
 @property BOOL loading;
 
-
 @end
 
 @implementation HomeFeedViewController
@@ -90,6 +89,18 @@
 
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [currentUser loadHomeFeedActivity:^(BOOL result)
+     {
+         [currentUser loadHomeFeedContent:^(BOOL result)
+          {
+              NSLog(@"Content Loaded");
+              [self.tableViewHomeFeed reloadData];
+          }];
+     }];
+}
 
 -(void)viewDidAppear:(BOOL)animated
 {

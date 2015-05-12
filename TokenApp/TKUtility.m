@@ -11,7 +11,6 @@
 #import "TKCache.h"
 #import "Constants.h"
 #import <PFFacebookUtils.h>
-#import "UIImage+ResizeAdditions.h"
 
 @implementation TKUtility
 

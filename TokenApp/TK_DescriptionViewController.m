@@ -10,7 +10,6 @@
 #import "TK_DescriptionViewController.h"
 #import "MFC_HomeFeedViewController.h"
 #import "EditPhotoViewController.h"
-#import "UIImage+ResizeAdditions.h"
 #import "Macros.h"
 #import "Constants.h"
 #import "TKCache.h"
@@ -229,9 +228,10 @@
                 UIImage *contentImage = self.imagePhoto;
 
                 Photo *photo = [[Photo alloc]initWithImage:contentImage name:name time:nil];
+                User *user = [[User alloc]initWithUser:self.currentUser];
                 [currentUser.arrayOfPhotos addObject:photo];
 
-                HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:photo post:nil video:nil link:nil mediaType:@"photo" userID:userID user:self.currentUser];
+                HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:photo post:nil video:nil link:nil mediaType:@"photo" userID:userID user:user];
 
                 [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
                 currentUser.justPosted = YES;
@@ -276,9 +276,10 @@
                  UIImage *profilePic = currentUser.profileImage;
 
                   Video *video = [[Video alloc]initWithUrl:url];
+                 User *user = [[User alloc]initWithUser:self.currentUser];
                     [currentUser.arrayOfVideos addObject:video];
 
-                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:nil video:video link:nil mediaType:@"video" userID:userID user:self.currentUser];
+                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:nil video:video link:nil mediaType:@"video" userID:userID user:user];
 
                  [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
@@ -319,10 +320,11 @@
                  NSString *postHeader = [self.note objectForKey:@"description"];
 
                  Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
+                 User *user = [[User alloc]initWithUser:self.currentUser];
 
                  [currentUser.arrayOfPosts addObject:post];
 
-                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID user:self.currentUser];
+                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID user:user];
 
                  [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
@@ -361,10 +363,11 @@
 
                  NSString *linkURL = self.stringLink;
                  Link *link = [[Link alloc]initWithUrl:linkURL];
+                 User *user = [[User alloc]initWithUser:self.currentUser];
 
                  [currentUser.arrayOfLinks addObject:link];
 
-                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID user:self.currentUser];
+                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID user:user];
 
                   [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 

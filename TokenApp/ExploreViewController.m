@@ -15,6 +15,8 @@
 #import "ProfileCollectionViewCell.h"
 #import "FollowersTableViewCell.h"
 #import "CamerOverlay.h"
+#import "ContentDetailViewController.h"
+#import "OthersProfileViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -25,7 +27,7 @@
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGTH 568
 
-@interface ExploreViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate,UITableViewDataSource,UITabBarDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+@interface ExploreViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate,UITableViewDataSource,UITableViewDelegate,UITabBarDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property UIVisualEffectView *visualEffectView;
 
@@ -53,6 +55,7 @@
     [super viewDidLoad];
 
     [self.navigationController.navigationBar setHidden:YES];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -79,27 +82,27 @@
               self.arrayOfDiscoverContent = manager.arrayOfUserContent;
 
               [manager loadDiscoverUsers:^(BOOL result)
-              {
+               {
                    NSMutableArray *dupeArray = [NSMutableArray new];
-                  self.arrayOfDiscoverUsers = [NSMutableArray new];
+                   self.arrayOfDiscoverUsers = [NSMutableArray new];
 
                    dupeArray = manager.arrayOfDiscoverUsers;
 
-                  NSMutableSet *names = [NSMutableSet set];
-                  for (User *user in dupeArray)
-                  {
-                      NSString *userID = user.objectID;
-                      if (![names containsObject:userID]) {
-                          [self.arrayOfDiscoverUsers addObject:user];
-                          [names addObject:userID];
-                      }
-                  }
+                   NSMutableSet *names = [NSMutableSet set];
+                   for (User *user in dupeArray)
+                   {
+                       NSString *userID = user.objectID;
+                       if (![names containsObject:userID]) {
+                           [self.arrayOfDiscoverUsers addObject:user];
+                           [names addObject:userID];
+                       }
+                   }
 
-                  [self.collectionViewDiscoverContent reloadData];
-                  [self.tableViewDiscoverUser reloadData];
-              }];
-
-
+                   [self.collectionViewDiscoverContent reloadData];
+                   [self.tableViewDiscoverUser reloadData];
+               }];
+              
+              
           }];
      }];
 }
@@ -199,6 +202,18 @@
     return nil;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    HomeFeedPost *post = [self.arrayOfDiscoverContent objectAtIndex:indexPath.row];
+
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ContentDetailViewController *cdvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"ContentDetail"];
+
+    cdvc.detailPost = post;
+
+    [self.navigationController pushViewController: cdvc animated:YES];
+}
+
 
 #pragma mark - UITableView Delegate Methods
 
@@ -230,6 +245,28 @@
         cellFollowers.imageViewFollowerProfilePic.image = userDiscover.profileImage;
     }
 return cellFollowers;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    OthersProfileViewController *opvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"OtherProfile"];
+
+    User *userSelected = [self.arrayOfDiscoverUsers objectAtIndex:indexPath.row];
+
+    opvc.otherUser = userSelected;
+    
+    TK_Manager *manager = [TK_Manager new];
+    [manager loadarrayOfActivity:userSelected completion:^(BOOL result)
+     {
+         [manager loadArrayOfOtherUserContent:manager.arrayOfActivity completion:^(BOOL result)
+          {
+              opvc.arrayOfContent = manager.arrayOfUserContent;
+
+              [self.navigationController pushViewController:opvc animated:YES];
+          }];
+     }];
+
 }
 
 #pragma mark - Segment Control

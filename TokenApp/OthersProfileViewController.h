@@ -10,6 +10,9 @@
 #import "User.h"
 
 @interface OthersProfileViewController : UIViewController
+{
+    CurrentUser *currentUser;
+}
 
 @property User *otherUser;
 @property NSMutableArray *arrayOfContent;

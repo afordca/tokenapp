@@ -342,10 +342,13 @@
                  if (![[[activity objectForKey:@"fromUser"]objectId]isEqual:currentUser.userID]) {
 
                      PFUser *user = [activity objectForKey:@"fromUser"];
-
                      User *discoverUser = [[User alloc]initWithUser:user];
 
-                     [self.arrayOfDiscoverUsers addObject:discoverUser];
+                     if (![currentUser isFollowingFollower:discoverUser.objectID])
+                     {
+                          [self.arrayOfDiscoverUsers addObject:discoverUser];
+                     }
+
                  }
 
              }
