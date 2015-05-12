@@ -30,14 +30,18 @@
 
 @property NSMutableArray *arrayOfActivity;
 @property NSMutableArray *arrayOfUserContent;
+@property NSMutableArray *arrayOfDiscoverContent;
+@property NSMutableArray *arrayOfDiscoverUsers;
 
 +(NSMutableArray*)loadArrayOfContent;
-
--(void)loadarrayOfActivity:(User*)user completion:(void (^)(BOOL result))completionHandler;
--(void)loadArrayOfOtherUserContent:(NSMutableArray*)activity completion:(void (^)(BOOL result))completionHandler; ;
-
 +(NSMutableArray*)loadFollowers:(NSString*)userID;
 +(NSMutableArray*)loadFollowing:(NSString*)userID;
+
+-(void)loadarrayOfActivity:(User*)user completion:(void (^)(BOOL result))completionHandler;
+-(void)loadArrayOfOtherUserContent:(NSMutableArray*)activity completion:(void (^)(BOOL result))completionHandler;
+-(void)loadDiscoverActivity:(void (^)(BOOL result))completionHandler;
+-(void)loadDiscoverUsers:(void (^)(BOOL result))completionHandler;
+
 
 
 @end

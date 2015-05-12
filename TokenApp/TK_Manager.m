@@ -196,7 +196,6 @@
              }];
         }
     }
-
 }
 
 -(void)loadarrayOfActivity:(User *)user completion:(void (^)(BOOL))completionHandler
@@ -231,7 +230,6 @@
          }
 
      }];
-
 }
 
 +(NSMutableArray*)loadFollowers:(NSString *)userID
@@ -251,7 +249,6 @@
                  [arrayOfFollowers addObject:userFollower];
              }
          }
-
      }];
 
     return arrayOfFollowers;
@@ -273,12 +270,89 @@
              {
                  [arrayOfFollowing addObject:userFollower];
              }
+         }
+     }];
+    return arrayOfFollowing;
+}
 
+-(void)loadDiscoverActivity:(void (^)(BOOL))completionHandler
+{
+    self.arrayOfActivity = [NSMutableArray new];
+    CurrentUser *currentUser = [CurrentUser sharedSingleton];
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+
+    [queryForActivity orderByDescending:@"createdAt"];
+    [queryForActivity whereKey:@"type" equalTo:@"post"];
+
+    [queryForActivity includeKey:@"fromUser"];
+    [queryForActivity includeKey:@"photo"];
+    [queryForActivity includeKey:@"video"];
+    [queryForActivity includeKey:@"link"];
+    [queryForActivity includeKey:@"note"];
+
+    [queryForActivity setLimit:20];
+    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"%@",[error userInfo]);
+         }
+         else
+         {
+             for (PFObject *activity in objects)
+             {
+                 if (![[[activity objectForKey:@"fromUser"]objectId]isEqual:currentUser.userID]) {
+                     [self.arrayOfActivity addObject:activity];
+                 }
+
+             }
+             completionHandler(YES);
          }
 
      }];
+}
 
-    return arrayOfFollowing;
+-(void)loadDiscoverUsers:(void (^)(BOOL))completionHandler
+{
+    self.arrayOfDiscoverUsers = [NSMutableArray new];
+
+    CurrentUser *currentUser = [CurrentUser sharedSingleton];
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+
+    [queryForActivity orderByDescending:@"createdAt"];
+    [queryForActivity whereKey:@"type" equalTo:@"post"];
+
+    [queryForActivity includeKey:@"fromUser"];
+    [queryForActivity includeKey:@"photo"];
+    [queryForActivity includeKey:@"video"];
+    [queryForActivity includeKey:@"link"];
+    [queryForActivity includeKey:@"note"];
+
+    [queryForActivity setLimit:20];
+    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"%@",[error userInfo]);
+         }
+         else
+         {
+             for (PFObject *activity in objects)
+             {
+                 if (![[[activity objectForKey:@"fromUser"]objectId]isEqual:currentUser.userID]) {
+
+                     PFUser *user = [activity objectForKey:@"fromUser"];
+
+                     User *discoverUser = [[User alloc]initWithUser:user];
+
+                     [self.arrayOfDiscoverUsers addObject:discoverUser];
+                 }
+
+             }
+             completionHandler(YES);
+         }
+         
+     }];
 }
 
 @end

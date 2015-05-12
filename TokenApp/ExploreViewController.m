@@ -12,6 +12,8 @@
 #import "UIViewController+Camera.h"
 #import "TK_LinkViewController.h"
 #import "TK_PostViewController.h"
+#import "ProfileCollectionViewCell.h"
+#import "FollowersTableViewCell.h"
 #import "CamerOverlay.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -36,9 +38,12 @@
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentControlDiscover;
 
-@property (strong, nonatomic) IBOutlet UICollectionView *collectionViewDiscoverContent;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionViewDiscoverContent;
 
-@property (strong, nonatomic) IBOutlet UITableView *tableViewDiscoverUser;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewDiscoverUser;
+
+@property (strong,nonatomic) NSMutableArray *arrayOfDiscoverContent;
+@property (strong,nonatomic) NSMutableArray *arrayOfDiscoverUsers;
 
 @end
 
@@ -48,6 +53,55 @@
     [super viewDidLoad];
 
     [self.navigationController.navigationBar setHidden:YES];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+
+    if (self.segmentControlDiscover.selectedSegmentIndex == 0)
+    {
+        [self.tableViewDiscoverUser setHidden:YES];
+        [self.collectionViewDiscoverContent setHidden:NO];
+    }
+    else
+    {
+        [self.collectionViewDiscoverContent setHidden:YES];
+        [self.tableViewDiscoverUser setHidden:NO];
+    }
+
+
+    TK_Manager *manager = [TK_Manager new];
+    [manager loadDiscoverActivity:^(BOOL result)
+     {
+         [manager loadArrayOfOtherUserContent:manager.arrayOfActivity completion:^(BOOL result)
+          {
+              self.arrayOfDiscoverContent = manager.arrayOfUserContent;
+
+              [manager loadDiscoverUsers:^(BOOL result)
+              {
+                   NSMutableArray *dupeArray = [NSMutableArray new];
+                  self.arrayOfDiscoverUsers = [NSMutableArray new];
+
+                   dupeArray = manager.arrayOfDiscoverUsers;
+
+                  NSMutableSet *names = [NSMutableSet set];
+                  for (User *user in dupeArray)
+                  {
+                      NSString *userID = user.objectID;
+                      if (![names containsObject:userID]) {
+                          [self.arrayOfDiscoverUsers addObject:user];
+                          [names addObject:userID];
+                      }
+                  }
+
+                  [self.collectionViewDiscoverContent reloadData];
+                  [self.tableViewDiscoverUser reloadData];
+              }];
+
+
+          }];
+     }];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -69,11 +123,79 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 0;
+    return self.arrayOfDiscoverContent.count ;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    ProfileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProfile" forIndexPath:indexPath];
+
+    cell.imageViewVideoIcon.alpha = 0;
+    cell.labelLinkURL.alpha = 0;
+    cell.imageViewLinkURL.alpha = 0;
+    cell.imageViewProfileContent.alpha = 1;
+
+
+    HomeFeedPost *post = [self.arrayOfDiscoverContent objectAtIndex:indexPath.row];
+
+    if ([post.mediaType isEqualToString:@"photo"])
+    {
+        Photo *photo = [Photo new];
+        photo = post.photoPost;
+        cell.imageViewProfileContent.image = photo.picture;
+        cell.labelNoteMessage.alpha = 0;
+        cell.labelNoteHeader.alpha = 0;
+        cell.imageViewVideoIcon.alpha = 0;
+        cell.labelLinkURL.alpha = 0;
+        cell.imageViewLinkURL.alpha = 0;
+        return cell;
+    }
+    if ([post.mediaType isEqualToString:@"video"])
+    {
+        Video *video = [Video new];
+        video = post.videoPost;
+        cell.imageViewProfileContent.image = video.videoThumbnail;
+        cell.imageViewVideoIcon.alpha = 1;
+        cell.labelNoteMessage.alpha = 0;
+        cell.labelNoteHeader.alpha = 0;
+        cell.labelLinkURL.alpha = 0;
+        cell.imageViewLinkURL.alpha = 0;
+
+        return cell;
+
+    }
+    if ([post.mediaType isEqualToString:@"link"])
+    {
+        Link *link = [Link new];
+        link = post.linkPost;
+        cell.imageViewProfileContent.alpha = 0;
+        cell.imageViewVideoIcon.alpha = 0;
+        cell.labelNoteMessage.alpha = 0;
+        cell.labelNoteHeader.alpha = 0;
+        cell.labelLinkURL.alpha = 1;
+        cell.imageViewLinkURL.alpha = 1;
+        cell.labelLinkURL.text = [link.urlLink absoluteString];
+
+        return cell;
+    }
+
+    if ([post.mediaType isEqualToString:@"post"])
+    {
+        Post *note = [Post new];
+        note = post.messagePost;
+        cell.imageViewProfileContent.alpha = 0;
+        cell.imageViewVideoIcon.alpha = 0;
+        cell.labelLinkURL.alpha = 0;
+        cell.imageViewLinkURL.alpha = 0;
+        cell.labelNoteMessage.alpha = 1;
+        cell.labelNoteHeader.alpha = 1;
+        cell.labelNoteMessage.text = note.postMessage;
+        cell.labelNoteHeader.text = note.postHeader;
+
+
+        return cell;
+    }
+    
     return nil;
 }
 
@@ -82,13 +204,50 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return self.arrayOfDiscoverUsers.count;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    FollowersTableViewCell *cellFollowers = [tableView dequeueReusableCellWithIdentifier:@"DiscoverUsersCell"];
+
+    User *userDiscover = [self.arrayOfDiscoverUsers objectAtIndex:indexPath.row];
+
+    cellFollowers.labelUsername.text = userDiscover.userName;
+
+    //Round Profile Pic
+    cellFollowers.imageViewFollowerProfilePic.layer.cornerRadius = cellFollowers.imageViewFollowerProfilePic.frame.size.height /2;
+    cellFollowers.imageViewFollowerProfilePic.layer.masksToBounds = YES;
+    cellFollowers.imageViewFollowerProfilePic.layer.borderWidth = 0;
+
+    //Follower Profile Pic
+    if (!userDiscover.profileImage)
+    {   // Default Profile Pic
+        cellFollowers.imageViewFollowerProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
+    }
+    else
+    {   // Profile Pic
+        cellFollowers.imageViewFollowerProfilePic.image = userDiscover.profileImage;
+    }
+return cellFollowers;
 }
 
+#pragma mark - Segment Control
+
+- (IBAction)segmentControlDiscover:(id)sender
+{
+
+    NSInteger selectedSegment = self.segmentControlDiscover.selectedSegmentIndex;
+
+    if (selectedSegment == 0) {
+        [self.tableViewDiscoverUser setHidden:YES];
+        [self.collectionViewDiscoverContent setHidden:NO];
+    }
+    else{
+        //toggle the correct view to be visible
+        [self.collectionViewDiscoverContent setHidden:YES];
+        [self.tableViewDiscoverUser setHidden:NO];
+    }
+}
 
 @end

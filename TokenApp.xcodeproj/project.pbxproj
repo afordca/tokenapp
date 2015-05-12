@@ -10,7 +10,6 @@
 		000476611A9AB47B00247BF8 /* PersonalActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000476601A9AB47B00247BF8 /* PersonalActivityViewController.m */; };
 		000476641A9AE3DE00247BF8 /* UIColor+HEX.m in Sources */ = {isa = PBXBuildFile; fileRef = 000476631A9AE3DE00247BF8 /* UIColor+HEX.m */; };
 		0007AF8C1B016D8D0066643C /* DiscoverUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0007AF8B1B016D8D0066643C /* DiscoverUserTableViewCell.m */; };
-		0007AF8F1B016DA70066643C /* DiscoverContentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0007AF8E1B016DA70066643C /* DiscoverContentCollectionViewCell.m */; };
 		000F079C1A8D3CBF003E1596 /* TK_PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000F079B1A8D3CBF003E1596 /* TK_PostViewController.m */; };
 		000FC6861A91142900A4F50F /* CreateMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 000FC6851A91142900A4F50F /* CreateMainView.xib */; };
 		000FC6891A91194B00A4F50F /* CreateMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 000FC6881A91194B00A4F50F /* CreateMainView.m */; };
@@ -118,8 +117,6 @@
 		000476631A9AE3DE00247BF8 /* UIColor+HEX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HEX.m"; sourceTree = "<group>"; };
 		0007AF8A1B016D8D0066643C /* DiscoverUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverUserTableViewCell.h; sourceTree = "<group>"; };
 		0007AF8B1B016D8D0066643C /* DiscoverUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverUserTableViewCell.m; sourceTree = "<group>"; };
-		0007AF8D1B016DA70066643C /* DiscoverContentCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverContentCollectionViewCell.h; sourceTree = "<group>"; };
-		0007AF8E1B016DA70066643C /* DiscoverContentCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverContentCollectionViewCell.m; sourceTree = "<group>"; };
 		000F079A1A8D3CBF003E1596 /* TK_PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TK_PostViewController.h; sourceTree = "<group>"; };
 		000F079B1A8D3CBF003E1596 /* TK_PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TK_PostViewController.m; sourceTree = "<group>"; };
 		000FC6851A91142900A4F50F /* CreateMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateMainView.xib; sourceTree = "<group>"; };
@@ -611,8 +608,6 @@
 				002E162E1A93F6E4000AE37B /* ExploreViewController.m */,
 				0007AF8A1B016D8D0066643C /* DiscoverUserTableViewCell.h */,
 				0007AF8B1B016D8D0066643C /* DiscoverUserTableViewCell.m */,
-				0007AF8D1B016DA70066643C /* DiscoverContentCollectionViewCell.h */,
-				0007AF8E1B016DA70066643C /* DiscoverContentCollectionViewCell.m */,
 			);
 			name = Discover;
 			sourceTree = "<group>";
@@ -820,7 +815,6 @@
 				009DE9571AA7BE8500429AC4 /* SettingsViewController.m in Sources */,
 				B9F359D61A43B22A00476FF7 /* TKCache.m in Sources */,
 				00C6DE5B1ABCB73E00CC410C /* Post.m in Sources */,
-				0007AF8F1B016DA70066643C /* DiscoverContentCollectionViewCell.m in Sources */,
 				002E162F1A93F6E4000AE37B /* ExploreViewController.m in Sources */,
 				000476641A9AE3DE00247BF8 /* UIColor+HEX.m in Sources */,
 				002E162C1A93E957000AE37B /* BalanceViewController.m in Sources */,
