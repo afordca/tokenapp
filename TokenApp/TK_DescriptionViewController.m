@@ -275,9 +275,11 @@
                  //Add to Activity Array
                  NSString *name = currentUser.userName;
                   NSString *userID = currentUser.userID;
+                 NSString *videoID = self.video.objectId;
                  UIImage *profilePic = currentUser.profileImage;
+                 NSInteger numberOfLikes = 0;
 
-                  Video *video = [[Video alloc]initWithUrl:url];
+                  Video *video = [[Video alloc]initWithUrl:url likes:numberOfLikes videoID:videoID videoDescription:self.video.description];
                  User *user = [[User alloc]initWithUser:self.currentUser];
                     [currentUser.arrayOfVideos addObject:video];
 

@@ -389,10 +389,16 @@
 
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
                       NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                     NSString *videoID = [[homeFeedActivity objectForKey:@"video"]objectId];
+                     NSString *videoDescription = [[homeFeedActivity objectForKey:@"video"]objectForKey:@"description"];
+
                      self.homeFeedProfilePic = [UIImage imageWithData:data];
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
 
-                     Video *video = [[Video alloc]initWithUrl:url];
+                     NSNumber *likes = [[homeFeedActivity objectForKey:@"video"]objectForKey:@"numberOfLikes"];
+                     NSInteger numberOfLikes = likes.integerValue;
+
+                     Video *video = [[Video alloc]initWithUrl:url likes:numberOfLikes videoID:videoID videoDescription:videoDescription];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
          
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:nil video:video link:nil mediaType:@"video" userID:userID user:userContent];

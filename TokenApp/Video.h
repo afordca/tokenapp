@@ -13,13 +13,14 @@
 
 @property (nonatomic,strong) NSURL *videoURL;
 @property (nonatomic,strong) UIImage *videoThumbnail;
-@property (nonatomic,strong) NSString *photoDescription;
+@property (nonatomic,strong) NSString *videoID;
+@property (nonatomic,strong) NSString *videoDescription;
 @property (nonatomic,strong) NSArray *arrayOfHashtags;
 @property (nonatomic,strong) NSArray *arrayOfComments;
 
-@property  NSInteger *numberOfLikes;
+@property  NSInteger numberOfLikes;
 
 
--(id)initWithUrl:(NSURL*)URL;
+-(id)initWithUrl:(NSURL*)URL likes:(NSInteger)numberOfLikes videoID:(NSString*)videoID videoDescription:(NSString*)videoDescription;
 
 @end

@@ -34,7 +34,6 @@
     self.labelUsername.text = self.detailPost.userName;
 }
 
-
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:YES];
@@ -55,7 +54,6 @@
 
 #pragma mark - UITableView Delegate Methods
 
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
@@ -69,19 +67,21 @@
     {
         Photo *photo = self.detailPost.photoPost;
 
+        self.likes = self.likes + photo.numberOfLikes;
+        NSString *stringLikes = [NSString stringWithFormat:@"%li",self.likes];
+        NSString *contentID = photo.photoID;
+
+        contentCell.labelNumberOfLikes.text = stringLikes;
         contentCell.imageViewContent.image = photo.picture;
         contentCell.labelContentDescription.text = photo.photoDescription;
 
-        self.likes = self.likes + photo.numberOfLikes;
-        NSString *stringLikes = [NSString stringWithFormat:@"%li",self.likes];
-        contentCell.labelNumberOfLikes.text = stringLikes;
+
 
         //Check if User likes content already
 
         UITapGestureRecognizer *tapGestureRecognizerLike = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeTapped:)];
 
-
-        [self checkUserLike:^(BOOL result)
+        [self checkUserLike:@"Photo" contentID:contentID completion:^(BOOL result)
         {
             if (self.liked)
             {
@@ -119,7 +119,37 @@
         [self.videoController play];
 
 
+        self.likes = self.likes + video.numberOfLikes;
+        NSString *stringLikes = [NSString stringWithFormat:@"%li",self.likes];
+        NSString *contentID = video.videoID;
+
+        contentCell.labelNumberOfLikes.text = stringLikes;
+        contentCell.labelContentDescription.text = video.videoDescription;
+
+        //Check if User likes content already
+
+        UITapGestureRecognizer *tapGestureRecognizerLike = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeTapped:)];
+
+        [self checkUserLike:@"Video" contentID:contentID completion:^(BOOL result)
+        {
+             if (self.liked)
+             {
+                 contentCell.imageViewLike.image = [UIImage imageNamed:@"LikeFill"];
+                 [contentCell.imageViewLike removeGestureRecognizer:tapGestureRecognizerLike];
+                 contentCell.imageViewLike.userInteractionEnabled = NO;
+
+             }
+             else
+             {
+                 tapGestureRecognizerLike.numberOfTapsRequired = 1;
+                 [contentCell.imageViewLike addGestureRecognizer:tapGestureRecognizerLike];
+                 contentCell.imageViewLike.userInteractionEnabled = YES;
+             }
+             
+         }];
+        
         return contentCell;
+
 
     }
     if ([self.detailPost.mediaType isEqualToString:@"link"])
@@ -160,26 +190,54 @@
 {
     NSLog(@"Like Tapped");
 
-    PFQuery *queryPhoto = [PFQuery queryWithClassName:@"Photo"];
-    [queryPhoto whereKey:@"objectId" equalTo:self.detailPost.photoPost.photoID];
+    NSString *className;
+    NSString *contentID;
+    NSString *contentType = self.detailPost.mediaType;
 
-    PFObject *updatedPhoto = [queryPhoto getFirstObject];
-    [updatedPhoto incrementKey:@"numberOfLikes" byAmount:[NSNumber numberWithInt:1]];
+    if ([self.detailPost.mediaType isEqualToString:@"photo"])
+    {
+        Photo *photo = self.detailPost.photoPost;
+        className = @"Photo";
+        contentID = photo.photoID;
+    }
 
-    PFRelation *relation = [updatedPhoto relationForKey:@"Likers"];
+    else if ([self.detailPost.mediaType isEqualToString:@"video"])
+    {
+        Video *video = self.detailPost.videoPost;
+       className = @"Video";
+        contentID = video.videoID;
+    }
+
+    else if ([self.detailPost.mediaType isEqualToString:@"link"])
+    {
+        className = @"Link";
+    }
+
+    else //Note
+    {
+        className = @"Note";
+    }
+
+    PFQuery *queryContent = [PFQuery queryWithClassName:className];
+    [queryContent whereKey:@"objectId" equalTo:contentID];
+
+    PFObject *updatedContent = [queryContent getFirstObject];
+    [updatedContent incrementKey:@"numberOfLikes" byAmount:[NSNumber numberWithInt:1]];
+
+    PFRelation *relation = [updatedContent relationForKey:@"Likers"];
     [relation addObject:self.currentUser];
 
-    [updatedPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    [updatedContent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
      {
-         NSLog( @"Photo Updated");
+         NSLog( @"Content Updated");
 
          PFObject *activity = [PFObject objectWithClassName:@"Activity"];
 
 
          [activity setObject:@"like" forKey:@"type"];
-         [activity setObject:@"photo" forKey:@"mediaType"];
+         [activity setObject:contentType forKey:@"mediaType"];
          [activity setObject:self.currentUser forKey:@"fromUser"];
-         [activity setObject:updatedPhoto forKey:@"photo"];
+         [activity setObject:updatedContent forKey:contentType];
          [activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
          [activity setValue:self.currentUser.username forKey:@"username"];
 
@@ -202,10 +260,15 @@
 
 #pragma mark - Helper Methods
 
--(void)checkUserLike:(void (^)(BOOL))completionHandler;
+-(void)checkUserLike:(NSString*)type contentID:(NSString*)contentID completion:(void (^)(BOOL))completionHandler
 {
-    PFQuery *queryPhoto = [PFQuery queryWithClassName:@"Photo"];
-    [queryPhoto whereKey:@"Likers" equalTo:self.currentUser];
+     PFQuery *queryPhoto = [PFQuery queryWithClassName:type];
+    [queryPhoto whereKey:@"objectId" equalTo:contentID];
+
+    // Using PFQuery
+    [queryPhoto whereKey:@"Likers" equalTo:[PFObject objectWithoutDataWithClassName:@"User" objectId:self.currentUser.objectId]];
+
+    //[queryPhoto whereKey:@"Likers" equalTo:self.currentUser];
     [queryPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
          if (error) {
@@ -218,7 +281,6 @@
                  self.liked = YES;
                  completionHandler(YES);
              }
-
              else
              {
                  self.liked = NO;

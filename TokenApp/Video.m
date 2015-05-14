@@ -11,7 +11,7 @@
 
 @implementation Video
 
--(id)initWithUrl:(NSURL *)URL
+-(id)initWithUrl:(NSURL *)URL likes:(NSInteger)numberOfLikes videoID:(NSString *)videoID videoDescription:(NSString *)videoDescription
 {
     self.videoURL = URL;
 
@@ -28,6 +28,10 @@
     thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
     self.videoThumbnail = thumbnail;
     CGImageRelease(imgRef);
+
+    self.numberOfLikes = numberOfLikes;
+    self.videoID = videoID;
+    self.videoDescription = videoDescription;
 
     return self;
 }
