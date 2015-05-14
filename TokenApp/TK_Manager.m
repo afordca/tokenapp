@@ -62,10 +62,14 @@
                        UIImage *homeFeedContent = [UIImage imageWithData:data1];
                         UIImage *homeFeedProfilePic = [UIImage imageWithData:data];
                           NSString *name= [homeFeedActivity objectForKey:@"username"];
-                          NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                          NSString *userID = [[homeFeedActivity objectForKey:@"photo"]objectId];
+                          NSString *photoID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                          NSString *description = [[homeFeedActivity objectForKey:@"photo"]objectForKey:@"description"];
                           PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
+                          NSNumber *likes = [[homeFeedActivity objectForKey:@"photo"]objectForKey:@"numberOfLikes"];
+                          NSInteger numberOfLikes = likes.integerValue;
 
-                          Photo *photo = [[Photo alloc]initWithImage:homeFeedContent name:name time:nil];
+                          Photo *photo = [[Photo alloc]initWithImage:homeFeedContent name:name time:nil description:description photoID:photoID likes:numberOfLikes];
                           User *userContent = [[User alloc]initWithUser:userWithContent];
 
                           HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:homeFeedProfilePic timePosted:nil photo:photo post:nil video:nil link:nil mediaType:@"photo" userID:userID user:userContent];
@@ -174,7 +178,6 @@
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
                      UIImage *homeFeedProfilePic = [UIImage imageWithData:data];
-
 
                      NSString *postMessage = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"note"];
                      NSString *postHeader = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"description"];
@@ -290,7 +293,7 @@
     [queryForActivity includeKey:@"link"];
     [queryForActivity includeKey:@"note"];
 
-    [queryForActivity setLimit:20];
+//    [queryForActivity setLimit:20];
     [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
          if (error)

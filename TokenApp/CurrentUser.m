@@ -38,15 +38,12 @@
 {
     static CurrentUser *single = nil;
     {
-
         //static dispatch_once onceToken;  * Look up
-
         if ( !single)
         {
             // allocate the shared instance, because it hasn't been done yet
             single = [[CurrentUser alloc] init];
         }
-
         return single;
     }
 }
@@ -77,7 +74,6 @@
          }
 
      }];
-
 }
 
 -(void)loadArrayOfFollowing:(BOOL)update row:(NSInteger)row completion:(void (^)(BOOL))completionHandler
@@ -192,143 +188,7 @@
         }
 
     }
-
 }
-
--(void)loadArrayOfPhotos:(void (^)(BOOL))completionHandler
-{
-    user = [PFUser currentUser];
-    self.arrayOfPhotos = [NSMutableArray new];
-
-
-    [PFCloud callFunctionInBackground:@"Photo" withParameters:@{@"userName": user.objectId} block:^(NSArray *result, NSError *error)
-     {
-         if (error)
-         {
-             NSLog(@"%@", [error userInfo]);
-         }
-         else
-         {
-             for (PFObject *photo in result)
-             {
-                 PFFile *parseFileWithImage = [photo objectForKey:@"image"];
-                 NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-                 NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-                 [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-
-                     if (connectionError)
-                     {
-                         NSLog(@"%@",[connectionError userInfo]);
-                     }
-                     else
-                     {
-                         UIImage *imagePhoto = [UIImage imageWithData:data];
-                         NSString *name= [photo objectForKey:@"userName"];
-                         // Add Time
-                         Photo *newPhoto = [[Photo alloc]initWithImage:imagePhoto name:name time:nil];
-                         [self.arrayOfPhotos addObject:newPhoto];
-                         // [self.arrayOfPhotos addObject:[UIImage imageWithData:data]];
-                     }
-
-                     [self.delegate reloadCollectionAfterArrayUpdate];
-                 }];
-
-             }
-              completionHandler(YES);
-         }
-     }];
-}
-
-
--(void)loadArrayOfVideos:(void (^)(BOOL))completionHandler
-{
-    user = [PFUser currentUser];
-    self.arrayOfVideos = [NSMutableArray new];
-
-    [PFCloud callFunctionInBackground:@"Video" withParameters:@{@"userName": user.objectId} block:^(NSArray *result, NSError *error)
-     {
-         if (error)
-         {
-             NSLog(@"%@", [error userInfo]);
-         }
-         else
-         {
-             NSLog(@"Worked Videos");
-
-             for (PFObject *video in result)
-             {
-              PFFile *parseFileWithImage = [video objectForKey:@"video"];
-
-                 NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-                 Video *video = [[Video alloc]initWithUrl:url];
-                  [self.arrayOfVideos addObject:video];
-
-             }
-
-             completionHandler(YES);
-
-         }
-     }];
-
-}
-
--(void)loadArrayOfLinks:(void (^)(BOOL))completionHandler
-{
-    user = [PFUser currentUser];
-    self.arrayOfLinks = [NSMutableArray new];
-
-
-    [PFCloud callFunctionInBackground:@"Link" withParameters:@{@"userName": user.objectId} block:^(NSArray *result, NSError *error)
-     {
-         if (error)
-         {
-             NSLog(@"%@", [error userInfo]);
-         }
-         else
-         {
-             NSLog(@"Worked Links");
-             for (PFObject *link in result)
-             {
-                 NSString *linkURL = [link objectForKey:@"url"];
-                 Link *link = [[Link alloc]initWithUrl:linkURL];
-                 [self.arrayOfLinks addObject:link];
-
-             }
-             completionHandler(YES);
-         }
-     }];
-    
-}
-
--(void)loadArrayOfPosts:(void (^)(BOOL))completionHandler
-{
-    user = [PFUser currentUser];
-    self.arrayOfPosts = [NSMutableArray new];
-
-
-    [PFCloud callFunctionInBackground:@"Note" withParameters:@{@"userName": user.objectId} block:^(NSArray *result, NSError *error)
-     {
-         if (error)
-         {
-             NSLog(@"%@", [error userInfo]);
-         }
-         else
-         {
-             NSLog(@"Worked Posts");
-             for (PFObject *post in result)
-             {
-                 NSString *postMessage = [post objectForKey:@"note"];
-                 NSString *postHeader = [post objectForKey:@"description"];
-
-                 Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
-                 [self.arrayOfPosts addObject:post];
-             }
-              completionHandler(YES);
-         }
-     }];
-    
-}
-
 //Notifications
 -(void)loadActivityToCurrentUser
 {
@@ -364,22 +224,21 @@
                          {
                              UIImage *photo = [UIImage imageWithData:data];
                              NSString *name= [[activity objectForKey:@"toUser"]objectForKey:@"username"];
+                             NSString *photoID = [[activity objectForKey:@"photo"]objectId];
+                             NSString *description = [[activity objectForKey:@"photo"]objectForKey:@"description"];
+                             NSNumber *likes = [[activity objectForKey:@"photo"]objectForKey:@"numberOfLikes"];
+                             NSInteger numberOfLikes = likes.integerValue;
 
-                             Photo *activityPhoto = [[Photo alloc]initWithImage:photo name:name time:nil];
+                             Photo *activityPhoto = [[Photo alloc]initWithImage:photo name:name time:nil description:description photoID:photoID likes:numberOfLikes];
                              NSString *typeOfActivity = [activity objectForKey:@"type"];
                              NSString *mediaType = [activity objectForKey:@"mediaType"];
 
                              User *fromUser = [[User alloc]initWithUser:[activity objectForKey:@"fromUser"]];
                              User *toUser = [[User alloc]initWithUser:[activity objectForKey:@"toUser"]];
 
-                             
-                             
                              [self.arrayOfNotifications addObject:activity];
-                             
                          }
-                         
                      }];
-                    
                 }
 
             }
@@ -425,7 +284,12 @@
                      {
                          UIImage *photo = [UIImage imageWithData:data];
                         NSString *name= [[activity objectForKey:@"toUser"]objectForKey:@"username"];
-                         Photo *activityPhoto = [[Photo alloc]initWithImage:photo name:name time:nil];
+                         NSString *photoID = [[activity objectForKey:@"photo"]objectId];
+                         NSString *description = [[activity objectForKey:@"photo"]objectForKey:@"description"];
+                         NSNumber *likes = [[activity objectForKey:@"photo"]objectForKey:@"numberOfLikes"];
+                         NSInteger numberOfLikes = likes.integerValue;
+
+                         Photo *activityPhoto = [[Photo alloc]initWithImage:photo name:name time:nil description: description photoID:photoID likes:numberOfLikes];
                          NSString *typeOfActivity = [activity objectForKey:@"type"];
                          NSString *mediaType = [activity objectForKey:@"mediaType"];
 
@@ -454,7 +318,6 @@
     if (!self.arrayOfHomeFeedActivity.count)
     {
         completionHandler(YES);
-
     }
 
     for (PFObject *homeFeedActivity in self.arrayOfHomeFeedActivity)
@@ -484,9 +347,13 @@
                          self.homeFeedProfilePic = [UIImage imageWithData:data];
                          NSString *name= [homeFeedActivity objectForKey:@"username"];
                          NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                         NSString *photoID = [[homeFeedActivity objectForKey:@"photo"]objectId];
+                         NSString *description =[[homeFeedActivity objectForKey:@"photo"]objectForKey:@"description"];
                          PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
+                         NSNumber *likes = [[homeFeedActivity objectForKey:@"photo"]objectForKey:@"numberOfLikes"];
+                         NSInteger numberOfLikes = likes.integerValue;
 
-                         Photo *photo = [[Photo alloc]initWithImage:self.homeFeedContent name:name time:nil];
+                         Photo *photo = [[Photo alloc]initWithImage:self.homeFeedContent name:name time:nil description:description photoID:photoID likes:numberOfLikes];
                          User *userContent = [[User alloc]initWithUser:userWithContent];
 
                          HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:photo post:nil video:nil link:nil mediaType:@"photo" userID:userID user:userContent];
@@ -501,9 +368,7 @@
                      }];
                 }
             }];
-
     }
-
         // Video
         if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"video"])
         {
@@ -520,7 +385,6 @@
                  }
                  else
                  {
-
                      NSURL *url = [NSURL URLWithString:parseFileWithVideo.url];
 
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
@@ -539,14 +403,9 @@
                      {
                          completionHandler(YES);
                      }
-
-
                  }
-
-
              }];
         }
-
         //LINK
         if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"link"])
         {
@@ -660,13 +519,10 @@
                     {
                         if ([[activity objectForKey:@"fromUserID"] isEqualToString:following.objectID])
                         {
-
                             [self.arrayOfHomeFeedActivity addObject:activity];
                         }
-
                     }
                 }
-
             }
             completionHandler(YES);
         }
@@ -730,13 +586,9 @@
     user = [PFUser currentUser];
     PFRelation *relation = [user relationForKey:@"Following"];
 
-
-
     PFQuery *queryUser = [PFUser query];
     [queryUser whereKey:@"objectId" equalTo:follower.objectID];
     PFObject *userFollower = [queryUser getFirstObject];
-
-
 
     [relation removeObject:userFollower];
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

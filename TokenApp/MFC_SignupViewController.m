@@ -3,7 +3,7 @@
 //  TokenApp
 //
 //  Created by Emmanuel Masangcay on 2/2/15.
-//  Copyright (c) 2015 ABaselNotBasilProduction. All rights reserved.
+//  Copyright (c) 2015 CoderEXP. All rights reserved.
 //
 
 #import "MFC_SignupViewController.h"
@@ -40,13 +40,11 @@
     self.textFieldConfirmEmail.delegate = self;
 
     self.validate = YES;
-
 }
 
 // The return button will close the keypad
 
 #pragma mark - Text field methods
-
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
@@ -66,10 +64,8 @@
     [self.view endEditing:YES];
 }
 
-
 -(IBAction)createUser:(UIButton *)sender
 {
-
     for (UIView *view in self.view.subviews)
     {
         if ([view isKindOfClass:[UITextField class]])
@@ -164,14 +160,11 @@
     }
 }
 
-
 #pragma mark - Segue methods
 
 -(IBAction)cancelSignUp:(UIButton *)sender
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
-
-
 
 @end

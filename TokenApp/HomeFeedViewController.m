@@ -86,28 +86,12 @@
         [user setObject:[NSNumber numberWithBool:NO] forKey:@"newuser"];
         [user saveInBackground];
     }
-
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:YES];
-    [currentUser loadHomeFeedActivity:^(BOOL result)
-     {
-         [currentUser loadHomeFeedContent:^(BOOL result)
-          {
-              NSLog(@"Content Loaded");
-              [self.tableViewHomeFeed reloadData];
-          }];
-     }];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-
     [self addObserver];
-
 
     if (currentUser.arrayOfHomeFeedContent.count < 10)
     {
@@ -116,18 +100,15 @@
         {
             [self.arrayOfContent addObject:post];
         }
-
     }
     else
     {
-
         self.noMoreResultsAvail = NO;
         self.arrayOfContent = [NSMutableArray new];
         for (int i = 0; i<10; i++)
         {
             [self.arrayOfContent addObject:currentUser.arrayOfHomeFeedContent[i]];
         }
-        
     }
 
     [self.tableViewHomeFeed reloadData];
@@ -143,12 +124,12 @@
     [self.arrayOfContent removeAllObjects];
 
     [self.tableViewHomeFeed reloadData];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    NSLog(@"Memory Issue");
 }
 
 #pragma mark - UITableView Delegate Methods
@@ -190,14 +171,11 @@
     [headerView addSubview:profilePic];
     [headerView addSubview:labelUsername];
 
-
-
     return headerView;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
     return 1;
 }
 
@@ -267,7 +245,6 @@
             
             return cell;
         }
-
         if ([post.mediaType isEqualToString:@"post"])
         {
             Post *note = post.messagePost;
@@ -292,8 +269,6 @@
             {
                 spinner.hidden =NO;
                 cell.textLabel.text=nil;
-
-
                 spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
                 spinner.frame = CGRectMake(150, 10, 24, 50);
                 [cell addSubview:spinner];
@@ -302,7 +277,6 @@
                     [spinner startAnimating];
                 }
             }
-
             else
             {
                 [spinner stopAnimating];
@@ -334,7 +308,6 @@
 
     [self.navigationController pushViewController: cdvc animated:YES];
 
-    
 }
 
 #pragma UIScroll View Method::
@@ -411,7 +384,6 @@
 
 }
 
-
 #pragma mark - Segue Method
 
 -(void)presentUserProfile:(User*)user
@@ -429,7 +401,6 @@
         OthersProfileViewController *opvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"OtherProfile"];
         opvc.otherUser = user;
 
-
         TK_Manager *manager = [TK_Manager new];
         [manager loadarrayOfActivity:user completion:^(BOOL result)
          {
@@ -440,9 +411,6 @@
                   [self.navigationController pushViewController:opvc animated:YES];
               }];
          }];
-
-
-        
     }
 }
 

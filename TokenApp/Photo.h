@@ -13,15 +13,16 @@
 
 @property (nonatomic,strong) UIImage *picture;
 @property (nonatomic,strong) NSString *photoDescription;
+@property (nonatomic,strong) NSString *photoID;
 @property (nonatomic,strong) NSString *time;
 @property (nonatomic,strong) NSString *userName;
 @property (nonatomic,strong) NSArray *arrayOfHashtags;
 @property (nonatomic,strong) NSArray *arrayOfComments;
 
-@property  NSInteger *numberOfLikes;
+@property  NSInteger numberOfLikes;
 
 #warning Still need to add description, hashtags, and comments
 
--(id)initWithImage:(UIImage*)picture name:(NSString*)username time:(NSString*)time;
+-(id)initWithImage:(UIImage*)picture name:(NSString*)username time:(NSString*)time description:(NSString*)description photoID:(NSString*)photoID likes:(NSInteger)numberOfLikes;
 
 @end

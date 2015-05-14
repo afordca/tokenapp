@@ -52,8 +52,6 @@
 
 -(void)checkUser
 {
-
-
     if (self.currentUser)
     {
 
@@ -69,8 +67,6 @@
             [PFUser logOut];
         }
     }];
-
-
     }
 }
 
@@ -182,26 +178,20 @@
 
 -(void)loadArray:(void (^)(BOOL))completionHandler
 {
-
-
     [self.singleUser loadArrayOfFollowers:^(BOOL result)
     {
         [self.singleUser loadArrayOfFollowing:NO row:0 completion:^(BOOL result)
         {
-//            [self.singleUser loadHomeFeedActivity:^(BOOL result)
-//            {
-//                [self.singleUser loadHomeFeedContent:^(BOOL result)
-//                {
+            [self.singleUser loadHomeFeedActivity:^(BOOL result)
+            {
+                [self.singleUser loadHomeFeedContent:^(BOOL result)
+                {
                     [self.singleUser setUserProfile];
                     completionHandler(YES);
-            //    }];
-           // }];
+                }];
+            }];
         }];
     }];
-
-
-
-
 }
 
 @end

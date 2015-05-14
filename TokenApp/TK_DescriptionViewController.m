@@ -223,11 +223,13 @@
                 NSLog(@"Photo Saved");
                 //Add to Activity Array
                 NSString *name = currentUser.userName;
+                NSString *photoID = self.photo.objectId;
                 NSString *userID = currentUser.userID;
                 UIImage *profilePic = currentUser.profileImage;
                 UIImage *contentImage = self.imagePhoto;
+                NSInteger numberOfLikes = 0;
 
-                Photo *photo = [[Photo alloc]initWithImage:contentImage name:name time:nil];
+                Photo *photo = [[Photo alloc]initWithImage:contentImage name:name time:nil description:self.description photoID:photoID likes:numberOfLikes];
                 User *user = [[User alloc]initWithUser:self.currentUser];
                 [currentUser.arrayOfPhotos addObject:photo];
 

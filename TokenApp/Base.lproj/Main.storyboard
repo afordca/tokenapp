@@ -746,6 +746,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="labelUsername" destination="teu-cO-vW1" id="69d-wH-lAI"/>
+                        <outlet property="tableViewContentDetail" destination="crT-Ny-YWs" id="3sB-vE-d3v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g7X-Y3-tSE" userLabel="First Responder" sceneMemberID="firstResponder"/>
