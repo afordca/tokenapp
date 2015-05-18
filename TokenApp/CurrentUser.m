@@ -495,12 +495,21 @@
 
 -(void)loadHomeFeedActivity:(void (^)(BOOL))completionHandler
 {
-    user = [PFUser currentUser];
     self.arrayOfHomeFeedActivity = [NSMutableArray new];
-    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-    [queryForActivity orderByDescending:@"createdAt"];
-    [queryForActivity whereKey:@"type" equalTo:@"post"];
+    NSMutableArray *arrayOfUsernameFollowing = [NSMutableArray new];
+    NSString *currentUsername = [[PFUser currentUser]username];
+    for (User *following in self.arrayOfFollowing)
+    {
+        [arrayOfUsernameFollowing addObject:following.userName];
+    }
+    [arrayOfUsernameFollowing addObject:currentUsername];
 
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+    [queryForActivity whereKey:@"type" equalTo:@"post"];
+    [queryForActivity whereKey:@"username" containedIn:arrayOfUsernameFollowing];
+    [queryForActivity setLimit:10];
+    [queryForActivity setSkip:0];
+    [queryForActivity orderByDescending:@"createdAt"];
     [queryForActivity includeKey:@"fromUser"];
     [queryForActivity includeKey: @"toUser"];
     [queryForActivity includeKey:@"photo"];
@@ -509,31 +518,19 @@
     [queryForActivity includeKey:@"note"];
 
     [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-    {
-        if (!error)
-        {   // Post Activties
-            for (PFObject *activity in objects)
-            {
-                //Post activity from current User
-                if ([[activity objectForKey:@"fromUserID"]isEqualToString:user.objectId])
-                {
-                    [self.arrayOfHomeFeedActivity addObject:activity];
-                }
-                else
-                {
-                    for (User *following in self.arrayOfFollowing)
-                    {
-                        if ([[activity objectForKey:@"fromUserID"] isEqualToString:following.objectID])
-                        {
-                            [self.arrayOfHomeFeedActivity addObject:activity];
-                        }
-                    }
-                }
-            }
-            completionHandler(YES);
-        }
-    }];
+     {
+         if (!error)
+         {
+             for (PFObject *activity in objects)
+             {
+                 [self.arrayOfHomeFeedActivity addObject:activity];
+             }
 
+             NSLog(@"%@",self.arrayOfHomeFeedActivity);
+             
+             completionHandler(YES);
+         }
+     }];
 }
 
 #pragma mark - User Helper Methods
