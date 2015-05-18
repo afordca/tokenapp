@@ -257,6 +257,10 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
 
+    self.imageCreatePhoto = nil;
+    self.stringVideoData = nil;
+    self.videoURL = nil;
+
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
 
     // Check if photo

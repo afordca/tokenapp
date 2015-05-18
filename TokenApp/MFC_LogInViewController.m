@@ -178,9 +178,9 @@
 
 -(void)loadArray:(void (^)(BOOL))completionHandler
 {
-    [self.singleUser loadArrayOfFollowers:^(BOOL result)
-    {
-        [self.singleUser loadArrayOfFollowing:NO row:0 completion:^(BOOL result)
+    [self.singleUser loadArrayOfFollowing:NO row:0 completion:^(BOOL result)
+     {
+        [self.singleUser loadArrayOfFollowers:^(BOOL result)
         {
             [self.singleUser loadHomeFeedActivity:0 completion:^(BOOL result)
             {
