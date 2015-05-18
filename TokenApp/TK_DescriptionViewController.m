@@ -319,11 +319,13 @@
                  NSString *name = currentUser.userName;
                   NSString *userID = currentUser.userID;
                  UIImage *profilePic = currentUser.profileImage;
+                 NSString *postID = self.note.objectId;
+                 NSInteger numberOfLikes = 0;
 
                  NSString *postMessage = self.stringPost;
                  NSString *postHeader = [self.note objectForKey:@"description"];
 
-                 Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
+                 Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader postID:postID postDescription:postHeader likes:numberOfLikes];
                  User *user = [[User alloc]initWithUser:self.currentUser];
 
                  [currentUser.arrayOfPosts addObject:post];
@@ -364,9 +366,11 @@
              NSString *name = currentUser.userName;
             NSString *userID = currentUser.userID;
              UIImage *profilePic = currentUser.profileImage;
+            NSString *linkID = self.link.objectId;
+            NSInteger numberOfLikes = 0;
 
                  NSString *linkURL = self.stringLink;
-                 Link *link = [[Link alloc]initWithUrl:linkURL];
+                 Link *link = [[Link alloc]initWithUrl:linkURL urlID:linkID description:self.link.description likes:numberOfLikes];
                  User *user = [[User alloc]initWithUser:self.currentUser];
 
                  [currentUser.arrayOfLinks addObject:link];

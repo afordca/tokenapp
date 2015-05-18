@@ -90,11 +90,11 @@
          }
          else
          {
-             for (PFUser *userFollower in result)
+             for (PFUser *userFollowing in result)
              {
-                 User *follower = [[User alloc]initWithUser:userFollower];
+                 User *following = [[User alloc]initWithUser:userFollowing];
 
-                 [self.arrayOfFollowing addObject:follower];
+                 [self.arrayOfFollowing addObject:following];
              }
 
              completionHandler(YES);
@@ -354,6 +354,7 @@
                          NSInteger numberOfLikes = likes.integerValue;
 
                          Photo *photo = [[Photo alloc]initWithImage:self.homeFeedContent name:name time:nil description:description photoID:photoID likes:numberOfLikes];
+
                          User *userContent = [[User alloc]initWithUser:userWithContent];
 
                          HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:photo post:nil video:nil link:nil mediaType:@"photo" userID:userID user:userContent];
@@ -399,6 +400,7 @@
                      NSInteger numberOfLikes = likes.integerValue;
 
                      Video *video = [[Video alloc]initWithUrl:url likes:numberOfLikes videoID:videoID videoDescription:videoDescription];
+                     
                      User *userContent = [[User alloc]initWithUser:userWithContent];
          
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:nil video:video link:nil mediaType:@"video" userID:userID user:userContent];
@@ -428,13 +430,18 @@
                  {
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
                       NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                     NSString *linkID = [[homeFeedActivity objectForKey:@"link"]objectId];
+                     NSString *linkDescription = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"description"];
+                     NSNumber *likes = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"numberOfLikes"];
+                     NSInteger numberOfLikes = likes.integerValue;
                      self.homeFeedProfilePic = [UIImage imageWithData:data];
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
 
 
+
                      NSString *linkURL = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"url"];
 
-                     Link *link = [[Link alloc]initWithUrl:linkURL];
+                     Link *link = [[Link alloc]initWithUrl:linkURL urlID:linkID description:linkDescription likes:numberOfLikes];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
 
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID user:userContent];
@@ -466,6 +473,11 @@
                  {
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
                       NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                     NSString *postID = [[homeFeedActivity objectForKey:@"post"]objectId];
+                     NSString *postDescription = [[homeFeedActivity objectForKey:@"post"]objectForKey:@"description"];
+                     NSNumber *likes = [[homeFeedActivity objectForKey:@"post"]objectForKey:@"numberOfLikes"];
+                     NSInteger numberOfLikes = likes.integerValue;
+
                      self.homeFeedProfilePic = [UIImage imageWithData:data];
 
 
@@ -473,7 +485,7 @@
                      NSString *postHeader = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"description"];
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
 
-                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
+                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader postID:postID postDescription:postDescription likes:numberOfLikes];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
 
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID user:userContent];
@@ -495,12 +507,24 @@
 
 -(void)loadHomeFeedActivity:(void (^)(BOOL))completionHandler
 {
-    user = [PFUser currentUser];
     self.arrayOfHomeFeedActivity = [NSMutableArray new];
-    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-    [queryForActivity orderByDescending:@"createdAt"];
-    [queryForActivity whereKey:@"type" equalTo:@"post"];
+    NSMutableArray *arrayOfUsernameFollowing = [NSMutableArray new];
+    NSString *currentUsername = [[PFUser currentUser]username];
 
+    for (User *following in self.arrayOfFollowing)
+    {
+        [arrayOfUsernameFollowing addObject:following.userName];
+    }
+
+    [arrayOfUsernameFollowing addObject:currentUsername];
+
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+
+    [queryForActivity whereKey:@"type" equalTo:@"post"];
+    [queryForActivity whereKey:@"username" containedIn:arrayOfUsernameFollowing];
+    [queryForActivity setLimit:10];
+    [queryForActivity setSkip:0];
+    [queryForActivity orderByDescending:@"createdAt"];
     [queryForActivity includeKey:@"fromUser"];
     [queryForActivity includeKey: @"toUser"];
     [queryForActivity includeKey:@"photo"];
@@ -511,25 +535,13 @@
     [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
         if (!error)
-        {   // Post Activties
+        {
             for (PFObject *activity in objects)
             {
-                //Post activity from current User
-                if ([[activity objectForKey:@"fromUserID"]isEqualToString:user.objectId])
-                {
-                    [self.arrayOfHomeFeedActivity addObject:activity];
-                }
-                else
-                {
-                    for (User *following in self.arrayOfFollowing)
-                    {
-                        if ([[activity objectForKey:@"fromUserID"] isEqualToString:following.objectID])
-                        {
-                            [self.arrayOfHomeFeedActivity addObject:activity];
-                        }
-                    }
-                }
+                [self.arrayOfHomeFeedActivity addObject:activity];
             }
+
+            NSLog(@"%@",self.arrayOfHomeFeedActivity);
             completionHandler(YES);
         }
     }];

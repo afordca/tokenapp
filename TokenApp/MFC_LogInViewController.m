@@ -184,11 +184,11 @@
         {
             [self.singleUser loadHomeFeedActivity:^(BOOL result)
             {
-                [self.singleUser loadHomeFeedContent:^(BOOL result)
-                {
+//                [self.singleUser loadHomeFeedContent:^(BOOL result)
+//                {
                     [self.singleUser setUserProfile];
                     completionHandler(YES);
-                }];
+//                }];
             }];
         }];
     }];

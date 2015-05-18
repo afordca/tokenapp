@@ -42,7 +42,6 @@
 
 - (IBAction)onButtonPressCancel:(id)sender
 {
-
     [self.singleUser loadHomeFeedActivity:^(BOOL result)
      {
          [self.singleUser loadHomeFeedContent:^(BOOL result)
@@ -74,8 +73,6 @@
         contentCell.labelNumberOfLikes.text = stringLikes;
         contentCell.imageViewContent.image = photo.picture;
         contentCell.labelContentDescription.text = photo.photoDescription;
-
-
 
         //Check if User likes content already
 
@@ -210,12 +207,16 @@
 
     else if ([self.detailPost.mediaType isEqualToString:@"link"])
     {
+        Link *link = self.detailPost.linkPost;
         className = @"Link";
+        contentID = link.urlID;
     }
 
     else //Note
     {
+        Post *post = self.detailPost.messagePost;
         className = @"Note";
+        contentID = post.postID;
     }
 
     PFQuery *queryContent = [PFQuery queryWithClassName:className];

@@ -16,6 +16,7 @@
     self.videoURL = URL;
 
     UIImage *thumbnail = nil;
+
     NSURL *url = URL;
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
     AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];

@@ -32,6 +32,8 @@
 #import <ParseUI/ParseUI.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
+
 
 //transform values for full screen support
 #define CAMERA_TRANSFORM_X 1
@@ -41,7 +43,6 @@
 #define SCREEN_HEIGTH 568
 
 @interface HomeFeedViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CameraOverlayDelegate>
-
 
 @property UIVisualEffectView *visualEffectView;
 
@@ -77,7 +78,7 @@
     [self.navigationController.navigationBar setHidden:YES];
 
     currentUser = [CurrentUser sharedSingleton];
-    [currentUser setUserProfile];
+//    [currentUser setUserProfile];
 
 
     PFUser *user = [PFUser currentUser];
@@ -93,25 +94,25 @@
     [super viewDidAppear:YES];
     [self addObserver];
 
-    if (currentUser.arrayOfHomeFeedContent.count < 10)
-    {
-        self.arrayOfContent = [NSMutableArray new];
-        for (HomeFeedPost * post in currentUser.arrayOfHomeFeedContent)
-        {
-            [self.arrayOfContent addObject:post];
-        }
-    }
-    else
-    {
-        self.noMoreResultsAvail = NO;
-        self.arrayOfContent = [NSMutableArray new];
-        for (int i = 0; i<10; i++)
-        {
-            [self.arrayOfContent addObject:currentUser.arrayOfHomeFeedContent[i]];
-        }
-    }
+//    if (currentUser.arrayOfHomeFeedContent.count < 10)
+//    {
+//        self.arrayOfContent = [NSMutableArray new];
+//        for (HomeFeedPost * post in currentUser.arrayOfHomeFeedContent)
+//        {
+//            [self.arrayOfContent addObject:post];
+//        }
+//    }
+//    else
+//    {
+//        self.noMoreResultsAvail = NO;
+//        self.arrayOfContent = [NSMutableArray new];
+//        for (int i = 0; i<10; i++)
+//        {
+//            [self.arrayOfContent addObject:currentUser.arrayOfHomeFeedContent[i]];
+//        }
+//    }
 
-    [self.tableViewHomeFeed reloadData];
+//    [self.tableViewHomeFeed reloadData];
 }
 
 
@@ -141,12 +142,13 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.arrayOfContent.count;
+//    return self.arrayOfContent.count;
+    return currentUser.arrayOfHomeFeedActivity.count;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    HomeFeedPost *post = [self.arrayOfContent objectAtIndex:section];
+  //  HomeFeedPost *post = [self.arrayOfContent objectAtIndex:section];
 
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
     headerView.backgroundColor = [UIColor whiteColor];
@@ -154,22 +156,40 @@
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(2, 6, 3, 38)];
     lineView.backgroundColor = [UIColor colorwithHexString:@"#72c74a" alpha:.9];
 
-    UIImageView *profilePic = [[UIImageView alloc]initWithFrame:CGRectMake(8, 6, 38, 38)];
-    profilePic.image = post.userProfilePic;
 
-    UILabel *labelUsername = [[UILabel alloc]initWithFrame:CGRectMake(54, 11, 147, 21)];
-    labelUsername.text = post.userName;
+    PFObject *activity = [currentUser.arrayOfHomeFeedActivity objectAtIndex:section];
+    PFUser *user = [activity objectForKey:@"fromUser"];
 
-    labelUsername.tag = section;
+    PFFile *parseProfileImage = [[[currentUser.arrayOfHomeFeedActivity objectAtIndex:section] objectForKey:@"fromUser"]objectForKey:@"profileImage"];
+    NSURL *urlProfile = [NSURL URLWithString:parseProfileImage.url];
+    NSURLRequest *requestURLProfile = [NSURLRequest requestWithURL:urlProfile];
+    [NSURLConnection sendAsynchronousRequest:requestURLProfile queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+     {
+         if (connectionError)
+         {
+             NSLog(@"%@",[connectionError userInfo]);
+         }
+         else
+         {
+             UIImage *imageProfilePic = [UIImage imageWithData:data];
+             UIImageView *profilePic = [[UIImageView alloc]initWithFrame:CGRectMake(8, 6, 38, 38)];
+             profilePic.image = imageProfilePic;
 
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTapped:)];
-    tapGestureRecognizer.numberOfTapsRequired = 1;
-    [labelUsername addGestureRecognizer:tapGestureRecognizer];
-    labelUsername.userInteractionEnabled = YES;
+             UILabel *labelUsername = [[UILabel alloc]initWithFrame:CGRectMake(54, 11, 147, 21)];
+             labelUsername.text = [user objectForKey:@"username"];
 
-    [headerView addSubview:lineView];
-    [headerView addSubview:profilePic];
-    [headerView addSubview:labelUsername];
+             labelUsername.tag = section;
+
+             UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTapped:)];
+             tapGestureRecognizer.numberOfTapsRequired = 1;
+             [labelUsername addGestureRecognizer:tapGestureRecognizer];
+             labelUsername.userInteractionEnabled = YES;
+
+             [headerView addSubview:lineView];
+             [headerView addSubview:profilePic];
+             [headerView addSubview:labelUsername];
+         }
+     }];
 
     return headerView;
 }
@@ -183,41 +203,67 @@
 {
     HomeFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeFeedCell"];
 
+    PFObject *activityFeed = [currentUser.arrayOfHomeFeedActivity objectAtIndex:indexPath.section];
+
+    NSString *mediaType = [activityFeed objectForKey:@"mediaType"];
+//
     cell.labelHomeFeedUsername.text = @"";
-    cell.imageViewHomeFeedContent.alpha = 1;
+    cell.imageViewHomeFeedContent.alpha = 0;
     cell.imageViewVideoIcon.alpha = 0;
     cell.labelLinkURL.alpha = 0;
     cell.imageViewLinkURL.alpha = 0;
     cell.viewLinkBlackBackground.alpha = 0;
     cell.labelNoteHeader.alpha = 0;
-    cell.lableNoteMessage.alpha = 1;
+    cell.lableNoteMessage.alpha = 0;
 
-    if (self.arrayOfContent.count !=0)
+    if (currentUser.arrayOfHomeFeedActivity.count !=0)
     {
-        HomeFeedPost *post = [self.arrayOfContent objectAtIndex:indexPath.section];
-
-        if ([post.mediaType isEqualToString:@"photo"])
+        if ([mediaType isEqualToString:@"photo"])
         {
-            Photo *photo = post.photoPost;
+         cell.imageViewHomeFeedContent.alpha = 1;
+         cell.imageViewVideoIcon.alpha = 0;
+         cell.labelLinkURL.alpha = 0;
+         cell.imageViewLinkURL.alpha = 0;
+         cell.viewLinkBlackBackground.alpha = 0;
+         cell.labelNoteHeader.alpha = 0;
+         cell.lableNoteMessage.alpha = 0;
 
-            cell.labelHomeFeedUsername.text = post.userName;
-            cell.imageViewHomeFeedContent.image = photo.picture;
-            cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
-            cell.imageViewVideoIcon.alpha = 0;
-            cell.labelLinkURL.alpha = 0;
-            cell.imageViewLinkURL.alpha = 0;
-            cell.viewLinkBlackBackground.alpha = 0;
-            cell.labelNoteHeader.alpha = 0;
-            cell.lableNoteMessage.alpha = 0;
+        PFFile *parseFileWithImage = [[activityFeed objectForKey:@"photo"]objectForKey:@"image"];
+        NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+
+        [self downloadImageWithURL:url
+                   completionBlock:^(BOOL succeeded, UIImage *image) {
+                       if (succeeded) {
+                           // change the image in the cell
+                           cell.imageViewHomeFeedContent.image = image;
+                           
+                       }
+                   }];
+
             return cell;
-        }
-        if ([post.mediaType isEqualToString:@"video"])
-        {
-            Video *video = post.videoPost;
 
-            cell.labelHomeFeedUsername.text = post.userName;
-            cell.imageViewHomeFeedContent.image = video.videoThumbnail;
-            cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
+        }
+    else  if ([mediaType isEqualToString:@"video"])
+        {
+            PFFile *parseFileWithVideo = [[activityFeed objectForKey:@"video"]objectForKey:@"video"];
+            NSURL *url = [NSURL URLWithString:parseFileWithVideo.url];
+
+            UIImage *thumbnail = nil;
+
+            AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
+            AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+            generator.appliesPreferredTrackTransform = YES;
+            NSError *error = nil;
+            CMTime time = CMTimeMake(0, 1); // 3/1 = 3 second(s)
+            CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:nil error:&error];
+            if (error != nil)
+                NSLog(@"%@: %@", self, error);
+            thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
+
+            cell.imageViewHomeFeedContent.image = thumbnail;
+            CGImageRelease(imgRef);
+
+            cell.imageViewHomeFeedContent.alpha = 1;
             cell.imageViewVideoIcon.alpha = 1;
             cell.labelLinkURL.alpha = 0;
             cell.imageViewLinkURL.alpha = 0;
@@ -226,14 +272,9 @@
             cell.lableNoteMessage.alpha = 0;
 
             return cell;
-
         }
-        if ([post.mediaType isEqualToString:@"link"])
+   else  if ([mediaType isEqualToString:@"link"])
         {
-            Link *link = post.linkPost;
-
-            cell.labelHomeFeedUsername.text = post.userName;
-            cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
             cell.imageViewHomeFeedContent.alpha = 0;
             cell.imageViewVideoIcon.alpha = 0;
             cell.labelNoteHeader.alpha = 0;
@@ -241,16 +282,15 @@
             cell.labelLinkURL.alpha = 1;
             cell.imageViewLinkURL.alpha = 1;
             cell.viewLinkBlackBackground.alpha = 1;
-            cell.labelLinkURL.text = [link.urlLink absoluteString];
-            
-            return cell;
-        }
-        if ([post.mediaType isEqualToString:@"post"])
-        {
-            Post *note = post.messagePost;
 
-            cell.labelHomeFeedUsername.text = post.userName;
-            cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
+            NSString *linkURL = [[activityFeed objectForKey:@"link"]objectForKey:@"url"];
+            cell.labelLinkURL.text = linkURL;
+
+            return cell;
+
+        }
+        else if ([mediaType isEqualToString:@"post"])
+        {
             cell.imageViewHomeFeedContent.alpha = 0;
             cell.imageViewVideoIcon.alpha = 0;
             cell.labelLinkURL.alpha = 0;
@@ -258,41 +298,45 @@
             cell.viewLinkBlackBackground.alpha = 1;
             cell.labelNoteHeader.alpha = 1;
             cell.lableNoteMessage.alpha = 1;
-            cell.lableNoteMessage.text = note.postMessage;
-            cell.labelNoteHeader.text = note.postHeader;
+
+            NSString *noteMessage = [[activityFeed objectForKey:@"note"]objectForKey:@"description"];
+            NSString *noteHeader = [[activityFeed objectForKey:@"note"]objectForKey:@"note"];
+            cell.lableNoteMessage.text = noteMessage;
+            cell.labelNoteHeader.text = noteHeader;
 
             return cell;
-        }
-        else
-        {
-            if (!self.noMoreResultsAvail)
-            {
-                spinner.hidden =NO;
-                cell.textLabel.text=nil;
-                spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-                spinner.frame = CGRectMake(150, 10, 24, 50);
-                [cell addSubview:spinner];
-                if ([self.arrayOfContent count] >= 10)
-                {
-                    [spinner startAnimating];
-                }
-            }
-            else
-            {
-                [spinner stopAnimating];
-                spinner.hidden=YES;
 
-                cell.textLabel.text=nil;
-
-                UILabel* loadingLabel = [[UILabel alloc]init];
-                loadingLabel.font=[UIFont boldSystemFontOfSize:14.0f];
-                loadingLabel.textColor = [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0];
-                loadingLabel.numberOfLines = 0;
-                loadingLabel.text=@"No More data Available";
-                loadingLabel.frame=CGRectMake(85,20, 302,25);
-                [cell addSubview:loadingLabel];
-            }
         }
+//        else
+//        {
+//            if (!self.noMoreResultsAvail)
+//            {
+//                spinner.hidden =NO;
+//                cell.textLabel.text=nil;
+//                spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//                spinner.frame = CGRectMake(150, 10, 24, 50);
+//                [cell addSubview:spinner];
+//                if ([self.arrayOfContent count] >= 10)
+//                {
+//                    [spinner startAnimating];
+//                }
+//            }
+//            else
+//            {
+//                [spinner stopAnimating];
+//                spinner.hidden=YES;
+//
+//                cell.textLabel.text=nil;
+//
+//                UILabel* loadingLabel = [[UILabel alloc]init];
+//                loadingLabel.font=[UIFont boldSystemFontOfSize:14.0f];
+//                loadingLabel.textColor = [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0];
+//                loadingLabel.numberOfLines = 0;
+//                loadingLabel.text=@"No More data Available";
+//                loadingLabel.frame=CGRectMake(85,20, 302,25);
+//                [cell addSubview:loadingLabel];
+//            }
+ //       }
     }
     return cell;
 }
@@ -308,6 +352,22 @@
 
     [self.navigationController pushViewController: cdvc animated:YES];
 
+}
+
+- (void)downloadImageWithURL:(NSURL *)url completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if ( !error )
+                               {
+                                   UIImage *image = [[UIImage alloc] initWithData:data];
+                                   completionBlock(YES,image);
+                               } else{
+                                   completionBlock(NO,nil);
+                               }
+                           }];
 }
 
 #pragma UIScroll View Method::

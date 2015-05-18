@@ -786,9 +786,9 @@
     //Refresh HeaderView of CollectionView
     [self.collectionViewProfile reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,1)]];
 
-    [currentUser loadArrayOfPhotos:^(BOOL result) {
-
-    }];
+//    [currentUser loadArrayOfPhotos:^(BOOL result) {
+//
+//    }];
     [self.mannyFresh endRefreshing];
 }
 

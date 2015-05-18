@@ -15,13 +15,13 @@
     PFFile *profileImageFile = [userNew objectForKey:@"profileImage"];
     PFImageView *imageView = [PFImageView new];
     imageView.file = profileImageFile;
-    [imageView loadInBackground:^(UIImage *image, NSError *error) {
+//    [imageView loadInBackground:^(UIImage *image, NSError *error) {
 
-    self.profileImage = image;
+//    self.profileImage = image;
     self.userName = [userNew objectForKey:@"username"];
     self.objectID = userNew.objectId;
 
-    }];
+//    }];
 
      return self;
 }

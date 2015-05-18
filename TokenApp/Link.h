@@ -11,11 +11,13 @@
 @interface Link : NSObject
 
 @property (nonatomic,strong) NSURL *urlLink;
+@property (nonatomic,strong) NSString *urlDescription;
+@property (nonatomic,strong) NSString *urlID;
 @property (nonatomic,strong) NSArray *arrayOfHashtags;
 @property (nonatomic,strong) NSArray *arrayOfComments;
 
-@property  NSInteger *numberOfLikes;
+@property  NSInteger numberOfLikes;
 
--(id)initWithUrl:(NSString*)URL;
+-(id)initWithUrl:(NSString*)URL urlID:(NSString*)urlID description:(NSString*)description likes:(NSInteger)numberOfLikes;
 
 @end

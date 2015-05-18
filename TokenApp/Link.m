@@ -10,11 +10,14 @@
 
 @implementation Link
 
--(id)initWithUrl:(NSString*)URL
+-(id)initWithUrl:(NSString*)URL urlID:(NSString *)urlID description:(NSString *)description likes:(NSInteger)numberOfLikes
 {
     NSURL *url = [NSURL URLWithString:URL];
 
     self.urlLink = url;
+    self.urlID = urlID;
+    self.urlDescription = description;
+    self.numberOfLikes = numberOfLikes;
 
     return self;
 }

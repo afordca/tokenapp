@@ -62,8 +62,8 @@
                        UIImage *homeFeedContent = [UIImage imageWithData:data1];
                         UIImage *homeFeedProfilePic = [UIImage imageWithData:data];
                           NSString *name= [homeFeedActivity objectForKey:@"username"];
-                          NSString *userID = [[homeFeedActivity objectForKey:@"photo"]objectId];
-                          NSString *photoID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                          NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                          NSString *photoID = [[homeFeedActivity objectForKey:@"photo"]objectId];
                           NSString *description = [[homeFeedActivity objectForKey:@"photo"]objectForKey:@"description"];
                           PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
                           NSNumber *likes = [[homeFeedActivity objectForKey:@"photo"]objectForKey:@"numberOfLikes"];
@@ -149,11 +149,15 @@
                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
                      UIImage *homeFeedProfilePic = [UIImage imageWithData:data];
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
+                     NSString *linkID = [[homeFeedActivity objectForKey:@"link"]objectId];
+                     NSString *linkDescription = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"description"];
+                     NSNumber *likes = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"numberOfLikes"];
+                     NSInteger numberOfLikes = likes.integerValue;
 
 
                      NSString *linkURL = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"url"];
 
-                     Link *link = [[Link alloc]initWithUrl:linkURL];
+                     Link *link = [[Link alloc]initWithUrl:linkURL urlID:linkID description:linkDescription likes:numberOfLikes];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
 
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:homeFeedProfilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID user:userContent];
@@ -167,7 +171,6 @@
                  }
              }];
         }
-
         //POST
         if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"note"])
         {
@@ -189,8 +192,12 @@
                      NSString *postMessage = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"note"];
                      NSString *postHeader = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"description"];
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
+                     NSString *postID = [[homeFeedActivity objectForKey:@"post"]objectId];
+                     NSString *postDescription = [[homeFeedActivity objectForKey:@"post"]objectForKey:@"description"];
+                     NSNumber *likes = [[homeFeedActivity objectForKey:@"post"]objectForKey:@"numberOfLikes"];
+                     NSInteger numberOfLikes = likes.integerValue;
 
-                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
+                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader postID:postID postDescription:postDescription likes:numberOfLikes];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
                      
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:homeFeedProfilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID user:userContent];

@@ -12,11 +12,13 @@
 
 @property (nonatomic,strong) NSString *postMessage;
 @property (nonatomic,strong) NSString *postHeader;
+@property (nonatomic,strong) NSString *postDescription;
+@property (nonatomic,strong) NSString *postID;
 @property (nonatomic,strong) NSArray *arrayOfHashtags;
 @property (nonatomic,strong) NSArray *arrayOfComments;
 
-@property  NSInteger *numberOfLikes;
+@property  NSInteger numberOfLikes;
 
--(id)initWithDescription:(NSString*)note header:(NSString*)header;
+-(id)initWithDescription:(NSString*)note header:(NSString*)header postID:(NSString*)postID postDescription:(NSString*)description likes:(NSInteger)numberOfLikes;
 
 @end
