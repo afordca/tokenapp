@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 #import "HomeFeedPost.h"
+
 
 @interface ContentDetailViewController : UIViewController
 
-@property HomeFeedPost *detailPost;
+@property PFObject *detailPost;
 
 @end

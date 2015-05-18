@@ -122,8 +122,6 @@
     NSLog(@"HomeFeed View Did Disappear");
     [[NSNotificationCenter defaultCenter ]removeObserver:self];
 
-    [self.arrayOfContent removeAllObjects];
-
     [self.tableViewHomeFeed reloadData];
 }
 
@@ -142,20 +140,16 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//    return self.arrayOfContent.count;
     return currentUser.arrayOfHomeFeedActivity.count;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-  //  HomeFeedPost *post = [self.arrayOfContent objectAtIndex:section];
-
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
     headerView.backgroundColor = [UIColor whiteColor];
 
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(2, 6, 3, 38)];
     lineView.backgroundColor = [UIColor colorwithHexString:@"#72c74a" alpha:.9];
-
 
     PFObject *activity = [currentUser.arrayOfHomeFeedActivity objectAtIndex:section];
     PFUser *user = [activity objectForKey:@"fromUser"];
@@ -204,29 +198,12 @@
     HomeFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeFeedCell"];
 
     PFObject *activityFeed = [currentUser.arrayOfHomeFeedActivity objectAtIndex:indexPath.section];
-
     NSString *mediaType = [activityFeed objectForKey:@"mediaType"];
-//
-    cell.labelHomeFeedUsername.text = @"";
-    cell.imageViewHomeFeedContent.alpha = 0;
-    cell.imageViewVideoIcon.alpha = 0;
-    cell.labelLinkURL.alpha = 0;
-    cell.imageViewLinkURL.alpha = 0;
-    cell.viewLinkBlackBackground.alpha = 0;
-    cell.labelNoteHeader.alpha = 0;
-    cell.lableNoteMessage.alpha = 0;
 
     if (currentUser.arrayOfHomeFeedActivity.count !=0)
     {
         if ([mediaType isEqualToString:@"photo"])
         {
-         cell.imageViewHomeFeedContent.alpha = 1;
-         cell.imageViewVideoIcon.alpha = 0;
-         cell.labelLinkURL.alpha = 0;
-         cell.imageViewLinkURL.alpha = 0;
-         cell.viewLinkBlackBackground.alpha = 0;
-         cell.labelNoteHeader.alpha = 0;
-         cell.lableNoteMessage.alpha = 0;
 
         PFFile *parseFileWithImage = [[activityFeed objectForKey:@"photo"]objectForKey:@"image"];
         NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
@@ -235,12 +212,13 @@
                    completionBlock:^(BOOL succeeded, UIImage *image) {
                        if (succeeded) {
                            // change the image in the cell
-                           cell.imageViewHomeFeedContent.image = image;
-                           
+                           UIImageView *imageViewContent = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 261)];
+                           imageViewContent.image = image;
+                           [cell.contentView addSubview:imageViewContent];
                        }
                    }];
 
-            return cell;
+        return cell;
 
         }
     else  if ([mediaType isEqualToString:@"video"])
@@ -260,95 +238,77 @@
                 NSLog(@"%@: %@", self, error);
             thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
 
-            cell.imageViewHomeFeedContent.image = thumbnail;
             CGImageRelease(imgRef);
 
-            cell.imageViewHomeFeedContent.alpha = 1;
-            cell.imageViewVideoIcon.alpha = 1;
-            cell.labelLinkURL.alpha = 0;
-            cell.imageViewLinkURL.alpha = 0;
-            cell.viewLinkBlackBackground.alpha = 0;
-            cell.labelNoteHeader.alpha = 0;
-            cell.lableNoteMessage.alpha = 0;
+            UIImageView *imageViewContent = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 261)];
+            imageViewContent.image = thumbnail;
+
+            UIImageView *imageViewVideoIcon = [[UIImageView alloc]initWithFrame:CGRectMake(263, 11, 49, 49)];
+            imageViewVideoIcon.contentMode = UIViewContentModeScaleAspectFill;
+            UIImage *videoIcon = [UIImage imageNamed:@"Video"];
+            imageViewVideoIcon.image = videoIcon;
+
+            [cell.contentView addSubview:imageViewContent];
+            [cell.contentView addSubview:imageViewVideoIcon];
 
             return cell;
         }
    else  if ([mediaType isEqualToString:@"link"])
         {
-            cell.imageViewHomeFeedContent.alpha = 0;
-            cell.imageViewVideoIcon.alpha = 0;
-            cell.labelNoteHeader.alpha = 0;
-            cell.lableNoteMessage.alpha = 0;
-            cell.labelLinkURL.alpha = 1;
-            cell.imageViewLinkURL.alpha = 1;
-            cell.viewLinkBlackBackground.alpha = 1;
+            UIView *viewLinkBlackBackground  = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 261)];
+            viewLinkBlackBackground.backgroundColor = [UIColor blackColor];
+
+            UIImageView *imageViewLinkIcon = [[UIImageView alloc]initWithFrame:CGRectMake(114, 70, 93, 93)];
+            imageViewLinkIcon.contentMode = UIViewContentModeScaleAspectFill;
+            UIImage *imageLinkIcon = [UIImage imageNamed:@"Link"];
+            imageViewLinkIcon.image = imageLinkIcon;
 
             NSString *linkURL = [[activityFeed objectForKey:@"link"]objectForKey:@"url"];
-            cell.labelLinkURL.text = linkURL;
+            UITextView *textViewLink = [[UITextView alloc]initWithFrame:CGRectMake(0, 168, 320, 21)];
+            textViewLink.text = linkURL;
+
+            [viewLinkBlackBackground addSubview:imageViewLinkIcon];
+            [viewLinkBlackBackground addSubview:textViewLink];
+            [cell.contentView addSubview:viewLinkBlackBackground];
 
             return cell;
 
         }
         else if ([mediaType isEqualToString:@"post"])
         {
-            cell.imageViewHomeFeedContent.alpha = 0;
-            cell.imageViewVideoIcon.alpha = 0;
-            cell.labelLinkURL.alpha = 0;
-            cell.imageViewLinkURL.alpha = 0;
-            cell.viewLinkBlackBackground.alpha = 1;
-            cell.labelNoteHeader.alpha = 1;
-            cell.lableNoteMessage.alpha = 1;
+            UIView *viewNoteBlackBackground  = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 261)];
+            viewNoteBlackBackground.backgroundColor = [UIColor blackColor];
 
             NSString *noteMessage = [[activityFeed objectForKey:@"note"]objectForKey:@"description"];
             NSString *noteHeader = [[activityFeed objectForKey:@"note"]objectForKey:@"note"];
-            cell.lableNoteMessage.text = noteMessage;
-            cell.labelNoteHeader.text = noteHeader;
+
+            UITextView *textViewHeader = [[UITextView alloc]initWithFrame:CGRectMake(8, 8, 157, 21)];
+            textViewHeader.text = noteHeader;
+
+            UITextView *textViewMessage = [[UITextView alloc]initWithFrame:CGRectMake(8, 0, 304, 253)];
+            textViewMessage.text = noteMessage;
+
+            [viewNoteBlackBackground addSubview:textViewHeader];
+            [viewNoteBlackBackground addSubview:textViewMessage];
+
+            [cell.contentView addSubview:viewNoteBlackBackground];
 
             return cell;
-
         }
-//        else
-//        {
-//            if (!self.noMoreResultsAvail)
-//            {
-//                spinner.hidden =NO;
-//                cell.textLabel.text=nil;
-//                spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-//                spinner.frame = CGRectMake(150, 10, 24, 50);
-//                [cell addSubview:spinner];
-//                if ([self.arrayOfContent count] >= 10)
-//                {
-//                    [spinner startAnimating];
-//                }
-//            }
-//            else
-//            {
-//                [spinner stopAnimating];
-//                spinner.hidden=YES;
-//
-//                cell.textLabel.text=nil;
-//
-//                UILabel* loadingLabel = [[UILabel alloc]init];
-//                loadingLabel.font=[UIFont boldSystemFontOfSize:14.0f];
-//                loadingLabel.textColor = [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0];
-//                loadingLabel.numberOfLines = 0;
-//                loadingLabel.text=@"No More data Available";
-//                loadingLabel.frame=CGRectMake(85,20, 302,25);
-//                [cell addSubview:loadingLabel];
-//            }
- //       }
+
     }
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeFeedPost *post = [self.arrayOfContent objectAtIndex:indexPath.section];
+    PFObject *contentClicked = [currentUser.arrayOfHomeFeedActivity objectAtIndex:indexPath.section];
 
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ContentDetailViewController *cdvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"ContentDetail"];
 
-    cdvc.detailPost = post;
+    cdvc.detailPost = contentClicked;
+    
 
     [self.navigationController pushViewController: cdvc animated:YES];
 
@@ -425,7 +385,6 @@
     }
 
 }
-
 
 #pragma mark - UITapGesture Methods
 

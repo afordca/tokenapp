@@ -31,7 +31,10 @@
     [super viewDidLoad];
     self.currentUser = [PFUser currentUser];
     self.singleUser = [CurrentUser sharedSingleton];
-    self.labelUsername.text = self.detailPost.userName;
+
+    //Username
+    NSString *userName = [self.detailPost objectForKey:@"username"];
+    self.labelUsername.text = userName;
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -44,10 +47,7 @@
 {
     [self.singleUser loadHomeFeedActivity:^(BOOL result)
      {
-         [self.singleUser loadHomeFeedContent:^(BOOL result)
-          {
-              [self.navigationController popToRootViewControllerAnimated:YES];
-          }];
+        [self.navigationController popToRootViewControllerAnimated:YES];
      }];
 }
 
@@ -62,108 +62,111 @@
 {
     ContentDetailTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:@"ContentCell"];
 
-    if ([self.detailPost.mediaType isEqualToString:@"photo"])
-    {
-        Photo *photo = self.detailPost.photoPost;
-
-        self.likes = self.likes + photo.numberOfLikes;
-        NSString *stringLikes = [NSString stringWithFormat:@"%li",self.likes];
-        NSString *contentID = photo.photoID;
-
-        contentCell.labelNumberOfLikes.text = stringLikes;
-        contentCell.imageViewContent.image = photo.picture;
-        contentCell.labelContentDescription.text = photo.photoDescription;
-
-        //Check if User likes content already
-
-        UITapGestureRecognizer *tapGestureRecognizerLike = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeTapped:)];
-
-        [self checkUserLike:@"Photo" contentID:contentID completion:^(BOOL result)
-        {
-            if (self.liked)
-            {
-                contentCell.imageViewLike.image = [UIImage imageNamed:@"LikeFill"];
-                [contentCell.imageViewLike removeGestureRecognizer:tapGestureRecognizerLike];
-                contentCell.imageViewLike.userInteractionEnabled = NO;
-
-            }
-            else
-            {
-
-                tapGestureRecognizerLike.numberOfTapsRequired = 1;
-                [contentCell.imageViewLike addGestureRecognizer:tapGestureRecognizerLike];
-                contentCell.imageViewLike.userInteractionEnabled = YES;
-            }
-
-        }];
-
-        return contentCell;
-    }
-    if ([self.detailPost.mediaType isEqualToString:@"video"])
-    {
-        Video *video = self.detailPost.videoPost;
-
-        self.videoController = [[MPMoviePlayerController alloc] init];
-        [self.videoController setContentURL:video.videoURL];
-        [self.videoController setScalingMode:MPMovieScalingModeAspectFill];
-        [self.videoController.view setFrame:CGRectMake (0, 0, 320, 298)];
-        [contentCell addSubview:self.videoController.view];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(videoPlayBackDidFinish:)
-                                                     name:MPMoviePlayerPlaybackDidFinishNotification
-                                                   object:self.videoController];
-        [self.videoController play];
+    NSString *mediaType = [self.detailPost objectForKey:@"mediaType"];
 
 
-        self.likes = self.likes + video.numberOfLikes;
-        NSString *stringLikes = [NSString stringWithFormat:@"%li",self.likes];
-        NSString *contentID = video.videoID;
-
-        contentCell.labelNumberOfLikes.text = stringLikes;
-        contentCell.labelContentDescription.text = video.videoDescription;
-
-        //Check if User likes content already
-
-        UITapGestureRecognizer *tapGestureRecognizerLike = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeTapped:)];
-
-        [self checkUserLike:@"Video" contentID:contentID completion:^(BOOL result)
-        {
-             if (self.liked)
-             {
-                 contentCell.imageViewLike.image = [UIImage imageNamed:@"LikeFill"];
-                 [contentCell.imageViewLike removeGestureRecognizer:tapGestureRecognizerLike];
-                 contentCell.imageViewLike.userInteractionEnabled = NO;
-
-             }
-             else
-             {
-                 tapGestureRecognizerLike.numberOfTapsRequired = 1;
-                 [contentCell.imageViewLike addGestureRecognizer:tapGestureRecognizerLike];
-                 contentCell.imageViewLike.userInteractionEnabled = YES;
-             }
-             
-         }];
-        
-        return contentCell;
-
-
-    }
-    if ([self.detailPost.mediaType isEqualToString:@"link"])
-    {
-        Link *link = self.detailPost.linkPost;
-
-
-        return contentCell;
-    }
-
-    if ([self.detailPost.mediaType isEqualToString:@"post"])
-    {
-        Post *note = self.detailPost.messagePost;
-
-
-        return contentCell;
-    }
+//    if ([mediaType isEqualToString:@"photo"])
+//    {
+//    //    Photo *photo = self.detailPost.photoPost;
+//
+//        self.likes = self.likes + photo.numberOfLikes;
+//        NSString *stringLikes = [NSString stringWithFormat:@"%li",self.likes];
+//        NSString *contentID = photo.photoID;
+//
+//        contentCell.labelNumberOfLikes.text = stringLikes;
+//        contentCell.imageViewContent.image = photo.picture;
+//        contentCell.labelContentDescription.text = photo.photoDescription;
+//
+//        //Check if User likes content already
+//
+//        UITapGestureRecognizer *tapGestureRecognizerLike = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeTapped:)];
+//
+//        [self checkUserLike:@"Photo" contentID:contentID completion:^(BOOL result)
+//        {
+//            if (self.liked)
+//            {
+//                contentCell.imageViewLike.image = [UIImage imageNamed:@"LikeFill"];
+//                [contentCell.imageViewLike removeGestureRecognizer:tapGestureRecognizerLike];
+//                contentCell.imageViewLike.userInteractionEnabled = NO;
+//
+//            }
+//            else
+//            {
+//
+//                tapGestureRecognizerLike.numberOfTapsRequired = 1;
+//                [contentCell.imageViewLike addGestureRecognizer:tapGestureRecognizerLike];
+//                contentCell.imageViewLike.userInteractionEnabled = YES;
+//            }
+//
+//        }];
+//
+//        return contentCell;
+//    }
+//    if ([self.detailPost.mediaType isEqualToString:@"video"])
+//    {
+//        Video *video = self.detailPost.videoPost;
+//
+//        self.videoController = [[MPMoviePlayerController alloc] init];
+//        [self.videoController setContentURL:video.videoURL];
+//        [self.videoController setScalingMode:MPMovieScalingModeAspectFill];
+//        [self.videoController.view setFrame:CGRectMake (0, 0, 320, 298)];
+//        [contentCell addSubview:self.videoController.view];
+//
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(videoPlayBackDidFinish:)
+//                                                     name:MPMoviePlayerPlaybackDidFinishNotification
+//                                                   object:self.videoController];
+//        [self.videoController play];
+//
+//
+//        self.likes = self.likes + video.numberOfLikes;
+//        NSString *stringLikes = [NSString stringWithFormat:@"%li",self.likes];
+//        NSString *contentID = video.videoID;
+//
+//        contentCell.labelNumberOfLikes.text = stringLikes;
+//        contentCell.labelContentDescription.text = video.videoDescription;
+//
+//        //Check if User likes content already
+//
+//        UITapGestureRecognizer *tapGestureRecognizerLike = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeTapped:)];
+//
+//        [self checkUserLike:@"Video" contentID:contentID completion:^(BOOL result)
+//        {
+//             if (self.liked)
+//             {
+//                 contentCell.imageViewLike.image = [UIImage imageNamed:@"LikeFill"];
+//                 [contentCell.imageViewLike removeGestureRecognizer:tapGestureRecognizerLike];
+//                 contentCell.imageViewLike.userInteractionEnabled = NO;
+//
+//             }
+//             else
+//             {
+//                 tapGestureRecognizerLike.numberOfTapsRequired = 1;
+//                 [contentCell.imageViewLike addGestureRecognizer:tapGestureRecognizerLike];
+//                 contentCell.imageViewLike.userInteractionEnabled = YES;
+//             }
+//             
+//         }];
+//        
+//        return contentCell;
+//
+//
+//    }
+//    if ([self.detailPost.mediaType isEqualToString:@"link"])
+//    {
+//        Link *link = self.detailPost.linkPost;
+//
+//
+//        return contentCell;
+//    }
+//
+//    if ([self.detailPost.mediaType isEqualToString:@"post"])
+//    {
+//        Post *note = self.detailPost.messagePost;
+//
+//
+//        return contentCell;
+//    }
 
 
     return nil;
@@ -181,83 +184,83 @@
     
 }
 
-#pragma mark - UITapGesture Methods
-
--(void)likeTapped:(UITapGestureRecognizer*)sender
-{
-    NSLog(@"Like Tapped");
-
-    NSString *className;
-    NSString *contentID;
-    NSString *contentType = self.detailPost.mediaType;
-
-    if ([self.detailPost.mediaType isEqualToString:@"photo"])
-    {
-        Photo *photo = self.detailPost.photoPost;
-        className = @"Photo";
-        contentID = photo.photoID;
-    }
-
-    else if ([self.detailPost.mediaType isEqualToString:@"video"])
-    {
-        Video *video = self.detailPost.videoPost;
-       className = @"Video";
-        contentID = video.videoID;
-    }
-
-    else if ([self.detailPost.mediaType isEqualToString:@"link"])
-    {
-        Link *link = self.detailPost.linkPost;
-        className = @"Link";
-        contentID = link.urlID;
-    }
-
-    else //Note
-    {
-        Post *post = self.detailPost.messagePost;
-        className = @"Note";
-        contentID = post.postID;
-    }
-
-    PFQuery *queryContent = [PFQuery queryWithClassName:className];
-    [queryContent whereKey:@"objectId" equalTo:contentID];
-
-    PFObject *updatedContent = [queryContent getFirstObject];
-    [updatedContent incrementKey:@"numberOfLikes" byAmount:[NSNumber numberWithInt:1]];
-
-    PFRelation *relation = [updatedContent relationForKey:@"Likers"];
-    [relation addObject:self.currentUser];
-
-    [updatedContent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-     {
-         NSLog( @"Content Updated");
-
-         PFObject *activity = [PFObject objectWithClassName:@"Activity"];
-
-
-         [activity setObject:@"like" forKey:@"type"];
-         [activity setObject:contentType forKey:@"mediaType"];
-         [activity setObject:self.currentUser forKey:@"fromUser"];
-         [activity setObject:updatedContent forKey:contentType];
-         [activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
-         [activity setValue:self.currentUser.username forKey:@"username"];
-
-         [activity saveInBackgroundWithBlock:^(BOOL success, NSError* error)
-          {
-              if (error) {
-                  NSLog(@"%@",[error userInfo]);
-              }
-              else
-              {
-                  NSLog(@"Like Activity Saved");
-                  self.likes = self.likes + 1;
-                  [self.tableViewContentDetail reloadData];
-
-              }
-          }];
-         
-     }];
-}
+//#pragma mark - UITapGesture Methods
+//
+//-(void)likeTapped:(UITapGestureRecognizer*)sender
+//{
+//    NSLog(@"Like Tapped");
+//
+//    NSString *className;
+//    NSString *contentID;
+//    NSString *contentType = self.detailPost.mediaType;
+//
+//    if ([self.detailPost.mediaType isEqualToString:@"photo"])
+//    {
+//        Photo *photo = self.detailPost.photoPost;
+//        className = @"Photo";
+//        contentID = photo.photoID;
+//    }
+//
+//    else if ([self.detailPost.mediaType isEqualToString:@"video"])
+//    {
+//        Video *video = self.detailPost.videoPost;
+//       className = @"Video";
+//        contentID = video.videoID;
+//    }
+//
+//    else if ([self.detailPost.mediaType isEqualToString:@"link"])
+//    {
+//        Link *link = self.detailPost.linkPost;
+//        className = @"Link";
+//        contentID = link.urlID;
+//    }
+//
+//    else //Note
+//    {
+//        Post *post = self.detailPost.messagePost;
+//        className = @"Note";
+//        contentID = post.postID;
+//    }
+//
+//    PFQuery *queryContent = [PFQuery queryWithClassName:className];
+//    [queryContent whereKey:@"objectId" equalTo:contentID];
+//
+//    PFObject *updatedContent = [queryContent getFirstObject];
+//    [updatedContent incrementKey:@"numberOfLikes" byAmount:[NSNumber numberWithInt:1]];
+//
+//    PFRelation *relation = [updatedContent relationForKey:@"Likers"];
+//    [relation addObject:self.currentUser];
+//
+//    [updatedContent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+//     {
+//         NSLog( @"Content Updated");
+//
+//         PFObject *activity = [PFObject objectWithClassName:@"Activity"];
+//
+//
+//         [activity setObject:@"like" forKey:@"type"];
+//         [activity setObject:contentType forKey:@"mediaType"];
+//         [activity setObject:self.currentUser forKey:@"fromUser"];
+//         [activity setObject:updatedContent forKey:contentType];
+//         [activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
+//         [activity setValue:self.currentUser.username forKey:@"username"];
+//
+//         [activity saveInBackgroundWithBlock:^(BOOL success, NSError* error)
+//          {
+//              if (error) {
+//                  NSLog(@"%@",[error userInfo]);
+//              }
+//              else
+//              {
+//                  NSLog(@"Like Activity Saved");
+//                  self.likes = self.likes + 1;
+//                  [self.tableViewContentDetail reloadData];
+//
+//              }
+//          }];
+//         
+//     }];
+//}
 
 #pragma mark - Helper Methods
 
