@@ -313,16 +313,18 @@
 
 -(void)loadHomeFeedContent:(void (^)(BOOL))completionHandler
 {
-    self.arrayOfHomeFeedContent = [NSMutableArray new];
-
     if (!self.arrayOfHomeFeedActivity.count)
     {
         completionHandler(YES);
     }
 
+    if (!self.arrayOfHomeFeedContent.count)
+    {
+        self.arrayOfHomeFeedContent = [NSMutableArray new];
+    }
+
     for (PFObject *homeFeedActivity in self.arrayOfHomeFeedActivity)
     {
-
         // PHOTO
         if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"photo"])
         {
@@ -493,7 +495,7 @@
 
 }
 
--(void)loadHomeFeedActivity:(void (^)(BOOL))completionHandler
+-(void)loadHomeFeedActivity:(NSInteger)skip completion:(void (^)(BOOL))completionHandler
 {
     self.arrayOfHomeFeedActivity = [NSMutableArray new];
     NSMutableArray *arrayOfUsernameFollowing = [NSMutableArray new];
@@ -508,7 +510,7 @@
     [queryForActivity whereKey:@"type" equalTo:@"post"];
     [queryForActivity whereKey:@"username" containedIn:arrayOfUsernameFollowing];
     [queryForActivity setLimit:10];
-    [queryForActivity setSkip:0];
+    [queryForActivity setSkip:skip];
     [queryForActivity orderByDescending:@"createdAt"];
     [queryForActivity includeKey:@"fromUser"];
     [queryForActivity includeKey: @"toUser"];
@@ -669,8 +671,7 @@
 -(NSNumber*)getNumberOfPhotoTokens
 {
     numberOfPhotoTokens = [NSNumber numberWithInt:0];
-
-
+    
     PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
     [queryForActivity whereKey:@"type" equalTo:@"viewed"];
     [queryForActivity whereKey:@"mediaType" equalTo:@"photo"];

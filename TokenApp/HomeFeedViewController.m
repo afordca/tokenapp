@@ -60,6 +60,7 @@
 
 
 
+
 @property (strong, nonatomic) IBOutlet UITableView *tableViewHomeFeed;
 
 @property BOOL isVideo;
@@ -349,6 +350,20 @@
     if (self.arrayOfContent.count == currentUser.arrayOfHomeFeedContent.count)
     {
         NSLog(@"End of Feed");
+
+        NSInteger skip = self.arrayOfContent.count + 10;
+
+        [currentUser loadHomeFeedActivity:skip completion:^(BOOL result)
+         {
+             [currentUser loadHomeFeedContent:^(BOOL result)
+              {
+                  for (int i = self.arrayOfContent.count; i<currentUser.arrayOfHomeFeedContent.count; i++)
+                  {
+                      [self.arrayOfContent addObject:currentUser.arrayOfHomeFeedContent[i]];
+                  }
+              }];
+         }];
+
     }
     else
     {

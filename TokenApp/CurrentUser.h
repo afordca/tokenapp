@@ -99,7 +99,7 @@
 -(void)loadArrayOfLinks:(void (^)(BOOL result))completionHandler;
 -(void)loadArrayOfPosts:(void (^)(BOOL result))completionHandler;
 
--(void)loadHomeFeedActivity:(void (^)(BOOL result))completionHandler;
+-(void)loadHomeFeedActivity:(NSInteger)skip completion:(void (^)(BOOL result))completionHandler;
 -(void)loadHomeFeedContent:(void (^)(BOOL result))completionHandler;
 
 

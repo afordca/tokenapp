@@ -182,7 +182,7 @@
     {
         [self.singleUser loadArrayOfFollowing:NO row:0 completion:^(BOOL result)
         {
-            [self.singleUser loadHomeFeedActivity:^(BOOL result)
+            [self.singleUser loadHomeFeedActivity:0 completion:^(BOOL result)
             {
                 [self.singleUser loadHomeFeedContent:^(BOOL result)
                 {

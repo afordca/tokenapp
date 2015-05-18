@@ -43,13 +43,13 @@
 - (IBAction)onButtonPressCancel:(id)sender
 {
 
-    [self.singleUser loadHomeFeedActivity:^(BOOL result)
-     {
-         [self.singleUser loadHomeFeedContent:^(BOOL result)
-          {
+//    [self.singleUser loadHomeFeedActivity:0 completion:^(BOOL result)
+//    {
+//         [self.singleUser loadHomeFeedContent:^(BOOL result)
+//          {
               [self.navigationController popToRootViewControllerAnimated:YES];
-          }];
-     }];
+//          }];
+//     }];
 }
 
 #pragma mark - UITableView Delegate Methods
