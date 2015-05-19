@@ -19,6 +19,7 @@
 }
 
 @property UIImage *imagePhoto;
+@property UIImage *imageLink;
 @property NSURL *urlVideo;
 @property BOOL isVideo;
 @property BOOL isPost;
@@ -26,6 +27,7 @@
 
 @property NSString *stringPost;
 @property NSString *stringLink;
+@property NSString *stringLinkTitle;
 @property NSString *stringVideoURL;
 
 @end

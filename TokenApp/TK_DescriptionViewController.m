@@ -77,12 +77,19 @@
     self.currentUser = [PFUser currentUser];
 
     if (self.isLink) {
+
+        self.imageLink = [self resizeImage:self.imageLink scaledToSize:150];
+
         self.link = [PFObject objectWithClassName:@"Link"];
         self.activity = [PFObject objectWithClassName:@"Activity"];
+        NSData *dataLink = UIImagePNGRepresentation(self.imageLink);
+        PFFile *imageLinkFile = [PFFile fileWithName:@"link.png" data:dataLink];
 
         [self.link setObject:self.stringLink forKey:@"url"];
         [self.link setObject:self.currentUser forKey:@"user"];
         [self.link setObject:self.currentUser.objectId forKey:@"userName"];
+        [self.link setObject:self.stringLinkTitle forKey:@"linkTitle"];
+        [self.link setObject:imageLinkFile forKey:@"imageLink"];
 
 
         [self.activity setObject:@"post" forKey:@"type"];
@@ -363,29 +370,32 @@
              //Add to Activity Array
              NSString *name = currentUser.userName;
             NSString *userID = currentUser.userID;
-             UIImage *profilePic = currentUser.profileImage;
+            NSString *linkDescription = [self.link objectForKey:@"description"];
+            NSString *linkTitle = self.stringLinkTitle;
+            UIImage *profilePic = currentUser.profileImage;
 
-                 NSString *linkURL = self.stringLink;
-                 Link *link = [[Link alloc]initWithUrl:linkURL];
-                 User *user = [[User alloc]initWithUser:self.currentUser];
 
-                 [currentUser.arrayOfLinks addObject:link];
+             NSString *linkURL = self.stringLink;
+             Link *link = [[Link alloc]initWithUrl:linkURL linkImage:self.imageLink linkDescription:linkDescription linkTitle:linkTitle];
+             User *user = [[User alloc]initWithUser:self.currentUser];
 
-                 HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID user:user];
+             [currentUser.arrayOfLinks addObject:link];
 
-                  [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
+             HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:profilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID user:user];
 
-                 currentUser.justPosted = YES;
+              [currentUser.arrayOfHomeFeedContent addObject:homeFeedPost];
 
-                 if (self.tabBarController.selectedIndex != 0)
-                 {
-                     [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
-                 }
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
-                 [self.navigationController popToRootViewControllerAnimated:YES];
+             currentUser.justPosted = YES;
 
-                 [self performSelector:@selector(sendNotify) withObject:nil afterDelay:0.6];
-             }];
+             if (self.tabBarController.selectedIndex != 0)
+             {
+                 [[NSNotificationCenter defaultCenter]postNotificationName:@"tabNav" object:self];
+             }
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"Cancel" object:self];
+             [self.navigationController popToRootViewControllerAnimated:YES];
+
+             [self performSelector:@selector(sendNotify) withObject:nil afterDelay:0.6];
+         }];
         }
     }];
 }

@@ -23,4 +23,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelContentDescription;
 
 @property (strong, nonatomic) IBOutlet UILabel *labelComment1;
+
+
+
 @end

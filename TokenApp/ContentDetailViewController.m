@@ -63,6 +63,7 @@
 {
     ContentDetailTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:@"ContentCell"];
 
+
     if ([self.detailPost.mediaType isEqualToString:@"photo"])
     {
         Photo *photo = self.detailPost.photoPost;
@@ -71,11 +72,10 @@
         NSString *stringLikes = [NSString stringWithFormat:@"%li",self.likes];
         NSString *contentID = photo.photoID;
 
+//        contentCell.imageViewComment.alpha = 1;
         contentCell.labelNumberOfLikes.text = stringLikes;
         contentCell.imageViewContent.image = photo.picture;
         contentCell.labelContentDescription.text = photo.photoDescription;
-
-
 
         //Check if User likes content already
 
@@ -92,7 +92,6 @@
             }
             else
             {
-
                 tapGestureRecognizerLike.numberOfTapsRequired = 1;
                 [contentCell.imageViewLike addGestureRecognizer:tapGestureRecognizerLike];
                 contentCell.imageViewLike.userInteractionEnabled = YES;
@@ -110,6 +109,9 @@
         [self.videoController setContentURL:video.videoURL];
         [self.videoController setScalingMode:MPMovieScalingModeAspectFill];
         [self.videoController.view setFrame:CGRectMake (0, 0, 320, 298)];
+
+//        contentCell.imageViewComment.alpha = 1;
+
         [contentCell addSubview:self.videoController.view];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -155,6 +157,7 @@
     if ([self.detailPost.mediaType isEqualToString:@"link"])
     {
         Link *link = self.detailPost.linkPost;
+   
 
 
         return contentCell;
@@ -164,10 +167,8 @@
     {
         Post *note = self.detailPost.messagePost;
 
-
         return contentCell;
     }
-
 
     return nil;
 }
@@ -251,7 +252,6 @@
                   NSLog(@"Like Activity Saved");
                   self.likes = self.likes + 1;
                   [self.tableViewContentDetail reloadData];
-
               }
           }];
          

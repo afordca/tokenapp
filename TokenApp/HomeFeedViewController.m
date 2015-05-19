@@ -27,6 +27,7 @@
 #import "HomeFeedPost.h"
 
 #import "ContentDetailViewController.h"
+#import "ContentWebViewController.h"
 
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
@@ -190,8 +191,10 @@
     cell.labelLinkURL.alpha = 0;
     cell.imageViewLinkURL.alpha = 0;
     cell.viewLinkBlackBackground.alpha = 0;
-    cell.labelNoteHeader.alpha = 0;
+    cell.labelHeader.alpha = 0;
     cell.lableNoteMessage.alpha = 1;
+    cell.labelLinkDescription.alpha = 0;
+    cell.labelLinkTitle.alpha = 0;
 
     if (self.arrayOfContent.count !=0)
     {
@@ -208,8 +211,10 @@
             cell.labelLinkURL.alpha = 0;
             cell.imageViewLinkURL.alpha = 0;
             cell.viewLinkBlackBackground.alpha = 0;
-            cell.labelNoteHeader.alpha = 0;
+            cell.labelHeader.alpha = 0;
             cell.lableNoteMessage.alpha = 0;
+            cell.labelLinkDescription.alpha = 0;
+            cell.labelLinkTitle.alpha = 0;
             return cell;
         }
         if ([post.mediaType isEqualToString:@"video"])
@@ -223,8 +228,10 @@
             cell.labelLinkURL.alpha = 0;
             cell.imageViewLinkURL.alpha = 0;
             cell.viewLinkBlackBackground.alpha = 0;
-            cell.labelNoteHeader.alpha = 0;
+            cell.labelHeader.alpha = 0;
             cell.lableNoteMessage.alpha = 0;
+            cell.labelLinkDescription.alpha = 0;
+            cell.labelLinkTitle.alpha = 0;
 
             return cell;
 
@@ -237,12 +244,18 @@
             cell.imageViewHomeFeedProfilePic.image = post.userProfilePic;
             cell.imageViewHomeFeedContent.alpha = 0;
             cell.imageViewVideoIcon.alpha = 0;
-            cell.labelNoteHeader.alpha = 0;
+            cell.labelHeader.alpha = 0;
             cell.lableNoteMessage.alpha = 0;
+            cell.viewLinkBlackBackground.alpha = 0;
             cell.labelLinkURL.alpha = 1;
             cell.imageViewLinkURL.alpha = 1;
+            cell.imageViewLinkURL.image = link.linkImage;
             cell.viewLinkBlackBackground.alpha = 1;
             cell.labelLinkURL.text = [link.urlLink absoluteString];
+            cell.labelLinkDescription.alpha = 1;
+            cell.labelLinkDescription.text = link.linkDescription;
+            cell.labelLinkTitle.alpha = 1;
+            cell.labelLinkTitle.text = link.linkTitle;
             
             return cell;
         }
@@ -257,10 +270,12 @@
             cell.labelLinkURL.alpha = 0;
             cell.imageViewLinkURL.alpha = 0;
             cell.viewLinkBlackBackground.alpha = 1;
-            cell.labelNoteHeader.alpha = 1;
+            cell.labelHeader.alpha = 1;
             cell.lableNoteMessage.alpha = 1;
             cell.lableNoteMessage.text = note.postMessage;
-            cell.labelNoteHeader.text = note.postHeader;
+            cell.labelHeader.text = note.postHeader;
+            cell.labelLinkDescription.alpha = 0;
+            cell.labelLinkTitle.alpha = 0;
 
             return cell;
         }
@@ -302,12 +317,28 @@
 {
     HomeFeedPost *post = [self.arrayOfContent objectAtIndex:indexPath.section];
 
+    if ([post.mediaType  isEqual: @"link"])
+    {
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ContentWebViewController *cwvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"ContentWebView"];
+
+        Link *link = post.linkPost;
+
+        cwvc.stringWebURL = [link.urlLink absoluteString];
+
+        [self.navigationController pushViewController:cwvc animated:YES];
+    }
+    else
+    {
+
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ContentDetailViewController *cdvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"ContentDetail"];
 
     cdvc.detailPost = post;
 
     [self.navigationController pushViewController: cdvc animated:YES];
+
+    }
 
 }
 

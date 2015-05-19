@@ -417,6 +417,21 @@
         //LINK
         if ([[homeFeedActivity objectForKey:@"mediaType"]isEqualToString:@"link"])
         {
+
+            PFFile *parseFileWithImage = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"imageLink"];
+            NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+            NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+            [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data1, NSError *connectionError)
+             {
+
+                 if (connectionError)
+                 {
+                     NSLog(@"%@",[connectionError userInfo]);
+                 }
+                 else
+                 {
+
+
             PFFile *parseProfileImage = [[homeFeedActivity objectForKey:@"fromUser"]objectForKey:@"profileImage"];
             NSURL *urlProfile = [NSURL URLWithString:parseProfileImage.url];
             NSURLRequest *requestURLProfile = [NSURLRequest requestWithURL:urlProfile];
@@ -429,14 +444,17 @@
                  else
                  {
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
-                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                     NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                     NSString *linkDescription = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"description"];
+
                      self.homeFeedProfilePic = [UIImage imageWithData:data];
+                     UIImage *imageLink = [UIImage imageWithData:data1];
+
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
-
-
                      NSString *linkURL = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"url"];
+                     NSString *linkTitle = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"linkTitle"];
 
-                     Link *link = [[Link alloc]initWithUrl:linkURL];
+                     Link *link = [[Link alloc]initWithUrl:linkURL linkImage:imageLink linkDescription:linkDescription linkTitle:linkTitle];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
 
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID user:userContent];
@@ -450,6 +468,8 @@
                              }
                  }
             }];
+                 }
+             }];
         }
 
         //POST

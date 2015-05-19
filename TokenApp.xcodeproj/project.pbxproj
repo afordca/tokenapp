@@ -27,6 +27,7 @@
 		0041C60E1B01165C00EDA4FF /* ContentDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041C60D1B01165C00EDA4FF /* ContentDetailTableViewCell.m */; };
 		0041C6111B014ED500EDA4FF /* OthersProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041C6101B014ED500EDA4FF /* OthersProfileViewController.m */; };
 		004ED88E1AF002F100106071 /* HomeFeedPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 004ED88D1AF002F100106071 /* HomeFeedPost.m */; };
+		006752341B0BB092002CD4CE /* ContentWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 006752331B0BB092002CD4CE /* ContentWebViewController.m */; };
 		008AB0DD1ADCCC630025647B /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 008AB0DA1ADCCC630025647B /* TwitterKit.framework */; };
 		008AB0DE1ADCCC630025647B /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 008AB0DB1ADCCC630025647B /* TwitterKitResources.bundle */; };
 		008AB0DF1ADCCC630025647B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 008AB0DC1ADCCC630025647B /* Fabric.framework */; };
@@ -145,6 +146,8 @@
 		0041C6101B014ED500EDA4FF /* OthersProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OthersProfileViewController.m; sourceTree = "<group>"; };
 		004ED88C1AF002F100106071 /* HomeFeedPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeFeedPost.h; sourceTree = "<group>"; };
 		004ED88D1AF002F100106071 /* HomeFeedPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeFeedPost.m; sourceTree = "<group>"; };
+		006752321B0BB092002CD4CE /* ContentWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentWebViewController.h; sourceTree = "<group>"; };
+		006752331B0BB092002CD4CE /* ContentWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentWebViewController.m; sourceTree = "<group>"; };
 		008AB0DA1ADCCC630025647B /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		008AB0DB1ADCCC630025647B /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
 		008AB0DC1ADCCC630025647B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -372,6 +375,8 @@
 				0041C60A1B0115D300EDA4FF /* ContentDetailViewController.m */,
 				0041C60C1B01165C00EDA4FF /* ContentDetailTableViewCell.h */,
 				0041C60D1B01165C00EDA4FF /* ContentDetailTableViewCell.m */,
+				006752321B0BB092002CD4CE /* ContentWebViewController.h */,
+				006752331B0BB092002CD4CE /* ContentWebViewController.m */,
 			);
 			name = HomeFeed;
 			sourceTree = "<group>";
@@ -770,6 +775,7 @@
 				00ED60361A7F5BA300ED1229 /* MFC_LogInViewController.m in Sources */,
 				00D24BC51AEDB7600072558F /* HomeFeedViewController.m in Sources */,
 				002E163D1A955973000AE37B /* ProfileCollectionViewCell.m in Sources */,
+				006752341B0BB092002CD4CE /* ContentWebViewController.m in Sources */,
 				00C6DE551ABCAE2400CC410C /* Photo.m in Sources */,
 				B97F00FD1A6ECAD400690309 /* BalanceTableViewCell.m in Sources */,
 				00ED60301A7ED68500ED1229 /* LaunchPageViewController.m in Sources */,
