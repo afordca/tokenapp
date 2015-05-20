@@ -468,6 +468,12 @@
 
     }
 
+    TK_Manager *manager = [TK_Manager new];
+    [manager countPosts:self.user];
+
+   
+    headerView.labelPostsCount.text = [NSString stringWithFormat:@"%li",(long)manager.numberOfPosts];
+
     headerView.labelFollowersCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowers.count];
     headerView.labelFollowingCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowing.count];
     headerView.textViewBiography.text = currentUser.Biography;

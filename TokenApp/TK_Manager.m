@@ -399,4 +399,19 @@
      }];
 }
 
+-(void)countPosts:(PFUser *)user
+{
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+    [queryForActivity whereKey:@"type" equalTo:@"post"];
+    [queryForActivity whereKey:@"fromUser" equalTo:user];
+//    [queryForActivity countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+//
+//        self.numberOfPosts = number;
+//
+//    }];
+    self.numberOfPosts = [queryForActivity countObjects];
+
+
+}
+
 @end

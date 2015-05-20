@@ -35,14 +35,18 @@
 @property NSMutableArray *arrayOfDiscoverContent;
 @property NSMutableArray *arrayOfDiscoverUsers;
 
+@property NSInteger numberOfPosts;
+
 +(NSMutableArray*)loadArrayOfContent;
 -(void)loadFollowers:(NSString*)userID user:(PFUser*)user completion:(void (^)(BOOL result))completionHandler;
--(void)loadFollowing:(NSString*)userID completion:(void (^)(BOOL result))completionHandler;;
+-(void)loadFollowing:(NSString*)userID completion:(void (^)(BOOL result))completionHandler;
 
 -(void)loadarrayOfActivity:(User*)user completion:(void (^)(BOOL result))completionHandler;
 -(void)loadArrayOfOtherUserContent:(NSMutableArray*)activity completion:(void (^)(BOOL result))completionHandler;
 -(void)loadDiscoverActivity:(void (^)(BOOL result))completionHandler;
 -(void)loadDiscoverUsers:(void (^)(BOOL result))completionHandler;
+
+-(void)countPosts:(PFUser*)user;
 
 
 

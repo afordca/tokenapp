@@ -344,6 +344,11 @@
         headerView.imageViewProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
     }
 
+    TK_Manager *manager = [TK_Manager new];
+    [manager countPosts:self.otherUser.pfUser];
+
+    headerView.labelPostsCount.text = [NSString stringWithFormat:@"%li",(long)manager.numberOfPosts];
+
     headerView.labelFollowersCount.text = [NSString stringWithFormat:@"%li",self.arrayOfFollowers.count];
     headerView.labelFollowingCount.text = [NSString stringWithFormat:@"%li",self.arrayOfFollowing.count];
     headerView.textViewBiography.text = self.otherUser.Biography;
