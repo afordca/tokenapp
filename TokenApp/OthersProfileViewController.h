@@ -16,5 +16,7 @@
 
 @property User *otherUser;
 @property NSMutableArray *arrayOfContent;
+@property NSMutableArray *arrayOfFollowers;
+@property NSMutableArray *arrayOfFollowing;
 
 @end

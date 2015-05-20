@@ -20,6 +20,8 @@
     self.profileImage = image;
     self.userName = [userNew objectForKey:@"username"];
     self.objectID = userNew.objectId;
+    self.Biography = [userNew objectForKey:@"Biography"];
+    self.pfUser = userNew;
 
     }];
 

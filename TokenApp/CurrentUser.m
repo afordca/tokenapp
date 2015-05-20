@@ -55,24 +55,28 @@
     user = [PFUser currentUser];
     self.arrayOfFollowers = [NSMutableArray new];
 
-    [PFCloud callFunctionInBackground:@"Followers" withParameters:@{@"objectId": user.objectId} block:^(NSArray *result, NSError *error)
+    PFQuery *queryFollowers = [PFQuery queryWithClassName:@"Activity"];
+
+    [queryFollowers includeKey:@"fromUser"];
+    [queryFollowers whereKey:@"type" equalTo:@"follow"];
+    [queryFollowers whereKey:@"toUser" equalTo: user];
+    [queryFollowers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
-         if (error)
-         {
-             NSLog(@"%@", [error userInfo]);
+         if (error) {
+             NSLog(@"%@",[error userInfo]);
          }
          else
          {
-             for (PFUser *userFollower in result)
+             for (PFObject *activity in objects)
              {
-                 User *follower = [[User alloc]initWithUser:userFollower];
+                 PFUser *pffollower = [activity objectForKey:@"fromUser"];
+                 User *follower = [[User alloc]initWithUser:pffollower];
 
                  [self.arrayOfFollowers addObject:follower];
              }
 
              completionHandler(YES);
          }
-
      }];
 }
 
@@ -90,11 +94,11 @@
          }
          else
          {
-             for (PFUser *userFollower in result)
+             for (PFUser *userFollowing in result)
              {
-                 User *follower = [[User alloc]initWithUser:userFollower];
+                 User *following = [[User alloc]initWithUser:userFollowing];
 
-                 [self.arrayOfFollowing addObject:follower];
+                 [self.arrayOfFollowing addObject:following];
              }
 
              completionHandler(YES);
@@ -445,6 +449,8 @@
                  {
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                     NSString *linkID = [[homeFeedActivity objectForKey:@"link"]objectId];
+
                      NSString *linkDescription = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"description"];
 
                      self.homeFeedProfilePic = [UIImage imageWithData:data];
@@ -453,8 +459,10 @@
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
                      NSString *linkURL = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"url"];
                      NSString *linkTitle = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"linkTitle"];
+                     NSNumber *likes = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"numberOfLikes"];
+                     NSInteger numberOfLikes = likes.integerValue;
 
-                     Link *link = [[Link alloc]initWithUrl:linkURL linkImage:imageLink linkDescription:linkDescription linkTitle:linkTitle];
+                     Link *link = [[Link alloc]initWithUrl:linkURL linkImage:imageLink linkDescription:linkDescription linkTitle:linkTitle likes:numberOfLikes linkID:linkID];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
 
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID user:userContent];
@@ -641,13 +649,13 @@
 {
     // Add follower to relation
     user = [PFUser currentUser];
-    PFRelation *relation = [user relationForKey:@"Following"];
+    PFRelation *relationFollowing = [user relationForKey:@"Following"];
 
     PFQuery *queryUser = [PFUser query];
     [queryUser whereKey:@"objectId" equalTo:follower.objectID];
     PFObject *userFollower = [queryUser getFirstObject];
 
-    [relation addObject:userFollower];
+    [relationFollowing addObject:userFollower];
 
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error)
@@ -656,11 +664,14 @@
         }
         else
         {
+
             NSLog(@"User has been added to Following");
-            
+            NSLog(@"Current User is now a follower");
+
             [self loadArrayOfFollowing:YES row:row completion:^(BOOL result) {
 
             }];
+
         }
 
         [self.delegate reloadTableAfterArrayUpdate:row];

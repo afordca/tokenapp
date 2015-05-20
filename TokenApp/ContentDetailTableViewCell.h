@@ -17,12 +17,9 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewShare;
 
 @property (strong, nonatomic) IBOutlet UILabel *labelNumberOfTokens;
-
-@property (strong, nonatomic) IBOutlet UILabel *labelNumberOfLikes;
-
 @property (strong, nonatomic) IBOutlet UILabel *labelContentDescription;
 
-@property (strong, nonatomic) IBOutlet UILabel *labelComment1;
+
 
 
 

@@ -43,13 +43,8 @@
 - (IBAction)onButtonPressCancel:(id)sender
 {
 
-//    [self.singleUser loadHomeFeedActivity:0 completion:^(BOOL result)
-//    {
-//         [self.singleUser loadHomeFeedContent:^(BOOL result)
-//          {
-              [self.navigationController popToRootViewControllerAnimated:YES];
-//          }];
-//     }];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+
 }
 
 #pragma mark - UITableView Delegate Methods
@@ -67,18 +62,12 @@
     if ([self.detailPost.mediaType isEqualToString:@"photo"])
     {
         Photo *photo = self.detailPost.photoPost;
-
-        self.likes = self.likes + photo.numberOfLikes;
-        NSString *stringLikes = [NSString stringWithFormat:@"%li",self.likes];
         NSString *contentID = photo.photoID;
 
-//        contentCell.imageViewComment.alpha = 1;
-        contentCell.labelNumberOfLikes.text = stringLikes;
         contentCell.imageViewContent.image = photo.picture;
         contentCell.labelContentDescription.text = photo.photoDescription;
 
         //Check if User likes content already
-
         UITapGestureRecognizer *tapGestureRecognizerLike = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeTapped:)];
 
         [self checkUserLike:@"Photo" contentID:contentID completion:^(BOOL result)
@@ -108,9 +97,7 @@
         self.videoController = [[MPMoviePlayerController alloc] init];
         [self.videoController setContentURL:video.videoURL];
         [self.videoController setScalingMode:MPMovieScalingModeAspectFill];
-        [self.videoController.view setFrame:CGRectMake (0, 0, 320, 298)];
-
-//        contentCell.imageViewComment.alpha = 1;
+        [self.videoController.view setFrame:CGRectMake (0, 0, 320, 310)];
 
         [contentCell addSubview:self.videoController.view];
 
@@ -120,16 +107,11 @@
                                                    object:self.videoController];
         [self.videoController play];
 
-
-        self.likes = self.likes + video.numberOfLikes;
-        NSString *stringLikes = [NSString stringWithFormat:@"%li",self.likes];
         NSString *contentID = video.videoID;
 
-        contentCell.labelNumberOfLikes.text = stringLikes;
         contentCell.labelContentDescription.text = video.videoDescription;
 
         //Check if User likes content already
-
         UITapGestureRecognizer *tapGestureRecognizerLike = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeTapped:)];
 
         [self checkUserLike:@"Video" contentID:contentID completion:^(BOOL result)
@@ -240,7 +222,7 @@
          [activity setObject:self.currentUser forKey:@"fromUser"];
          [activity setObject:updatedContent forKey:contentType];
          [activity setObject:self.currentUser.objectId forKey:@"fromUserID"];
-         [activity setValue:self.currentUser.username forKey:@"username"];
+         [activity setObject:self.currentUser.username forKey:@"username"];
 
          [activity saveInBackgroundWithBlock:^(BOOL success, NSError* error)
           {

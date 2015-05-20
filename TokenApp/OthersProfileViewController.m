@@ -62,13 +62,12 @@
 @property (strong, nonatomic) NSString *stringVideoData;
 
 @property UIImagePickerController *imagePickerProfile;
-@property NSMutableArray *arrayOfFollowers;
 
 @property (retain,nonatomic)PersonalActivityViewController *pvc;
 @property (retain,nonatomic)FollowersViewController *fvc;
 @property (retain,nonatomic)NotificationViewController *nvc;
 @property (retain,nonatomic)DetailedContentViewController *dvc;
-@property PFUser *user;
+@property PFUser *singleUser;
 
 @property UIRefreshControl *mannyFresh;
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
@@ -92,6 +91,7 @@
 
     currentUser = [CurrentUser sharedSingleton];
 
+    self.singleUser = [PFUser currentUser];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -100,8 +100,6 @@
 
     self.labelUserName.text = self.otherUser.userName;
 
-//    self.labelUserName.text = currentUser.userName;
-//    [self.collectionViewProfile reloadData];
     [self addObserver];
     
     
@@ -340,18 +338,16 @@
     if (self.otherUser.profileImage)
     {
         headerView.imageViewProfilePic.image = self.otherUser.profileImage;
-
     }
     else
     {
         headerView.imageViewProfilePic.image = [UIImage imageNamed:@"ProfileDefault"];
-
     }
+
+    headerView.labelFollowersCount.text = [NSString stringWithFormat:@"%li",self.arrayOfFollowers.count];
+    headerView.labelFollowingCount.text = [NSString stringWithFormat:@"%li",self.arrayOfFollowing.count];
+    headerView.textViewBiography.text = self.otherUser.Biography;
 //
-//    headerView.labelFollowersCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowers.count];
-//    headerView.labelFollowingCount.text = [NSString stringWithFormat:@"%li",currentUser.arrayOfFollowing.count];
-//    headerView.textViewBiography.text = currentUser.Biography;
-//    
     return headerView;
 }
 
@@ -360,6 +356,28 @@
 -(void)followUser
 {
     [currentUser addUserToFollowing:self.otherUser row:0];
+
+    PFObject *activity = [PFObject objectWithClassName:@"Activity"];
+
+    [activity setObject:@"follow" forKey:@"type"];
+    [activity setObject:self.singleUser forKey:@"fromUser"];
+    [activity setObject:self.otherUser.pfUser forKey:@"toUser"];
+
+    [activity setObject:self.singleUser.objectId forKey:@"fromUserID"];
+    [activity setObject:self.singleUser.username forKey:@"username"];
+
+    [activity saveInBackgroundWithBlock:^(BOOL success, NSError* error)
+     {
+         if (error) {
+             NSLog(@"%@",[error userInfo]);
+         }
+         else
+         {
+             NSLog(@"Follow Activity Saved");
+
+         }
+     }];
+
 }
 
 

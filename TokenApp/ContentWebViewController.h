@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Link.h"
 
 @interface ContentWebViewController : UIViewController
 
 @property NSString *stringWebURL;
+@property Link *linkContent;
 
 @end

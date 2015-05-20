@@ -370,13 +370,15 @@
              //Add to Activity Array
              NSString *name = currentUser.userName;
             NSString *userID = currentUser.userID;
+            NSString *linkID = self.link.objectId;
             NSString *linkDescription = [self.link objectForKey:@"description"];
             NSString *linkTitle = self.stringLinkTitle;
             UIImage *profilePic = currentUser.profileImage;
+            NSInteger numberOfLikes = 0;
 
 
              NSString *linkURL = self.stringLink;
-             Link *link = [[Link alloc]initWithUrl:linkURL linkImage:self.imageLink linkDescription:linkDescription linkTitle:linkTitle];
+             Link *link = [[Link alloc]initWithUrl:linkURL linkImage:self.imageLink linkDescription:linkDescription linkTitle:linkTitle likes:numberOfLikes linkID:linkID];
              User *user = [[User alloc]initWithUser:self.currentUser];
 
              [currentUser.arrayOfLinks addObject:link];

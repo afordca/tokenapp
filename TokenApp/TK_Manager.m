@@ -7,6 +7,7 @@
 //
 
 #import "TK_Manager.h"
+#import <Parse/Parse.h>
 
 
 
@@ -162,15 +163,18 @@
                  {
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                     NSString *linkID = [[homeFeedActivity objectForKey:@"link"]objectId];
                      NSString *linkDescription = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"description"];
                      NSString *linkTitle = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"linkTitle"];
                      UIImage *linkImage = [UIImage imageWithData:data1];
                      UIImage *homeFeedProfilePic = [UIImage imageWithData:data];
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
+                     NSNumber *likes = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"numberOfLikes"];
+                     NSInteger numberOfLikes = likes.integerValue;
 
                      NSString *linkURL = [[homeFeedActivity objectForKey:@"link"]objectForKey:@"url"];
 
-                     Link *link = [[Link alloc]initWithUrl:linkURL linkImage:linkImage linkDescription:linkDescription linkTitle:linkTitle];
+                     Link *link = [[Link alloc]initWithUrl:linkURL linkImage:linkImage linkDescription:linkDescription linkTitle:linkTitle likes:numberOfLikes linkID:linkID];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
 
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:homeFeedProfilePic timePosted:nil photo:nil post:nil video:nil link:link mediaType:@"link" userID:userID user:userContent];
@@ -261,32 +265,38 @@
      }];
 }
 
-+(NSMutableArray*)loadFollowers:(NSString *)userID
+-(void)loadFollowers:(NSString *)userID user:(PFUser *)user completion :(void (^)(BOOL))completionHandler
 {
-   NSMutableArray *arrayOfFollowers = [NSMutableArray new];
-    [PFCloud callFunctionInBackground:@"Followers" withParameters:@{@"objectId": userID} block:^(NSArray *result, NSError *error)
+    self.arrayOfFollowers = [NSMutableArray new];
+    PFQuery *queryFollowers = [PFQuery queryWithClassName:@"Activity"];
+
+    [queryFollowers includeKey:@"fromUser"];
+    [queryFollowers whereKey:@"type" equalTo:@"follow"];
+    [queryFollowers whereKey:@"toUser" equalTo: user];
+    [queryFollowers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
-         if (error)
-         {
-             NSLog(@"%@", [error userInfo]);
+         if (error) {
+             NSLog(@"%@",[error userInfo]);
          }
          else
          {
-             for (PFUser *userFollower in result)
+             for (PFObject *activity in objects)
              {
+                 PFUser *pffollower = [activity objectForKey:@"fromUser"];
+                 User *follower = [[User alloc]initWithUser:pffollower];
 
-                 [arrayOfFollowers addObject:userFollower];
+                 [self.arrayOfFollowers addObject:follower];
              }
+
+             completionHandler(YES);
          }
      }];
 
-    return arrayOfFollowers;
 }
 
-+(NSMutableArray*)loadFollowing:(NSString *)userID
+-(void)loadFollowing:(NSString *)userID completion:(void (^)(BOOL))completionHandler
 {
-    NSMutableArray *arrayOfFollowing = [NSMutableArray new];
-
+    self.arrayOfFollowing = [NSMutableArray new];
     [PFCloud callFunctionInBackground:@"Following" withParameters:@{@"objectId": userID} block:^(NSArray *result, NSError *error)
      {
          if (error)
@@ -295,13 +305,15 @@
          }
          else
          {
-             for (PFUser *userFollower in result)
+             for (PFUser *userFollowing in result)
              {
-                 [arrayOfFollowing addObject:userFollower];
+                 User *following = [[User alloc]initWithUser:userFollowing];
+                 [self.arrayOfFollowing addObject:following];
              }
+
+              completionHandler(YES);
          }
      }];
-    return arrayOfFollowing;
 }
 
 -(void)loadDiscoverActivity:(void (^)(BOOL))completionHandler

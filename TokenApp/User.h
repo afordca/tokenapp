@@ -21,9 +21,10 @@
 
 @interface User : NSObject
 
-@property (nonatomic, strong) UIImage *profileImage;
+@property (nonatomic,strong) UIImage *profileImage;
 @property (nonatomic,strong) NSString *userName;
 @property (nonatomic,strong) NSString *objectID;
+@property (nonatomic,strong) NSString *Biography;
 @property (nonatomic,strong) NSArray *arrayOfContent;
 @property (nonatomic,strong) NSMutableArray *arrayOfUserActivity;
 @property (nonatomic,strong) NSMutableArray *arrayOfFromUserActivity;
@@ -32,6 +33,8 @@
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationComments;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationLikes;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationTags;
+
+@property PFUser *pfUser;
 
 -(id)initWithUser:(PFUser*)userNew;
 

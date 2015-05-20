@@ -10,7 +10,7 @@
 
 @implementation Link
 
--(id)initWithUrl:(NSString *)URL linkImage:(UIImage *)linkImage linkDescription:(NSString *)description linkTitle:(NSString *)title
+-(id)initWithUrl:(NSString *)URL linkImage:(UIImage *)linkImage linkDescription:(NSString *)description linkTitle:(NSString *)title likes:(NSInteger)Likes linkID:(NSString *)linkID
 {
     NSURL *url = [NSURL URLWithString:URL];
 
@@ -18,6 +18,8 @@
     self.linkImage = linkImage;
     self.linkDescription = description;
     self.linkTitle = title;
+    self.numberOfLikes = Likes;
+    self.linkID = linkID;
 
     return self;
 }

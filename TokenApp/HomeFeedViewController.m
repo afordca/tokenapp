@@ -325,6 +325,7 @@
         Link *link = post.linkPost;
 
         cwvc.stringWebURL = [link.urlLink absoluteString];
+        cwvc.linkContent = link;
 
         [self.navigationController pushViewController:cwvc animated:YES];
     }
@@ -445,18 +446,30 @@
     {
         UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         OthersProfileViewController *opvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"OtherProfile"];
+
         opvc.otherUser = user;
 
         TK_Manager *manager = [TK_Manager new];
-        [manager loadarrayOfActivity:user completion:^(BOOL result)
-         {
-             [manager loadArrayOfOtherUserContent:manager.arrayOfActivity completion:^(BOOL result)
-              {
-                  opvc.arrayOfContent = manager.arrayOfUserContent;
 
-                  [self.navigationController pushViewController:opvc animated:YES];
-              }];
-         }];
+        [manager loadFollowing:user.objectID completion:^(BOOL result)
+        {
+            [manager loadFollowers:user.objectID user:user.pfUser completion:^(BOOL result)
+           {
+               [manager loadarrayOfActivity:user completion:^(BOOL result)
+               {
+                    [manager loadArrayOfOtherUserContent:manager.arrayOfActivity completion:^(BOOL result)
+                     {
+                         opvc.arrayOfContent = manager.arrayOfUserContent;
+                         opvc.arrayOfFollowers = manager.arrayOfFollowers;
+                         opvc.arrayOfFollowing = manager.arrayOfFollowing;
+
+                         [self.navigationController pushViewController:opvc animated:YES];
+                     }];
+                }];
+           }];
+       }];
+
+
     }
 }
 
