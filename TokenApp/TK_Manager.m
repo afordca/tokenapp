@@ -9,8 +9,6 @@
 #import "TK_Manager.h"
 #import <Parse/Parse.h>
 
-
-
 @implementation TK_Manager
 
 +(NSMutableArray *)loadArrayOfContent
@@ -35,7 +33,6 @@
     if (!activity.count)
     {
         completionHandler(YES);
-
     }
 
     for (PFObject *homeFeedActivity in activity)
@@ -212,8 +209,10 @@
                      NSString *postMessage = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"note"];
                      NSString *postHeader = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"description"];
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
+                     NSNumber *likes = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"numberOfLikes"];
+                     NSInteger numberOfLikes = likes.integerValue;
 
-                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
+                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
                      
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:homeFeedProfilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID user:userContent];
@@ -389,13 +388,10 @@
                      {
                           [self.arrayOfDiscoverUsers addObject:discoverUser];
                      }
-
                  }
-
              }
              completionHandler(YES);
          }
-         
      }];
 }
 
@@ -404,14 +400,8 @@
     PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
     [queryForActivity whereKey:@"type" equalTo:@"post"];
     [queryForActivity whereKey:@"fromUser" equalTo:user];
-//    [queryForActivity countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-//
-//        self.numberOfPosts = number;
-//
-//    }];
+
     self.numberOfPosts = [queryForActivity countObjects];
-
-
 }
 
 @end

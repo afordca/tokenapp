@@ -39,7 +39,7 @@
 @property (nonatomic,strong) NSMutableArray *arrayOfLinks;
 @property (nonatomic,strong) NSMutableArray *arrayOfPosts;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotifications;
-@property (nonatomic,strong) NSMutableArray *arrayOfFromUserActivity;
+@property (nonatomic,strong) NSMutableArray *arrayOfPersonalActivity;
 @property (nonatomic,strong) NSMutableArray *arrayOfFollowers;
 @property (nonatomic,strong) NSMutableArray *arrayOfFollowing;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationComments;
@@ -94,18 +94,14 @@
 //Array Methods
 -(void)loadArrayOfFollowers: (void (^)(BOOL result))completionHandler;
 -(void)loadArrayOfFollowing:(BOOL)update row:(NSInteger)row completion:(void (^)(BOOL result))completionHandler;
--(void)loadArrayOfPhotos:(void (^)(BOOL result))completionHandler;
--(void)loadArrayOfVideos:(void (^)(BOOL result))completionHandler;
--(void)loadArrayOfLinks:(void (^)(BOOL result))completionHandler;
--(void)loadArrayOfPosts:(void (^)(BOOL result))completionHandler;
 
--(void)loadHomeFeedActivity:(NSInteger)skip completion:(void (^)(BOOL result))completionHandler;
+-(void)loadHomeFeedActivity:(NSInteger)skip limit:(NSInteger)limit type:(NSString*)type completion:(void (^)(BOOL result))completionHandler;
 -(void)loadHomeFeedContent:(void (^)(BOOL result))completionHandler;
 
 
 -(void)loadArrayOfNotifications;
 -(void)loadActivityToCurrentUser;
--(void)loadActivityFromCurrentUser;
+-(void)loadPersonalActivity:(void (^)(BOOL result))completionHandler;
 
 //Helper Methods
 -(void)setUserProfile;

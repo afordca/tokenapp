@@ -32,6 +32,6 @@
 -(id)initWithVideo:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType video:(Video*)video;
 -(id)initWithPost:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType post:(Post*)post;
 -(id)initWithLink:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType link:(Link*)link;
-
+-(id)init:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType;
 
 @end

@@ -26,59 +26,58 @@
     [super viewDidLoad];
 
     self.tableViewProfileActivity.delegate = self;
-
     //Accessing User Singleton
     currentUser = [CurrentUser sharedSingleton];
+    [currentUser loadHomeFeedActivity:0 limit:10 type:@"personal" completion:^(BOOL result) {
+        [self.tableViewProfileActivity reloadData];
+    }];
 
-    //User Activity Array
-    self.arrayOfActivity = [NSArray new];
-    self.arrayOfActivity = [NSArray arrayWithArray:currentUser.arrayOfFromUserActivity];
 
 }
+
 
 #pragma mark - UITableView Delegate Methods
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.arrayOfActivity.count;
+    return currentUser.arrayOfPersonalActivity.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserActivityTableViewCell *cellActivity = [tableView dequeueReusableCellWithIdentifier:@"UserActivity"];
 
-    Activity *activity = [Activity new];
-    activity = [currentUser.arrayOfFromUserActivity objectAtIndex:indexPath.row];
-
-    //Set and Round Profile Pic
+    //Set and Round Profile Pic Image
     cellActivity.imageViewProfilePic.image = currentUser.profileImage;
     cellActivity.imageViewProfilePic.layer.cornerRadius = cellActivity.imageViewProfilePic.frame.size.height /2;
     cellActivity.imageViewProfilePic.layer.masksToBounds = YES;
     cellActivity.imageViewProfilePic.layer.borderWidth = 0;
 
-    //User Activity Description
-    if (!activity.typeOfMedia)
-    {
-        //Follow activity
-        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ %@",activity.fromUser.userName, activity.activityType,activity.toUser.userName];
+    PFObject *activity = [currentUser.arrayOfPersonalActivity objectAtIndex:indexPath.row];
 
-            cellActivity.imageViewPhoto.image = activity.fromUser.profileImage;
-            //Set and Round Profile Pic
-            cellActivity.imageViewPhoto.layer.cornerRadius = cellActivity.imageViewPhoto.frame.size.height /2;
-            cellActivity.imageViewPhoto.layer.masksToBounds = YES;
-            cellActivity.imageViewPhoto.layer.borderWidth = 0;
+    //Username
+    NSString *fromUser = [[activity objectForKey:@"fromUser"]objectForKey:@"username"];
+
+    //Activity Type
+    NSString *activityAction;
+    if ([[activity objectForKey:@"type"]isEqualToString:@"follow"])
+    {
+        activityAction = @"followed";
+    }
+    else if ([[activity objectForKey:@"type"]isEqualToString:@"like"])
+    {
+        activityAction = @"liked";
+    }
+    else if ([[activity objectForKey:@"type"]isEqualToString:@"post"])
+
+    {
+        activityAction = @"post";
     }
 
-    {
-        //Media activity
-        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ a %@",activity.fromUser.userName, activity.activityType,activity.typeOfMedia];
+    cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@",fromUser,activityAction];
 
-        if (activity.photo)
-        {
-            cellActivity.imageViewPhoto.image = activity.photo.picture;
-        }
 
-    }
+    
 return cellActivity;
 
 

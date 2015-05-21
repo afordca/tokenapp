@@ -112,209 +112,6 @@
 
 }
 
--(void)loadArrayOfNotifications
-{
-    self.arrayOfNotificationComments = [NSMutableArray new];
-    self.arrayOfNotificationLikes = [NSMutableArray new];
-    self.arrayOfNotificationTags = [NSMutableArray new];
-
-    for (PFObject *object in arrayOfNotifications)
-    {
-        PFUser *toUser = [object objectForKey:@"toUser"];
-        NSString *stringType = [object objectForKey:@"type"];
-        if ([toUser.objectId isEqual:user.objectId] && [stringType isEqualToString:@"commented on"])
-        {
-            //Creating Instance
-            Notification *notificationComments = [Notification new];
-
-            //Pull fromUserProfile Pic
-            PFUser *fromUser = [object objectForKey:@"fromUser"];
-            PFFile *parseFileWithImage = [fromUser objectForKey:@"profileImage"];
-            NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-            NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-            [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-             {
-                 //Setting Nofication Object properties
-                 notificationComments.imageProfilePic = [UIImage imageWithData:data];
-                 notificationComments.stringUsername = [fromUser objectForKey:@"username"];
-                 notificationComments.stringType = [object objectForKey:@"type"];
-                 notificationComments.stringMediaType = [object objectForKey:@"mediaType"];
-
-                 //Adding Notification Object to Array
-                 [self.arrayOfNotificationComments addObject:notificationComments];
-             }];
-        }
-        else if ([toUser.objectId isEqual:user.objectId] && [stringType isEqualToString:@"tagged"])
-        {
-            //Creating Instance
-            Notification *notificationTagged = [Notification new];
-
-            //Pull fromUserProfile Pic
-            PFUser *fromUser = [object objectForKey:@"fromUser"];
-            PFFile *parseFileWithImage = [fromUser objectForKey:@"profileImage"];
-            NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-            NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-            [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-             {
-                 //Setting Nofication Object properties
-                 notificationTagged.imageProfilePic = [UIImage imageWithData:data];
-                 notificationTagged.stringUsername = [fromUser objectForKey:@"username"];
-                 notificationTagged.stringType = [object objectForKey:@"type"];
-                 notificationTagged.stringMediaType = [object objectForKey:@"mediaType"];
-
-                 //Adding Notification Object to Array
-                 [self.arrayOfNotificationTags addObject:notificationTagged];
-             }];
-
-        }
-        else if ([toUser.objectId isEqual:user.objectId] && [stringType isEqualToString:@"liked"])
-        {
-            //Creating Instance
-            Notification *notificationLikes = [Notification new];
-
-            //Pull fromUserProfile Pic
-            PFUser *fromUser = [object objectForKey:@"fromUser"];
-            PFFile *parseFileWithImage = [fromUser objectForKey:@"profileImage"];
-            NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-            NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-            [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-             {
-                 //Setting Nofication Object properties
-                 notificationLikes.imageProfilePic = [UIImage imageWithData:data];
-                 notificationLikes.stringUsername = [fromUser objectForKey:@"username"];
-                 notificationLikes.stringType = [object objectForKey:@"type"];
-                 notificationLikes.stringMediaType = [object objectForKey:@"mediaType"];
-
-                 //Adding Notification Object to Array
-                 [self.arrayOfNotificationLikes addObject:notificationLikes];
-             }];
-
-        }
-
-    }
-}
-//Notifications
--(void)loadActivityToCurrentUser
-{
-    user = [PFUser currentUser];
-    self.arrayOfNotifications = [NSMutableArray new];
-    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-    [queryForActivity whereKey:@"toUser" equalTo:user];
-    [queryForActivity includeKey:@"fromUser"];
-    [queryForActivity includeKey: @"toUser"];
-    [queryForActivity includeKey:@"photo"];
-    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error) {
-            NSLog(@"%@",[error userInfo]);
-        }
-        else{
-
-            for (PFObject *activity in objects)
-            {
-                //PHOTO ACTIVITY
-                if ([[activity objectForKey:@"mediaType"]isEqualToString:@"photo"])
-                {
-                    PFFile *parseFileWithImage = [[activity objectForKey:@"photo"]objectForKey:@"image"];
-                    NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-                    NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-                    [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-                     {
-
-                         if (connectionError)
-                         {
-                             NSLog(@"%@",[connectionError userInfo]);
-                         }
-                         else
-                         {
-                             UIImage *photo = [UIImage imageWithData:data];
-                             NSString *name= [[activity objectForKey:@"toUser"]objectForKey:@"username"];
-                             NSString *photoID = [[activity objectForKey:@"photo"]objectId];
-                             NSString *description = [[activity objectForKey:@"photo"]objectForKey:@"description"];
-                             NSNumber *likes = [[activity objectForKey:@"photo"]objectForKey:@"numberOfLikes"];
-                             NSInteger numberOfLikes = likes.integerValue;
-
-                             Photo *activityPhoto = [[Photo alloc]initWithImage:photo name:name time:nil description:description photoID:photoID likes:numberOfLikes];
-                             NSString *typeOfActivity = [activity objectForKey:@"type"];
-                             NSString *mediaType = [activity objectForKey:@"mediaType"];
-
-                             User *fromUser = [[User alloc]initWithUser:[activity objectForKey:@"fromUser"]];
-                             User *toUser = [[User alloc]initWithUser:[activity objectForKey:@"toUser"]];
-
-                             [self.arrayOfNotifications addObject:activity];
-                         }
-                     }];
-                }
-
-            }
-        }
-        [self loadArrayOfNotifications];
-    }];
-}
-
-//Personal Activity
--(void)loadActivityFromCurrentUser
-{
-    user = [PFUser currentUser];
-    self.arrayOfFromUserActivity = [NSMutableArray new];
-    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-    [queryForActivity whereKey:@"fromUser" equalTo:user];
-    [queryForActivity includeKey:@"fromUser"];
-    [queryForActivity includeKey: @"toUser"];
-    [queryForActivity includeKey:@"photo"];
-    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
-         if (error)
-         {
-             NSLog(@"%@",[error userInfo]);
-         }
-         else
-         {
-             for (PFObject *activity in objects)
-             {
-                 //PHOTO ACTIVITY
-                 if ([[activity objectForKey:@"mediaType"]isEqualToString:@"photo"])
-                 {
-                 PFFile *parseFileWithImage = [[activity objectForKey:@"photo"]objectForKey:@"image"];
-                 NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
-                 NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
-                 [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-                 {
-
-                     if (connectionError)
-                     {
-                         NSLog(@"%@",[connectionError userInfo]);
-                     }
-                     else
-                     {
-                         UIImage *photo = [UIImage imageWithData:data];
-                        NSString *name= [[activity objectForKey:@"toUser"]objectForKey:@"username"];
-                         NSString *photoID = [[activity objectForKey:@"photo"]objectId];
-                         NSString *description = [[activity objectForKey:@"photo"]objectForKey:@"description"];
-                         NSNumber *likes = [[activity objectForKey:@"photo"]objectForKey:@"numberOfLikes"];
-                         NSInteger numberOfLikes = likes.integerValue;
-
-                         Photo *activityPhoto = [[Photo alloc]initWithImage:photo name:name time:nil description: description photoID:photoID likes:numberOfLikes];
-                         NSString *typeOfActivity = [activity objectForKey:@"type"];
-                         NSString *mediaType = [activity objectForKey:@"mediaType"];
-
-                         User *fromUser = [[User alloc]initWithUser:[activity objectForKey:@"fromUser"]];
-                         User *toUser = [[User alloc]initWithUser:[activity objectForKey:@"toUser"]];
-
-                         Activity *activity = [[Activity alloc]initWithPhoto:fromUser toUser:toUser activity:typeOfActivity media:mediaType photo:activityPhoto];
-
-                         [self.arrayOfFromUserActivity addObject:activity];
-
-                     }
-
-                 }];
-
-                 }
-
-             }
-         }
-     }];
-}
-
 -(void)loadHomeFeedContent:(void (^)(BOOL))completionHandler
 {
     if (!self.arrayOfHomeFeedActivity.count)
@@ -394,7 +191,7 @@
                      NSURL *url = [NSURL URLWithString:parseFileWithVideo.url];
 
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
-                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                     NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
                      NSString *videoID = [[homeFeedActivity objectForKey:@"video"]objectId];
                      NSString *videoDescription = [[homeFeedActivity objectForKey:@"video"]objectForKey:@"description"];
 
@@ -434,8 +231,6 @@
                  }
                  else
                  {
-
-
             PFFile *parseProfileImage = [[homeFeedActivity objectForKey:@"fromUser"]objectForKey:@"profileImage"];
             NSURL *urlProfile = [NSURL URLWithString:parseProfileImage.url];
             NSURLRequest *requestURLProfile = [NSURLRequest requestWithURL:urlProfile];
@@ -495,21 +290,22 @@
                  else
                  {
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
-                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
+                     NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
                      self.homeFeedProfilePic = [UIImage imageWithData:data];
 
 
                      NSString *postMessage = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"note"];
                      NSString *postHeader = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"description"];
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
+                     NSNumber *likes = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"numberOfLikes"];
+                     NSInteger numberOfLikes = likes.integerValue;
 
-                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
+                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
 
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID user:userContent];
                      
                      [self.arrayOfHomeFeedContent addObject:homeFeedPost];
-
 
                      if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
                      {
@@ -518,26 +314,37 @@
                  }
              }];
         }
-
     }
-
 }
 
--(void)loadHomeFeedActivity:(NSInteger)skip completion:(void (^)(BOOL))completionHandler
+-(void)loadHomeFeedActivity:(NSInteger)skip limit:(NSInteger)limit type:(NSString *)type completion:(void (^)(BOOL))completionHandler
 {
-    self.arrayOfHomeFeedActivity = [NSMutableArray new];
-    NSMutableArray *arrayOfUsernameFollowing = [NSMutableArray new];
-    NSString *currentUsername = [[PFUser currentUser]username];
-    for (User *following in self.arrayOfFollowing)
-    {
-        [arrayOfUsernameFollowing addObject:following.userName];
-    }
-    [arrayOfUsernameFollowing addObject:currentUsername];
-
     PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-    [queryForActivity whereKey:@"type" equalTo:@"post"];
-    [queryForActivity whereKey:@"username" containedIn:arrayOfUsernameFollowing];
-    [queryForActivity setLimit:10];
+
+    //HomeFeed Activity
+    if ([type isEqualToString:@"home"])
+    {
+        self.arrayOfHomeFeedActivity = [NSMutableArray new];
+        NSMutableArray *arrayOfUsernameFollowing = [NSMutableArray new];
+        NSString *currentUsername = [[PFUser currentUser]username];
+        for (User *following in self.arrayOfFollowing)
+        {
+            [arrayOfUsernameFollowing addObject:following.userName];
+        }
+        [arrayOfUsernameFollowing addObject:currentUsername];
+        [queryForActivity whereKey:@"type" equalTo:@"post"];
+        [queryForActivity whereKey:@"username" containedIn:arrayOfUsernameFollowing];
+    }
+
+    else
+    {
+        //Personal Activity
+        self.arrayOfPersonalActivity = [NSMutableArray new];
+        PFUser *userActivity = [PFUser currentUser];
+        [queryForActivity whereKey:@"fromUser" equalTo:userActivity];
+    }
+
+    [queryForActivity setLimit:limit];
     [queryForActivity setSkip:skip];
     [queryForActivity orderByDescending:@"createdAt"];
     [queryForActivity includeKey:@"fromUser"];
@@ -553,7 +360,15 @@
          {
              for (PFObject *activity in objects)
              {
-                 [self.arrayOfHomeFeedActivity addObject:activity];
+                 if ([type isEqualToString:@"home"])
+                 {
+                     [self.arrayOfHomeFeedActivity addObject:activity];
+                 }
+                 else
+                 {
+                     [self.arrayOfPersonalActivity addObject:activity];
+                 }
+
              }
 
              NSLog(@"%@",self.arrayOfHomeFeedActivity);
@@ -653,8 +468,8 @@
 
     PFQuery *queryUser = [PFUser query];
     [queryUser whereKey:@"objectId" equalTo:follower.objectID];
-    PFObject *userFollower = [queryUser getFirstObject];
 
+    PFObject *userFollower = [queryUser getFirstObject];
     [relationFollowing addObject:userFollower];
 
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -664,14 +479,12 @@
         }
         else
         {
-
             NSLog(@"User has been added to Following");
             NSLog(@"Current User is now a follower");
 
             [self loadArrayOfFollowing:YES row:row completion:^(BOOL result) {
 
             }];
-
         }
 
         [self.delegate reloadTableAfterArrayUpdate:row];
@@ -679,7 +492,6 @@
     }];
     
 }
-
 
 -(UIImage *)followerStatus:(NSString *)follower
 {
@@ -692,10 +504,8 @@
     else
     {
         return  [UIImage imageNamed:@"FollowAdd"];
-
     }
 }
-
 
 #pragma mark - TOKEN METHODS
 
@@ -743,9 +553,6 @@
 {
     return 0;
 }
-
-    
-    
 
 
 @end

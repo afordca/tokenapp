@@ -522,28 +522,29 @@
     [self.buttonEditProfile setHidden:YES];
 
 // Present ActivityView with animation left to right
-
-    [UIView animateWithDuration:0.5 animations:^{
-    } completion:^(BOOL finished) {
-        self.self.mainView.alpha = 1;
-        self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
-        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
-            self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+        [UIView animateWithDuration:0.5 animations:^{
         } completion:^(BOOL finished) {
+            self.self.mainView.alpha = 1;
+            self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
             [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
-                self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+                self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
             } completion:^(BOOL finished) {
                 [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
-                    self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+                    self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
                 } completion:^(BOOL finished) {
                     [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
-                        self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                        self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
                     } completion:^(BOOL finished) {
+                        [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                            self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                        } completion:^(BOOL finished) {
+
+                        }];
                     }];
                 }];
             }];
         }];
-    }];
+
 }
 
 -(void)presentFollowersView
@@ -642,9 +643,7 @@
     [self.buttonCancelView setHidden:NO];
     [self.buttonEditProfile setHidden:YES];
 
-
     // Present ActivityView with animation left to right
-
     [UIView animateWithDuration:0.5 animations:^{
     } completion:^(BOOL finished) {
         self.self.mainView.alpha = 1;
@@ -792,9 +791,6 @@
     //Refresh HeaderView of CollectionView
     [self.collectionViewProfile reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,1)]];
 
-    [currentUser loadArrayOfPhotos:^(BOOL result) {
-
-    }];
     [self.mannyFresh endRefreshing];
 }
 

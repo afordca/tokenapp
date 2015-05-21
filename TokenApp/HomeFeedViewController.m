@@ -385,7 +385,7 @@
 
         NSInteger skip = self.arrayOfContent.count + 10;
 
-        [currentUser loadHomeFeedActivity:skip completion:^(BOOL result)
+        [currentUser loadHomeFeedActivity:skip limit:10 type:@"home" completion:^(BOOL result)
          {
              [currentUser loadHomeFeedContent:^(BOOL result)
               {

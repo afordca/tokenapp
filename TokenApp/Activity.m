@@ -66,4 +66,13 @@
     return self;
 }
 
+-(id)init:(User *)fromUser toUser:(User *)toUser activity:(NSString *)activityType
+{
+    self.fromUser = fromUser;
+    self.toUser = toUser;
+    self.activityType = activityType;
+
+    return self;
+}
+
 @end

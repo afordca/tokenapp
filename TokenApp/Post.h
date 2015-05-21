@@ -15,8 +15,8 @@
 @property (nonatomic,strong) NSArray *arrayOfHashtags;
 @property (nonatomic,strong) NSArray *arrayOfComments;
 
-@property  NSInteger *numberOfLikes;
+@property  NSInteger numberOfLikes;
 
--(id)initWithDescription:(NSString*)note header:(NSString*)header;
+-(id)initWithDescription:(NSString*)note header:(NSString*)header likes:(NSInteger)numberOfLikes;
 
 @end

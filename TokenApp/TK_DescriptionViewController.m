@@ -329,8 +329,9 @@
 
                  NSString *postMessage = self.stringPost;
                  NSString *postHeader = [self.note objectForKey:@"description"];
+                 NSInteger numberOfLikes = 0;
 
-                 Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader];
+                 Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes];
                  User *user = [[User alloc]initWithUser:self.currentUser];
 
                  [currentUser.arrayOfPosts addObject:post];
