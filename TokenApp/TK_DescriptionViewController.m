@@ -92,7 +92,7 @@
         [self.link setObject:imageLinkFile forKey:@"imageLink"];
 
 
-        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"posted" forKey:@"type"];
         [self.activity setObject:@"link" forKey:@"mediaType"];
         [self.activity setObject:self.link forKey:@"link"];
         [self.activity setObject:self.currentUser forKey:@"fromUser"];
@@ -108,7 +108,7 @@
         [self.note setObject:self.currentUser forKey:@"user"];
         [self.note setObject:self.currentUser.objectId forKey:@"userName"];
 
-        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"posted" forKey:@"type"];
         [self.activity setObject:@"note" forKey:@"mediaType"];
         [self.activity setObject:self.currentUser forKey:@"fromUser"];
         [self.activity setObject:self.note forKey:@"note"];
@@ -134,7 +134,7 @@
         [self.video setObject:self.videoFile forKey:@"video"];
         [self.video setObject:self.currentUser.username forKey:@"UserName"];
 
-        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"posted" forKey:@"type"];
         [self.activity setObject:@"video" forKey:@"mediaType"];
         [self.activity setObject:self.currentUser forKey:@"fromUser"];
         [self.activity setObject:self.video forKey:@"video"];
@@ -157,7 +157,7 @@
         [self.photo setObject:self.currentUser.username forKey:@"UserName"];
         [self.photo setObject:imagePhotoFile forKey:@"image"];
 
-        [self.activity setObject:@"post" forKey:@"type"];
+        [self.activity setObject:@"posted" forKey:@"type"];
         [self.activity setObject:@"photo" forKey:@"mediaType"];
         [self.activity setObject:self.currentUser forKey:@"fromUser"];
         [self.activity setObject:self.photo forKey:@"photo"];

@@ -10,6 +10,7 @@
 #import "User.h"
 #import "Notification.h"
 #import "HomeFeedPost.h"
+#import "Activity.h"
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import <AVFoundation/AVFoundation.h>
@@ -119,6 +120,7 @@
         completionHandler(YES);
     }
 
+    // HOMEFEED CONTENT
     if (!self.arrayOfHomeFeedContent.count)
     {
         self.arrayOfHomeFeedContent = [NSMutableArray new];
@@ -207,7 +209,7 @@
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:nil video:video link:nil mediaType:@"video" userID:userID user:userContent];
 
                      [self.arrayOfHomeFeedContent addObject:homeFeedPost];
-         
+
                      if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
                      {
                          completionHandler(YES);
@@ -264,11 +266,10 @@
 
                      [self.arrayOfHomeFeedContent addObject:homeFeedPost];
 
-
-                             if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
-                             {
-                                 completionHandler(YES);
-                             }
+                     if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
+                     {
+                         completionHandler(YES);
+                     }
                  }
             }];
                  }
@@ -304,18 +305,198 @@
                      User *userContent = [[User alloc]initWithUser:userWithContent];
 
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID user:userContent];
-                     
+
                      [self.arrayOfHomeFeedContent addObject:homeFeedPost];
 
                      if (self.arrayOfHomeFeedContent.count == self.arrayOfHomeFeedActivity.count)
                      {
                          completionHandler(YES);
                      }
+
                  }
              }];
         }
     }
 }
+
+-(void)loadPersonalActivityContent:(void (^)(BOOL))completionHandler
+{
+    if (!self.arrayOfPersonalActivity.count)
+    {
+        completionHandler(YES);
+    }
+
+    // HOMEFEED CONTENT
+    if (!self.arrayOfPersonalActivityContent.count)
+    {
+        self.arrayOfPersonalActivityContent = [NSMutableArray new];
+    }
+
+    for (PFObject *personalActivity in self.arrayOfPersonalActivity)
+    {
+        //Following Activity
+        if ([[personalActivity objectForKey:@"type"]isEqual:@"followed"])
+        {
+            NSString *followedName = [[personalActivity objectForKey:@"toUser"]username];
+            NSString *activity = [personalActivity objectForKey:@"type"];
+            NSString *mediaType = [personalActivity objectForKey:@"mediaType"];
+            PFFile *profileImageFile = [[personalActivity objectForKey:@"toUser"]objectForKey:@"profileImage"];
+            PFImageView *imageView = [PFImageView new];
+            imageView.file = profileImageFile;
+            [imageView loadInBackground:^(UIImage *image, NSError *error)
+             {
+                 Activity *activityFollow = [[Activity alloc]initWithImage:nil activity:activity media:mediaType photo:nil video:nil post:nil link:nil toUserImage:image toUserName:followedName];
+
+                 [self.arrayOfPersonalActivityContent addObject:activityFollow];
+
+                 if (self.arrayOfPersonalActivityContent.count == self.arrayOfPersonalActivity.count)
+                 {
+                     completionHandler(YES);
+                 }
+
+             }];
+        }
+         else if ([[personalActivity objectForKey:@"mediaType"]isEqual:@"photo"]) {
+                // Add Photo Logic
+                NSString *followedName = [[personalActivity objectForKey:@"toUser"]username];
+                NSString *activity = [personalActivity objectForKey:@"type"];
+                NSString *mediaType = [personalActivity objectForKey:@"mediaType"];
+                PFFile *contentImageFile = [[personalActivity objectForKey:@"photo"]objectForKey:@"image"];
+                PFImageView *imageView = [PFImageView new];
+                imageView.file = contentImageFile;
+                [imageView loadInBackground:^(UIImage *image, NSError *error)
+                 {
+                     NSString *name= [personalActivity objectForKey:@"username"];
+                     NSString *photoID = [[personalActivity objectForKey:@"photo"]objectId];
+                     NSString *description =[[personalActivity objectForKey:@"photo"]objectForKey:@"description"];
+                     NSNumber *likes = [[personalActivity objectForKey:@"photo"]objectForKey:@"numberOfLikes"];
+                     NSInteger numberOfLikes = likes.integerValue;
+
+                     Photo *photo = [[Photo alloc]initWithImage:image name:name time:nil description:description photoID:photoID likes:numberOfLikes];
+
+                     Activity *activityFollow = [[Activity alloc]initWithImage:image activity:activity media:mediaType photo:photo video:nil post:nil link:nil toUserImage:nil toUserName:followedName];
+
+                     [self.arrayOfPersonalActivityContent addObject:activityFollow];
+
+                     if (self.arrayOfPersonalActivityContent.count == self.arrayOfPersonalActivity.count)
+                     {
+                         completionHandler(YES);
+                     }
+                     
+                 }];
+            }
+         else if ([[personalActivity objectForKey:@"mediaType"]isEqual:@"video"]) {
+                // Add Video Logic
+                NSString *followedName = [[personalActivity objectForKey:@"toUser"]username];
+                NSString *activity = [personalActivity objectForKey:@"type"];
+                NSString *mediaType = [personalActivity objectForKey:@"mediaType"];
+                PFFile *parseFileWithVideo = [[personalActivity objectForKey:@"video"]objectForKey:@"video"];
+
+                NSURL *url = [NSURL URLWithString:parseFileWithVideo.url];
+
+                UIImage *thumbnail = nil;
+                AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
+                AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                generator.appliesPreferredTrackTransform = YES;
+                NSError *error = nil;
+                CMTime time = CMTimeMake(0, 1); // 3/1 = 3 second(s)
+                CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:nil error:&error];
+                if (error != nil)
+                    NSLog(@"%@: %@", self, error);
+                thumbnail = [[UIImage alloc] initWithCGImage:imgRef];
+                CGImageRelease(imgRef);
+
+                NSString *videoID = [[personalActivity objectForKey:@"video"]objectId];
+                NSString *videoDescription = [[personalActivity objectForKey:@"video"]objectForKey:@"description"];
+                NSNumber *likes = [[personalActivity objectForKey:@"video"]objectForKey:@"numberOfLikes"];
+                NSInteger numberOfLikes = likes.integerValue;
+
+                Video *video = [[Video alloc]initWithUrl:url likes:numberOfLikes videoID:videoID videoDescription:videoDescription];
+
+                Activity *activityFollow = [[Activity alloc]initWithImage:thumbnail activity:activity media:mediaType photo:nil video:video post:nil link:nil toUserImage:nil toUserName:followedName];
+
+                [self.arrayOfPersonalActivityContent addObject:activityFollow];
+
+                if (self.arrayOfPersonalActivityContent.count == self.arrayOfPersonalActivity.count)
+                {
+                    completionHandler(YES);
+                }
+
+            }
+          else if ([[personalActivity objectForKey:@"mediaType"]isEqual:@"link"]) {
+                // Add Link Logic
+
+              NSString *linkID = [[personalActivity objectForKey:@"link"]objectId];
+              NSString *linkDescription = [[personalActivity objectForKey:@"link"]objectForKey:@"description"];
+              NSString *followedName = [[personalActivity objectForKey:@"toUser"]username];
+              NSString *activity = [personalActivity objectForKey:@"type"];
+              NSString *mediaType = [personalActivity objectForKey:@"mediaType"];
+              NSString *linkURL = [[personalActivity objectForKey:@"link"]objectForKey:@"url"];
+              NSString *linkTitle = [[personalActivity objectForKey:@"link"]objectForKey:@"linkTitle"];
+              NSNumber *likes = [[personalActivity objectForKey:@"link"]objectForKey:@"numberOfLikes"];
+              NSInteger numberOfLikes = likes.integerValue;
+
+                PFFile *parseFileWithImage = [[personalActivity objectForKey:@"link"]objectForKey:@"imageLink"];
+                NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+                NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+                [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data1, NSError *connectionError)
+                 {
+
+                     if (connectionError)
+                     {
+                         NSLog(@"%@",[connectionError userInfo]);
+                     }
+                     else
+                     {
+                         UIImage *imageLink = [UIImage imageWithData:data1];
+
+                         Link *link = [[Link alloc]initWithUrl:linkURL linkImage:imageLink linkDescription:linkDescription linkTitle:linkTitle likes:numberOfLikes linkID:linkID];
+
+                         Activity *activityFollow = [[Activity alloc]initWithImage:imageLink activity:activity media:mediaType photo:nil video:nil post:nil link:link toUserImage:nil toUserName:followedName];
+
+                         [self.arrayOfPersonalActivityContent addObject:activityFollow];
+
+                         if (self.arrayOfPersonalActivityContent.count == self.arrayOfPersonalActivity.count)
+                         {
+                             completionHandler(YES);
+                         }
+                     }
+                 }];
+            }
+            else if ([[personalActivity objectForKey:@"mediaType"]isEqual:@"note"]) {
+                // Add Note Logic
+                NSString *followedName = [[personalActivity objectForKey:@"toUser"]username];
+                NSString *activity = [personalActivity objectForKey:@"type"];
+                NSString *mediaType = [personalActivity objectForKey:@"mediaType"];
+
+                NSString *postMessage = [[personalActivity objectForKey:@"note"]objectForKey:@"note"];
+                NSString *postHeader = [[personalActivity objectForKey:@"note"]objectForKey:@"description"];
+                NSNumber *likes = [[personalActivity objectForKey:@"note"]objectForKey:@"numberOfLikes"];
+                NSInteger numberOfLikes = likes.integerValue;
+
+                PFFile *profileImageFile = [[personalActivity objectForKey:@"toUser"]objectForKey:@"profileImage"];
+                PFImageView *imageView = [PFImageView new];
+                imageView.file = profileImageFile;
+                [imageView loadInBackground:^(UIImage *image, NSError *error)
+                 {
+
+
+                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes];
+
+                     Activity *activityFollow = [[Activity alloc]initWithImage:nil activity:activity media:mediaType photo:nil video:nil post:post link:nil toUserImage:image toUserName:followedName];
+
+                     [self.arrayOfPersonalActivityContent addObject:activityFollow];
+
+                     if (self.arrayOfPersonalActivityContent.count == self.arrayOfPersonalActivity.count)
+                     {
+                         completionHandler(YES);
+                     }
+                 }];
+            }
+    }
+    
+}
+
 
 -(void)loadHomeFeedActivity:(NSInteger)skip limit:(NSInteger)limit type:(NSString *)type completion:(void (^)(BOOL))completionHandler
 {
@@ -332,7 +513,7 @@
             [arrayOfUsernameFollowing addObject:following.userName];
         }
         [arrayOfUsernameFollowing addObject:currentUsername];
-        [queryForActivity whereKey:@"type" equalTo:@"post"];
+        [queryForActivity whereKey:@"type" equalTo:@"posted"];
         [queryForActivity whereKey:@"username" containedIn:arrayOfUsernameFollowing];
     }
 
@@ -368,11 +549,7 @@
                  {
                      [self.arrayOfPersonalActivity addObject:activity];
                  }
-
              }
-
-             NSLog(@"%@",self.arrayOfHomeFeedActivity);
-             
              completionHandler(YES);
          }
      }];

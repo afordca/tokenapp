@@ -48,6 +48,7 @@
 @property (nonatomic,strong) NSMutableArray *arrayOfBalanceActivity;
 @property (nonatomic,strong) NSMutableArray *arrayOfHomeFeedActivity;
 @property (nonatomic,strong) NSMutableArray *arrayOfHomeFeedContent;
+@property (nonatomic,strong) NSMutableArray *arrayOfPersonalActivityContent;
 
 @property (strong, nonatomic)  NSString *Firstname;
 @property (strong, nonatomic)  NSString *Lastname;
@@ -97,6 +98,7 @@
 
 -(void)loadHomeFeedActivity:(NSInteger)skip limit:(NSInteger)limit type:(NSString*)type completion:(void (^)(BOOL result))completionHandler;
 -(void)loadHomeFeedContent:(void (^)(BOOL result))completionHandler;
+-(void)loadPersonalActivityContent:(void (^)(BOOL result))completionHandler;
 
 
 -(void)loadArrayOfNotifications;

@@ -9,6 +9,8 @@
 #import "PersonalActivityViewController.h"
 #import "UserActivityTableViewCell.h"
 #import <Parse/Parse.h>
+#import <AVFoundation/AVFoundation.h>
+
 
 @interface PersonalActivityViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -27,11 +29,13 @@
 
     self.tableViewProfileActivity.delegate = self;
     //Accessing User Singleton
-    currentUser = [CurrentUser sharedSingleton];
-    [currentUser loadHomeFeedActivity:0 limit:10 type:@"personal" completion:^(BOOL result) {
-        [self.tableViewProfileActivity reloadData];
-    }];
 
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    currentUser = [CurrentUser sharedSingleton];
 
 }
 
@@ -40,12 +44,23 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return currentUser.arrayOfPersonalActivity.count;
+    return currentUser.arrayOfPersonalActivityContent.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserActivityTableViewCell *cellActivity = [tableView dequeueReusableCellWithIdentifier:@"UserActivity"];
+
+    Activity *personalActivity = [currentUser.arrayOfPersonalActivityContent objectAtIndex:indexPath.row];
+
+    //Username
+    NSString *userName = currentUser.userName;
+    //Action
+    NSString *action = personalActivity.activityType;
+    //toUserName
+    NSString *toUsername = personalActivity.toUserName;
+    //mediaType
+    NSString *mediaType = personalActivity.typeOfMedia;
 
     //Set and Round Profile Pic Image
     cellActivity.imageViewProfilePic.image = currentUser.profileImage;
@@ -53,34 +68,25 @@
     cellActivity.imageViewProfilePic.layer.masksToBounds = YES;
     cellActivity.imageViewProfilePic.layer.borderWidth = 0;
 
-    PFObject *activity = [currentUser.arrayOfPersonalActivity objectAtIndex:indexPath.row];
-
-    //Username
-    NSString *fromUser = [[activity objectForKey:@"fromUser"]objectForKey:@"username"];
-
-    //Activity Type
-    NSString *activityAction;
-    if ([[activity objectForKey:@"type"]isEqualToString:@"follow"])
-    {
-        activityAction = @"followed";
-    }
-    else if ([[activity objectForKey:@"type"]isEqualToString:@"like"])
-    {
-        activityAction = @"liked";
-    }
-    else if ([[activity objectForKey:@"type"]isEqualToString:@"post"])
-
-    {
-        activityAction = @"post";
+    if ([personalActivity.activityType isEqual:@"followed"]) {
+        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ %@",userName,action,toUsername];
+        cellActivity.imageViewPhoto.image = personalActivity.toUserProfilepic;
     }
 
-    cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@",fromUser,activityAction];
+    else if ([personalActivity.activityType isEqual:@"posted"])
+    {
+        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ %@",userName,action,mediaType];
+        cellActivity.imageViewPhoto.image = personalActivity.imageContent;
+    }
 
+    else if ([personalActivity.activityType isEqual:@"liked"])
+    {
+        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ %@",userName,action, mediaType];
+        cellActivity.imageViewPhoto.image = personalActivity.imageContent;
 
-    
-return cellActivity;
+    }
 
-
+    return cellActivity;
 }
 
 @end

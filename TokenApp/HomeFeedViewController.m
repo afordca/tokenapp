@@ -387,7 +387,7 @@
 
         [currentUser loadHomeFeedActivity:skip limit:10 type:@"home" completion:^(BOOL result)
          {
-             [currentUser loadHomeFeedContent:^(BOOL result)
+             [currentUser loadHomeFeedContent:^(BOOL result) 
               {
                   for (int i = self.arrayOfContent.count; i<currentUser.arrayOfHomeFeedContent.count; i++)
                   {

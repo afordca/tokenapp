@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 @class User;
 #import "Photo.h"
 #import "Video.h"
@@ -16,11 +17,13 @@
 
 @interface Activity : NSObject
 
-@property (nonatomic,strong) User *fromUser;
-@property (nonatomic,strong) User *toUser;
+@property (nonatomic,strong) PFUser *toUser;
+@property (nonatomic,strong) NSString *toUserName;
 @property (nonatomic,strong) NSString *activityType;
 @property  NSInteger *mediaContentCount;
 @property (nonatomic,strong) NSString *typeOfMedia;
+@property (nonatomic,strong) UIImage *imageContent;
+@property (nonatomic,strong) UIImage *toUserProfilepic;
 
 @property (nonatomic,strong) Photo *photo;
 @property (nonatomic,strong) Video *video;
@@ -28,10 +31,6 @@
 @property (nonatomic,strong) Link *link;
 
 
--(id)initWithPhoto:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType photo:(Photo*)photo;
--(id)initWithVideo:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType video:(Video*)video;
--(id)initWithPost:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType post:(Post*)post;
--(id)initWithLink:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType media:(NSString*)mediaType link:(Link*)link;
--(id)init:(User*)fromUser toUser:(User*)toUser activity:(NSString*)activityType;
+-(id)initWithImage:(UIImage*)image activity:(NSString*)activityType media:(NSString*)typeOfMedia photo:(Photo*)photo video:(Video*)video post:(Post*)post link:(Link*)link toUserImage:(UIImage*)toUserImage toUserName:(NSString*)toUserName;
 
 @end

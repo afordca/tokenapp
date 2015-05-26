@@ -364,7 +364,7 @@
 
     PFObject *activity = [PFObject objectWithClassName:@"Activity"];
 
-    [activity setObject:@"follow" forKey:@"type"];
+    [activity setObject:@"followed" forKey:@"type"];
     [activity setObject:self.singleUser forKey:@"fromUser"];
     [activity setObject:self.otherUser.pfUser forKey:@"toUser"];
 

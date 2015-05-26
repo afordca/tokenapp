@@ -3,76 +3,29 @@
 //  TokenApp
 //
 //  Created by Emmanuel Masangcay on 3/21/15.
-//  Copyright (c) 2015 ABaselNotBasilProduction. All rights reserved.
+//  Copyright (c) 2015. All rights reserved.
 //
 
 #import "Activity.h"
+#import <ParseUI/ParseUI.h>
+
 
 @implementation Activity
 
--(id)initWithPhoto:(User *)fromUser toUser:(User *)toUser activity:(NSString *)activityType media:(NSString *)mediaType photo:(Photo *)photo
+-(id)initWithImage:(UIImage *)image activity:(NSString *)activityType media:(NSString *)typeOfMedia photo:(Photo *)photo video:(Video *)video post:(Post *)post link:(Link *)link toUserImage:(UIImage *)toUserImage toUserName:(NSString *)toUserName
 {
-    self.fromUser = fromUser;
-    self.toUser = toUser;
+    self.imageContent = image;
     self.activityType = activityType;
-    self.typeOfMedia = mediaType;
+    self.typeOfMedia = typeOfMedia;
     self.photo = photo;
-    self.video = nil;
-    self.link = nil;
-    self.post = nil;
-
-    return self;
-}
-
--(id)initWithVideo:(User *)fromUser toUser:(User *)toUser activity:(NSString *)activityType media:(NSString *)mediaType video:(Video *)video
-{
-    self.fromUser = fromUser;
-    self.toUser = toUser;
-    self.activityType = activityType;
-    self.typeOfMedia = mediaType;
-    self.photo = nil;
     self.video = video;
-    self.link = nil;
-    self.post = nil;
-
-    return self;
-}
-
--(id)initWithLink:(User *)fromUser toUser:(User *)toUser activity:(NSString *)activityType media:(NSString *)mediaType link:(Link *)link
-{
-    self.fromUser = fromUser;
-    self.toUser = toUser;
-    self.activityType = activityType;
-    self.typeOfMedia = mediaType;
-    self.photo = nil;
-    self.video = nil;
-    self.link = link;
-    self.post = nil;
-
-    return self;
-}
-
--(id)initWithPost:(User *)fromUser toUser:(User *)toUser activity:(NSString *)activityType media:(NSString *)mediaType post:(Post *)post
-{
-    self.fromUser = fromUser;
-    self.toUser = toUser;
-    self.activityType = activityType;
-    self.typeOfMedia = mediaType;
-    self.photo = nil;
-    self.video = nil;
-    self.link = nil;
     self.post = post;
+    self.link = link;
+    self.toUserProfilepic = toUserImage;
+    self.toUserName = toUserName;
 
     return self;
-}
 
--(id)init:(User *)fromUser toUser:(User *)toUser activity:(NSString *)activityType
-{
-    self.fromUser = fromUser;
-    self.toUser = toUser;
-    self.activityType = activityType;
-
-    return self;
 }
 
 @end

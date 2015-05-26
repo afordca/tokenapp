@@ -236,7 +236,7 @@
     PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
 
     [queryForActivity orderByDescending:@"createdAt"];
-    [queryForActivity whereKey:@"type" equalTo:@"post"];
+    [queryForActivity whereKey:@"type" equalTo:@"posted"];
     [queryForActivity includeKey:@"fromUser"];
     [queryForActivity includeKey:@"photo"];
     [queryForActivity includeKey:@"video"];
@@ -270,7 +270,7 @@
     PFQuery *queryFollowers = [PFQuery queryWithClassName:@"Activity"];
 
     [queryFollowers includeKey:@"fromUser"];
-    [queryFollowers whereKey:@"type" equalTo:@"follow"];
+    [queryFollowers whereKey:@"type" equalTo:@"followed"];
     [queryFollowers whereKey:@"toUser" equalTo: user];
     [queryFollowers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
@@ -322,7 +322,7 @@
     PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
 
     [queryForActivity orderByDescending:@"createdAt"];
-    [queryForActivity whereKey:@"type" equalTo:@"post"];
+    [queryForActivity whereKey:@"type" equalTo:@"posted"];
 
     [queryForActivity includeKey:@"fromUser"];
     [queryForActivity includeKey:@"photo"];
@@ -360,7 +360,7 @@
     PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
 
     [queryForActivity orderByDescending:@"createdAt"];
-    [queryForActivity whereKey:@"type" equalTo:@"post"];
+    [queryForActivity whereKey:@"type" equalTo:@"posted"];
 
     [queryForActivity includeKey:@"fromUser"];
     [queryForActivity includeKey:@"photo"];
@@ -398,7 +398,7 @@
 -(void)countPosts:(PFUser *)user
 {
     PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-    [queryForActivity whereKey:@"type" equalTo:@"post"];
+    [queryForActivity whereKey:@"type" equalTo:@"posted"];
     [queryForActivity whereKey:@"fromUser" equalTo:user];
 
     self.numberOfPosts = [queryForActivity countObjects];

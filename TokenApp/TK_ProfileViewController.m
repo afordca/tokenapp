@@ -144,14 +144,25 @@
 {
     [super viewDidAppear:YES];
 
-   self.arrayOfContent = [TK_Manager loadArrayOfContent];
+    [currentUser loadHomeFeedActivity:0 limit:10 type:@"personal" completion:^(BOOL result) {
+        [currentUser loadPersonalActivityContent:^(BOOL result) {
 
-    self.labelUserName.text = currentUser.userName;
-    [self.collectionViewProfile reloadData];
+            NSLog(@"Loaded Activity");
+
+            self.arrayOfContent = [TK_Manager loadArrayOfContent];
+
+            self.labelUserName.text = currentUser.userName;
+            [self.collectionViewProfile reloadData];
+            
+            
+            
+            [self addObserver];
+
+        }];
+        
+    }];
 
 
-
-    [self addObserver];
 
 
 }
@@ -510,40 +521,42 @@
 
 -(void)presentActivityView
 {
-    self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
+            self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
 
-    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"PersonalActivity"];
-    [self.mainView addSubview:self.pvc.view];
-    self.mainView.alpha = 0;
+            UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            self.pvc = [mainStoryBoard instantiateViewControllerWithIdentifier:@"PersonalActivity"];
+            [self.mainView addSubview:self.pvc.view];
+            self.mainView.alpha = 0;
 
-    [self.view addSubview:self.mainView];
-    [self.buttonCancelView setHidden:NO];
-    [self.buttonEditProfile setHidden:YES];
+            [self.view addSubview:self.mainView];
+            [self.buttonCancelView setHidden:NO];
+            [self.buttonEditProfile setHidden:YES];
 
-// Present ActivityView with animation left to right
-        [UIView animateWithDuration:0.5 animations:^{
-        } completion:^(BOOL finished) {
-            self.self.mainView.alpha = 1;
-            self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
-            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
-                self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
+            // Present ActivityView with animation left to right
+            [UIView animateWithDuration:0.5 animations:^{
             } completion:^(BOOL finished) {
+                self.self.mainView.alpha = 1;
+                self.mainView.transform = CGAffineTransformMakeTranslation(600, 0);
                 [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
-                    self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
+                    self.mainView.transform = CGAffineTransformMakeTranslation(340, 0);
                 } completion:^(BOOL finished) {
                     [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
-                        self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
+                        self.mainView.transform = CGAffineTransformMakeTranslation(45, 0);
                     } completion:^(BOOL finished) {
                         [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
-                            self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                            self.mainView.transform = CGAffineTransformMakeTranslation(10, 0);
                         } completion:^(BOOL finished) {
+                            [UIView animateKeyframesWithDuration:0.5/4 delay:0 options:0 animations:^{
+                                self.mainView.transform = CGAffineTransformMakeTranslation(0, 0);
+                            } completion:^(BOOL finished) {
 
+                            }];
                         }];
                     }];
                 }];
+                
             }];
-        }];
+
 
 }
 

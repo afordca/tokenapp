@@ -217,7 +217,7 @@
          PFObject *activity = [PFObject objectWithClassName:@"Activity"];
 
 
-         [activity setObject:@"like" forKey:@"type"];
+         [activity setObject:@"liked " forKey:@"type"];
          [activity setObject:contentType forKey:@"mediaType"];
          [activity setObject:self.currentUser forKey:@"fromUser"];
          [activity setObject:updatedContent forKey:contentType];
