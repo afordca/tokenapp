@@ -37,8 +37,9 @@
 {
     [super viewDidLoad];
 
+
     self.tableViewProfileActivity.delegate = self;
-    //Accessing User Singleton
+
 
 }
 
@@ -52,6 +53,11 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+
+
+//    [currentUser loadHomeFeedActivity:0 limit:10 type:@"personal" completion:^(BOOL result) {
+//        [currentUser loadPersonalActivityContent:^(BOOL result) {
+
     if (currentUser.arrayOfHomeFeedContent.count < 10)
     {
         self.arrayOfActivity = [NSMutableArray new];
@@ -71,6 +77,10 @@
     }
 
     [self.tableViewProfileActivity reloadData];
+
+//        }];
+//
+//    }];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -111,13 +121,13 @@
     cellActivity.imageViewProfilePic.layer.borderWidth = 0;
 
     if ([personalActivity.activityType isEqual:@"followed"]) {
-        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ %@",userName,action,toUsername];
+        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ is now following %@",userName,toUsername];
         cellActivity.imageViewPhoto.image = personalActivity.toUserProfilepic;
     }
 
     else if ([personalActivity.activityType isEqual:@"posted"])
     {
-        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ %@",userName,action,mediaType];
+        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ shared a %@",userName,mediaType];
         cellActivity.imageViewPhoto.image = personalActivity.imageContent;
     }
 
@@ -176,38 +186,29 @@
 #pragma UserDefined Method for generating data which are show in Table :::
 -(void)loadDataDelayed
 {
-    if (self.arrayOfActivity.count == currentUser.arrayOfPersonalActivityContent.count)
-    {
+//    if (self.arrayOfActivity.count == currentUser.arrayOfPersonalActivityContent.count)
+//    {
         NSLog(@"End of Feed");
 
-        NSInteger skip = self.arrayOfActivity.count + 10;
+        NSInteger skip = self.arrayOfActivity.count;
 
         [currentUser loadHomeFeedActivity:skip limit:10 type:@"personal" completion:^(BOOL result)
          {
+             if (result) {
+
              [currentUser loadPersonalActivityContent:^(BOOL result)
               {
-                  for (int i = self.arrayOfActivity.count; i<currentUser.arrayOfPersonalActivityContent.count; i++)
+                  for (int i = 0; i<currentUser.arrayOfPersonalActivityContent.count; i++)
                   {
                       [self.arrayOfActivity addObject:currentUser.arrayOfPersonalActivityContent[i]];
                   }
+
+                  [self.tableViewProfileActivity reloadData];
               }];
+
+             }
          }];
 
-    }
-    else
-    {
-        NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
-        int countInt = (int)self.arrayOfActivity.count;
-        int countFeedInt = (int)currentUser.arrayOfPersonalActivityContent.count;
-
-        for (int i=countInt; i<countFeedInt; i++)
-        {
-            [array addObject: currentUser.arrayOfPersonalActivityContent[i]];
-        }
-        [self.arrayOfActivity addObjectsFromArray:array];
-        [self.tableViewProfileActivity reloadData];
-    }
-    
 }
 
 

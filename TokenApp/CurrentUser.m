@@ -328,11 +328,8 @@
         completionHandler(YES);
     }
 
-    // Activity CONTENT
-    if (!self.arrayOfPersonalActivityContent.count)
-    {
         self.arrayOfPersonalActivityContent = [NSMutableArray new];
-    }
+
 
     for (PFObject *personalActivity in self.arrayOfPersonalActivity)
     {
@@ -549,7 +546,16 @@
                      [self.arrayOfPersonalActivity addObject:activity];
                  }
              }
+
+             if (!objects.count) {
+                 completionHandler(NO);
+
+             }
+             else
+             {
+
              completionHandler(YES);
+             }
          }
      }];
 }

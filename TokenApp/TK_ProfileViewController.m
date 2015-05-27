@@ -144,25 +144,21 @@
 {
     [super viewDidAppear:YES];
 
-    [currentUser loadHomeFeedActivity:0 limit:1000 type:@"personal" completion:^(BOOL result) {
-        [currentUser loadPersonalActivityContent:^(BOOL result) {
-
-            NSLog(@"Loaded Activity");
-
+//    [currentUser loadHomeFeedActivity:0 limit:1000 type:@"personal" completion:^(BOOL result) {
+//        [currentUser loadPersonalActivityContent:^(BOOL result) {
+//
+//            NSLog(@"Loaded Activity");
+//
             self.arrayOfContent = [TK_Manager loadArrayOfContent];
-
+//
             self.labelUserName.text = currentUser.userName;
             [self.collectionViewProfile reloadData];
-            
-            
-            
-            [self addObserver];
-
-        }];
-        
-    }];
-
-
+//            
+//            
+//            
+           [self addObserver];
+//
+//        }];
 
 
 }
@@ -521,6 +517,9 @@
 
 -(void)presentActivityView
 {
+    [currentUser loadHomeFeedActivity:0 limit:10 type:@"personal" completion:^(BOOL result) {
+        [currentUser loadPersonalActivityContent:^(BOOL result) {
+
             self.mainView = [[UIView alloc]initWithFrame:CGRectMake(3, 70, 313, 445)];
 
             UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -557,7 +556,9 @@
                 
             }];
 
+        }];
 
+    }];
 }
 
 -(void)presentFollowersView
