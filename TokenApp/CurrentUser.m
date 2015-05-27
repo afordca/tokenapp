@@ -2,7 +2,6 @@
 //  User.m
 //  
 //
-//  Created by BASEL FARAG on 2/3/15.
 //
 //
 
@@ -125,8 +124,6 @@
     {
         self.arrayOfHomeFeedContent = [NSMutableArray new];
     }
-
-
 
     for (PFObject *homeFeedActivity in self.arrayOfHomeFeedActivity)
     {
@@ -296,14 +293,14 @@
                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
                      self.homeFeedProfilePic = [UIImage imageWithData:data];
 
-
+                     NSString *noteID = [[homeFeedActivity objectForKey:@"note"]objectId];
                      NSString *postMessage = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"note"];
                      NSString *postHeader = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"description"];
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
                      NSNumber *likes = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"numberOfLikes"];
                      NSInteger numberOfLikes = likes.integerValue;
 
-                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes];
+                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes postID:noteID];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
 
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:self.homeFeedProfilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID user:userContent];
@@ -466,7 +463,7 @@
                 // Add Note Logic
                 NSString *activity = [personalActivity objectForKey:@"type"];
                 NSString *mediaType = [personalActivity objectForKey:@"mediaType"];
-
+                NSString *noteID = [[personalActivity objectForKey:@"note"]objectId];
                 NSString *postMessage = [[personalActivity objectForKey:@"note"]objectForKey:@"note"];
                 NSString *postHeader = [[personalActivity objectForKey:@"note"]objectForKey:@"description"];
                 NSNumber *likes = [[personalActivity objectForKey:@"note"]objectForKey:@"numberOfLikes"];
@@ -477,7 +474,7 @@
                 imageView.file = profileImageFile;
                 [imageView loadInBackground:^(UIImage *image, NSError *error)
                  {
-                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes];
+                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes postID:noteID];
 
                      Activity *activityFollow = [[Activity alloc]initWithImage:nil activity:activity media:mediaType photo:nil video:nil post:post link:nil toUserImage:image toUserName:nil];
 
@@ -635,8 +632,6 @@
             }];
         }
 
-        //   [self.delegate reloadTableAfterArrayUpdate:row];
-
     }];
     
 }
@@ -689,52 +684,114 @@
     }
 }
 
-#pragma mark - TOKEN METHODS
-
--(NSNumber*)getNumberOfPhotoTokens
+-(void)loadArrayOfNotifications
 {
-    numberOfPhotoTokens = [NSNumber numberWithInt:0];
-    
-    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
-    [queryForActivity whereKey:@"type" equalTo:@"viewed"];
-    [queryForActivity whereKey:@"mediaType" equalTo:@"photo"];
-    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    self.arrayOfNotificationComments = [NSMutableArray new];
+    self.arrayOfNotificationLikes = [NSMutableArray new];
+    self.arrayOfNotificationTags = [NSMutableArray new];
+
+    for (PFObject *object in self.arrayOfUserActivity)
     {
-        if (error)
+        PFUser *toUser = [object objectForKey:@"toUser"];
+        NSString *stringType = [object objectForKey:@"type"];
+        if ([toUser.objectId isEqual:user.objectId] && [stringType isEqualToString:@"commented on"])
         {
-            NSLog(@"Error:%@",[error userInfo]);
+            //Creating Instance
+            Notification *notificationComments = [Notification new];
+
+            //Pull fromUserProfile Pic
+            PFUser *fromUser = [object objectForKey:@"fromUser"];
+            PFFile *parseFileWithImage = [fromUser objectForKey:@"profileImage"];
+            NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+            NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+            [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+             {
+                 //Setting Nofication Object properties
+                 notificationComments.imageProfilePic = [UIImage imageWithData:data];
+                 notificationComments.stringUsername = [fromUser objectForKey:@"username"];
+                 notificationComments.stringType = [object objectForKey:@"type"];
+                 notificationComments.stringMediaType = [object objectForKey:@"mediaType"];
+
+                 //Adding Notification Object to Array
+                 [self.arrayOfNotificationComments addObject:notificationComments];
+             }];
         }
-        else
+        else if ([toUser.objectId isEqual:user.objectId] && [stringType isEqualToString:@"tagged"])
         {
+            //Creating Instance
+            Notification *notificationTagged = [Notification new];
 
-            for (PFObject *photo in objects)
-            {
-                int value = [numberOfPhotoTokens intValue];
-                numberOfPhotoTokens = [NSNumber numberWithInt:value + 1];
-            }
+            //Pull fromUserProfile Pic
+            PFUser *fromUser = [object objectForKey:@"fromUser"];
+            PFFile *parseFileWithImage = [fromUser objectForKey:@"profileImage"];
+            NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+            NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+            [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+             {
+                 //Setting Nofication Object properties
+                 notificationTagged.imageProfilePic = [UIImage imageWithData:data];
+                 notificationTagged.stringUsername = [fromUser objectForKey:@"username"];
+                 notificationTagged.stringType = [object objectForKey:@"type"];
+                 notificationTagged.stringMediaType = [object objectForKey:@"mediaType"];
 
+                 //Adding Notification Object to Array
+                 [self.arrayOfNotificationTags addObject:notificationTagged];
+             }];
+
+        }
+        else if ([toUser.objectId isEqual:user.objectId] && [stringType isEqualToString:@"liked"])
+        {
+            //Creating Instance
+            Notification *notificationLikes = [Notification new];
+
+            //Pull fromUserProfile Pic
+            PFUser *fromUser = [object objectForKey:@"fromUser"];
+            PFFile *parseFileWithImage = [fromUser objectForKey:@"profileImage"];
+            NSURL *url = [NSURL URLWithString:parseFileWithImage.url];
+            NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+            [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+             {
+                 //Setting Nofication Object properties
+                 notificationLikes.imageProfilePic = [UIImage imageWithData:data];
+                 notificationLikes.stringUsername = [fromUser objectForKey:@"username"];
+                 notificationLikes.stringType = [object objectForKey:@"type"];
+                 notificationLikes.stringMediaType = [object objectForKey:@"mediaType"];
+
+                 //Adding Notification Object to Array
+                 [self.arrayOfNotificationLikes addObject:notificationLikes];
+             }];
+            
         }
         
+    }
+
+}
+
+-(void)loadActivityToCurrentUser
+{
+    user = [PFUser currentUser];
+    self.arrayOfUserActivity = [NSMutableArray new];
+    PFQuery *queryForActivity = [PFQuery queryWithClassName:@"Activity"];
+    [queryForActivity whereKey:@"toUser" equalTo:user];
+    [queryForActivity includeKey:@"fromUser"];
+    [queryForActivity includeKey: @"toUser"];
+    [queryForActivity includeKey:@"photo"];
+    [queryForActivity includeKey:@"video"];
+    [queryForActivity includeKey:@"link"];
+    [queryForActivity includeKey:@"note"];
+    [queryForActivity findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"%@",[error userInfo]);
+        }
+        else{
+
+            for (PFObject *activity in objects)
+            {
+                [self.arrayOfUserActivity addObject:activity];
+            }
+        }
+        [self loadArrayOfNotifications];
     }];
-
-    return numberOfPhotoTokens;
-
 }
-
--(NSNumber *)getNumberOfVideoTokens
-{
-    return 0;
-}
-
--(NSNumber *)getNumberOfLinkTokens
-{
-    return 0;
-}
-
--(NSNumber *)getNumberOfPostTokens
-{
-    return 0;
-}
-
 
 @end

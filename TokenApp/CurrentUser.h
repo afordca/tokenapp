@@ -40,6 +40,7 @@
 @property (nonatomic,strong) NSMutableArray *arrayOfPosts;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotifications;
 @property (nonatomic,strong) NSMutableArray *arrayOfPersonalActivity;
+@property (nonatomic,strong) NSMutableArray *arrayOfUserActivity;
 @property (nonatomic,strong) NSMutableArray *arrayOfFollowers;
 @property (nonatomic,strong) NSMutableArray *arrayOfFollowing;
 @property (nonatomic,strong) NSMutableArray *arrayOfNotificationComments;
@@ -103,7 +104,6 @@
 
 -(void)loadArrayOfNotifications;
 -(void)loadActivityToCurrentUser;
--(void)loadPersonalActivity:(void (^)(BOOL result))completionHandler;
 
 //Helper Methods
 -(void)setUserProfile;

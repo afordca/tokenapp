@@ -205,14 +205,14 @@
                      NSString *name= [homeFeedActivity objectForKey:@"username"];
                      NSString *userID = [[homeFeedActivity objectForKey:@"fromUser"]objectId];
                      UIImage *homeFeedProfilePic = [UIImage imageWithData:data];
-
+                     NSString *noteID = [[homeFeedActivity objectForKey:@"note"]objectId];
                      NSString *postMessage = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"note"];
                      NSString *postHeader = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"description"];
                      PFUser *userWithContent = [homeFeedActivity objectForKey:@"fromUser"];
                      NSNumber *likes = [[homeFeedActivity objectForKey:@"note"]objectForKey:@"numberOfLikes"];
                      NSInteger numberOfLikes = likes.integerValue;
 
-                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes];
+                     Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes postID:noteID];
                      User *userContent = [[User alloc]initWithUser:userWithContent];
                      
                      HomeFeedPost *homeFeedPost = [[HomeFeedPost alloc]initWithUsername:name profilePic:homeFeedProfilePic timePosted:nil photo:nil post:post video:nil link:nil mediaType:@"post" userID:userID user:userContent];

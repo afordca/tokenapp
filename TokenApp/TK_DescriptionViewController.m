@@ -325,13 +325,14 @@
                  //Add to Activity Array
                  NSString *name = currentUser.userName;
                   NSString *userID = currentUser.userID;
+                 NSString *noteID = self.note.objectId;
                  UIImage *profilePic = currentUser.profileImage;
 
                  NSString *postMessage = self.stringPost;
                  NSString *postHeader = [self.note objectForKey:@"description"];
                  NSInteger numberOfLikes = 0;
 
-                 Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes];
+                 Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes postID:noteID];
                  User *user = [[User alloc]initWithUser:self.currentUser];
 
                  [currentUser.arrayOfPosts addObject:post];

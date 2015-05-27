@@ -139,8 +139,6 @@
     if ([self.detailPost.mediaType isEqualToString:@"link"])
     {
         Link *link = self.detailPost.linkPost;
-   
-
 
         return contentCell;
     }
@@ -193,12 +191,16 @@
 
     else if ([self.detailPost.mediaType isEqualToString:@"link"])
     {
+        Link *link = self.detailPost.linkPost;
         className = @"Link";
+        contentID = link.linkID;
     }
 
     else //Note
     {
+        Post *note = self.detailPost.messagePost;
         className = @"Note";
+        contentID = note.postID;
     }
 
     PFQuery *queryContent = [PFQuery queryWithClassName:className];

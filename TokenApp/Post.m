@@ -10,12 +10,12 @@
 
 @implementation Post
 
--(id)initWithDescription:(NSString *)note header:(NSString *)header likes:(NSInteger)numberOfLikes
+-(id)initWithDescription:(NSString *)note header:(NSString *)header likes:(NSInteger)numberOfLikes postID:(NSString *)postID
 {
     self.postMessage = note;
     self.postHeader = header;
     self.numberOfLikes = numberOfLikes;
-
+    self.postID = postID;
 
     return self;
 }

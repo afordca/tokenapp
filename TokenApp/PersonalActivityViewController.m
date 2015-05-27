@@ -54,10 +54,6 @@
 {
     [super viewDidAppear:YES];
 
-
-//    [currentUser loadHomeFeedActivity:0 limit:10 type:@"personal" completion:^(BOOL result) {
-//        [currentUser loadPersonalActivityContent:^(BOOL result) {
-
     if (currentUser.arrayOfHomeFeedContent.count < 10)
     {
         self.arrayOfActivity = [NSMutableArray new];
@@ -78,9 +74,6 @@
 
     [self.tableViewProfileActivity reloadData];
 
-//        }];
-//
-//    }];
 }
 
 -(void)viewDidDisappear:(BOOL)animated

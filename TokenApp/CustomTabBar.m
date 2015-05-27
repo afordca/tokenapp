@@ -49,6 +49,8 @@
         btnHomeFeed.frame = btnHomeFrame;
 
         btnHomeFeed.translatesAutoresizingMaskIntoConstraints = NO;
+        btnHomeFeed.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+        btnHomeFeed.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 
         [btnHomeFeed addTarget:self
                      action:@selector(clickHome)
@@ -69,6 +71,8 @@
         btnDiscover.frame = btnDiscoverFrame;
 
         btnDiscover.translatesAutoresizingMaskIntoConstraints = NO;
+        btnDiscover.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+        btnDiscover.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 
         [btnDiscover addTarget:self
                         action:@selector(clickDiscover)
@@ -89,6 +93,8 @@
         btnCreate.frame = btnCreateFrame;
 
         btnCreate.translatesAutoresizingMaskIntoConstraints = NO;
+        btnCreate.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+        btnCreate.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 
         [btnCreate addTarget:self
                         action:@selector(clickCreate)
@@ -109,6 +115,8 @@
         btnProfile.frame = btnProfileFrame;
 
         btnProfile.translatesAutoresizingMaskIntoConstraints = NO;
+        btnProfile.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+        btnProfile.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 
         [btnProfile addTarget:self
                       action:@selector(clickProfile)
@@ -128,6 +136,8 @@
         btnBalance.frame = btnBalanceFrame;
 
         btnBalance.translatesAutoresizingMaskIntoConstraints = NO;
+        btnBalance.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+        btnBalance.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
 
         [btnBalance addTarget:self
                        action:@selector(clickBalance)
@@ -135,7 +145,7 @@
 
         [self addSubview:btnBalance];
 
-        //[self layoutConstraints];
+        [self layoutConstraints];
 
     }
     return self;
@@ -204,12 +214,8 @@
 }
 
 -(void)layoutConstraints
-
 {
-
     [self removeConstraints:self.constraints];
-
-
 
     UIButton *balance = btnBalance;
     UIButton *profile = btnProfile;
@@ -219,10 +225,49 @@
 
     NSDictionary *views = NSDictionaryOfVariableBindings(balance,profile,create,discover,home);
 
-    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[home]-230-|" options:0 metrics:nil views:views];
+//    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-30-[home]|" options:0 metrics:nil views:views];
+//
+//    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[home]-(>=30)-[discover]" options:0 metrics:nil views:views]];
 
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[home]-(>=30)-[discover]" options:0 metrics:nil views:views];
+
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[discover]-(>=30)-[create]" options:0 metrics:nil views:views]];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[create]-(>=30)-[profile]" options:0 metrics:nil views:views]];
+     constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profile]-(>=30)-[balance]" options:0 metrics:nil views:views]];
     constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[home]-|" options:0 metrics:nil views:views]];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[discover]-|" options:0 metrics:nil views:views]];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[create]-|" options:0 metrics:nil views:views]];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[profile]-|" options:0 metrics:nil views:views]];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[balance]-|" options:0 metrics:nil views:views]];
 
+    NSLayoutConstraint *a = [NSLayoutConstraint constraintWithItem:create attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.f];
+
+    NSLayoutConstraint *c = [NSLayoutConstraint constraintWithItem:home attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.1f constant:0.f];
+    NSLayoutConstraint *d = [NSLayoutConstraint constraintWithItem:home attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0.7f constant:0.f];
+
+    [self addConstraint:c];
+    [self addConstraint:d];
+    [self addConstraint:a];
+
+    NSLayoutConstraint *e = [NSLayoutConstraint constraintWithItem:discover attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.1f constant:0.f];
+    NSLayoutConstraint *f = [NSLayoutConstraint constraintWithItem:discover attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0.7f constant:0.f];
+    [self addConstraint:e];
+    [self addConstraint:f];
+
+    NSLayoutConstraint *g = [NSLayoutConstraint constraintWithItem:create attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.1f constant:0.f];
+    NSLayoutConstraint *h = [NSLayoutConstraint constraintWithItem:create attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0.7f constant:0.f];
+    [self addConstraint:g];
+    [self addConstraint:h];
+
+    NSLayoutConstraint *i = [NSLayoutConstraint constraintWithItem:profile attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.1f constant:0.f];
+    NSLayoutConstraint *j = [NSLayoutConstraint constraintWithItem:profile attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0.7f constant:0.f];
+    [self addConstraint:i];
+    [self addConstraint:j];
+
+    NSLayoutConstraint *k = [NSLayoutConstraint constraintWithItem:balance attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.1f constant:0.f];
+    NSLayoutConstraint *l = [NSLayoutConstraint constraintWithItem:balance attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0.7f constant:0.f];
+    [self addConstraint:k];
+    [self addConstraint:l];
 //    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[discover]-|" options:0 metrics:nil views:views]];
 //
 //    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[create]-|" options:0 metrics:nil views:views]];
