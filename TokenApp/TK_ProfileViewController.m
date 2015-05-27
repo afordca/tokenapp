@@ -144,7 +144,7 @@
 {
     [super viewDidAppear:YES];
 
-    [currentUser loadHomeFeedActivity:0 limit:10 type:@"personal" completion:^(BOOL result) {
+    [currentUser loadHomeFeedActivity:0 limit:1000 type:@"personal" completion:^(BOOL result) {
         [currentUser loadPersonalActivityContent:^(BOOL result) {
 
             NSLog(@"Loaded Activity");

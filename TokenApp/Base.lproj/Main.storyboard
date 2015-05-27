@@ -858,7 +858,6 @@
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tb2-E3-n2j">
                                                     <rect key="frame" x="255" y="1" width="50" height="50"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -880,6 +879,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="313" height="445"/>
                     <connections>
+                        <outlet property="tableViewPersonalActivity" destination="sH9-yl-tqW" id="yE3-NX-E2U"/>
                         <outlet property="tableViewProfileActivity" destination="sH9-yl-tqW" id="QZg-kZ-Pbt"/>
                     </connections>
                 </viewController>

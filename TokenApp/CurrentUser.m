@@ -126,6 +126,8 @@
         self.arrayOfHomeFeedContent = [NSMutableArray new];
     }
 
+
+
     for (PFObject *homeFeedActivity in self.arrayOfHomeFeedActivity)
     {
         // PHOTO
@@ -326,7 +328,7 @@
         completionHandler(YES);
     }
 
-    // HOMEFEED CONTENT
+    // Activity CONTENT
     if (!self.arrayOfPersonalActivityContent.count)
     {
         self.arrayOfPersonalActivityContent = [NSMutableArray new];
@@ -465,7 +467,6 @@
             }
             else if ([[personalActivity objectForKey:@"mediaType"]isEqual:@"note"]) {
                 // Add Note Logic
-                NSString *followedName = [[personalActivity objectForKey:@"toUser"]username];
                 NSString *activity = [personalActivity objectForKey:@"type"];
                 NSString *mediaType = [personalActivity objectForKey:@"mediaType"];
 
@@ -479,11 +480,9 @@
                 imageView.file = profileImageFile;
                 [imageView loadInBackground:^(UIImage *image, NSError *error)
                  {
-
-
                      Post *post = [[Post alloc]initWithDescription:postMessage header:postHeader likes:numberOfLikes];
 
-                     Activity *activityFollow = [[Activity alloc]initWithImage:nil activity:activity media:mediaType photo:nil video:nil post:post link:nil toUserImage:image toUserName:followedName];
+                     Activity *activityFollow = [[Activity alloc]initWithImage:nil activity:activity media:mediaType photo:nil video:nil post:post link:nil toUserImage:image toUserName:nil];
 
                      [self.arrayOfPersonalActivityContent addObject:activityFollow];
 

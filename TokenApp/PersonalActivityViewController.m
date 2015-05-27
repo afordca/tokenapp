@@ -8,6 +8,7 @@
 
 #import "PersonalActivityViewController.h"
 #import "UserActivityTableViewCell.h"
+#import "Post.h"
 #import <Parse/Parse.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -15,9 +16,18 @@
 @interface PersonalActivityViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableViewProfileActivity;
-@property NSArray *arrayOfActivity;
+@property NSMutableArray *arrayOfActivity;
 @property NSInteger likesCount;
 @property NSInteger photoCount;
+
+@property CGFloat currentPosition;
+
+@property (strong, nonatomic) IBOutlet UITableView *tableViewPersonalActivity;
+
+@property BOOL isVideo;
+@property BOOL noMoreResultsAvail;
+@property BOOL loading;
+
 
 @end
 
@@ -39,19 +49,51 @@
 
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    if (currentUser.arrayOfHomeFeedContent.count < 10)
+    {
+        self.arrayOfActivity = [NSMutableArray new];
+        for (Activity * activity in currentUser.arrayOfPersonalActivityContent)
+        {
+            [self.arrayOfActivity addObject:activity];
+        }
+    }
+    else
+    {
+        self.noMoreResultsAvail = NO;
+        self.arrayOfActivity = [NSMutableArray new];
+        for (int i = 0; i<10; i++)
+        {
+            [self.arrayOfActivity addObject:currentUser.arrayOfPersonalActivityContent[i]];
+        }
+    }
+
+    [self.tableViewProfileActivity reloadData];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:YES];
+    [self.arrayOfActivity removeAllObjects];
+
+    [self.tableViewProfileActivity reloadData];
+}
+
 
 #pragma mark - UITableView Delegate Methods
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return currentUser.arrayOfPersonalActivityContent.count;
+    return self.arrayOfActivity.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserActivityTableViewCell *cellActivity = [tableView dequeueReusableCellWithIdentifier:@"UserActivity"];
 
-    Activity *personalActivity = [currentUser.arrayOfPersonalActivityContent objectAtIndex:indexPath.row];
+    Activity *personalActivity = [self.arrayOfActivity objectAtIndex:indexPath.row];
 
     //Username
     NSString *userName = currentUser.userName;
@@ -86,7 +128,87 @@
 
     }
 
+    if ([personalActivity.typeOfMedia isEqual:@"note"]) {
+
+        Post *post = personalActivity.post;
+
+        cellActivity.labelUsername.text = [NSString stringWithFormat:@"%@ %@ %@:'%@'",userName,action, mediaType, post.postHeader];
+
+//        [cellActivity.imageViewPhoto setHidden:YES];
+    }
+
     return cellActivity;
 }
+
+#pragma UIScroll View Method::
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (!self.loading) {
+        float endScrolling = scrollView.contentOffset.y + scrollView.frame.size.height;
+        if (endScrolling >= scrollView.contentSize.height)
+        {
+            [self performSelector:@selector(loadDataDelayed) withObject:nil afterDelay:1];
+
+        }
+    }
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+
+
+    //Top Scroll
+    if (scrollView.contentOffset.y < self.currentPosition)
+    {
+        NSLog(@"Scroll up");
+
+        //Show Tab Bar
+
+    }
+    //Bottom Scroll
+    else if (scrollView.contentOffset.y > self.currentPosition)
+    {
+        NSLog(@"Scroll down");
+    }
+    //Setting the current position of the WebView scroll
+    self.currentPosition = scrollView.contentOffset.y;
+
+}
+#pragma UserDefined Method for generating data which are show in Table :::
+-(void)loadDataDelayed
+{
+    if (self.arrayOfActivity.count == currentUser.arrayOfPersonalActivityContent.count)
+    {
+        NSLog(@"End of Feed");
+
+        NSInteger skip = self.arrayOfActivity.count + 10;
+
+        [currentUser loadHomeFeedActivity:skip limit:10 type:@"personal" completion:^(BOOL result)
+         {
+             [currentUser loadPersonalActivityContent:^(BOOL result)
+              {
+                  for (int i = self.arrayOfActivity.count; i<currentUser.arrayOfPersonalActivityContent.count; i++)
+                  {
+                      [self.arrayOfActivity addObject:currentUser.arrayOfPersonalActivityContent[i]];
+                  }
+              }];
+         }];
+
+    }
+    else
+    {
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
+        int countInt = (int)self.arrayOfActivity.count;
+        int countFeedInt = (int)currentUser.arrayOfPersonalActivityContent.count;
+
+        for (int i=countInt; i<countFeedInt; i++)
+        {
+            [array addObject: currentUser.arrayOfPersonalActivityContent[i]];
+        }
+        [self.arrayOfActivity addObjectsFromArray:array];
+        [self.tableViewProfileActivity reloadData];
+    }
+    
+}
+
 
 @end
