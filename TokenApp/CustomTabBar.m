@@ -229,16 +229,18 @@
 //
 //    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[home]-(>=30)-[discover]" options:0 metrics:nil views:views]];
 
-    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[home]-(>=30)-[discover]" options:0 metrics:nil views:views];
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[home]-(>=30@1000)-[discover]" options:0 metrics:nil views:views];
 
-    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[discover]-(>=30)-[create]" options:0 metrics:nil views:views]];
-    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[create]-(>=30)-[profile]" options:0 metrics:nil views:views]];
-     constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profile]-(>=30)-[balance]" options:0 metrics:nil views:views]];
-    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[home]-|" options:0 metrics:nil views:views]];
-    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[discover]-|" options:0 metrics:nil views:views]];
-    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[create]-|" options:0 metrics:nil views:views]];
-    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[profile]-|" options:0 metrics:nil views:views]];
-    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[balance]-|" options:0 metrics:nil views:views]];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[discover]-(>=30@900)-[create]" options:0 metrics:nil views:views]];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[create]-(>=30@800)-[profile]" options:0 metrics:nil views:views]];
+     constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profile]-(>=30@700)-[balance]" options:0 metrics:nil views:views]];
+
+    NSDictionary *metrics = @{@"balance":@(100),@"profile":@(200),@"create":@(300),@"discover":@(400),@"home":@(500),};
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5@home-[home]-5@home-|" options:0 metrics:metrics views:views]];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5@discover-[discover]-5@discover-|" options:0 metrics:metrics views:views]];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5@create-[create]-5@create-|" options:0 metrics:metrics views:views]];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5@profile-[profile]-5@profile-|" options:0 metrics:metrics views:views]];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5@balance-[balance]-5@balance-|" options:0 metrics:metrics views:views]];
 
     NSLayoutConstraint *a = [NSLayoutConstraint constraintWithItem:create attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.f];
 

@@ -10,5 +10,8 @@
 
 @implementation ProfileCollectionViewCell
 
+- (void)awakeFromNib{
+    self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+}
 
 @end
