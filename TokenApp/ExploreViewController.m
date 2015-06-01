@@ -129,6 +129,35 @@
     return self.arrayOfDiscoverContent.count ;
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+
+    CGFloat cellWidth;
+    CGFloat cellHeight;
+
+    if (screenWidth == 375) {
+        cellWidth = 187.5;
+    }
+    else
+    {
+        cellWidth = 160;
+    }
+
+    if (screenHeight == 667) {
+        cellHeight = 170;
+    }
+    else{
+        cellHeight = 126;
+    }
+
+
+    return CGSizeMake(cellWidth, cellHeight);
+}
+
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ProfileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProfile" forIndexPath:indexPath];

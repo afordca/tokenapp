@@ -31,9 +31,7 @@
 //transform values for full screen support
 #define CAMERA_TRANSFORM_X 1
 #define CAMERA_TRANSFORM_Y 1.12412
-//iphone screen dimensions
-#define SCREEN_WIDTH  320
-#define SCREEN_HEIGTH 568
+
 
 //When user is clicked, the Following Personal View behavior is triggered using this nib name
 #define FOLLOWINGVIEW_NIB_NAME "yYh-Bi-LcF-view-R8I-G1-Mba"
@@ -248,6 +246,35 @@
 {
     return self.arrayOfContent.count;
 }
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+
+    CGFloat cellWidth;
+    CGFloat cellHeight;
+
+    if (screenWidth == 375) {
+        cellWidth = 187;
+    }
+    else
+    {
+        cellWidth = 160;
+    }
+
+    if (screenHeight == 667) {
+        cellHeight = 180;
+    }
+    else{
+        cellHeight = 126;
+    }
+
+
+    return CGSizeMake(cellWidth, cellHeight);
+}
+
 
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
